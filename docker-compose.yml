@@ -166,12 +166,12 @@ services:
     environment:
       SOLR_DEFAULT_CONFIG_SET: $SOLR_CONFIG_SET
       SOLR_HEAP: 1024m
+    volumes:
+      - ./solr:/opt/solr/server/solr
     entrypoint:
       - bash
       - "-c"
       - "precreate-core common; precreate-core drupal; exec solr -f"
-    volumes:
-      - ./solr:/opt/solr/server/solr
     labels:
       - "traefik.http.services.${PROJECT_NAME}_solr.loadbalancer.server.port=8983"
       - "traefik.http.routers.${PROJECT_NAME}_solr.rule=Host(`solr.${PROJECT_BASE_URL}`)"
