@@ -1,0 +1,14 @@
+commerce_order_state_updated:
+  category: commerce_order_state_updated
+  label: 'Commerce Order State Updated'
+  template: "<p>{{ 'Order State Updated'|t }} : {{message}}</p>"
+
+commerce_order_updated:
+  category: commerce_order_updated
+  label: 'Order updated'
+  template: '<p>Order Updated: {{message}}</p>'
+
+commerce_order_item_removed:
+  category: commerce_order_item_removed
+  label: 'Order item removed'
+  template: '<p>Order item removed: {{message}}</p>'

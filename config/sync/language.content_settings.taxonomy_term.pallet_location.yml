@@ -1,0 +1,11 @@
+uuid: 959b8aef-4131-405e-853f-b888c1c8dcbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.pallet_location
+id: taxonomy_term.pallet_location
+target_entity_type_id: taxonomy_term
+target_bundle: pallet_location
+default_langcode: site_default
+language_alterable: false

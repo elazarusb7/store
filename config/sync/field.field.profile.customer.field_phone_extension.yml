@@ -1,0 +1,19 @@
+uuid: c8cbaf6d-b5a8-45b0-ac7f-206ab6392b92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_phone_extension
+    - profile.type.customer
+id: profile.customer.field_phone_extension
+field_name: field_phone_extension
+entity_type: profile
+bundle: customer
+label: Extension
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

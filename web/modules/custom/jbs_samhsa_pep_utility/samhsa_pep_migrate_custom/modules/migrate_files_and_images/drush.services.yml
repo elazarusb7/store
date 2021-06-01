@@ -1,0 +1,5 @@
+services:
+  migrate_files_and_images.commands:
+    class: \Drupal\migrate_files_and_images\Commands\FilesImagesMigrateCommands
+    tags:
+      - { name: drush.command }

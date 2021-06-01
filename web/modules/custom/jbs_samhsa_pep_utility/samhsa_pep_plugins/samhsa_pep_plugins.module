@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_plugins.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_plugins_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_plugins module.
+    case 'help.page.samhsa_pep_plugins':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Generate plugins for SAMHSA PEP') . '</p>';
+      return $output;
+
+    default:
+  }
+}

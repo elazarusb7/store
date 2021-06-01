@@ -1,0 +1,23 @@
+// PLEASE REMEMBER TO USE PROPER NAMING CONVENTIONS FOR FILES!!!
+// Partial should be named: _layout_foldername_file-name.scss
+// For example: src/scss/layout/header/_layout_header_site-branding.scss
+
+// Layout: macro arrangement of a web page, including any grid systems.
+// Major layout components - headers, footers, side columns, etc
+//==========================================================================
+@import "../config/*.scss"; //YOU MUST INCLUDE THIS IF YOU ARE IMPORTING ANYTHING BELOW!!!
+
+// Choose how you want to import your partials
+// ONLY USE 1 OF THE 2 OPTIONS!
+//==========================================================================
+
+// Option 1: import all partials alphabetically by folder/filename
+//==========================================================================
+@import "**/*.scss";
+
+// Option 2: import files one at a time in the order you decide
+// Below is an example of loading 2 partials
+//==========================================================================
+// @import "_reg_header.scss";
+//@import "foldername/_reg_item.scss";
+// @import "subheader/*.scss";

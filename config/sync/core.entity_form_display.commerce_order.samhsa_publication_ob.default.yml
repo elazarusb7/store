@@ -1,0 +1,105 @@
+uuid: 726738e0-df0b-40e5-a1a9-22072e907b41
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.samhsa_publication_ob
+    - field.field.commerce_order.samhsa_publication_ob.field_date_completed
+    - field.field.commerce_order.samhsa_publication_ob.field_justification
+    - field.field.commerce_order.samhsa_publication_ob.field_log
+    - field.field.commerce_order.samhsa_publication_ob.field_order_source
+    - field.field.commerce_order.samhsa_publication_ob.field_order_weight
+    - field.field.commerce_order.samhsa_publication_ob.shipments
+  module:
+    - cck_select_other
+    - commerce_order
+    - inline_entity_form
+_core:
+  default_config_hash: 8A8GxqeOFUWLQpdx8wpAJCM1ALU77LrqmmWRVvj0iVc
+id: commerce_order.samhsa_publication_ob.default
+targetEntityType: commerce_order
+bundle: samhsa_publication_ob
+mode: default
+content:
+  billing_profile:
+    type: commerce_billing_profile
+    weight: 1
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  cart:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  field_justification:
+    type: string_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_log:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_order_source:
+    type: cck_select_other
+    weight: 5
+    region: content
+    settings:
+      other_label: 'Provide Other Source'
+    third_party_settings: {  }
+  mail:
+    type: email_default
+    weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  order_items:
+    type: inline_entity_form_complex
+    weight: 2
+    settings:
+      override_labels: true
+      label_singular: 'order item'
+      label_plural: 'order items'
+      form_mode: default
+      collapsible: false
+      collapsed: false
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+    third_party_settings: {  }
+    region: content
+  order_number:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  state:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  adjustments: true
+  field_date_completed: true
+  field_order_weight: true
+  ip_address: true
+  shipments: true
+  store_id: true
+  uid: true

@@ -1,0 +1,22 @@
+uuid: b98e45e0-6821-4d7a-88ee-f97153c71f79
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega_samhsa_pep
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: omega_samhsa_pep_messages
+theme: omega_samhsa_pep
+region: highlighted
+weight: -14
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,39 @@
+uuid: 81ea9317-5194-4909-94ac-1bca601c2c16
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - media
+    - token_filter
+name: 'Raw Unfiltered HTML'
+format: raw_unfiltered_html
+weight: 0
+filters:
+  entity_embed:
+    id: entity_embed
+    provider: entity_embed
+    status: true
+    weight: 100
+    settings: {  }
+  media_embed:
+    id: media_embed
+    provider: media
+    status: true
+    weight: 100
+    settings:
+      default_view_mode: default
+      allowed_media_types:
+        audio: audio
+        document: document
+        image: image
+        remote_video: remote_video
+        video: video
+      allowed_view_modes: {  }
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: true
+    weight: 0
+    settings:
+      replace_empty: '0'

@@ -1,0 +1,23 @@
+uuid: 901d6251-a77c-4604-97e8-9c67cf07fa7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.pallet_location
+  module:
+    - text
+id: taxonomy_term.pallet_location.default
+targetEntityType: taxonomy_term
+bundle: pallet_location
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

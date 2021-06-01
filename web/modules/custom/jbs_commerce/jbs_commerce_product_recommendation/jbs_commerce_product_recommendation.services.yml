@@ -1,0 +1,5 @@
+services:
+  jbs_commerce_product_recommendation.commerce_events:
+    class: Drupal\jbs_commerce_product_recommendation\EventSubscriber\CommerceEventSubscriber
+    tags:
+      - { name: event_subscriber }

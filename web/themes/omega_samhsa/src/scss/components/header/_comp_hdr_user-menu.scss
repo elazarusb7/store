@@ -1,0 +1,32 @@
+// User Account Menu
+//==========================================================================
+
+.user-menu{ 
+  @include breakpoint ($break-mobile-landscape){
+    padding: 10px 0 0;    
+    ul.menu{
+      @include menu;
+      text-align: right;
+      font-size: 0;
+      line-height: 1.3;
+      li{
+        margin-left: -5px;
+        border-right: 1px solid $light-gray;
+        font-size: 14px;
+        &:last-of-type {
+          border-right: none;
+        }
+        a{
+          padding: 0 8px;
+          text-decoration: none;
+          color: $blue;
+          &:hover{
+            color:$red;
+          }
+        }     
+      }
+    }
+  }
+}
+
+

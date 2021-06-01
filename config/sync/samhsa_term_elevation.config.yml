@@ -1,0 +1,6 @@
+plugins_field_map:
+  title_id: Title
+  highlight_id: 'Highlighted results'
+  url_id: 'Friendly URL'
+  document_date_id: 'Document date'
+  description_id: Description

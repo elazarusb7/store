@@ -1,0 +1,5 @@
+name: 'SAMHSA PEP No Copy and Paste'
+type: module
+description: 'SAMHSA PEP - Blocks certain form input fields of using Ctrl-C / Ctrl-V.'
+core: 8.x
+package: 'SAMHSA PEP Custom'

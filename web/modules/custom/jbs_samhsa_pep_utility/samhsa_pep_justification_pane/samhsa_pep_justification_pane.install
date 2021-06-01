@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * jbs_commerce_over_the_max_limit.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_justification_pane_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_justification_pane_uninstall() {
+    Drupal::configFactory()->getEditable('field.field.commerce_order.default.field_justification.yml')->delete();
+    Drupal::configFactory()->getEditable('field.field.commerce_order.samhsa_publication_ob.field_justification.yml')->delete();
+    Drupal::configFactory()->getEditable('field.storage.commerce_order.field_justification.yml')->delete();
+}
+
+
+

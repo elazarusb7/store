@@ -1,0 +1,7 @@
+name: 'SAMHSA TE URL Replacement'
+type: module
+description: 'Replaces the value of the Base URL field pulled from Solr'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - samhsa_term_elevation

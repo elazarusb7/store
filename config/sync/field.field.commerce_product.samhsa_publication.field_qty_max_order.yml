@@ -1,0 +1,23 @@
+uuid: 6e37bf06-3c77-48e0-8356-839daece5ecb
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_qty_max_order
+id: commerce_product.samhsa_publication.field_qty_max_order
+field_name: field_qty_max_order
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Max Order Limit'
+description: 'quantity threshold for ordering that is set by the Product Owner'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,80 @@
+.order-summary {
+  &--shipping, &--billing {
+    .field {
+      margin-bottom: $gutters;
+    }
+  }
+  &--info {
+    margin: $gutters*2 0;
+    .field {
+      margin-bottom: $gutters;
+    }
+  }
+  .field--name-shipping-method {
+    strong {
+      display: block;
+      margin-left: $gutters;
+      white-space: nowrap;
+    }
+  }
+  .form-item-edit-quantity--max {
+     white-space: nowrap;
+    }
+  @include breakpoint($max-width-mobile-portrait-large) {
+    &--details {
+      display: flex;
+    }
+    &--billing {
+      width: 50%;
+    }
+    &--shipping {
+      width: 50%;
+    }
+    .field--name-shipping-method {
+      strong {
+        display: inline;
+        margin-left: inherit;
+      }
+    }
+  }
+}
+
+.checkout-pane {
+  #edit-payment-information-billing-information, #edit-shipping-information-shipping-profile {
+   .field--name-field-phone-number, .field--name-field-phone-extension {
+     margin-bottom: $gutters;
+    }
+    .form-type-select {
+      margin-top: 0;
+    }
+  }
+  .form-item-shipping-information-shipments-0-shipping-method-0 {
+    margin-top: 0;
+  }
+  .field--name-shipping-method {
+    strong {
+      display: block;
+      margin-left: $gutters;
+      white-space: nowrap;
+      @include breakpoint($max-width-mobile-portrait-large) {
+        display: inline;
+        margin-left: inherit;
+      }
+    }
+  }
+}
+
+.order-summary--items {
+  .views-field-quantity {
+    max-width: 150px;
+  }
+  @include breakpoint($max-width-mobile-portrait-plus) {
+    .views-field-title--wrapper {
+      display: flex;
+      .views-field-field-thumbnail {
+        margin-right: $gutters;
+        min-width: 100px;
+      }
+    }
+  }
+}

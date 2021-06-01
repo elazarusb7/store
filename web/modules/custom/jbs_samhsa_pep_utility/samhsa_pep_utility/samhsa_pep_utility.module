@@ -1,0 +1,328 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_utility.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\Markup;
+use \Drupal\Core\Url;
+use Drupal\Component\Render\FormattableMarkup;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_utility_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_utility module.
+    case 'help.page.samhsa_pep_utility':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Define Custom SAMHSA PEP useful functions and overrides.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function samhsa_pep_utility_mail($key, &$message, $params) {
+    if (in_array($key, ['order_state'])) {
+        $message['from'] = $params['from'];
+        $message['reply-to'] = $params['reply-to'];
+        $message['subject'] = $params['subject'];
+        $message['body'][] = $params['body'];
+        $message['headers'] = [
+            'Content-Type' => 'text/plain; charset=UTF-8; format=flowed; delsp=yes',
+            'Content-Transfer-Encoding' => '8Bit',
+            'Sender' => $params['reply-to'],
+            'From' => $params['from'],
+        ];
+    }
+}
+
+/**
+ * Implements hook_mail_alter() for the rules module.
+ *
+ * Extract subject and body from emails and set them for mailer.
+ */
+function samhsa_pep_utility_mail_alter(&$message) {
+    if ($message['id'] == 'commerce_order_receipt'){
+        $message['subject'] = 'Order Submitted.';
+    } else {
+        if ($message['id'] === "samhsa_pep_order_state" || $message['key'] === 'rules_action_mail_rules_send_email') {
+            $message['subject'] = !empty($message['params']['subject']) ? $message['params']['subject'] : '';
+            if ($message['key'] === 'rules_action_mail_rules_send_email') {
+                $message['body'] = !empty($message['params']['message']) ? array($message['params']['message']) : array();
+            } else {
+                $message['body'] = !empty($message['params']['body']) ? array($message['params']['body']) : array();
+            }
+        }
+    }
+
+  /*
+    if ($message['id'] != 'commerce_order_receipt' &&
+        $message['id'] != 'user_password_reset' &&
+        $message['id'] != 'user_register_admin_created') {
+        $message['subject'] = !empty($message['params']['subject']) ? $message['params']['subject'] : '';
+        if ($message['key'] === 'rules_action_mail_rules_send_email') {
+            $message['body'] = !empty($message['params']['message']) ? array($message['params']['message']) : array();
+        }
+        else {
+            $message['body'] = !empty($message['params']['body']) ? array($message['params']['body']) : array();
+        }
+    } else {
+        if ($message['id'] == 'commerce_order_receipt'){
+            $message['subject'] = 'Order Submitted.';
+        }
+    }
+  */
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function samhsa_pep_utility_system_breadcrumb_alter(\Drupal\Core\Breadcrumb\Breadcrumb &$breadcrumb, \Drupal\Core\Routing\RouteMatchInterface $route_match, array $context) {
+    // Append the current page title to the breadcrumb for non-admin routes.
+    if ($breadcrumb && \Drupal::service('router.admin_context')->isAdminRoute()) {
+        $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+        if (!empty($title)) {
+            $breadcrumb->addLink(\Drupal\Core\Link::createFromRoute($title == 'Orders' ? 'All ' . $title : $title, '<none>'));
+        }
+    }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_utility_preprocess_page_title(&$variables) {
+    //Change Order page view title to All Orders
+    if (!is_array($variables['title']) && $variables['title'] == 'Orders') {
+        $variables['title']= Markup::create('All Orders');
+    } else if(is_array($variables['title'])){
+        if(isset($variables['title']['#markup']) && $variables['title']['#markup'] == 'Orders') {
+            $variables['title']['#markup'] = Markup::create('All Orders');
+        }
+    }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function samhsa_pep_utility_menu_local_tasks_alter(&$data, $route_name, \Drupal\Core\Cache\RefinableCacheableDependencyInterface &$cacheability) {
+    $is_anon  = \Drupal::currentUser()->isAnonymous();
+    $is_admin = \Drupal::currentUser()->hasPermission('access commerce administration pages');
+    //ksm($route_name);
+    if($is_anon || !$is_admin){
+        switch ($route_name){
+            case 'entity.commerce_product.canonical':
+                unset($data['tabs'][0]['entity.entity_tasks:entity.commerce_product.canonical']);
+                break;
+            case 'entity.node.canonical':
+                unset($data['tabs'][0]['entity.node.canonical']);
+                break;
+        }
+    }
+    if($route_name == 'user.login' || $route_name == 'user.register' || $route_name == 'user.pass'){
+        unset($data['tabs'][0]['user.pass']);
+        unset($data['tabs'][0]['user.login']);
+        unset($data['tabs'][0]["user.register"]);
+    }
+    $data['tabs'][0]['entity.commerce_order.collection']['#link']['title'] = 'All Orders';
+}
+
+function samhsa_pep_utility_preprocess_views_view_field(&$variables)
+{
+    $view = $variables['view'];
+    $field = $variables['field'];
+    $entity = $variables['row']->_entity;
+    $user = \Drupal::currentUser();
+
+    $userCurrent = \Drupal::currentUser();
+
+    $current_path = \Drupal::service('path.current')->getPath();
+    $options = array(
+        'query' => array('destination' => $current_path),
+        'absolute' => TRUE,
+    );
+
+    //recreate dropbutton to add edit and delete functionality conditionally
+    if ($view->storage->id() == 'order_shipments'&&
+        $field->field == 'operations' ){
+        $allow_shipment_deletion = \Drupal::config('samhsa_pep_shipping.settings')
+            ->get('allow_shipment_deletion');
+        $shipment_id = $entity->id();
+        $order = \Drupal::routeMatch()->getParameter('commerce_order');
+        $order_id = $order->id();
+        $links = array();
+        if(isset($allow_shipment_deletion) && $allow_shipment_deletion == 1) {
+            $_url = Url::fromRoute('entity.commerce_shipment.delete_form', array('commerce_order' => $order_id, 'commerce_shipment' => $shipment_id), $options);
+            $links['delete'] = [
+                    'title' => t('Delete'),
+                    'url' => $_url,
+            ];
+        }
+        $_url = Url::fromRoute('entity.commerce_shipment.edit_form', array('commerce_order' => $order_id, 'commerce_shipment' => $shipment_id), $options);
+        if ($_url->access($userCurrent) && $userCurrent->hasPermission('update default commerce_order')) {
+            $links['edit'] = [
+                'title' => t('Edit'),
+                'url' => $_url,
+            ];
+        }
+
+        $db = [
+            '#type' => 'dropbutton',
+            '#links' => $links,
+        ];
+        $variables['output'] = $db;
+    }
+
+    if (($view->storage->id() == 'admin_orders' ||
+        $view->storage->id() == 'commerce_orders') &&
+        $field->field == 'operations') {
+        $id = $entity->id();
+        $order_state = $entity->getState()->getValue();
+        $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+        $links = array();
+
+        //$_url = Url::fromRoute('entity.commerce_order.edit_form', array('commerce_order' => $id), $options);
+        $_url = Url::fromUri('internal:/admin/commerce/orders/' . $id);
+        if ($_url->access($userCurrent)) {
+            $links['view'] = [
+                'title' => t('View'),
+                'url' => $_url,
+            ];
+        }
+        if($order_state['value'] == 'pending' ||
+            $order_state['value'] == 'pick_slips_generated' ||
+            $order_state['value'] == 'onhold'
+        ) {
+
+            $_url = Url::fromRoute('entity.commerce_order.edit_form', array('commerce_order' => $id), $options);
+            if ($_url->access($userCurrent) && $userCurrent->hasPermission('update default commerce_order')) {
+                $links['edit'] = [
+                    'title' => t('Edit'),
+                    'url' => $_url,
+                ];
+            }
+            if ($user->hasPermission("reassign orders")) {
+                $_url = Url::fromRoute('entity.commerce_order.reassign_form', array('commerce_order' => $id), $options);
+                if ($_url->access($userCurrent)) {
+                    $links['reassign'] = [
+                        'title' => t('Reassign'),
+                        'url' => $_url,
+                    ];
+                }
+            }
+            //have order shipments option in admin views
+            if ($user->hasPermission("have order shipments option in admin views")) {
+                $_url = Url::fromUri('internal:/admin/commerce/orders/' . $id . '/shipments', $options);
+                if ($_url->access($userCurrent)) {
+                    $links['shipment'] = [
+                        'title' => t('Shipments'),
+                        'url' => $_url,
+                    ];
+                }
+            }
+        }
+        //resend order receipt
+        if ($user->hasPermission("resend order receipt")) {
+            $_url = Url::fromRoute('entity.commerce_order.resend_receipt_form', array('commerce_order' => $id), $options);
+            if ($_url->access($userCurrent)) {
+                $links['resend'] = [
+                    'title' => t('Resend receipt'),
+                    'url' => $_url,
+                ];
+            }
+        }
+
+        //Do not let any role delete orders if setting is set to not allow deletion
+        $config = \Drupal::config('samhsa_pep_disallow_order_deletion.settings');
+        $delete_order = $config->get('disable_order_delete');
+
+        if($delete_order == 0) {
+            $_url = Url::fromRoute('entity.commerce_order.delete_form', array('commerce_order' => $id), $options);
+            if ($_url->access($userCurrent)) {
+                $links['delete'] = [
+                    'title' => t('Delete'),
+                    'url' => $_url,
+                ];
+            }
+        }
+
+        $db = [
+            '#type' => 'dropbutton',
+            '#links' => $links,
+        ];
+        $variables['output'] = $db;
+    }
+
+    /*if (($view->storage->id() == 'admin_orders' ||
+            $view->storage->id() == 'commerce_orders') &&
+        $field->field == 'form_field_field_log') {
+        $id = $entity->id();
+        $variables['output'] = Markup::create("<div class=\"form-textarea-wrapper\">
+  <textarea class=\"js-text-full text-full form-textarea required resize-vertical\" data-drupal-selector=\"edit-form-field-field-log-".$id."-field-log-0-value\" id=\"edit-form-field-field-log-".$id."-field-log-0-value\" name=\"form_field_field_log[".$id."][field_log][0][value]\" rows=\"2\" cols=\"60\" placeholder=\"Enter Comments\" required=\"required\" aria-required=\"true\"></textarea>
+</div>");
+    }*/
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function samhsa_pep_utility_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['field_password_expiration']['#attributes']['class'] = ['hidden'];
+  $form['field_last_password_reset']['widget'][0]['value']['#attributes']['readonly'] = 'readonly';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function samhsa_pep_utility_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    //add forgot password link at the bottom of the form. Next to the login button.
+    $links = [];
+    $links[] = [
+        '#prefix' => "<span class = \"forgot-password-link\">",
+        '#suffix' => "</span>",
+        '#type' => 'link',
+        '#title' => t('Forgot Password?'),
+        '#url' => \Drupal\Core\Url::fromRoute('user.pass'),
+    ];
+    $form['actions']['forgot_password_link'] = $links;
+    $form['actions']['sublit']['#prefix'] = '<div class="login--buttons">';
+    $form['actions']['forgot_password_link']['#suffix'] = "</div>";
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function samhsa_pep_utility_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['customer_profiles']['widget'][0]['#type'] = 'container';
+  $form['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';
+  $form['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#required'] = FALSE;
+
+  $text = \Drupal\Core\Field\FieldFilteredMarkup::create('Format: 1234567890');
+  $form['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_utility_preprocess_select(&$variables) {
+  if (preg_match('/\[0]\[address]\[administrative_area]/', $variables['element']['#name'])) {
+    foreach ($variables['options'] as &$option) {
+      if (strtoupper($option['value']) == 'VI') {
+        $option['label'] = 'U.S. Virgin Islands';
+        break;
+      }
+    }
+  }
+}

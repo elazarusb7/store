@@ -1,0 +1,28 @@
+//Social media - preface one region
+//====================================
+
+.social {
+  a {
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    background-color: $dark-gray;
+    margin-right: 0.5em; 
+    border-radius: 3px; 
+  }
+  a.facebook:hover{
+    background-color: $fb-color;
+  }
+  a.twitter:hover{
+    background-color: $tw-color;
+  }
+  a.youtube:hover{
+    background-color: $yt-color;
+  }
+  a.blog:hover{
+    background-color: $blog-color;
+  }
+  span.ext{
+    display: none;
+  }
+}

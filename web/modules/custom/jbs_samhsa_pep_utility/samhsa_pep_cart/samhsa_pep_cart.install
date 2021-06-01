@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * samhsa_pep_cart.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_cart_install() {
+    \Drupal::config('samhsa_pep_cart.settings')
+        ->set('combine_pep_cart', TRUE);
+    \Drupal::config('samhsa_pep_cart.settings')
+        ->set('max_quantity', 999999);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_cart_uninstall()
+{
+    Drupal::configFactory()->getEditable('samhsa_pep_cart.settings')->delete();
+}
+
+
+
+

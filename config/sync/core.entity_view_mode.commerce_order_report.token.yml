@@ -1,0 +1,10 @@
+uuid: f3fa03e9-8b25-4f39-9f33-73d6ff6a1ba9
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_reports
+id: commerce_order_report.token
+label: Token
+targetEntityType: commerce_order_report
+cache: true

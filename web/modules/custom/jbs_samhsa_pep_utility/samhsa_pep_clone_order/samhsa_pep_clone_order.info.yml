@@ -1,0 +1,7 @@
+name: 'Custom SAMHSA PEP Clone Order'
+type: module
+description: 'SAMHSA PEP CLone Order.'
+core: 8.x
+package: 'SAMHSA PEP Custom'
+dependencies:
+  - samhsa_pep_order_states_workflow

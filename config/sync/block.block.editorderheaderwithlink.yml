@@ -1,0 +1,31 @@
+uuid: be626df7-9e6e-49c6-9688-3b39bf64d38e
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:68213ac9-6ed6-4573-bb81-3f77fb34307b'
+  module:
+    - block_content
+    - system
+  theme:
+    - seven
+id: editorderheaderwithlink
+theme: seven
+region: highlighted
+weight: -3
+provider: null
+plugin: 'block_content:68213ac9-6ed6-4573-bb81-3f77fb34307b'
+settings:
+  id: 'block_content:68213ac9-6ed6-4573-bb81-3f77fb34307b'
+  label: 'Edit Order Header with link'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '/admin/commerce/orders/*/edit'
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Product Recommendation installation routines.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function jbs_commerce_product_recommendation_schema() {
+  $schema['product_recommendation__product_pairs'] = [
+    'description' => 'Keeps track of product pair relationship scores.',
+    'fields' => [
+      'p1' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "ID of a product.",
+      ],
+      'p2' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "ID of a product that has a relationship with p1.",
+      ],
+      'score' => [
+        'type' => 'numeric',
+        'precision' => 10,
+        'scale' => 9,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "Strength of relationship between p1 and p2 from 0-1.",
+      ],
+      'count' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "Size of data used to calculate score.",
+      ]
+    ],
+    'indexes' => [
+      'p1' => ['p1'],
+      'p2' => ['p2']
+    ],
+    'primary key' => ['p1', 'p2'],
+  ];
+  $schema['product_recommendation__product_events'] = [
+    'description' => 'Keeps track of commerce product events for recommendation purposes.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'ID of the event.'
+      ],
+      'content_type' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => "Type of content interacted with during the event.",
+      ],
+      'content_id' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "ID of the content.",
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Timestamp of the event.",
+      ],
+      'session_id' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => "ID of the session in which the event occurred."
+      ],
+      'event' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => 'Type of event that occurred'
+      ]
+    ],
+    'indexes' => [
+      'content_id' => ['content_id'],
+      'timestamp' => ['timestamp'],
+      'session_id' => ['session_id'],
+      'event' => ['event'],
+    ],
+    'primary key' => ['id'],
+  ];
+  $schema['product_recommendation__model_update'] = [
+    'description' => 'Keeps track of recommendation algorithm updates',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Update ID.'
+      ],
+      'cutoff' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => 'Timestamp cutoff of last model update.'
+      ],
+      'timestamp' => [
+        'type' => 'varchar',
+        'mysql_type' => 'datetime',
+        'not null' => TRUE,
+        'description' => "Timestamp of the update.",
+      ],
+    ],
+    'indexes' => [
+      'cutoff' => ['cutoff'],
+      'timestamp' => ['timestamp'],
+    ],
+    'primary key' => ['id'],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function jbs_commerce_product_recommendation_uninstall() {
+  Drupal::configFactory()->getEditable('jbs_commerce_product_recommendation.settings')->delete();
+//  if (\Drupal::database()->schema()->tableExists('product_recommendation__product_pairs')) {
+//    \Drupal::database()->schema()->dropTable('product_recommendation__product_pairs');
+//  }
+}

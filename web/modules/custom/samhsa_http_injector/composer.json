@@ -1,0 +1,11 @@
+{
+	"name" : "samhsa/samhsa_http_injector",
+	"type" : "drupal-custom-module",
+	"description" : "Drupal 8 http module for all SAMHSA sites",
+	"keywords" : [
+		"SAMHSA",
+		"modules",
+		"drupal"
+	],
+	"license" : "GPL-2.0+"
+}

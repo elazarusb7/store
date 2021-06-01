@@ -1,0 +1,17 @@
+diff --git a/modules/views/src/Plugin/views/filter/Date.php b/modules/views/src/Plugin/views/filter/Date.php
+index b7d1821..b8a5422 100644
+--- a/modules/views/src/Plugin/views/filter/Date.php
++++ b/modules/views/src/Plugin/views/filter/Date.php
+@@ -169,6 +169,12 @@ class Date extends NumericFilter {
+     $a = intval(strtotime($this->value['min'], 0));
+     $b = intval(strtotime($this->value['max'], 0));
+ 
++    //If the max value string does not contain a time of day add one day so
++    // that the end day gets included in the result set.
++    if (strpos($this->value['max'], ' ') === FALSE) {
++          $b += 60 * 60 * 24;
++    }
++
+     if ($this->value['type'] == 'offset') {
+       // Keep sign.
+       $a = '***CURRENT_TIME***' . sprintf('%+d', $a);

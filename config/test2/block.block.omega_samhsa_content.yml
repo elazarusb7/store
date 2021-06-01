@@ -1,0 +1,22 @@
+uuid: cbbf05cb-2f0a-40ef-892a-ca5a7af7f7f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega_samhsa
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: omega_samhsa_content
+theme: omega_samhsa
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

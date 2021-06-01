@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * SAMHSA PEP Notification module code - samhsa_pep_notification.module.
+ *
+ * Module allows the administrator to force users to explicitly accept a notification
+ * before accessing any site content.
+ */

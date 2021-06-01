@@ -1,0 +1,5 @@
+name: 'SAMHSA PEP PDF Printing'
+type: module
+description: 'Genegates Pick Slips in PDF'
+core: 8.x
+package: 'SAMHSA PEP Custom'

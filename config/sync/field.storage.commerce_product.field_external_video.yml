@@ -1,0 +1,24 @@
+uuid: 4cfc13bb-cb9c-4c2c-9b02-f6d95bddb50c
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - field_permissions
+    - media
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: commerce_product.field_external_video
+field_name: field_external_video
+entity_type: commerce_product
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

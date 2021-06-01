@@ -1,0 +1,105 @@
+uuid: d2e2eab6-5e35-401f-ba7e-6ae25512843d
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.default_solr_index
+    - views.view.solr_search_content
+  module:
+    - search_api
+id: store_facets_summary
+name: 'Store Facets Summary'
+facets:
+  publication_category:
+    checked: true
+    label: 'Publication category'
+    separator: ', '
+    weight: -10
+    show_count: false
+  publication_target_audience:
+    checked: true
+    label: 'Publication Target Audience'
+    separator: ', '
+    weight: -9
+    show_count: false
+  issues_conditions_and_disorders:
+    checked: true
+    label: 'Issues, Conditions and Disorders'
+    separator: ', '
+    weight: -8
+    show_count: false
+  treatment_prevention_and_recovery:
+    checked: true
+    label: 'Treatment, Prevention and Recovery'
+    separator: ', '
+    weight: -7
+    show_count: false
+  professional_and_research_topics:
+    checked: true
+    label: 'Professional and Research Topics'
+    separator: ', '
+    weight: -6
+    show_count: false
+  substances:
+    checked: true
+    label: Substances
+    separator: ', '
+    weight: -5
+    show_count: false
+  format:
+    checked: true
+    label: Format
+    separator: ', '
+    weight: -4
+    show_count: false
+  audience:
+    checked: true
+    label: Audience
+    separator: ', '
+    weight: -3
+    show_count: false
+  population_group:
+    checked: true
+    label: 'Population Group'
+    separator: ', '
+    weight: -2
+    show_count: false
+  language:
+    checked: true
+    label: Language
+    separator: ', '
+    weight: -1
+    show_count: false
+  location:
+    checked: true
+    label: Location
+    separator: ', '
+    weight: 0
+    show_count: false
+  series:
+    checked: true
+    label: Series
+    separator: ', '
+    weight: 1
+    show_count: false
+facet_source_id: 'search_api:views_page__solr_search_content__page_1'
+processor_configs:
+  hide_when_not_rendered:
+    processor_id: hide_when_not_rendered
+    weights:
+      build: '45'
+    settings: {  }
+  reset_facets:
+    processor_id: reset_facets
+    weights:
+      build: '30'
+    settings:
+      link_text: 'Clear all filters'
+  show_text_when_empty:
+    processor_id: show_text_when_empty
+    weights:
+      build: '10'
+    settings:
+      text:
+        value: 'No results found.'
+        format: plain_text

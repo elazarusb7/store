@@ -1,0 +1,7 @@
+samhsa_theme_block_pep8.settings:
+  path: '/admin/config/system/samhsa-theme-blocks'
+  defaults:
+    _form: '\Drupal\samhsa_theme_block_pep8\Form\SamhsaThemeBlockPEP8SettingsForm'
+    _title: 'SAMHSA Theme Blocks - Settings'
+  requirements:
+    _permission: 'administer site configuration'

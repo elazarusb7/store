@@ -1,0 +1,9 @@
+uuid: 0cec267c-fa60-4aaa-92e8-2315d9e8da28
+langcode: en
+status: true
+dependencies: {  }
+id: search_api__views_page__solr_search_content__page_1
+name: 'search_api:views_page__solr_search_content__page_1'
+filter_key: null
+url_processor: query_string
+breadcrumb: {  }

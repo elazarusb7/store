@@ -1,0 +1,21 @@
+uuid: 5610d38c-0d17-440a-959a-77640bd2aa16
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_product_owner_phone
+field_name: field_product_owner_phone
+entity_type: commerce_product
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

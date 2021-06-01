@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_shipping.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\physical\Weight;
+use Drupal\physical\WeightUnit;
+use  Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help()
+ */
+function samhsa_pep_shipping_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_shipping module.
+    case 'help.page.jbs_commerce_extended_log':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Extends the functionality of the commerce logging system') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Prepares variables for order templates.
+ *
+ * Default template: commerce-order.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing rendered fields.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function samhsa_pep_shipping_preprocess_commerce_order(array &$variables) {
+    /** @var Drupal\commerce_order\Entity\OrderInterface $order */
+    $order = $variables['order_entity'];
+    $variables['order_entity'] = $order;
+
+    if ($order_weight = $order->field_order_weight) {
+        $unit_value = $order->field_order_weight->getValue('unit');
+        $unit = array_shift($unit_value)['unit'];
+        $weight = $order->field_order_weight->getValue('number');
+        $number = array_shift($weight)['number'];
+
+        $variables['order']['order_weight'] = round($number,2) . " " . $unit;
+    }
+}
+
+/**
+ * Implements hook_preprocess_views_view_field
+ */
+function samhsa_pep_shipping_preprocess_views_view_field(&$variables)
+{
+    $bulk_number = \Drupal::config('samhsa_pep_shipping.settings')
+        ->get('bulk_number','500');
+    $view = $variables['view'];
+    $field = $variables['field'];
+    $entity = $variables['row']->_entity;
+    if (($view->storage->id() == 'commerce_orders') &&
+        $field->field == 'field_order_weight') {
+        $number = $entity->get('field_order_weight')->number;
+        $unit = $entity->get('field_order_weight')->unit;
+        $new_output = $variables['output'];
+        switch ($unit){
+            case 'oz':
+                $weight = new Weight($number, WeightUnit::OUNCE);
+                //$new_weight = $weight->add($other_weight)->convert(WeightUnit::POUND);
+                $new_weight = $weight->convert(WeightUnit::POUND);
+                if($new_weight->getNumber() > $bulk_number){
+                    $new_output = Markup::create('<strong><div style="color:darkred">' . $variables['output'] .'</div></strong>');
+                }
+                break;
+        }
+        $variables['output'] = $new_output;
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_shipping_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    if($form_id == 'commerce_shipment_default_edit_form' ||
+        $form_id == 'commerce_shipment_default_add_form'){
+        $form['package_type']['#attributes']['class'][] = 'visually-hidden';
+        $form['package_type']['#title']=t('');
+    }
+}

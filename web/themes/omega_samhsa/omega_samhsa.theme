@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the theme.
+ */
+
+/**
+ * Prepares variables for the html.html.twig template.
+ */
+function omega_samhsa_preprocess_html(&$variables) {
+
+  //set variable for appletouch icons
+  $variables['atouchpath'] = drupal_get_path('theme','omega_samhsa') . '/images/appletouch/';
+
+}
+  

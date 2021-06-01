@@ -1,0 +1,29 @@
+uuid: cec977a8-4854-44b5-8586-a1f1b5e34b6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_substances
+    - taxonomy.vocabulary.substances
+id: commerce_product.samhsa_publication.field_substances
+field_name: field_substances
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Substances
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      substances: substances
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

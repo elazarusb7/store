@@ -1,0 +1,4 @@
+overwite pep commerce shipping configs:
+  title: 'Overwite PEP commerce shipping configs'
+  description: 'Allow user to overwite pep commerce shipping configs.'
+  restrict access: true

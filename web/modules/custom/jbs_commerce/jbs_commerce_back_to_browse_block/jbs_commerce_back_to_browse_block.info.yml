@@ -1,0 +1,8 @@
+name: Back to Browse Block
+description: Creates a custom block for showing a link back to the store homepage and return to search results
+package: Custom
+type: module
+dependencies:
+- node
+- block
+core: 8.x

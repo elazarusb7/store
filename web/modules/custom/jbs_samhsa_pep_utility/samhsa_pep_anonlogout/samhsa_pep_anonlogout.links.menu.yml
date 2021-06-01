@@ -1,0 +1,5 @@
+samhsa_pep_anonlogout.admin:
+  title: SAMHSA PEP Anonymous session
+  description: 'SAMHSA PEP anonymouse user session options settings.'
+  parent: user.admin_index
+  route_name: samhsa_pep_anonlogout_settings

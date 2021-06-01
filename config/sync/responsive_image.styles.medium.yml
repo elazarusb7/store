@@ -1,0 +1,24 @@
+uuid: 823f780d-8a32-4e84-9b4b-38c0f1d7207c
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.medium
+    - image.style.medium_x2
+  theme:
+    - omega_samhsa_pep
+id: medium
+label: 'Medium (220×220)'
+image_style_mappings:
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: medium
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: medium_x2
+breakpoint_group: omega_samhsa_pep.default
+fallback_image_style: medium

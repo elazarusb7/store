@@ -1,0 +1,71 @@
+.cart-block--summary {
+  .cart-block--link__expand {
+    &:link, &:visited {
+      text-decoration: none;
+    }
+  }
+  &__icon {
+    > svg > path {
+      transition: fill $base-duration $base-timing;
+    }
+    a:hover & {
+      > svg > path {
+        fill: $red;
+      } 
+    } 
+  }
+  &__count {
+    display: inline-block;
+    color: white;
+    background-color: rgba($red, 0.9);
+    transition: background-color $base-duration $base-timing;
+    padding: 3px 5px;
+    border-radius: 5px;
+    // position: absolute;
+    line-height: 1;
+    font-weight: bold;
+    margin-top: -45px;
+    margin-left: -15px;
+    &__big-order {
+      @include breakpoint(0 $max-width-mobile-portrait-small) {
+        margin-left: -40px;
+      }
+    }
+    a:hover & { 
+      background-color: $dark-gray;
+    }
+  }
+}
+.cart-block--contents {
+  border: 1px solid $light-gray;
+  box-shadow: $drop-shadow;
+  min-width: 320px;
+  @include breakpoint($max-width-mobile-portrait-smallest) {
+    margin-right: $gutters;
+  }
+  &__inner {
+    padding: $gutters;
+    table {
+      margin: 0 0 $gutters;
+    }
+  }
+  &__links {
+    > span {
+      padding-right: $gutters;
+    }
+  }
+  &__disclaimer {
+    margin-top: $gutters;
+    margin-bottom: $gutters;
+  }
+  .cart--cart-block & a {
+    color: $action-color;
+    @include link-colors($action-color, $action-color-hover, $action-color-hover, $action-color, $action-color-hover);
+  }
+}
+.view-commerce-cart-form td.views-field-edit-quantity .form-type-number {
+  margin-right: $gutters/2;
+  input[type="number"] {
+    width: 87px;
+  }
+}

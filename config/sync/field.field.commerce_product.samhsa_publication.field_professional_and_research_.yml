@@ -1,0 +1,29 @@
+uuid: ac3063bc-80bd-4336-ab29-30065e94e0b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_professional_and_research_
+    - taxonomy.vocabulary.professional_research_topics
+id: commerce_product.samhsa_publication.field_professional_and_research_
+field_name: field_professional_and_research_
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Professional and Research Topics'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      professional_research_topics: professional_research_topics
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,44 @@
+uuid: 95687eab-92c6-4fb2-87ce-40e5647a4e51
+langcode: en
+status: true
+dependencies: {  }
+id: site_manager
+label: 'Site Manager'
+weight: 5
+is_admin: null
+permissions:
+  - 'access commerce administration pages'
+  - 'access commerce reports'
+  - 'access commerce_order overview'
+  - 'access commerce_order_report overview'
+  - 'access commerce_product overview'
+  - 'access kint'
+  - 'access profile overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'create samhsa_publication commerce_product'
+  - 'generate commerce order reports'
+  - 'perform stock transactions'
+  - 'setup own tfa'
+  - 'update any samhsa_publication commerce_product'
+  - 'update own samhsa_publication commerce_product'
+  - 'use text format full_html'
+  - 'view any customer profile'
+  - 'view any profile'
+  - 'view any shipping_profile profile'
+  - 'view commerce_order_report'
+  - 'view commerce_store'
+  - 'view default commerce_order'
+  - 'view field_comments'
+  - 'view field_is_over_the_limit'
+  - 'view field_order_source'
+  - 'view field_requested_quantity'
+  - 'view own field_comments'
+  - 'view own field_is_over_the_limit'
+  - 'view own field_order_source'
+  - 'view own field_requested_quantity'
+  - 'view own profile'
+  - 'view own unpublished commerce_product'
+  - 'view samhsa_publication commerce_product'
+  - 'view samhsa_publication_ob commerce_order'
+  - 'view the administration theme'

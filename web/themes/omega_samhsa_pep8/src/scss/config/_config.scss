@@ -1,0 +1,12 @@
+// Config: Load libraries, variables and other initializing partials
+//==========================================================================
+
+//Loading libraries from gulp
+@import "node_modules/compass-mixins/lib/compass";
+@import 'node_modules/modularscale-sass/stylesheets/modular-scale';
+// @import "singularitygs";
+@import "node_modules/breakpoint-sass/stylesheets/breakpoint";
+
+//Loading files from config folder
+@import "variables/var";
+@import "mixins/mix";

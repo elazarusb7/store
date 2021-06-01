@@ -1,0 +1,20 @@
+uuid: 0c2ae744-9048-4d08-a7e2-6699cbcdf268
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - taxonomy
+id: commerce_product.field_treatment_prevention_and_r
+field_name: field_treatment_prevention_and_r
+entity_type: commerce_product
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

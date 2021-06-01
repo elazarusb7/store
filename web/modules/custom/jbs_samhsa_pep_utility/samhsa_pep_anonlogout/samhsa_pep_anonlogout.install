@@ -1,0 +1,19 @@
+<?php
+
+
+/**
+ * @file
+ * Install, update and uninstall functions for the samhsa_pep_password module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_anonlogout_install() {
+
+  // Add cron threshold to prevent memory overloads.
+  $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_anonlogout.settings');
+
+  // Set and save new message value.
+  $config->set('cron_threshold', '250')->save();
+}

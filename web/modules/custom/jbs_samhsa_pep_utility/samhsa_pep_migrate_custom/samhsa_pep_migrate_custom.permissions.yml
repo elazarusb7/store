@@ -1,0 +1,19 @@
+add unconverted links entities:
+  title: 'Create new Unconverted links entities'
+
+administer unconverted links entities:
+  title: 'Administer Unconverted links entities'
+  description: 'Allow to access the administration form to configure Unconverted links entities.'
+  restrict access: true
+
+delete unconverted links entities:
+  title: 'Delete Unconverted links entities'
+
+edit unconverted links entities:
+  title: 'Edit Unconverted links entities'
+
+view published unconverted links entities:
+  title: 'View published Unconverted links entities'
+
+view unpublished unconverted links entities:
+  title: 'View unpublished Unconverted links entities'

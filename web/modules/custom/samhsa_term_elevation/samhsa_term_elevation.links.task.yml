@@ -1,0 +1,31 @@
+# SAHMSA Term Elevation routing definition
+samhsa_term_elevation.settings_tab:
+  route_name: samhsa_term_elevation.settings
+  title: 'Settings'
+  base_route: samhsa_term_elevation.settings
+
+entity.samhsa_term_elevation.canonical:
+  route_name: entity.samhsa_term_elevation.canonical
+  base_route: entity.samhsa_term_elevation.canonical
+  title: 'View'
+
+entity.samhsa_term_elevation.edit_form:
+  route_name: entity.samhsa_term_elevation.edit_form
+  base_route: entity.samhsa_term_elevation.canonical
+  title: 'Edit'
+
+entity.samhsa_term_elevation.delete_form:
+  route_name:  entity.samhsa_term_elevation.delete_form
+  base_route:  entity.samhsa_term_elevation.canonical
+  title: Delete
+  weight: 10
+
+entity.samhsa_term_elevation.settings_form:
+  route_name: samhsa_term_elevation.samhsa_term_elevation_config
+  base_route: samhsa_term_elevation.samhsa_term_elevation_config
+  title: 'Settings'
+
+entity.samhsa_term_elevation.websites_aliases:
+  route_name: samhsa_term_elevation.websites_aliases_form
+  base_route: samhsa_term_elevation.samhsa_term_elevation_config
+  title: 'Websites Aliases'

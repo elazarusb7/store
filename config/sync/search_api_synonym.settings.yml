@@ -1,0 +1,9 @@
+cron:
+  plugin: solr
+  interval: 86400
+  type: all
+  filter: none
+  separate_files: 1
+  export_if_changed: 1
+_core:
+  default_config_hash: 6psU6-Gb-pHr_cfQDBKfL6NtAn6uFuslsBd9usCKk9s

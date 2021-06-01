@@ -1,0 +1,6 @@
+solr_multisite_plugins_ids:
+  title_id: 'Title'
+  highlight_id: 'Highlighted results'
+  url_id: 'Friendly URL'
+  document_date_id: 'Document date'
+  description_id: 'Description'

@@ -1,0 +1,50 @@
+
+// Monobar/HHS ribbon at mobile - up to 624px
+//------------------------------------------------
+.region--header-top {
+    .mono-bar{
+      display: none;
+    }
+}
+
+//HHS ribbon on desktop 624px and up
+//---------------------------------------
+
+@include breakpoint ($max-width-tablet-portrait){
+.region-header-top {
+  background-color: $lighter-gray;
+    .mono-bar{
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0;
+      .hhs-ribbon {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;  
+        height: 36px;  
+        .hhs-icon {
+          width: 30px;
+          margin-right: 5px;
+          vertical-align: middle;
+          fill: $blue-gray;
+          &:hover{
+            fill: $dark-gray;
+          }
+        }
+        a{
+          color: $blue-gray;
+          text-decoration: none;
+          font-size: 1.4rem;
+          line-height: 2.5em;
+          &:hover{
+            color: $dark-gray;
+          }
+        }
+      }
+      span.ext {
+        display: none;
+      }
+    }
+  }
+}

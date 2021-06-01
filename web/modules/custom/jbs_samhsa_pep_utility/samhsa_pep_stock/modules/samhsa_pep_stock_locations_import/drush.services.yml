@@ -1,0 +1,5 @@
+services:
+  samhsa_pep_drush_import_stock_locations.commands:
+    class: \Drupal\samhsa_pep_stock_locations_import\Commands\StockLocationsImportCommands
+    tags:
+      - { name: drush.command }

@@ -1,0 +1,21 @@
+uuid: 3b08d09a-19a5-476e-8440-c98c7897dfe9
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_store.commerce_store_type.online
+    - field.storage.commerce_store.field_available_stock_locations
+id: commerce_store.online.field_available_stock_locations
+field_name: field_available_stock_locations
+entity_type: commerce_store
+bundle: online
+label: 'Available stock locations'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:commerce_stock_location'
+  handler_settings: {  }
+field_type: entity_reference

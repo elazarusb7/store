@@ -1,0 +1,21 @@
+uuid: 97d0aad6-51f2-4abb-9295-3fc6033bdc3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_phone_number
+    - profile.type.shipping_profile
+  module:
+    - telephone
+id: profile.shipping_profile.field_phone_number
+field_name: field_phone_number
+entity_type: profile
+bundle: shipping_profile
+label: 'Phone Number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

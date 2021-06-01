@@ -1,0 +1,13 @@
+uuid: f32b42f6-ed8d-4a86-aab6-19b045e371ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - key.key.pep_encryption_key
+  module:
+    - real_aes
+id: pep_encryption_profile
+label: 'PEP Encryption Profile'
+encryption_method: real_aes
+encryption_key: pep_encryption_key
+encryption_method_configuration: {  }

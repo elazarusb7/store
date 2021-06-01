@@ -1,0 +1,8 @@
+uuid: a58d869c-f659-46ea-b645-487236682512
+langcode: en
+status: true
+dependencies: {  }
+name: 'Shipping Method'
+vid: shipping_method
+description: ''
+weight: 0

@@ -1,0 +1,6 @@
+services:
+  samhsa_pep_anonlogout_event_subscriber:
+    class: Drupal\samhsa_pep_anonlogout\EventSubscriber\AnonlogoutSubscriber
+    arguments: ['@session_manager', '@messenger', '@string_translation']
+    tags:
+      - {name: event_subscriber}

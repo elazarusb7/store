@@ -1,0 +1,14 @@
+uuid: d8609e2f-6e25-438d-bc35-25f18646b051
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.warehouse_clerk
+  module:
+    - user
+id: user_add_role_action.warehouse_clerk
+label: 'Add the Warehouse Clerk role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: warehouse_clerk

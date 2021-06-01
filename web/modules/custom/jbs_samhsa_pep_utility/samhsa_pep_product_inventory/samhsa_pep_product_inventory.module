@@ -1,0 +1,193 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_product_inventory_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == "views_exposed_form" && $form['#id'] == "views-exposed-form-commerce-products-page-1") {
+    $options = $form['field_samhsa_digital_download_target_id_op']['#options'];
+    //build another options list
+    $new_options = [];
+    $new_options['<'] = 'With or Without Digital Downloads';
+    $form['field_samhsa_digital_download_target_id_op']['#title'] = t("Digital Downloads");
+    foreach ($options as $key => $value) {
+      if ($key == 'empty' || $key == 'not empty') {
+        switch ($key) {
+          case 'empty':
+            $value = 'Without Digital Download(s)';
+            break;
+          case 'not empty':
+            $value = 'With Digital Download(s)';
+            break;
+        }
+        $new_options[$key] = $value;
+      }
+    }
+    $form['field_samhsa_digital_download_target_id_op']['#options'] = $new_options;
+    $form['field_samhsa_digital_download_target_id']['value']['#type'] = 'hidden';
+  }
+
+  if ($form_id == "views_exposed_form" && $form['#id'] == "views-exposed-form-product-inventory-report-page-1") {
+    $form['placed']['max']['#title'] = t('End Date');
+    $form['#validate'][] = "_custom_product_inventory_exposed_admin_order_validate";
+  }
+}
+
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * override ordered and shipped quantity based on the specified criteria for the data export view display
+ * as hook_preprocess_views_view_field() does NOT fire for Data export view format plugin
+ */
+function samhsa_pep_product_inventory_views_pre_render($view) {
+  $period = _getReportingPeriod($view);
+  // lookup Shipped and Ordered quantities and place in module tempstore
+  $totals = [
+    'ordered' => _get_ordered_qty($period['min'], $period['max']),
+    'shipped' => _get_shipped_qty($period['min'], $period['max']),
+  ];
+  \Drupal::service('tempstore.private')->get('samhsa_pep_product_inventory')->set('product_inventory_report', $totals);
+
+  // for CSV downlood, overwrite result values with above, correct values
+  if ($view->storage->id() == 'product_inventory_report' && $view->current_display == 'data_export_1') {
+    foreach ($view->result as $key => $row) {
+      $sku  = $row->commerce_product_variation_field_data_sku;
+      // QTY SHIPPED
+      $shipped = (isset($totals['shipped'][$sku]) ? intval($totals['shipped'][$sku]) : 0);
+      $view->result[$key]->variation_id = $shipped;
+      // QTY ORDERED
+      $ordered = (isset($totals['ordered'][$sku]) ? intval($totals['ordered'][$sku]) : 0);
+      $view->result[$key]->commerce_order_item_commerce_product_variation_field_data_qu = intval($shipped + $ordered);
+    }
+  }
+}
+
+
+/**
+ * Implement hook_preprocess_views_view_field()
+ *
+ *  get shipped quantity based on the specified criteria for the product inverntory page_1 display
+ */
+function samhsa_pep_product_inventory_preprocess_views_view_field(&$variables) {
+  if ($variables['view']->storage->id() == 'product_inventory_report') {
+    $totals = \Drupal::service('tempstore.private')->get('samhsa_pep_product_inventory')->get('product_inventory_report');
+    // for screen view, overwrite result values with above, correct values from tempstore
+    $sku = $variables['row']->commerce_product_variation_field_data_sku;
+    $field = $variables['field']->field;
+    if ($field == 'variation_id' || $field == 'quantity') {
+      $ordered = (isset($totals['ordered'][$sku]) ? intval($totals['ordered'][$sku]) : 0);
+      $shipped = (isset($totals['shipped'][$sku]) ? intval($totals['shipped'][$sku]) : 0);
+      if ($field == 'variation_id') {
+        // QTY SHIPPED
+        $variables['output'] = $shipped;
+      }
+      else if ($field == 'quantity') {
+        // QTY ORDERED
+        $variables['output'] = intval($shipped + $ordered);
+      }
+    }
+  }
+}
+
+
+/**
+ * Helper function to convert exposed form text dates into UNIX timestamps for
+ * use in SQL queries
+ */
+function _getReportingPeriod($view) {
+  $exposed = $view->getExposedInput();
+  $min_date = (isset($exposed['placed']['min']) ? $exposed['placed']['min'] : ' -40 years');
+  $max_date = (isset($exposed['placed']['max']) ? $exposed['placed']['max'] : '') . " +1 day";
+  return [
+    'min' => strtotime($min_date),
+    'max' => strtotime($max_date),
+  ];
+}
+
+
+/**
+ * Query items in all OPEN orders, optionally for a specific period
+ */
+function _get_ordered_qty($begin = NULL, $end = NULL) {
+  $query = \Drupal::database()->select('commerce_order_item', 'oi')
+    ->fields('vfd', ['sku'])
+    ->condition('co.state', ['pending', 'pick_slips_generated', 'onhold'], 'IN');
+  if ($begin != NULL) {
+    // note: timestamps are in U.S. Eastern TZ
+    $query->condition('co.placed', $begin, '>=');
+  }
+  if ($end != NULL) {
+    $query->condition('co.placed', $end,   '<=');
+  }
+  $query->addExpression('SUM(quantity)', 'ordered');
+  $query->leftjoin('commerce_order', 'co', 'co.order_id = oi.order_id');
+  $query->leftjoin('commerce_product_variation_field_data', 'vfd', 'vfd.variation_id = oi.purchased_entity');
+  $query->groupBy('vfd.sku');
+  $result = $query->execute()->fetchAllKeyed();
+  return $result;
+}
+
+
+/**
+ * Query items in all SHIPPED (completed) orders, optionally for a specific period
+ */
+function _get_shipped_qty($begin = NULL, $end = NULL) {
+  $query = \Drupal::database()->select('commerce_order_item', 'oi')
+    ->fields('vfd', ['sku'])
+    ->condition('co.state', ['completed'], '=');
+  if ($begin != NULL) {
+    // note: timestamps are in U.S. Eastern TZ
+    $query->condition('co.placed', $begin, '>=');
+  }
+  if ($end != NULL) {
+    $query->condition('co.placed', $end,   '<=');
+  }
+  $query->addExpression('SUM(quantity)', 'shipped');
+  $query->leftjoin('commerce_order', 'co', 'co.order_id = oi.order_id');
+  $query->leftjoin('commerce_product_variation_field_data', 'vfd', 'vfd.variation_id = oi.purchased_entity');
+  $query->groupBy('vfd.sku');
+  $result = $query->execute()->fetchAllKeyed();
+  return $result;
+}
+
+
+/*
+ * validate order admin exposed filter form
+ */
+function _custom_product_inventory_exposed_admin_order_validate(&$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $triggeringElement = $form_state->getTriggeringElement();
+
+  if ($triggeringElement['#value'] == "Apply Filters") {
+    //date placed
+    if (!empty($values['placed']['max']) && !empty($values['placed']['min'])) {
+      if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
+
+        $min_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['placed']['min']);
+        if (!$min_isvalid) {
+          $form_state->setErrorByName('placed', 'Invalid Start Date.');
+        }
+
+        $max_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['placed']['max']);
+        if (!$max_isvalid) {
+          $form_state->setErrorByName('placed', 'Invalid End Date.');
+        }
+      }
+    }
+    elseif ((!empty($values['placed']['max']) && empty($values['placed']['min'])) || (empty($values['placed']['max']) && !empty($values['placed']['min']))) {
+      $form_state->setErrorByName('placed', 'Both Start date and End date must be selected.');
+    }
+
+    if (isset($values['placed']['min']) && isset($values['placed']['max'])) {
+      if (strtotime($values['placed']['min']) > strtotime($values['placed']['max'])) {
+        $form_state->setErrorByName('placed', 'Start Date cannot be a date after End Date.');
+      }
+    }
+  }
+}

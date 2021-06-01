@@ -1,0 +1,5 @@
+jbs_commerce_import_product_data.admin_config:
+  title: 'JBS Commerce Import Product Data Config'
+  parent: system.admin_config
+  description: 'Import Product Data'
+  route_name: jbs_commerce_import_product_data.admin_config

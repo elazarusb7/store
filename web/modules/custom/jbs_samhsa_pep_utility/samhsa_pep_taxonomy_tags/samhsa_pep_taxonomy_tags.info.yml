@@ -1,0 +1,8 @@
+name: SAMHSA PEP Taxonomy Tags
+type: module
+description: Module to provide a one-time migration and mapping of Tags to proper Taxonomy vocabularies
+# core: 8.x
+dependencies:
+  - redirect
+core: '8.x'
+package: 'SAMHSA PEP Custom'

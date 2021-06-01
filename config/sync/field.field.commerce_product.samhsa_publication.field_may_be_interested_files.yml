@@ -1,0 +1,27 @@
+uuid: 56817430-71c2-433b-a9d4-cd3aca6d9afc
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_may_be_interested_files
+  module:
+    - file
+id: commerce_product.samhsa_publication.field_may_be_interested_files
+field_name: field_may_be_interested_files
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'You May Also Be Interested Files'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: also_interested_in_files
+  file_extensions: 'pdf doc docx xls xlsx txt epub mobi ppt pptx'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

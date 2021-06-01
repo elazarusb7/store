@@ -1,0 +1,8 @@
+uuid: c032ca08-34a8-4d88-b1f7-98ef70dae494
+langcode: en
+status: true
+dependencies: {  }
+name: 'Publication Target Audience'
+vid: publication_target_audience
+description: ''
+weight: 0

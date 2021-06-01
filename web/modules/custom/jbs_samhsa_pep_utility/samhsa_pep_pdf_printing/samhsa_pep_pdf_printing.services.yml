@@ -1,0 +1,10 @@
+services:
+  samhsa_pep_pdf_printing.label:
+    class: Drupal\samhsa_pep_pdf_printing\PdfPickSlips
+    arguments: []
+  samhsa_pep_pdf_printing.invoice:
+    class: Drupal\samhsa_pep_pdf_printing\PdfInvoice
+    arguments: []
+  samhsa_pep_pdf_printing.generate_pdf:
+    class: Drupal\samhsa_pep_pdf_printing\GeneratePdf
+    arguments: []

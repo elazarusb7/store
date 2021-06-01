@@ -1,0 +1,26 @@
+uuid: 362fc825-33bf-4fa7-a914-756c593bf949
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_order
+    - field_permissions
+third_party_settings:
+  field_permissions:
+    permission_type: public
+_core:
+  default_config_hash: xfBO3A_Hn-2zlE_itzsfMCXbd9SrfuvJeqVvqwXQkmA
+id: commerce_order_item.field_requested_quantity
+field_name: field_requested_quantity
+entity_type: commerce_order_item
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

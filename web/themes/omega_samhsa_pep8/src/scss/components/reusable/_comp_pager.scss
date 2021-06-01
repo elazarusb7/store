@@ -1,0 +1,53 @@
+.region--content {
+  .pager {
+    .pager__items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pager__item {
+      margin: 0px 4px 24px;;
+      @include breakpoint($max-width-tablet-portrait) {
+        margin: 0;
+      }
+      &--ellipsis {
+        span {
+          padding:7px 0;
+          @include breakpoint($max-width-tablet-portrait) {
+            padding: 7px 7px;
+          }
+          border: 1px solid transparent;
+        }
+        + .pager__item a {
+          border-left: 1px solid #CDCDCD;
+        }
+      }
+      a {
+        border: 1px solid $light-gray;
+        @include breakpoint($max-width-tablet-portrait) {
+          border-left:0;
+        }
+        padding: 7px 12px;
+        text-decoration: none;
+        &:hover, &:focus, &:active {
+          color: $white;
+          background-color: $blue;
+          outline: none;
+        }
+      }
+      &:first-child  {
+        a {
+          border-left: 1px solid #CDCDCD;
+        }
+      }
+      &.is-active a {
+        color: white;
+        background-color: $blue-gray;
+        font-weight: normal;
+        &:focus {
+          background-color: $black;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+entity.files_cross_reference.add_form:
+  route_name: entity.files_cross_reference.add_form
+  title: 'Add Files cross reference'
+  appears_on:
+    - entity.files_cross_reference.collection

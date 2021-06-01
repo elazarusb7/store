@@ -1,0 +1,28 @@
+version: 0.0
+os: linux
+files:
+- source: /
+  destination: /tmp/drupal
+hooks:
+  BeforeInstall:
+  - location: scripts/beforeInstall.sh
+    timeout: 3600
+    runas: root
+  AfterInstall:
+  - location: scripts/afterInstall.sh
+    timeout: 3600
+    runas: root
+version: 0.0
+os: linux
+files:
+- source: /
+  destination: /tmp/drupal
+hooks:
+  BeforeInstall:
+  - location: scripts/beforeInstall.sh
+    timeout: 3600
+    runas: root
+  AfterInstall:
+  - location: scripts/afterInstall.sh
+    timeout: 3600
+    runas: root

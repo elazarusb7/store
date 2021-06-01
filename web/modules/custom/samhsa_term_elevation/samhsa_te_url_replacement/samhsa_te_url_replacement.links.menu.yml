@@ -1,0 +1,6 @@
+samhsa_te_url_replacement.samhsa_te_url_replacement_configuration_form:
+  title: 'SAMHSA TE URL Replacement Settings'
+  route_name: samhsa_te_url_replacement.samhsa_te_url_replacement_configuration_form
+  description: 'Administrative tasks for the module SAMHSA TE URL Replacement'
+  parent: system.admin_config_system
+  weight: 99

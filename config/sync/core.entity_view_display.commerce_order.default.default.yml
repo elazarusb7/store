@@ -1,0 +1,132 @@
+uuid: 253fd69c-eab4-40d1-9d86-f281bbb63a15
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.default
+    - field.field.commerce_order.default.field_date_completed
+    - field.field.commerce_order.default.field_justification
+    - field.field.commerce_order.default.field_log
+    - field.field.commerce_order.default.field_order_source
+    - field.field.commerce_order.default.field_order_weight
+    - field.field.commerce_order.default.shipments
+  module:
+    - commerce_order
+    - datetime
+    - options
+    - physical
+    - user
+id: commerce_order.default.default
+targetEntityType: commerce_order
+bundle: default
+mode: default
+content:
+  completed:
+    label: above
+    type: timestamp
+    weight: 6
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_date_completed:
+    weight: 8
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'Y-m-d\TH:i:s'
+    third_party_settings: {  }
+    type: datetime_custom
+    region: content
+  field_justification:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_log:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_order_source:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_order_weight:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: physical_measurement_default
+    region: content
+  ip_address:
+    label: above
+    type: string
+    weight: 4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  mail:
+    label: above
+    type: email_mailto
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  order_items:
+    type: commerce_order_item_table
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  order_number:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  placed:
+    label: above
+    type: timestamp
+    weight: 5
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  state:
+    label: above
+    type: list_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    label: above
+    type: author
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  billing_profile: true
+  changed: true
+  search_api_excerpt: true
+  shipments: true
+  store_id: true
+  total_paid: true
+  total_price: true

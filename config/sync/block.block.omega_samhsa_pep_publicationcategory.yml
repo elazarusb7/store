@@ -1,0 +1,35 @@
+uuid: 906184b0-5c17-4745-a0c2-0d8c5c7972a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.publication_category
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - omega_samhsa_pep
+id: omega_samhsa_pep_publicationcategory
+theme: omega_samhsa_pep
+region: sidebar_second
+weight: -21
+provider: null
+plugin: 'facet_block:publication_category'
+settings:
+  id: 'facet_block:publication_category'
+  label: 'Publication category'
+  provider: facets
+  label_display: '0'
+  block_id: omega_samhsa_pep_publicationcategory
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

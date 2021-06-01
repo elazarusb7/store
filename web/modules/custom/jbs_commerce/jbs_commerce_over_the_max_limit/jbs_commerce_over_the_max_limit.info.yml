@@ -1,0 +1,5 @@
+name: 'JBS Commerce Over The Limit Check'
+type: module
+description: 'When Product added to the cart, check if over the max limit.'
+core: 8.x
+package: 'Custom'

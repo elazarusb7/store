@@ -1,0 +1,134 @@
+// Search SAMHSA
+//==========================================================================
+//almost all the style will be used form mindbreeze module
+//Mobile Search button
+
+#search-toggle{
+  text-decoration: none;
+  font-size: 32px;
+  text-align: center;
+  color: $white;
+  width: 65px;
+  height: 65px;
+  background-color: $blue-gray;
+  position: relative;
+  left: 5px;
+  &:hover{
+    background-color: $lighter-gray;
+    .search-icon{
+      fill: $teal;
+    }
+  }
+  &.open{
+    background-color: $lighter-gray;
+    color: $teal;
+   .search-icon{
+      fill: $teal;
+    }
+  }
+   svg.search-icon {
+    fill: $white;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 17px;
+  }
+ /* .samhsa-icons-magnify {
+    line-height: 2.5;
+  }*/
+}
+
+// We are going to absolutely position the submit button so that the search field can take up the rest of the space
+// The padding-left on the form is what sets the space for the submit button
+
+.search-form-wrapper{
+  overflow: hidden;
+  border-top: 1px solid $black;
+  padding: $gutters;
+  background-color: $lighter-gray; 
+  border-top-color: $lighter-gray; 
+  form{
+    margin: 0 auto;
+    padding: 0 5.5em 0 0;
+    position: relative;
+    max-width: 450px;
+    width: 100%;
+  } 
+  button{
+    padding: 0 1.2em;
+  } 
+  @include breakpoint ($break-mobile-landscape){
+    border-top: none;
+    padding: 0; 
+    background-color: transparent;   
+    form{
+      margin: 1em 0;
+      padding: 0 5.5em 0 2em;
+      float: right;
+    }
+  }
+  
+  //resets
+  input,
+  button,
+  label{
+    margin: 0;
+  }  
+  label{
+    font-weight: $weight-regular;
+  }
+  .samhsasearchbox{
+    height: 33px;        
+    @include breakpoint ($break-mobile-landscape){
+      width:77%;
+      float: right;
+    }
+  }
+  
+  //positioning the submit button
+  .samhsasearchbutton{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 1px;
+    height: 33px;
+    img {
+      position: relative;
+      top: 3px;
+    }
+  }  
+  .search_radio{
+    position: absolute;
+    top: -1px;
+    text-align: right;
+    line-height: 1.2;
+  }
+  
+  //Variation when the radio buttons are visible
+  form.with-radios{
+    padding-right: 14em;    
+    .search_radio{
+      right: 6em;
+    }
+  }
+  
+  //Variation when the search button uses an icon
+  form.use-search-icon{
+    padding-right: 2.6em;    
+    //And it has the radios
+    &.with-radios{
+      padding-right: 11.5em;      
+      .search_radio{
+        right: 3.5em;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+

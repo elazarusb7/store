@@ -1,0 +1,5 @@
+samhsa_theme_block_pep8.settings:
+  title: 'SAMHSA Theme Blocks settings'
+  description: 'Enable/Disable individual Theme Blocks and configure Search'
+  parent: system.admin_config_system
+  route_name: 'samhsa_theme_block_pep8.settings'

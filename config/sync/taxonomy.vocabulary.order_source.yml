@@ -1,0 +1,8 @@
+uuid: 1da918e7-e6e9-4782-b389-991ecdd1d21c
+langcode: en
+status: true
+dependencies: {  }
+name: 'Order Source'
+vid: order_source
+description: 'Source of the order'
+weight: 0

@@ -1,0 +1,262 @@
+/**
+ * For aria.accordion.js
+ */
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+/**
+ * Accordion container element
+ */
+.accordion {
+	list-style: none;
+	margin: $gutters*1.5 0;
+	padding: 0;
+}
+
+.accordion > li {
+	margin: 0;
+}
+
+/**
+ * Add zero-width space. needed to ensure Safari + VO respect list semantics.
+ * Set the before content to position absolute to negate any visible space
+ * the before content could add to the document.
+ */
+.accordion > li:before {
+	content: "\200B";
+	position: absolute;
+}
+
+/**
+ * Accordion Heading
+ */
+.accordion__heading {
+	margin: 0;
+}
+h2.accordion__heading {
+	
+}
+
+.accordion__trigger {
+	-webkit-appearance: none;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	color: $blue;
+	cursor: pointer;
+	display: block;
+	font-size: inherit;
+	margin: 0;
+	padding: 0 0 0 $gutters*2;
+	position: relative;
+	text-align: left;
+	width: 100%;
+	z-index: 2;
+}
+
+.accordion__trigger:after, details summary:after {
+  transition: transform $base-duration $base-timing;
+  transform: rotate(90deg);
+  bottom: 0;
+  content: '';
+  height: 22px;
+  border-radius: 50%;
+  background-color: $light-gray;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.806 7.129a.485.485 0 01-.483.484h-3.71v3.71a.485.485 0 01-.484.483H4.871a.485.485 0 01-.484-.483v-3.71H.677a.485.485 0 01-.483-.484V4.871c0-.266.217-.484.483-.484h3.71V.677c0-.266.218-.483.484-.483h2.258c.266 0 .484.217.484.483v3.71h3.71c.266 0 .483.218.483.484v2.258z' fill='%234A4A4A' fill-rule='evenodd'/%3E%3C/svg%3E");
+  margin: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: white;
+  width: 22px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px;
+}
+
+.accordion__trigger:hover:after,
+.accordion__trigger:focus:after, details summary:hover:after, details summary:focus:after {
+	background-color: $medium-gray;
+}
+
+.accordion__trigger[aria-expanded="true"]:after, details[open] summary:after {
+background-image: url("data:image/svg+xml,%3Csvg width='12' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.677 3.613a.485.485 0 01-.483-.484V.871C.194.605.41.387.677.387h10.646c.266 0 .483.218.483.484v2.258a.485.485 0 01-.483.484H.677z' fill='%234A4A4A' fill-rule='evenodd'/%3E%3C/svg%3E");
+	transform: rotate(0deg);
+}
+
+/**
+ * This is needed to allow a double tap iOS 11
+ * Safari + VO to function correctly, if there
+ * are multiple elements (wrapper spans) to layout
+ * text nodes within the accordion button.
+
+	-- This is not needed if a button only contains text
+	   and no other child nodes wrapping the text --
+
+.accordion__trigger > * {
+	pointer-events: none;
+}
+ */
+
+.accordion__trigger:hover,
+.accordion__trigger:focus {
+	background-color: transparent;
+	color: $blue-gray;
+	outline: none;
+	border: none;
+}
+
+.accordion__trigger:focus {
+	// box-shadow: inset 0 0 0 2px #1e82d1;
+}
+
+.accordion__trigger[aria-disabled="true"]:hover {
+	background-color: transparent;
+	color: black;
+	cursor: not-allowed;
+	border: none;
+}
+
+.accordion__trigger[aria-disabled="true"]:focus {
+	background-color: transparent;
+}
+
+.accordion__panel {
+	background-color: inherit;
+	max-height: 0vh;
+	overflow: hidden;
+	padding: 0;
+	position: relative;
+	// visibility: hidden;
+	z-index: 1;
+	> div.views-row {
+		margin: $gutters/1.5 0;
+		&:first-child {
+			margin-top: $gutters/2;
+		}
+	}
+}
+
+.accordion__panel--transition {
+	transition:
+		max-height $base-duration $base-timing,
+		padding-top $base-duration $base-timing,
+		padding-bottom $base-duration $base-timing;
+}
+
+.accordion__panel > :last-child {
+	margin-bottom: 0;
+}
+
+.accordion__panel[aria-hidden="false"] {
+	max-height: 500vh;
+	// overflow: auto;
+	visibility: visible;
+}
+
+.accordion__trigger[aria-expanded="true"] {
+	background: transparent;
+	// color: #fff;
+}
+
+details {
+  border: none;
+  position: relative;
+  margin-left: 30px;
+  summary {
+    list-style: none;
+    font-weight: bold;
+    padding-left: 0;
+    margin-bottom: 5px;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    &:after {
+      top: 2px;
+      margin-left: -30px;
+    }
+  }
+  &.details--list-accordion {
+    margin-left: 0;
+    summary {
+      color: $blue;
+      font-weight: normal;
+      &:after {
+        display: none;
+      }
+      &:before {
+        content: "+";
+        padding-right: 7px;
+        font-weight: bold;
+      }
+    }
+    &[open] {
+      margin-top: 0;
+      margin-bottom: 3.5em;
+      summary {
+        position: absolute;
+        bottom: -3em;
+        &:before {
+          content: "−";
+        }
+        .summary--inner {
+          display: none;
+        }
+        &:after {
+          display: inline;
+          content: "Show less files";
+          background: none;
+          width: auto;
+          margin: 0;
+          padding: 0;
+          color: $blue;
+          font-weight: normal;
+          position: relative;
+          border-radius: 0;
+          text-align: left;
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
+// Details don't work in IE, so we hide the toggle icon
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  details {
+    margin-left: 0;
+    summary {
+      &:after {
+        display: none;
+      }
+    }
+    &.details--list-accordion {
+      summary {
+        display: none;
+      }
+    }
+  }
+}
+
+@supports (-ms-ime-align:auto) {
+  details {
+    margin-left: 0;
+    summary {
+      &:after {
+        display: none;
+      }
+    }
+    &.details--list-accordion {
+      summary {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+uuid: d2158e8d-8bce-4f8d-9b07-535f078c009e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.solr_search_content
+  module:
+    - views
+  theme:
+    - omega_samhsa
+id: omega_samhsa_exposedformsolr_search_contentpage_1
+theme: omega_samhsa
+region: header
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:solr_search_content-page_1'
+settings:
+  id: 'views_exposed_filter_block:solr_search_content-page_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+visibility: {  }

@@ -1,0 +1,5 @@
+samhsa_pep_shipping:
+  title: 'SAMHSA PEP Shipping Configurations'
+  parent: system.admin_config_system
+  description: 'Configure SAMSHA PEP Shipping Configurations.'
+  route_name: samhsa_pep_shipping.settings

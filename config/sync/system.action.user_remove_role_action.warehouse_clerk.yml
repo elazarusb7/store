@@ -1,0 +1,14 @@
+uuid: fc6f0358-cb1b-4621-adfa-57d05b171397
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.warehouse_clerk
+  module:
+    - user
+id: user_remove_role_action.warehouse_clerk
+label: 'Remove the Warehouse Clerk role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: warehouse_clerk

@@ -1,0 +1,31 @@
+uuid: 71ca66cf-e30f-48a3-a614-758c2f0ce37d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
+  module:
+    - block_content
+    - mobile_device_detection
+  theme:
+    - omega_samhsa_pep
+id: feedicon
+theme: omega_samhsa_pep
+region: header
+weight: 0
+provider: null
+plugin: 'block_content:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
+settings:
+  id: 'block_content:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
+  label: 'Feed Icon'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

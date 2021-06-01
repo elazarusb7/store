@@ -1,0 +1,23 @@
+uuid: 144d62b0-0d50-4dc3-8d95-0ea24e74a07f
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - field_permissions
+    - link
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: commerce_product.field_google_play
+field_name: field_google_play
+entity_type: commerce_product
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

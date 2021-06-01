@@ -1,0 +1,10 @@
+.product-image--wrapper a {
+  background: $graydient;
+  padding: $gutters;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    box-shadow: $drop-shadow;
+  }
+}

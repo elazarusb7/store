@@ -1,0 +1,56 @@
+uuid: dad49df1-0341-4daa-9fc1-9bf861c08fcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_shipping_address
+    - profile.type.shipping_profile
+  module:
+    - address
+id: profile.shipping_profile.field_shipping_address
+field_name: field_shipping_address
+entity_type: profile
+bundle: shipping_profile
+label: 'Shipping Address'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    langcode: ''
+    country_code: US
+    administrative_area: ''
+    locality: ''
+    dependent_locality: null
+    postal_code: ''
+    sorting_code: null
+    address_line1: ''
+    address_line2: ''
+    organization: ''
+    given_name: ''
+    additional_name: null
+    family_name: ''
+default_value_callback: ''
+settings:
+  available_countries:
+    US: US
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: required
+    familyName:
+      override: required
+    addressLine1:
+      override: required
+    postalCode:
+      override: required
+    sortingCode:
+      override: hidden
+    dependentLocality:
+      override: hidden
+    locality:
+      override: required
+    administrativeArea:
+      override: required
+  fields: {  }
+field_type: address

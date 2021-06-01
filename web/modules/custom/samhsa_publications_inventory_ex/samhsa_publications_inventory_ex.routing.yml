@@ -1,0 +1,13 @@
+samhsa_publications_inventory_ex.exports.samhsa_publications_inventory:
+  path: '/exports/samhsa_publications_inventory'
+  defaults:
+    _controller: '\Drupal\samhsa_publications_inventory_ex\Controller\SamhsaPublicationInventoryExport::build'
+  requirements:
+    _permission: 'administer users'
+samhsa_publications_inventory_ex.article_batch_form:
+  path: '/exports/samhsa_publications_inventory_batch_form'
+  defaults:
+    _title: 'Publications Inventory Export Form'
+    _form: '\Drupal\samhsa_publications_inventory_ex\Form\SamhsaPublicationInventoryExportForm'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,10 @@
+entity_type_groups:
+  commerce_product:
+    default:
+      basic: basic
+      open_graph: open_graph
+      twitter_cards: twitter_cards
+    samhsa_publication:
+      basic: basic
+      open_graph: open_graph
+      twitter_cards: twitter_cards

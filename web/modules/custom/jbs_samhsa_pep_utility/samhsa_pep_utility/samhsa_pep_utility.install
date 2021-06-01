@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * samhsa_pep_utility.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_utility_install() {
+    // Create bulk order type.
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_utility_uninstall()
+{
+    Drupal::configFactory()->getEditable('samhsa_pep_utility_cancel_order')->delete();
+    Drupal::configFactory()->getEditable('samhsa_pep_utility_complete_order')->delete();
+    Drupal::configFactory()->getEditable('samhsa_pep_utility_pending')->delete();
+    Drupal::configFactory()->getEditable('samhsa_pep_utility_pick_slip_generated')->delete();
+}
+

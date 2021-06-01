@@ -1,0 +1,5 @@
+entity.samhsa_term_elevation.add_form:
+  route_name: entity.samhsa_term_elevation.add_form
+  title: 'Add SAHMSA Term Elevation Query'
+  appears_on:
+    - entity.samhsa_term_elevation.collection

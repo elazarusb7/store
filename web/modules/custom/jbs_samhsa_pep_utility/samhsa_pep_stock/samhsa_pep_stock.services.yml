@@ -1,0 +1,13 @@
+services:
+  samhsa_pep_stock.pep_stock_utility:
+    class: Drupal\samhsa_pep_stock\PepStockUtility
+    arguments: []
+  samhsa_pep_stock.route_subscriber:
+      class: Drupal\samhsa_pep_stock\Routing\RouteSubscriber
+      tags:
+        - { name: event_subscriber }
+  samhsa_pep_stock.order_events:
+      class: Drupal\samhsa_pep_stock\EventSubscriber\WarehouseOrderItemEventSubscriber
+      arguments: ['@messenger', '@string_translation']
+      tags:
+        - { name: event_subscriber }

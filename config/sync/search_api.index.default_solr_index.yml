@@ -1,0 +1,289 @@
+uuid: 838e6eb5-6d45-46a2-8d35-a020efe5af0c
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_solr
+    - commerce_product
+    - search_api
+    - search_api_attachments
+  config:
+    - field.storage.commerce_product.field_audience
+    - field.storage.commerce_product.body
+    - field.storage.commerce_product.field_featured
+    - field.storage.commerce_product.field_format
+    - field.storage.commerce_product.field_issues_conditions_and_diso
+    - field.storage.commerce_product.field_pub_lang
+    - field.storage.commerce_product.field_location
+    - field.storage.commerce_product.field_population_group
+    - field.storage.commerce_product.field_professional_and_research_
+    - field.storage.commerce_product.field_publication_category
+    - field.storage.commerce_product.field_publication_date
+    - field.storage.commerce_product.field_pub_target_audience
+    - field.storage.commerce_product.field_samhsa_digital_download
+    - field.storage.commerce_product.field_series
+    - field.storage.commerce_product.field_substances
+    - field.storage.commerce_product.field_treatment_prevention_and_r
+    - search_api.server.default_solr_server
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: regex
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+_core:
+  default_config_hash: lcYnKd7EBuLnAdRQR3jS8E4SqChn3zAaFqUx9DdoTqA
+id: default_solr_index
+name: 'Default Solr content index'
+description: 'Default content index created by the Solr Search Defaults module'
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:commerce_product'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.commerce_product.body
+  field_audience:
+    label: Audience
+    datasource_id: 'entity:commerce_product'
+    property_path: field_audience
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_audience
+  field_featured:
+    label: Featured
+    datasource_id: 'entity:commerce_product'
+    property_path: field_featured
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_featured
+  field_format:
+    label: Format
+    datasource_id: 'entity:commerce_product'
+    property_path: field_format
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_format
+  field_issues_conditions_and_diso:
+    label: 'Issues, Conditions and Disorders'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_issues_conditions_and_diso
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_issues_conditions_and_diso
+  field_location:
+    label: Location
+    datasource_id: 'entity:commerce_product'
+    property_path: field_location
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_location
+  field_population_group:
+    label: 'Population Group'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_population_group
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_population_group
+  field_professional_and_research_:
+    label: 'Professional and Research Topics'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_professional_and_research_
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_professional_and_research_
+  field_pub_lang:
+    label: Language
+    datasource_id: 'entity:commerce_product'
+    property_path: field_pub_lang
+    type: string
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_pub_lang
+  field_pub_target_audience:
+    label: 'Publication Target Audience'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_pub_target_audience
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_pub_target_audience
+  field_publication_category:
+    label: 'Publication category'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_publication_category
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_publication_category
+  field_publication_date:
+    label: 'Publication Date'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_publication_date
+    type: date
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_publication_date
+  field_samhsa_digital_download:
+    label: 'SAMHSA Digital Download'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_samhsa_digital_download
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_samhsa_digital_download
+  field_series:
+    label: Series
+    datasource_id: 'entity:commerce_product'
+    property_path: field_series
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_series
+  field_substances:
+    label: Substances
+    datasource_id: 'entity:commerce_product'
+    property_path: field_substances
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_substances
+  field_treatment_prevention_and_r:
+    label: 'Treatment, Prevention and Recovery'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_treatment_prevention_and_r
+    type: integer
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_treatment_prevention_and_r
+  saa_field_samhsa_digital_download:
+    label: 'Search api attachments: SAMHSA Digital Download'
+    property_path: saa_field_samhsa_digital_download
+    type: text
+  sku:
+    label: 'Variations » Product variation » SKU'
+    datasource_id: 'entity:commerce_product'
+    property_path: 'variations:entity:sku'
+    type: text
+    dependencies:
+      module:
+        - commerce_product
+        - commerce_product
+        - commerce_product
+  spellcheck:
+    label: Spellcheck
+    property_path: aggregated_field
+    type: solr_text_spellcheck
+    configuration:
+      type: concat
+      fields:
+        - 'entity:commerce_product/body'
+        - 'entity:commerce_product/title'
+        - saa_field_samhsa_digital_download
+  status:
+    label: Published
+    datasource_id: 'entity:commerce_product'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - commerce_product
+  title:
+    label: Title
+    datasource_id: 'entity:commerce_product'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - commerce_product
+datasource_settings:
+  'entity:commerce_product':
+    bundles:
+      default: false
+      selected:
+        - samhsa_publication
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url:
+    weights:
+      preprocess_index: -30
+  aggregated_field:
+    weights:
+      add_properties: 20
+  entity_status: {  }
+  file_attachments:
+    excluded_extensions: 'aif art avi bmp gif ico mov oga ogv png psd ra ram rgb flv'
+    number_indexed: 0
+    number_first_bytes: '0'
+    max_filesize: '0'
+    excluded_private: 1
+    excluded_mimes: 'audio/x-aiff image/x-jg video/x-msvideo image/x-ms-bmp image/gif image/vnd.microsoft.icon video/quicktime audio/ogg video/ogg image/png image/x-photoshop audio/x-realaudio audio/x-pn-realaudio image/x-rgb video/x-flv'
+  highlight:
+    highlight: always
+    highlight_partial: false
+    excerpt: true
+    excerpt_length: 256
+    exclude_fields: {  }
+    prefix: '<strong>'
+    suffix: '</strong>'
+    weights:
+      postprocess_query: 0
+  language_with_fallback: {  }
+  rendered_item:
+    weights:
+      add_properties: 0
+      pre_index_save: -10
+  solr_date_range:
+    weights:
+      preprocess_index: 0
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: default_solr_server

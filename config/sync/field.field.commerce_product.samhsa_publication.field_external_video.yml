@@ -1,0 +1,28 @@
+uuid: 4b08cb54-77f5-4ff2-afec-f45daf4779ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_external_video
+    - media.type.remote_video
+id: commerce_product.samhsa_publication.field_external_video
+field_name: field_external_video
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'External Video'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      remote_video: remote_video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

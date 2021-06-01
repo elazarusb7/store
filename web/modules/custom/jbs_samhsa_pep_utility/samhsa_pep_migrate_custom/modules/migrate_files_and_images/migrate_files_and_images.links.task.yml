@@ -1,0 +1,21 @@
+# Files cross reference routing definition
+files_cross_reference.settings_tab:
+  route_name: files_cross_reference.settings
+  title: 'Settings'
+  base_route: files_cross_reference.settings
+entity.files_cross_reference.canonical:
+  route_name: entity.files_cross_reference.canonical
+  base_route: entity.files_cross_reference.canonical
+  title: 'View'
+
+entity.files_cross_reference.edit_form:
+  route_name: entity.files_cross_reference.edit_form
+  base_route: entity.files_cross_reference.canonical
+  title: Edit
+
+entity.files_cross_reference.delete_form:
+  route_name:  entity.files_cross_reference.delete_form
+  base_route:  entity.files_cross_reference.canonical
+  title: Delete
+  weight: 10
+

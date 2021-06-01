@@ -1,0 +1,17 @@
+// the "display results #-# of ###" text
+.product-search--results {
+  .view-header {
+    font-size: 1.6rem;
+  }
+  .product-card {
+    border-top: 1px solid $light-gray;
+    padding-top: 1.5em;
+    .views-field-field-title {
+      font-size: 2rem;
+    }
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+}

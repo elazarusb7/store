@@ -1,0 +1,31 @@
+uuid: 8d080aee-65aa-4227-9973-0844eb6ab4f8
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:99223e64-4029-4e47-beb8-56a6e5d951ed'
+  module:
+    - block_content
+    - system
+  theme:
+    - bartik
+id: requiredfieldstext
+theme: bartik
+region: content
+weight: -4
+provider: null
+plugin: 'block_content:99223e64-4029-4e47-beb8-56a6e5d951ed'
+settings:
+  id: 'block_content:99223e64-4029-4e47-beb8-56a6e5d951ed'
+  label: 'Required Fields Text  '
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /user/register
+    negate: false
+    context_mapping: {  }

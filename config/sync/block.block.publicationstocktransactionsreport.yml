@@ -1,0 +1,37 @@
+uuid: e9b14f66-4da6-44a0-b978-1b699d3a2ba1
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:01856660-d057-4308-9d90-f4e75adf8303'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - seven
+id: publicationstocktransactionsreport
+theme: seven
+region: highlighted
+weight: 0
+provider: null
+plugin: 'block_content:01856660-d057-4308-9d90-f4e75adf8303'
+settings:
+  id: 'block_content:01856660-d057-4308-9d90-f4e75adf8303'
+  label: 'Publication Stock Transactions Report'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /admin/commerce/config/stock/transactions2
+    negate: false
+    context_mapping: {  }
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

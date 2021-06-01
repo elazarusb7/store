@@ -1,0 +1,5 @@
+name: SAMSHA PEP Drush Migrate Stock
+description: Provides drush command to migrate stock commerce field.
+core: 8.x
+type: module
+package: SAMHSA

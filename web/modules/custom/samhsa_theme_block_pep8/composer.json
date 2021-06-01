@@ -1,0 +1,12 @@
+{
+	"name" : "samhsa/samhsa_theme_block_pep8",
+	"type" : "drupal-custom-module",
+	"description" : "Drupal 8 block creation module for MentalHealth.gov.",
+	"keywords" : [
+		"SAMHSA",
+		"modules",
+		"themes",
+		"drupal"
+	],
+	"license" : "GPL-2.0+"
+}

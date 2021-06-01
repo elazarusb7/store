@@ -1,0 +1,74 @@
+uuid: 883c9bb4-386a-480a-85dc-ab6722d4fff1
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.default
+    - field.field.commerce_product_variation.default.field_available_quantity
+    - field.field.commerce_product_variation.default.field_location_pallet
+    - field.field.commerce_product_variation.default.field_pallet_location
+    - field.field.commerce_product_variation.default.weight
+  module:
+    - commerce_stock_field
+    - physical
+_core:
+  default_config_hash: dDLA40Axom_QFA79EWUpe_bWXWE8I_7MijzPkslbVfA
+id: commerce_product_variation.default.default
+targetEntityType: commerce_product_variation
+bundle: default
+mode: default
+content:
+  commerce_stock_always_in_stock:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_available_quantity:
+    weight: 2
+    settings:
+      custom_transaction_note: false
+      default_transaction_note: 'Transaction issued by stock level field.'
+      step: '1'
+    third_party_settings: {  }
+    type: commerce_stock_level_simple_transaction
+    region: content
+  field_pallet_location:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  sku:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  status:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  weight:
+    type: physical_measurement_default
+    weight: 1
+    region: content
+    settings:
+      default_unit: oz
+      allow_unit_change: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_location_pallet: true
+  langcode: true
+  list_price: true
+  price: true
+  uid: true

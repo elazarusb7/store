@@ -1,0 +1,28 @@
+id: custom_taxonomy_term_d7
+label: Drupal 7 taxonomy terms
+migration_group: custom
+dependencies:
+  enforced:
+    module:
+      - samhsa_pep_migrate_custom
+source:
+  plugin: custom_taxonomy_term_d7
+process:
+  tid: tid
+  vid:
+    plugin: migration
+    migration: custom_taxonomy_vocabulary_d7
+    source: vid
+  name: name
+  description: description
+  weight: weight
+  parent:
+    -
+      plugin: migration
+      migration: custom_taxonomy_term_d7
+  changed: timestamp
+destination:
+  plugin: entity:taxonomy_term
+migration_dependencies:
+  required:
+    - custom_taxonomy_vocabulary_d7

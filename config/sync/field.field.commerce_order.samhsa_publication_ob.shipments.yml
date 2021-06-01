@@ -1,0 +1,23 @@
+uuid: f73ac089-3a5e-487b-8741-97c16b66ba1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.samhsa_publication_ob
+    - field.storage.commerce_order.shipments
+_core:
+  default_config_hash: GfLB-49VuDSso4xDiyIy_QfBwASTsmrw9Y9-xn6VRO0
+id: commerce_order.samhsa_publication_ob.shipments
+field_name: shipments
+entity_type: commerce_order
+bundle: samhsa_publication_ob
+label: Shipments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: null
+settings:
+  handler: 'default:commerce_shipment'
+  handler_settings: {  }
+field_type: entity_reference

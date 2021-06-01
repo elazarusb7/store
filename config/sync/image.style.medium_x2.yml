@@ -1,0 +1,23 @@
+uuid: 0d1b822f-5d17-4020-b373-9c48d782ba50
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_style_quality
+name: medium_x2
+label: 'Medium (220×220) x2'
+effects:
+  4bd98b8e-a773-43ee-9724-5c8ca2c093b7:
+    uuid: 4bd98b8e-a773-43ee-9724-5c8ca2c093b7
+    id: image_scale
+    weight: 1
+    data:
+      width: 440
+      height: 440
+      upscale: false
+  181dea71-76bc-404b-9f64-c114de64cd8d:
+    uuid: 181dea71-76bc-404b-9f64-c114de64cd8d
+    id: image_style_quality
+    weight: 2
+    data:
+      quality: 40

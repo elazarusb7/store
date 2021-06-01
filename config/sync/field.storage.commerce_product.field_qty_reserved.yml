@@ -1,0 +1,20 @@
+uuid: 1ce8888c-2bf1-4b02-af15-f7414c3b7179
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_qty_reserved
+field_name: field_qty_reserved
+entity_type: commerce_product
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

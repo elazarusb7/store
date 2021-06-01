@@ -1,0 +1,27 @@
+// PLEASE REMEMBER TO USE PROPER NAMING CONVENTIONS FOR FILES!!!
+// Partial should be named: _component_foldername_file-name.scss
+// For example: src/scss/component/header/_component_header_site-branding.scss
+
+// Layout: discrete, reusable UI elements.
+// Minor layout components - Blocks, menus, callouts
+//==========================================================================
+//@import "../config/*.scss"; //YOU MUST INCLUDE THIS IF YOU ARE IMPORTING ANYTHING BELOW!!!
+
+
+// Choose how you want to import your partials
+// ONLY USE 1 OF THE 2 OPTIONS!
+//==========================================================================
+
+// Option 1: import all partials alphabetically by folder/filename
+//==========================================================================
+//@import "*.scss";
+
+// Option 2: import files one at a time in the order you decide
+// Below is an example of loading 2 partials
+//==========================================================================
+//@import "content/*.scss";
+//@import "footer/*.scss";
+//@import "header/*.scss";
+//@import "prefaces/*.scss";
+//@import "reusable/*.scss";
+//@import "sidebars/*.scss";

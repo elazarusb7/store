@@ -1,0 +1,37 @@
+uuid: 444f0654-14c0-4eab-bd9d-b51fe21c73a5
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - omega_samhsa_pep
+id: subsitetitle
+theme: omega_samhsa_pep
+region: preface_third
+weight: -16
+provider: null
+plugin: 'block_content:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
+settings:
+  id: 'block_content:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
+  label: 'Subsite Title'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

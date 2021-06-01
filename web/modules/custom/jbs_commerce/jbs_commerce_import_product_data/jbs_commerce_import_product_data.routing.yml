@@ -1,0 +1,7 @@
+jbs_commerce_import_product_data.admin_config:
+  path: '/admin/config/import_product_data'
+  defaults:
+    _form: '\Drupal\jbs_commerce_import_product_data\Form\ImportProductDataForm'
+    _title: 'Import Product Data'
+  requirements:
+    _permission: 'administer site configuration'

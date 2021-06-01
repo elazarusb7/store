@@ -1,0 +1,25 @@
+uuid: c7261db5-8f7b-47a5-8f43-9fc984632c89
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - samhsa_theme_block_pep8
+  theme:
+    - omega_samhsa_pep
+third_party_settings:
+  block_class:
+    classes: mono-bar
+id: monobar
+theme: omega_samhsa_pep
+region: header_top
+weight: -10
+provider: null
+plugin: mono_bar_block
+settings:
+  id: mono_bar_block
+  label: 'Mono Bar'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility: {  }

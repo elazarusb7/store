@@ -1,0 +1,6 @@
+samhsa_pep_cart.settings:
+  path: '/admin/config/content/samhsa-pep-cart'
+  defaults:
+    _form: '\Drupal\samhsa_pep_cart\Form\CartSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

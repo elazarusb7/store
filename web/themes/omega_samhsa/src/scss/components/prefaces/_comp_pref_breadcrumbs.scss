@@ -1,0 +1,27 @@
+// Preface
+//--------------------------------------------------------------
+
+// This region houses the breadcrumbs and share block
+
+.region--preface-second{  
+  .breadcrumb-block{
+    display: none;
+  }
+  @include breakpoint ($break-mobile-landscape){
+    overflow: hidden;   
+    .breadcrumb-block{
+      float: left;
+      padding: $gutters 0 0 $gutters;
+      display: block;
+      width: calc(100% - 200px);
+      .breadcrumb {
+        padding-bottom: 0.5em;
+        font-size: 12px;
+        a{
+          font-weight: bold;
+          text-decoration: none;
+        }
+      }      
+    }
+  }
+}

@@ -1,0 +1,8 @@
+uuid: 5a7a950a-3910-4548-9d16-76c3372b9778
+langcode: en
+status: true
+dependencies: {  }
+name: 'Product Locations'
+vid: pallet_location
+description: ''
+weight: 0

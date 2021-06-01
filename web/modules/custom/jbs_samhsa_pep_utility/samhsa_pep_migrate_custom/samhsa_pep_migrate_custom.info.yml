@@ -1,0 +1,9 @@
+name: SAMHSA PEP Custom Migration
+description: SAMHSA PEP Custom migration module for migrating data from a Drupal 7 site.
+package: Migration
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_drupal
+  #- migrate_files_and_images

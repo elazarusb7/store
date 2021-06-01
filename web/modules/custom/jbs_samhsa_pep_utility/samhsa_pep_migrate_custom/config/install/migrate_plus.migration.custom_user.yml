@@ -1,0 +1,67 @@
+id: custom_user_d7
+label: Custom user migration
+migration_group: custom
+
+dependencies:
+  enforced:
+    module:
+      - samhsa_pep_migrate_custom
+
+source:
+  plugin: custom_user_d7
+  target: db_migration
+
+destination:
+  plugin: entity:user
+
+process:
+  uid: uid
+  name: name
+  pass: pass
+  mail: mail
+  status: status
+  created: created
+  changed: changed
+  access: access
+  login: login
+  timezone: timezone
+  langcode:
+     plugin: default_value
+     default_value: en
+  preferred_langcode: language
+  preferred_admin_langcode: language
+  init: init
+  field_first_name: field_first_name
+  field_last_name: field_last_name
+  field_organization: field_organization
+  field_phone_number: field_phone_number
+  field_rejected_user: field_rejected_user
+  field_date_approved: field_date_approved
+  field_country_hidden: field_country_hidden
+  field_city: city
+  field_country: country
+  field_postal_code: postal_code
+  field_province: province
+  field_street: street
+  field_additional: additional
+  field_address/langcode:
+      plugin: default_value
+      default_value: en
+  field_address/country_code: address_country
+  field_address/administrative_area: address_province
+  field_address/locality: address_city
+  field_address/postal_code: address_postal_code
+  field_address/address_line1: address_street
+  field_address/address_line2: address_additional
+  roles:
+      plugin: static_map
+      bypass: true
+      source: roles
+      map:
+        3: administrator
+        2: authenticated
+        4: author
+        5: research_admin
+        6: data_admin
+        1: anonymous
+

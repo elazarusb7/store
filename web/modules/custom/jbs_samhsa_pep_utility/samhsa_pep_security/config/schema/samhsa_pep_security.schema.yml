@@ -1,0 +1,38 @@
+samhsa_pep_security.settings:
+  type: config_object
+  label: 'SAMHSA PEP User Login security settings'
+  mapping:
+    track_time:
+      type: integer
+      label: 'Track time'
+    user_wrong_count:
+      type: integer
+      label: 'Maximum number of login failures before blocking a user'
+    restore_blocked_user:
+      type: integer
+      label: 'Automatically restore blocked user'
+    disable_core_login_error:
+      type: integer
+      label: 'Disable login failure error message'
+    notice_attempts_available:
+      type: integer
+      label: 'Notify the user about the number of remaining login attempts'
+    last_login_timestamp:
+      type: integer
+      label: 'Display last login timestamp'
+    last_access_timestamp:
+      type: integer
+      label: 'Display last access timestamp'
+    notice_attempts_message:
+      type: string
+      label: 'Message to be shown on each failed login attempt'
+    user_blocked:
+      type: string
+      label: 'Message when user is blocked by uid'
+    clear_flood:
+      type: integer
+      label: 'Clear entries from flood table when clearing login attempts'
+    log_level:
+      type: integer
+      label: 'Logging level'
+

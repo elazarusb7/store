@@ -1,0 +1,59 @@
+.block-jbs-commerce-back-to-browse-block {
+  width: 100%;
+  .menu {
+    li.menu-item {
+      font-size: 1.8rem;
+      @include breakpoint(0 $max-width-mobile-portrait-large - 1) {
+        font-size: 1.6rem;
+        display: inline;
+        flex-grow: 1;
+        flex-basis: 50%;
+        &:first-child {
+          padding-right: 21px;
+        }
+        &:last-child {
+        border-left: 1px solid $light-gray;
+        padding-left: 21px;
+        }
+        &:first-child:last-child {
+          border-left: 0;
+          padding: 0;
+        }
+        &:after {
+          display: none;
+        }
+      }
+
+      a {
+        border: 1px solid $blue-gray;
+        border-radius: 3px;
+        color: $blue-gray;
+        padding: 0.3em 0.5em;
+      }
+    }
+
+      .new-search-btn a:before,
+      .return-btn a:before {
+        display: inline-block;
+        content: ' ';
+        height: 16px;
+        width: 16px;
+        margin: 0px 0.5em;
+        vertical-align: middle;
+      }
+      
+      .return-btn a:before {
+        background-image: url("../../images/icons/arrow.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .new-search-btn a:before {
+        background-image: url("../../images/icons/restart.svg");       
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+  }
+}

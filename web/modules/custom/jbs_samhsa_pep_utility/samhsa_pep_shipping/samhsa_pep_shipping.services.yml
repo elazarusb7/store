@@ -1,0 +1,6 @@
+services:
+  samhsa_pep_shipping.order_events:
+    class: Drupal\samhsa_pep_shipping\EventSubscriber\OrderEventSubscriber
+    arguments: ['@messenger', '@string_translation']
+    tags:
+      - { name: event_subscriber }

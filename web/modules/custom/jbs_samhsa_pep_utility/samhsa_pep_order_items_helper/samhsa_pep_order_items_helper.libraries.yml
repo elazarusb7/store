@@ -1,0 +1,8 @@
+samhsa_pep_order_items_helper.lib:
+  version: VERSION
+  js:
+    js/samhsa_pep_order_items_helper.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal

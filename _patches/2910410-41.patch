@@ -1,0 +1,101 @@
+diff --git a/modules/order/src/Plugin/Field/FieldWidget/UnitPriceWidget.php b/modules/order/src/Plugin/Field/FieldWidget/UnitPriceWidget.php
+index 4adbbf95..f77bb89b 100644
+--- a/modules/order/src/Plugin/Field/FieldWidget/UnitPriceWidget.php
++++ b/modules/order/src/Plugin/Field/FieldWidget/UnitPriceWidget.php
+@@ -79,7 +79,6 @@ class UnitPriceWidget extends WidgetBase {
+     $element['amount'] = [
+       '#type' => 'commerce_price',
+       '#title' => $this->fieldDefinition->getLabel(),
+-      '#required' => $this->fieldDefinition->isRequired(),
+       '#available_currencies' => array_filter($this->getFieldSetting('available_currencies')),
+     ];
+     if (!$items[$delta]->isEmpty()) {
+@@ -110,10 +109,18 @@ class UnitPriceWidget extends WidgetBase {
+     if ($values) {
+       /** @var \Drupal\commerce_order\Entity\OrderItemInterface $order_item */
+       $order_item = $items[0]->getEntity();
+-      if (!$this->getSetting('require_confirmation') || !empty($values['override'])) {
++      if (!$this->getSetting('require_confirmation') || !empty($values['override']) && is_numeric($values['amount']['number'])) {
+         $unit_price = Price::fromArray($values['amount']);
+         $order_item->setUnitPrice($unit_price, TRUE);
+       }
++      elseif ($purchased_entity = $order_item->getPurchasedEntity()) {
++        $unit_price = $purchased_entity->getPrice();
++        $order_item->setUnitPrice($unit_price, FALSE);
++      }
++      else {
++        $unit_price = new Price('0', $values['amount']['currency_code']);
++        $order_item->setUnitPrice($unit_price, FALSE);
++      }
+ 
+       // Put delta mapping in $form_state, so that flagErrors() can use it.
+       $field_state = static::getWidgetState($form['#parents'], $field_name, $form_state);
+diff --git a/modules/order/tests/src/Functional/OrderAdminTest.php b/modules/order/tests/src/Functional/OrderAdminTest.php
+index 9da1f99e..d1d64dde 100644
+--- a/modules/order/tests/src/Functional/OrderAdminTest.php
++++ b/modules/order/tests/src/Functional/OrderAdminTest.php
+@@ -68,6 +68,7 @@ class OrderAdminTest extends OrderBrowserTestBase {
+     // outcome.
+     $this->assertSame([], \Drupal::state()->get("commerce_order_test_field_widget_form_alter"));
+ 
++    // Test with overriding the price.
+     $checkbox = $this->getSession()->getPage()->findField('Override the unit price');
+     if ($checkbox) {
+       $checkbox->check();
+@@ -78,6 +79,16 @@ class OrderAdminTest extends OrderBrowserTestBase {
+       'order_items[form][inline_entity_form][unit_price][0][amount][number]' => '9.99',
+     ];
+     $this->submitForm($edit, 'Create order item');
++
++    // Test without overriding the price.
++    $this->submitForm([], t('Add new order item'));
++    $edit = [
++      'order_items[form][inline_entity_form][purchased_entity][0][target_id]' =>
++        $this->variation2->getSku() . ' (' . $this->variation2->id() . ')',
++      'order_items[form][inline_entity_form][quantity][0][value]' => '1',
++    ];
++    $this->submitForm($edit, 'Create order item');
++
+     $this->submitForm([], t('Edit'));
+     $this->assertSession()->fieldExists('order_items[form][inline_entity_form][entities][0][form][purchased_entity][0][target_id]');
+     $this->assertSession()->fieldExists('order_items[form][inline_entity_form][entities][0][form][quantity][0][value]');
+@@ -123,8 +134,8 @@ class OrderAdminTest extends OrderBrowserTestBase {
+     $this->assertEquals(1, count($order_number), 'Order exists in the table.');
+ 
+     $order = Order::load(1);
+-    $this->assertEquals(1, count($order->getItems()));
+-    $this->assertEquals(new Price('5.33', 'USD'), $order->getTotalPrice());
++    $this->assertEquals(2, count($order->getItems()));
++    $this->assertEquals(new Price('6.33', 'USD'), $order->getTotalPrice());
+     $this->assertCount(1, $order->getAdjustments());
+   }
+ 
+diff --git a/modules/order/tests/src/Functional/OrderBrowserTestBase.php b/modules/order/tests/src/Functional/OrderBrowserTestBase.php
+index 97216422..1e0c8945 100644
+--- a/modules/order/tests/src/Functional/OrderBrowserTestBase.php
++++ b/modules/order/tests/src/Functional/OrderBrowserTestBase.php
+@@ -55,13 +55,23 @@ abstract class OrderBrowserTestBase extends CommerceBrowserTestBase {
+       ],
+     ]);
+ 
++    // Create a product variation.
++    $this->variation2 = $this->createEntity('commerce_product_variation', [
++      'type' => 'default',
++      'sku' => $this->randomMachineName(),
++      'price' => [
++        'number' => 1,
++        'currency_code' => 'USD',
++      ],
++    ]);
++
+     // We need a product too otherwise tests complain about the missing
+     // backreference.
+     $this->createEntity('commerce_product', [
+       'type' => 'default',
+       'title' => $this->randomMachineName(),
+       'stores' => [$this->store],
+-      'variations' => [$this->variation],
++      'variations' => [$this->variation, $this->variation2],
+     ]);
+   }
+ 

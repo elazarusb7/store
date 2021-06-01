@@ -1,0 +1,33 @@
+uuid: 14fa9eef-ce41-42bb-95c4-4b39d195bc88
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - system
+    - views_exposed_filter_blocks
+  theme:
+    - omega_samhsa_pep
+id: viewsexposedfilterblock
+theme: omega_samhsa_pep
+region: sidebar_first
+weight: -21
+provider: null
+plugin: views_exposed_filter_blocks_block
+settings:
+  id: views_exposed_filter_blocks_block
+  label: 'Views exposed filter block'
+  provider: views_exposed_filter_blocks
+  label_display: '0'
+  view_display: 'solr_search_content:block_1'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

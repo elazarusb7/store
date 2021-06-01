@@ -1,0 +1,5 @@
+samhsa_pep_security.admin:
+  title: SAMHSA PEP Enhanced Security
+  description: 'SAMHSA PEP enhanced security options settings.'
+  parent: user.admin_index
+  route_name: samhsa_pep_security_settings

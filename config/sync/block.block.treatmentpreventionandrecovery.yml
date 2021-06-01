@@ -1,0 +1,23 @@
+uuid: a593b444-3492-4d80-a8dc-aa46f18fc36b
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.treatment_prevention_and_recovery
+  module:
+    - facets
+  theme:
+    - bartik
+id: treatmentpreventionandrecovery
+theme: bartik
+region: sidebar_first
+weight: -6
+provider: null
+plugin: 'facet_block:treatment_prevention_and_recovery'
+settings:
+  id: 'facet_block:treatment_prevention_and_recovery'
+  label: 'Treatment, Prevention and Recovery'
+  provider: facets
+  label_display: '0'
+  block_id: treatmentpreventionandrecovery
+visibility: {  }

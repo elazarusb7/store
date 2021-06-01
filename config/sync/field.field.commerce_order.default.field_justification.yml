@@ -1,0 +1,21 @@
+uuid: 69b04f5e-3a5b-4f59-bdf1-f1575fa4ab8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.default
+    - field.storage.commerce_order.field_justification
+_core:
+  default_config_hash: uLOmEgZN5ZGchcW1nv6IEtMgVbZWTpWIlNJFjzvBuy4
+id: commerce_order.default.field_justification
+field_name: field_justification
+entity_type: commerce_order
+bundle: default
+label: 'Order Justification'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

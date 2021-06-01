@@ -1,0 +1,10 @@
+uuid: edf128cd-4520-494e-8a38-769eed4f5ab7
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.product_card
+label: 'Product Card'
+targetEntityType: commerce_product
+cache: true

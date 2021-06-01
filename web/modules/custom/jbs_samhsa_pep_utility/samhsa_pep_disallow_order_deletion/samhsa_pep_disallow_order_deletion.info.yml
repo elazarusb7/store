@@ -1,0 +1,5 @@
+name: 'Custom SAMHSA PEP Disallow Order Deletions'
+type: module
+description: 'SAMHSA PEP Disallow Order Deletions.'
+core: 8.x
+package: 'SAMHSA PEP Custom'

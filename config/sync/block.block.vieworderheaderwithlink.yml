@@ -1,0 +1,31 @@
+uuid: 9bf24ab4-a8f9-4ce9-8878-6fd95c4ff26d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:296a20c8-0ceb-4302-a8e7-5d1b2e54a028'
+  module:
+    - block_content
+    - system
+  theme:
+    - seven
+id: vieworderheaderwithlink
+theme: seven
+region: highlighted
+weight: -4
+provider: null
+plugin: 'block_content:296a20c8-0ceb-4302-a8e7-5d1b2e54a028'
+settings:
+  id: 'block_content:296a20c8-0ceb-4302-a8e7-5d1b2e54a028'
+  label: 'View Order Header with link'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: "/admin/commerce/orders/*\r\n!/admin/commerce/orders/*/*\r\n!/admin/commerce/orders/status-*\r\n!/admin/commerce/orders/bulk\r\n!/admin/commerce/orders/carts\r\n!/admin/commerce/orders/add"
+    negate: false
+    context_mapping: {  }

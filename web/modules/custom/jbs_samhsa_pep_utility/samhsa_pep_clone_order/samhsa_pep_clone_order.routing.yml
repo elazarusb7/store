@@ -1,0 +1,7 @@
+samhsa_pep_clone_order:
+  path: '/admin/config/order_clone'
+  defaults:
+    _form: '\Drupal\samhsa_pep_clone_order\Form\SamhsaPepCloneOrderSettingsForm'
+    _title: 'Clone Order'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,5 @@
+samhsa_pep_cart:
+  title: 'SAMHSA PEP Cart Configurations'
+  parent: system.admin_config_system
+  description: 'SAMHSA PEP Cart Configurations.'
+  route_name: samhsa_pep_cart.settings

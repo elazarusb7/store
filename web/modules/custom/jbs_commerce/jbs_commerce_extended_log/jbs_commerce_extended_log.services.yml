@@ -1,0 +1,6 @@
+services:
+  jbs_commerce_extended_log.order_events:
+    class: Drupal\jbs_commerce_extended_log\EventSubscriber\OrderLogEvents
+    arguments: []
+    tags:
+      - { name: event_subscriber }

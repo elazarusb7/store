@@ -1,0 +1,11 @@
+{
+  "name" : "jbs/jbs_commerce",
+  "type" : "drupal-custom-module",
+  "description" : "Drupal 8 JBS Commerce modules",
+  "keywords" : [
+    "JBS/Commerce",
+    "modules",
+    "drupal"
+  ],
+  "license" : "GPL-2.0+"
+}

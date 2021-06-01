@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * migrate_files_and_images.install.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function migrate_files_and_images_install() {
+    $config = \Drupal::service('config.factory')->getEditable('migrate_files_and_images.settings');
+
+    // Set and save new message value.
+    $config->set('documents_path', '/sites/default/files/d7/priv/')->save();
+    $config->set('images_path', '/sites/default/files/d7/')->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function migrate_files_and_images_uninstall() {
+    Drupal::configFactory()->getEditable('migrate_files_and_images.settings')->delete();
+}

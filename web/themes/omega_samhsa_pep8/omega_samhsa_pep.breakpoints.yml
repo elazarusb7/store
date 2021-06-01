@@ -1,0 +1,43 @@
+omega_samhsa_pep.default.all:
+  label: All
+  mediaQuery: 'all and (min-width: 0px)'
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+  status: true
+  langcode: en
+  group: omega_samhsa_pep.default
+
+omega_samhsa_pep.default.narrow:
+  label: Narrow
+  mediaQuery: 'all and (min-width: 624px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 2x
+  status: true
+  langcode: en
+  group: omega_samhsa_pep.default
+
+omega_samhsa_pep.default.normal:
+  label: Normal
+  mediaQuery: 'all and (min-width: 864px)'
+  weight: 5
+  multipliers:
+    - 1x
+    - 2x
+  status: true
+  langcode: en
+  group: omega_samhsa_pep.default
+
+omega_samhsa_pep.default.wide:
+  label: Wide
+  mediaQuery: 'all and (min-width: 1000px)'
+  weight: 6
+  multipliers:
+    - 1x
+    - 2x
+  status: true
+  langcode: en
+  group: omega_samhsa_pep.default

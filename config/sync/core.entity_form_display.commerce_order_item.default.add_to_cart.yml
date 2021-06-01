@@ -1,0 +1,50 @@
+uuid: 91d2a582-21e6-4e67-a91b-b69449985411
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.default
+    - core.entity_form_mode.commerce_order_item.add_to_cart
+    - field.field.commerce_order_item.default.field_comments
+    - field.field.commerce_order_item.default.field_is_over_the_limit
+    - field.field.commerce_order_item.default.field_requested_quantity
+    - field.field.commerce_order_item.default.field_was_over_the_limit
+  enforced:
+    module:
+      - commerce_cart
+      - commerce_product
+  module:
+    - commerce_order
+    - commerce_product
+_core:
+  default_config_hash: 8dIszGyXfy-kBaUEuUEQjWjRVtfq6f8cCI0QUHIlJdc
+id: commerce_order_item.default.add_to_cart
+targetEntityType: commerce_order_item
+bundle: default
+mode: add_to_cart
+content:
+  purchased_entity:
+    type: commerce_product_variation_title
+    weight: 0
+    settings:
+      label_display: true
+      label_text: 'Please select'
+    third_party_settings: {  }
+    region: content
+  quantity:
+    type: commerce_quantity
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+      step: '1'
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_comments: true
+  field_is_over_the_limit: true
+  field_requested_quantity: true
+  field_was_over_the_limit: true
+  status: true
+  uid: true
+  unit_price: true

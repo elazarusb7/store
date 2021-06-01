@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_clone_order.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Entity\EntityForm;
+use Drupal\physical\Weight;
+use Drupal\physical\WeightUnit;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_clone_order_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_clone_order module.
+    case 'help.page.samhsa_pep_clone_order':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('SAMHSA PEP Clone Order.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+function samhsa_pep_clone_order_preprocess_breadcrumb(&$variables){
+    if(($entity = \Drupal::routeMatch()->getParameter('commerce_order')) && $variables['breadcrumb']){
+        $breadcrumbs = $variables['breadcrumb'];
+        /*$variables['breadcrumb'][] = array(
+            'text' => $entity->getTitle(),
+            'url' => $entity->URL()
+        );*/
+       // ksm($breadcrumbs);
+    }
+}
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_clone_order_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    if($form['#theme'] == "commerce_order_edit_form" &&
+        strpos($form_id, "commerce_order_") !== FALSE &&
+        strpos($form_id, "_edit_form") !== FALSE ){
+
+        //Add action button to clone order on the order edit page
+        /** @var \Drupal\Core\Entity\EntityForm $form_object */
+        $form_object = $form_state->getFormObject();
+        if ($form_object instanceof EntityForm) {
+            $order = $form_object->getEntity();
+            $state = $order->getState()->getValue()['value'];
+
+            $order_states_clone = \Drupal::config('samhsa_pep_clone_order.settings')
+                ->get('order_states');
+
+            if (in_array($state, $order_states_clone) && $order_states_clone[$state]) {
+                $form['actions']['clone'] = array(
+                    '#type' => 'submit',
+                    '#weight' => 999,
+                    '#limit_validation_errors' => array(),
+                    '#button_type' => 'danger',
+                    '#submit' => array(
+                        'samhsa_pep_order_clone_form'
+                    ),
+                    '#value' => t('Clone order'),
+                );
+            }
+        }
+
+    }
+}
+
+function samhsa_pep_order_clone_form(&$form, FormStateInterface $form_state) {
+    $entity = $form_state->getFormObject()->getEntity();
+    $comment = 'This order cloned from order#: ' . $entity->id();
+    $order_id = \Drupal::service('samhsa_pep_clone_order.pep_clone_order_functions')->cloneOrder($entity);
+    if($order_id and is_numeric($order_id)){
+        //redirect to the new order view page with the message
+        /*$option = [
+            'query' => ['order_id' => $order->id()],
+        ];
+        $url = Url::fromUri('internal:/admin/commerce/orders/', $option);*/
+        $url = Url::fromUri('internal:/admin/commerce/orders/'. $order_id);
+        $response = new RedirectResponse($url->toString());
+        $response->send();
+        \Drupal::messenger()->addMessage(t($comment), 'status', TRUE);
+        exit;
+    }
+
+}

@@ -1,0 +1,7 @@
+name: SAMHSA PEP mail functions
+type: module
+description: SAMHSA PEP mail functions
+core: 8.x
+package: SAMHSA PEP Custom
+dependencies:
+  - samhsa_pep_utility

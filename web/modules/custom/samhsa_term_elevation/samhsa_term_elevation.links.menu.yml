@@ -1,0 +1,21 @@
+
+# SAHMSA Term Elevation menu items definition
+entity.samhsa_term_elevation.collection:
+  title: 'SAHMSA Term Elevation Queries'
+  route_name: entity.samhsa_term_elevation.collection
+  description: 'List of all SAHMSA Term Elevation queries'
+  parent: system.admin_structure
+  weight: -100
+
+#samhsa_term_elevation.admin.structure.settings:
+#  title: 'SAHMSA Term Elevation entity configuration'
+#  description: 'Configure SAHMSA Term Elevation entities'
+#  route_name: samhsa_term_elevation.settings
+#  parent: system.admin_structure
+
+samhsa_term_elevation.samhsa_term_elevation_config:
+  title: 'SAMHSA Term Elevation settings'
+  route_name: samhsa_term_elevation.samhsa_term_elevation_config
+  description: 'Adminstrative tasks for SAMHSA Term Elevation'
+  parent: system.admin_config_system
+  weight: 99

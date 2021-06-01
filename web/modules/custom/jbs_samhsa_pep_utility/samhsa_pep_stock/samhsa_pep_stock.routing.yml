@@ -1,0 +1,6 @@
+samhsa_pep_stock.settings:
+  path: '/admin/config/content/samhsa-pep-stock'
+  defaults:
+    _form: '\Drupal\samhsa_pep_stock\Form\SamhsaPepStockConfigForm'
+  requirements:
+    _permission: 'administer site configuration'

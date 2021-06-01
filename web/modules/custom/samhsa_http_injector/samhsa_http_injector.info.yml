@@ -1,0 +1,5 @@
+name: 'SAMHSA HTTP Injector'
+type: module
+description: 'Allows the injection of key:value into the HTTP header.'
+core: 8.x
+package: 'SAMHSA'

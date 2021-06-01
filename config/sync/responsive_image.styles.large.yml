@@ -1,0 +1,24 @@
+uuid: 582d52f1-ffb7-45b8-aa4b-948505f85801
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.large
+    - image.style.large_x2
+  theme:
+    - omega_samhsa_pep
+id: large
+label: 'Large (480 x 480)'
+image_style_mappings:
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: large
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: large_x2
+breakpoint_group: omega_samhsa_pep.default
+fallback_image_style: large

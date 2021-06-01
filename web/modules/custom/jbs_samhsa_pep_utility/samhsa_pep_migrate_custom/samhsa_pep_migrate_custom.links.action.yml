@@ -1,0 +1,5 @@
+entity.unconverted_links.add_form:
+  route_name: entity.unconverted_links.add_form
+  title: 'Add Unconverted links'
+  appears_on:
+    - entity.unconverted_links.collection

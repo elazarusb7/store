@@ -1,0 +1,27 @@
+uuid: 905803bc-9ec8-4f59-879f-62b7fbe5f578
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_samhsa_digital_download
+  module:
+    - file
+id: commerce_product.samhsa_publication.field_samhsa_digital_download
+field_name: field_samhsa_digital_download
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Download
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: SAMHSA_Digital_Download
+  file_extensions: 'pdf epub mobi'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

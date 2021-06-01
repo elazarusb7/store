@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_justification_pane_help($route_name, RouteMatchInterface $route_match) {
+    switch ($route_name) {
+        // Main module help for the samhsa_pep_justification_pane module.
+        case 'help.page.samhsa_pep_justification_pane':
+            $output = '';
+            $output .= '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('Define SAMHSA PEP Justification Pane.') . '</p>';
+            return $output;
+
+        default:
+    }
+}
+
+/**
+ * Prepares variables for order templates.
+ *
+ * Default template: commerce-order.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing rendered fields.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function samhsa_pep_justification_pane_preprocess_commerce_order(array &$variables) {
+    /** @var Drupal\commerce_order\Entity\OrderInterface $order */
+    $order = $variables['elements']['#commerce_order'];
+    $justification = isset($order->get('field_justification')->value) ? $order->get('field_justification')->value : '';
+    $variables['order']['justification'] = $justification;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_justification_pane_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    if($form['#theme'] == "commerce_order_edit_form" &&
+        strpos($form_id, "commerce_order_") !== FALSE &&
+        strpos($form_id, "_edit_form") !== FALSE ){
+        //make justification field not editable
+        //$form['field_justification']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+}

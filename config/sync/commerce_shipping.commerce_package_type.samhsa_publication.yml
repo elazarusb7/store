@@ -1,0 +1,14 @@
+uuid: 05096710-482c-45a4-9efa-3f7afea1efc1
+langcode: en
+status: true
+dependencies: {  }
+id: samhsa_publication
+label: 'SAMHSA Publication'
+dimensions:
+  length: '11'
+  width: '8'
+  height: '0.1'
+  unit: in
+weight:
+  number: '0.00'
+  unit: lb

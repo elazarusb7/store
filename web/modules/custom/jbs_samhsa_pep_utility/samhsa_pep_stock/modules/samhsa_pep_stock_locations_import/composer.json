@@ -1,0 +1,17 @@
+{
+  "name": "drupal/samhsa_pep_stock_locations_import",
+  "description": "Drush 9 command to import stock locations.",
+  "type": "drupal-custom-module",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\samhsa_pep_stock_locations_import\\": "src/"
+    }
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  }
+}

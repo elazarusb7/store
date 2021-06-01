@@ -1,0 +1,43 @@
+uuid: d256283c-4cb6-470d-ad37-f61339be4e44
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_order
+    - field_permissions
+    - options
+third_party_settings:
+  field_permissions:
+    permission_type: custom
+id: commerce_order.field_order_source
+field_name: field_order_source
+entity_type: commerce_order
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: store
+      label: Store
+    -
+      value: internal
+      label: Internal
+    -
+      value: usps
+      label: 'USPS (Postal Mail)'
+    -
+      value: contact_center
+      label: 'Contact Center'
+    -
+      value: email
+      label: Email
+    -
+      value: other
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

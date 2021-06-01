@@ -1,0 +1,29 @@
+uuid: 9192b9af-3d46-459b-9137-17058dff8981
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_series
+    - taxonomy.vocabulary.series
+id: commerce_product.samhsa_publication.field_series
+field_name: field_series
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Series
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      series: series
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

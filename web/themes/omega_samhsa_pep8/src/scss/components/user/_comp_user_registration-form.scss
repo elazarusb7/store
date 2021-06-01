@@ -1,0 +1,12 @@
+.commerce-checkout-completion-register__form, .user-register-form {
+  max-width: 45em;
+  .form-item-completion-register-name, .form-item-completion-register-pass, .field--name-customer-profiles, .form-type-email {
+    margin-bottom: $gutters*2;
+  }
+  .form-item-completion-register-pass-pass1 {
+    margin-bottom: $gutters;
+  }
+  .form-type-tel,.form-item-completion-register-customer-profiles-0-entity-field-phone-extension-0-value, .form-item-customer-profiles-0-entity-field-phone-extension-0-value {
+    max-width: 10em;
+  } 
+}

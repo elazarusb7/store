@@ -1,0 +1,11 @@
+uuid: df87944b-0683-4a4f-935c-771ef85e1daf
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.office_or_center
+id: taxonomy_term.office_or_center
+target_entity_type_id: taxonomy_term
+target_bundle: office_or_center
+default_langcode: site_default
+language_alterable: false

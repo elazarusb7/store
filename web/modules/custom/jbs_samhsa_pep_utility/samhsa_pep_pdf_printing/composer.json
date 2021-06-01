@@ -1,0 +1,14 @@
+{
+  "name": "drupal/samhsa_pep_pdf_printing",
+  "type": "drupal-module",
+  "description": "Genegates Labels in Invoices in PDF",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/samhsa_pep_pdf_printing",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/samhsa_pep_pdf_printing",
+    "source": "http://cgit.drupalcode.org/samhsa_pep_pdf_printing"
+  },
+  "require": { }
+}

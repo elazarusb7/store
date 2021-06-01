@@ -1,0 +1,38 @@
+.file--mime-size {
+  white-space: nowrap;
+  &:before {
+    content: "(";
+  }
+  &:after {
+    content: ")";
+  }
+}
+%pep8-file-icon {
+  padding: 2px 0 $gutters/2 $gutters*2.5;
+  background-position: left top;
+  word-break: break-word;
+  display: inline-block;
+  // hyphens: auto;
+}
+.file--application-pdf {
+  @extend %pep8-file-icon;
+  background-image: url(../../images/icons/file-icon-pdf.svg);
+}
+.file--x-office-document {
+  @extend %pep8-file-icon;
+  background-image: url(../../images/icons/file-icon-doc.svg);
+}
+.file--x-office-presentation {
+   @extend %pep8-file-icon;
+  background-image: url(../../images/icons/file-icon-ppt.svg); 
+}
+
+.file--mime-application-zip {
+   @extend %pep8-file-icon;
+  background-image: url(../../images/icons/file-icon-zip.svg); 
+}
+ .field--type-file {
+  .field__item {
+    margin-bottom: $gutters/2;
+  }
+}

@@ -1,0 +1,17 @@
+samhsa_pep_pdf_printing.pep_pdf_config:
+  path: '/admin/config/samhsa-pep-pdf-printing/config'
+  defaults:
+    _form: '\Drupal\samhsa_pep_pdf_printing\Form\SamhsaPepPdfConfig'
+    _title: 'PDF Printing Settings'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+samhsa_pep_operations.download:
+  path: 'pdf-printing/download/{file_name}'
+  defaults:
+    _controller: '\Drupal\samhsa_pep_pdf_printing\Controller\DownloadPDF::execute'
+    _title: 'PDF Printing - Download'
+  requirements:
+    _permission: 'access administration pages'

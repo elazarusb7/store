@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * @file
+ * Contains jbs_commerce_over_the_max_limit.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\profile\Entity\Profile;
+use Drupal\profile\Entity\ProfileInterface;
+
+/**
+ * Implements hook_help()
+ */
+function jbs_commerce_over_the_max_limit_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jbs_commerce_extended_log module.
+    case 'help.page.jbs_commerce_extended_log':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Extends the functionality of the commerce logging system') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function jbs_commerce_over_the_max_limit_presave(EntityInterface $entity) {
+  // Check changes in the Order.
+  if ($entity instanceof OrderInterface) {
+    $transition_states = _jbs_commerce_over_the_max_limit_get_state_transition($entity);
+    // If Order is transitioning states, no custom log is necessary.
+    // That's because Commerce takes care of that.
+    if (
+      $transition_states->from != 'draft' &&
+      !$transition_states->trasitioning
+    ) {
+
+    }
+  }
+}
+
+/**
+ * Gets the order object to which a profile belongs.
+ *
+ * @param integer $profile_id
+ *   The id of the profile.
+ *
+ * @return Drupal\commerce_order\Entity\Order
+ *   Order object.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function _jbs_commerce_over_the_max_limit_get_order_from_profile($profile_id) {
+  $results = \Drupal::entityTypeManager()
+    ->getStorage('commerce_order')
+    ->loadByProperties(['billing_profile__target_id' => $profile_id]);
+  return array_shift($results);
+}
+
+/**
+ * Gets the original and new state of the transition.
+ *
+ * @param \Drupal\commerce_order\Entity\Order $order
+ *  Order object.
+ *
+ * @return object
+ *   The original state;
+ *   The new state;
+ *   The original and new state of the transition, formatted as "from-to".
+ */
+function _jbs_commerce_over_the_max_limit_get_state_transition(Order $order) {
+  $result = new stdClass();
+  $state = $order->getState();
+  $result->from = $state->getOriginalId();
+  $result->to = $state->getString();
+  $result->fromTo = sprintf('%s-%s', $result->from, $result->to);
+  $result->trasitioning = ($result->from  == $result->to) ? FALSE : TRUE;
+  return $result;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function jbs_commerce_over_the_max_limit_commerce_order_presave(Drupal\Core\Entity\EntityInterface $entity)
+{
+    /* when order is completed
+     * check if at least one item is over the max limit
+     * set order type to bulk
+     */
+    //ksm($entity->get('checkout_step')->value);
+    $original = $entity->original;
+    $state_original = '';
+    if (isset($original)) {
+        $state_original = $original->get('state')->value;
+    }
+    //only set onhold state (is bulk) when order first gets created
+    if($entity->get('checkout_step')->value == 'complete' && $state_original == "draft" ||
+        //for internally created oders
+        $entity->get('checkout_step')->value == null && $state_original == "draft" && $entity->getState()->value == "pending"){
+        $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isOrderBulk($entity);
+        $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
+        $entity->get('type')->__set('target_id', $order_type);
+        $state = $isbulk ? 'onhold' : 'pending';
+        $entity->set('state',$state);
+    }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function jbs_commerce_over_the_max_limit_commerce_order_item_presave(Drupal\Core\Entity\EntityInterface $entity)
+{
+  /* when order is completed
+   * check if at order item is over the max limit
+   * mark commerce order item as over the limit
+   */
+  $item  = $entity;
+  $order = $entity->getOrder();
+  //only set over the limit when order first gets created
+  if ($order) {
+    $state = $order->getState()->getValue()['value'];
+    if ($state == 'draft') {
+      //set requested qty field
+      $entity->set('field_requested_quantity', $item->getQuantity());
+    }
+    $over_the_limit = $entity->get('field_is_over_the_limit')->value;
+    $isItemOverTheLimit = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isItemOverTheMaxLimit($item);
+    if (isset($over_the_limit)) {
+      if ($over_the_limit != '1') {
+        $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+      }
+      else {
+        if (\Drupal::currentUser()->hasPermission('overwite order item over the limit flag')) {
+          $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+        }
+      }
+    }
+    else {
+      $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+    }
+    if ($isItemOverTheLimit) {
+      // SPO-201 - set permanent flag that this was at any time over the max limit
+      $entity->set('field_was_over_the_limit', $isItemOverTheLimit);
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{#
+/**
+* @file
+* Default theme implementation for the completion message.
+*
+* Available variables:
+* - order_entity: The order entity.
+* - payment_instructions: The payment instructions, if provided.
+*
+* @ingroup themeable
+*/
+#}
+<div class="checkout-complete">
+  {% if is_anonymous == false %}
+  {% set order_url = path('entity.commerce_order.user_view', {'user': order_entity.getCustomerId, 'commerce_order': order_entity.getOrderNumber}) %}
+  {{ 'Thank you for your order. <strong>Your order number is <a href="@order_url">@number</a></strong>.'|t({'@order_url': order_url,'@number': order_entity.getOrderNumber}) }}
+  {% else %}
+  {{ 'Thank you for your order. <strong>Your order number is @number</strong>.'|t({'@number': order_entity.getOrderNumber}) }}
+  {# {{ 'You can view your order on your account page when logged in.'|t }} #}
+  {% endif %}
+  {% if (is_anonymous == false) %}
+  {{ '<p>You can view your order under the Orders tab on the My Account page when you are logged in.</p>'|t }}
+  {% else %}
+  {{ '<p>Please print this summary for your records.</p>'|t }}
+  {% endif %}
+  {% if is_anonymous == true %}
+  {# {{ 'Order Confirmation'|t }} #}
+  {# {{ 'Order #@number details:'|t({'@number': order_entity.getOrderNumber}) }} #}
+  <div class="order-summary"><h2>{{ 'Order Summary' }}</h2>
+    {% block order_items %}
+    <table class="order-summary--items">
+      <thead>
+        <tr>
+          <th class="views-field views-field-quantity">{{ 'Quantity'|t }}</th>
+          <th class="views-field views-field-title">{{ 'Title'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order_item in custom_order_items %}
+        <tr>
+          <td class="views-field views-field-quantity">
+            {{ order_item.quantity|number_format }}
+            <span class="form-item-edit-quantity--max">(Max: {{ order_item.qty_max_order }})</span>
+          </td>
+          <td class="views-field views-field-title">
+            <div class="views-field-title--wrapper">
+              {% if order_item.thumbnail.target_id %}
+                <span class="views-field-field-thumbnail">{{ drupal_image(order_item.thumbnail.target_id,'cart_product_image', responsive=true) }}</span>
+              {% endif %}
+              <span>{{ order_item.title }}</span>
+              {# <span style="float: right;">{{ order_item.getTotalPrice|commerce_price_format }}</span> #}
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p>{{ total_items_count }} {{ (total_items_count > 1) ? 'items' : 'item' }}</p>
+    {% endblock %}
+    {% if (billing_information or shipping_information) %}
+    <div class="order-summary--details">
+      {% if billing_information %}
+      <div class="order-summary--billing">
+        <h3>{{ 'Contact Information'|t }}</h3>
+        {% block billing_information %}
+        {{ billing_information }}
+        <div class="field__label">E-mail:</div>
+        <a href="mailto:{{ order_entity.getEmail }}">{{ order_entity.getEmail }}</a>
+        {% endblock %}
+      </div>
+      {% endif %}
+      {% if shipping_information %}
+    <div class="order-summary--shipping">
+      <h3>{{ 'Shipping Information'|t }}</h3>
+        {% block shipping_information %}
+        {{ shipping_information }}
+        {% endblock %}
+      </div>
+      {% endif %}
+      {# {% if payment_method %}
+      {{ 'Payment Method'|t }}
+      {% block payment_method %}
+      {{ payment_method }}
+      {% endblock %}
+      {% endif %} #}
+      {% endif %}
+
+    </div>
+    <div class="order-summary--info">
+      {% block additional_information %}
+      {{ 'Please contact <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> for more questions about your order. Please use Order ID @number for reference.'|t({'@number': order_entity.getOrderNumber}) }}
+      {% endblock %}
+    </div>
+    {% endif %}
+    </div>
+  {% if return_to_browsing %}
+  <div class="checkout-complete__link--front">
+    {{ return_to_browsing }}
+  </div>
+  {% endif %}
+  {% if payment_instructions %}
+  <div class="checkout-complete__payment-instructions">
+    <h2>{{ 'Payment instructions'|t }}</h2>
+    {{ payment_instructions }}
+  </div>
+  {% endif %}
+</div>

@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_order_states_workflow.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_order_states_workflow_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_order_states_workflow module.
+    case 'help.page.samhsa_pep_order_states_workflow':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Define custom PEP Order states workflow.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_access().
+ */
+function samhsa_pep_order_states_workflow_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  //order edit/view tabs
+  $user = \Drupal::currentUser();
+  if ($user->hasPermission("update default commerce_order")) {
+    if ($entity->getEntityType()->id() == 'commerce_order'
+      && $operation == 'update') {
+      $state = $entity->getState();
+      //$transition = $entity->getState()->getTransitions();
+      $state_value = $state->getValue()['value'];
+
+      //update samhsa_publication_ob commerce_order
+      //update default commerce_order
+      if ($state->getWorkflow()
+          ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
+        // Allow Access
+        //return Drupal\Core\Access\AccessResult::allowed();
+      }
+      else {
+        // No Access.
+        return Drupal\Core\Access\AccessResult::forbidden();
+      }
+    }
+
+    //shipping tab
+    if ($entity->getEntityType()->id() == 'commerce_shipment'
+      && ($operation == 'update' || $operation == 'delete')) {
+      //ksm($entity);
+      $state = $entity->getOrder()->getState();
+      //$state = $entity->getState();
+      //$transition = $entity->getState()->getTransitions();
+      $state_value = $state->getValue()['value'];
+      //ksm($state_value);
+      //ksm($state->getWorkflow()->getPluginDefinition()['states'][$state_value]['editable']);
+      if ($state->getWorkflow()
+          ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
+        // Allow Access
+        return Drupal\Core\Access\AccessResult::allowed();
+      }
+      else {
+        // No Access.
+        return Drupal\Core\Access\AccessResult::forbidden();
+      }
+    }
+  }
+
+  // No opinion.
+  return Drupal\Core\Access\AccessResult::neutral();
+
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function samhsa_pep_order_states_workflow_menu_local_tasks_alter(&$data, $route_name) {
+  $routes = [
+    'entity.commerce_order.canonical',
+    'entity.commerce_shipment.collection',
+  ];
+  if (in_array($route_name, $routes)) {
+    $entity = \Drupal::routeMatch()->getParameter('commerce_order');
+    $state = $entity->getState();
+    $state_value = $state->getValue()['value'];
+    if ($state->getWorkflow()->getPluginDefinition()['states'][$state_value]['editable'] == 'No') {
+      unset($data['tabs'][0]['entity.entity_tasks:entity.commerce_order.edit_form']);
+    }
+  }
+}
+
+/**
+ * Translates Order states labels to texts meaningful for authenticated users.
+ *
+ * @param Drupal\state_machine\Plugin\Field\FieldType\StateItemInterface $state
+ *   Order state object.
+ *
+ * @return \Drupal\Component\Render\FormattableMarkup|\Drupal\Core\StringTranslation\TranslatableMarkup|string
+ *   Translated text.
+ */
+function _samhsa_pep_order_states_workflow_order_states_for_authenticated(Drupal\state_machine\Plugin\Field\FieldType\StateItemInterface $state = NULL) {
+
+  $state_text = $state->getValue()['value'];
+
+  switch ($state_text) {
+    case 'pending':
+    case 'pick_slips_generated':
+    case 'onhold':
+      return t('Processing');
+
+    case 'completed':
+      return t('Shipped');
+
+    default:
+      return $state->getLabel();
+
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function samhsa_pep_order_states_workflow_commerce_order_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity,
+                                                                    \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+
+  $roles = \Drupal::currentUser()->getRoles();
+  if (count($roles) == 1 && $roles[0] == 'authenticated') {
+    if ($original_state = $entity->getState()) {
+      $display_state = _samhsa_pep_order_states_workflow_order_states_for_authenticated($original_state);
+      $build['state'][0]['#markup'] = $display_state;
+    }
+  }
+
+  $build['state']['#title'] = t('Order Status');
+
+}

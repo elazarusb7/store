@@ -1,0 +1,13 @@
+# Unconverted links menu items definition
+entity.unconverted_links.collection:
+  title: 'Unconverted links list'
+  route_name: entity.unconverted_links.collection
+  description: 'List Unconverted links entities'
+  parent: system.admin_structure
+  weight: 100
+
+unconverted_links.admin.structure.settings:
+  title: Unconverted links settings
+  description: 'Configure Unconverted links entities'
+  route_name: unconverted_links.settings
+  parent: system.admin_structure

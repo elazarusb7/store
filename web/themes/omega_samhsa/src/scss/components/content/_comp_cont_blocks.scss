@@ -1,0 +1,65 @@
+//Landing pages blocks in two column layout
+//block groups for landing pages
+//======================================
+
+@include breakpoint ($break-tablet-landscape){
+  .landing-group{
+  &.left-col{
+    @include grid-span(6, 1);
+  }
+  &.right-col{
+    @include grid-span(6, 7);
+  } 
+ } 
+}
+
+//Single blocks styles
+//==========================
+
+.cr-landing-block{
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: $white;
+  .samhsa-block-title h2{
+     margin: 0;
+     a{
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background-color: $teal;
+      padding: 6px 15px;
+      color: $white;
+      text-decoration: none;
+      &:hover{
+        text-decoration: underline;
+      }
+      span.ext{
+        display: none;
+      }
+    }
+  }
+  .field--name-body{
+    padding: 10px 15px;
+    border: 1px solid $teal;
+    ul{
+      list-style-type: none;
+      margin: 0 0 1.5em 0.25em;
+      li{
+        padding: 0.25em 1em;
+        &:before {
+          content: "\0BB \020";
+        }
+      }
+    }
+  }
+}
+
+//blocks with banners and single banners
+//========================================
+
+.banner-block{
+  img{
+    width:100%;
+    margin-bottom: -5px;
+  }
+}

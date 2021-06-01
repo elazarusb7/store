@@ -1,0 +1,42 @@
+//Languages and footer links
+//===============================
+.region-postscript-fourth{
+   h2{
+     color: $dark-gray;
+     font-size: 1.6rem;    
+   }
+   .menu,
+   .lang{ 
+     margin: 0 -8px 20px;
+     font-size: 0;
+    .menu-item {
+      padding-top: 0;
+    }
+    li {
+      display: inline;
+      border-right: 1px solid $medium-gray;
+      font-size: 14px;
+      &:last-of-type {
+         border-right: none;
+      }     
+       a{
+         display: inline-block;
+         color: $dark-gray;
+         padding: 0 10px;
+         text-decoration: none;
+         font-size: 1em;
+         text-decoration: underline;
+         &:hover{
+           color: $red;
+           text-decoration: none;
+         }       
+       }
+     }
+   }
+  
+//  to fix inline items spacing
+//  ===============================
+  ul.menu .menu-item a{
+   margin-right: 0;    
+  }
+}

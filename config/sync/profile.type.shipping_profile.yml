@@ -1,0 +1,12 @@
+uuid: e5acbfaa-3204-480e-909c-844971e55ff0
+langcode: en
+status: true
+dependencies: {  }
+id: shipping_profile
+label: 'Shipping Profile'
+display_label: Shipping
+multiple: true
+registration: false
+roles: {  }
+allow_revisions: false
+new_revision: false

@@ -1,0 +1,138 @@
+// Typography
+//==========================================================================
+
+body {
+  color: $base-font-color;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-family;
+  font-weight: $weight-bold;
+  line-height: $heading-line-height;
+  margin: $base-spacing 0 $small-spacing;
+  color: $blue-gray;
+  a:link, a:visited {
+    text-decoration: none;
+  }
+}
+h1 {
+  font-size: 2.2rem;
+  margin-top: 0;
+  @include breakpoint($max-width-mobile-portrait-small) {
+    font-size: 2.4rem;
+  }
+}
+h2{
+  font-size: 2rem;
+}
+h3{
+  font-size: 1.7rem;
+}
+h4{
+  font-size: 1.6rem;
+}
+h5{
+  font-size: 1.5rem;
+}
+h6{
+  font-size: 1.5rem;
+  font-weight: $weight-regular;
+}
+@include breakpoint($max-width-mobile-landscape) {
+  h1{
+  font-size: 3.2rem;
+  }
+  h2{
+    font-size: 2.8rem;
+  }
+  h3{
+    font-size: 2.4rem;
+  }
+}
+p {
+  margin: 0 0 $small-spacing;
+  max-width: 45em;
+}
+li {
+  max-width: 45em;
+}
+
+strong, b{
+  font-weight: $weight-bold;
+}
+hr {
+  border-bottom: 2px solid $base-accent-color;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: $base-spacing 0;
+}
+
+
+
+//Blockquote
+//-----------------------------------
+
+blockquote{
+  margin: 0 0 $base-spacing 0.5em;
+  padding: 0 0 0 1em;
+  border-left: 5px solid $base-font-color;
+  line-height: 1.4;
+}
+
+// Links
+//------------------------------------------
+
+a {
+  @include hover-unstyled-link;
+  transition: color $base-duration $base-timing;
+  transition-property: color, background-color, font-decoration;
+  @include link-colors($action-color, $action-color-hover, $action-color-hover, $action-color, $action-color-hover);
+  &.link--tel {
+    text-decoration: none;
+    color: $blue-gray;
+  }
+  &.link--big {
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+}
+
+
+// samhsa-icon font icons
+//==============================================
+
+// Create the font family
+//----------------------------------------------
+@font-face {
+  font-family: 'samhsa-icons';
+  src:  url('../../fonts/icomoon/samhsa-icons/samhsa-icons.eot?xd8hxr');
+  src:  url('../../fonts/icomoon/samhsa-icons/samhsa-icons.eot?xd8hxr#iefix') format('embedded-opentype'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.woff2?xd8hxr') format('woff2'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.ttf?xd8hxr') format('truetype'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.woff?xd8hxr') format('woff'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.svg?xd8hxr#samhsa-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="samhsa-icons-"], [class*=" samhsa-icons-"] {
+  font-family: 'samhsa-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+

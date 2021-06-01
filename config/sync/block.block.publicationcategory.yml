@@ -1,0 +1,23 @@
+uuid: b3c5713d-470d-4c8b-a1e3-6c21ecee6f7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.publication_category
+  module:
+    - facets
+  theme:
+    - bartik
+id: publicationcategory
+theme: bartik
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'facet_block:publication_category'
+settings:
+  id: 'facet_block:publication_category'
+  label: 'Publication category'
+  provider: facets
+  label_display: visible
+  block_id: publicationcategory
+visibility: {  }

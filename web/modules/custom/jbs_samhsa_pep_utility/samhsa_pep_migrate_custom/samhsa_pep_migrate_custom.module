@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: vlyalko
+ * Date: 10/07/19
+ * Time: 12:05 PM
+ */
+
+
+//function samhsa_pep_migrate_custom_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+//  $a  = 1;
+//}
+//
+//
+//function samhsa_pep_migrate_custom_hook_page_alter(&$page) {
+//  $a  = 1;
+//}
+//
+//function samhsa_pep_migrate_custom_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+//  $a  = 1;
+//}

@@ -1,0 +1,6 @@
+name: SAMHSA PEP Anonymous Session Controller
+type: module
+description: Module to apply expire anonymous user sessions
+# core: 8.x
+core: '8.x'
+package: 'SAMHSA PEP Custom'

@@ -1,0 +1,7 @@
+name: 'Custom SAMHSA PEP Stock'
+type: module
+description: 'Define Custom SAMHSA PEP Stock functions and overrides.'
+dependencies:
+  - commerce:commerce_stock
+core: 8.x
+package: 'SAMHSA PEP Custom'

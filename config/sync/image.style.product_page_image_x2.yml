@@ -1,0 +1,23 @@
+uuid: dc7e3d62-0169-4a25-9165-31d406b3c92f
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_style_quality
+name: product_page_image_x2
+label: 'Product Page Image x2'
+effects:
+  ef825aa8-a144-42d4-b683-bb3a63ee772a:
+    uuid: ef825aa8-a144-42d4-b683-bb3a63ee772a
+    id: image_scale
+    weight: 1
+    data:
+      width: 340
+      height: 440
+      upscale: false
+  56a28a99-104b-47e0-acb4-b3632431a6cc:
+    uuid: 56a28a99-104b-47e0-acb4-b3632431a6cc
+    id: image_style_quality
+    weight: 2
+    data:
+      quality: 40

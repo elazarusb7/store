@@ -1,0 +1,5 @@
+samhsa_pep_clone_order.admin_clone_order:
+  title: 'SAMHSA PEP Clone Order'
+  parent: system.admin_config
+  description: 'Clone Order'
+  route_name: samhsa_pep_clone_order

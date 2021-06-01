@@ -1,0 +1,6 @@
+commerce_order:
+  label: Commerce Order
+  entity_type: commerce_order
+# technic:
+#   label: Technic
+#   entity_type: node

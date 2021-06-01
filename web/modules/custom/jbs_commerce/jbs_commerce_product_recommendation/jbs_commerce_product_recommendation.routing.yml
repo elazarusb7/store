@@ -1,0 +1,7 @@
+product_recommendation:
+  path: '/admin/config/refresh_model'
+  defaults:
+    _form: '\Drupal\jbs_commerce_product_recommendation\Form\RecommendationConfigForm'
+    _title: 'Refresh Recommendation Model'
+  requirements:
+    _permission: 'administer site configuration'

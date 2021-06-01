@@ -1,0 +1,23 @@
+uuid: a73b2cc7-f43d-4f30-936f-2ebad7b4cac6
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.issues_conditions_and_disorders
+  module:
+    - facets
+  theme:
+    - bartik
+id: issuesconditionsanddisorders
+theme: bartik
+region: sidebar_first
+weight: -8
+provider: null
+plugin: 'facet_block:issues_conditions_and_disorders'
+settings:
+  id: 'facet_block:issues_conditions_and_disorders'
+  label: 'Issues, Conditions and Disorders'
+  provider: facets
+  label_display: '0'
+  block_id: issuesconditionsanddisorders
+visibility: {  }

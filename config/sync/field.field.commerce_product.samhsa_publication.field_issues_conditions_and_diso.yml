@@ -1,0 +1,29 @@
+uuid: b4576f9a-b072-4d98-aa6c-4af696e6d06f
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_issues_conditions_and_diso
+    - taxonomy.vocabulary.issues_conditions_disorders
+id: commerce_product.samhsa_publication.field_issues_conditions_and_diso
+field_name: field_issues_conditions_and_diso
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Issues, Conditions and Disorders'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      issues_conditions_disorders: issues_conditions_disorders
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

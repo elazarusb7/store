@@ -1,0 +1,31 @@
+uuid: a0b80615-7259-484c-8df4-eadff04224c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.shipping_profile.field_phone_number
+    - field.field.profile.shipping_profile.field_shipping_address
+    - profile.type.shipping_profile
+  module:
+    - address
+    - telephone
+id: profile.shipping_profile.default
+targetEntityType: profile
+bundle: shipping_profile
+mode: default
+content:
+  field_phone_number:
+    weight: 27
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_shipping_address:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+hidden:
+  is_default: true

@@ -1,0 +1,364 @@
+<?php
+
+/**
+ * @file
+ * Contains jbs_commerce_extended_log.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\profile\Entity\Profile;
+use Drupal\profile\Entity\ProfileInterface;
+use Drupal\commerce_order\Entity\OrderItem;
+use Drupal\commerce_order\Entity\OrderItemInterface;
+
+/**
+ * Implements hook_help()
+ */
+function jbs_commerce_extended_log_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jbs_commerce_extended_log module.
+    case 'help.page.jbs_commerce_extended_log':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Extends the functionality of the commerce logging system') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function jbs_commerce_extended_log_entity_presave(EntityInterface $entity) {
+  // Check changes in the Order.
+  if ($entity instanceof OrderInterface) {
+    $transition_states = _jbs_commerce_extended_log_get_state_transition($entity);
+    // If Order is transitioning states, no custom log is necessary.
+    // That's because Commerce takes care of that.
+    if (
+      $transition_states->from != 'draft' &&
+      !$transition_states->trasitioning
+    ) {
+      // Check if changes have happened in the bundled custom fields.
+      if ($changes = _jbs_commerce_extended_log_check_custom_fields_changes($entity)) {
+        jbs_commerce_extended_log_log_the_changes($changes);
+      }
+      if ($changes = _jbs_commerce_extended_log_check_added_items_changes($entity)) {
+        $order = $changes->order;
+        jbs_commerce_extended_log_log_the_changes($changes);
+      }
+    }
+  }
+  // Checks changes in the fields of the Order's items.
+  elseif ($entity instanceof OrderItemInterface) {
+    if ($order = $entity->getOrder()) {
+      $transition_states = _jbs_commerce_extended_log_get_state_transition($order);
+      if ($transition_states->from != 'draft' && $changes = _jbs_commerce_extended_log_check_item_changes($entity)) {
+        jbs_commerce_extended_log_log_the_changes($changes);
+      }
+    }
+  }
+  // Checks changes in the Profile.
+  elseif ($entity instanceof ProfileInterface) {
+    if ($changes = _jbs_commerce_extended_log_check_billing_fields_changes($entity)) {
+      jbs_commerce_extended_log_log_the_changes($changes);
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete(): commerce_order_item
+ */
+function jbs_commerce_extended_log_commerce_order_item_delete(EntityInterface $entity) {
+  if ($order = $entity->getOrder()) {
+    $change = new stdClass();
+    $change->logMessage = 'Item removed: ' . $entity->getTitle();
+    $change->fieldName = 'item';
+    $change->oldValue = NULL;
+    $change->newValue = NULL;
+    $change->order = $order;
+    jbs_commerce_extended_log_log_the_changes([$change]);
+  }
+}
+
+/**
+ * Generate the log entries.
+ *
+ * @param array $changes
+ *   List of all changes, with field labels, names and values.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function jbs_commerce_extended_log_log_the_changes(array $changes) {
+  foreach ($changes as $change) {
+    if ($change && $change->logMessage) {
+      if ($change->fieldName == 'field_log') {
+        $comment = t('%message.', ['%message' => 'Reason for change: ' . $change->newValue]);
+        $logStorage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+        $logStorage->generate($change->order, 'order_comment', ['comment' => $comment])->save();
+      }
+      else {
+        $old_value = $change->oldValue ? (string) $change->oldValue : '';
+        $new_value = $change->newValue ? (string) $change->newValue : '';
+        if ($old_value || $new_value) {
+          $change->logMessage .= ' Previous value: "' . $old_value . '" - Current value: "' . $new_value . '"';
+        }
+        $comment = t('%message.', ['%message' => $change->logMessage]);
+        $logStorage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+        $logStorage->generate($change->order, 'order_comment', ['comment' => $comment])->save();
+      }
+
+    }
+  }
+}
+
+/**
+ * Checks if any value in the custom bundled fields were changed.
+ *
+ * @param \Drupal\commerce_order\Entity\Order $order
+ *  Order object.
+ *
+ * @return array
+ *   Array of \stdClass:
+ *     ::logMessage: Message to be displayed in the log.
+ *     ::fieldname: Machine name of the field;
+ *     ::oldValue: Previous value of the field;
+ *     ::newValue: New Value of the field.
+ *     ::order: The Order object.
+ *
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function _jbs_commerce_extended_log_check_custom_fields_changes(Order $order) {
+  $results = [];
+  if ($old_order = $order->original) {
+    $fields_list = array_keys($order->getFields());
+    foreach ($fields_list as $field_name) {
+      if (preg_match('/^field_/', $field_name)) {
+        $old_value = $old_order->get($field_name)->getValue();
+        $new_value = $order->get($field_name)->getValue();
+        if ($old_value != $new_value) {
+          $field_definition = $order->getFieldDefinition($field_name)->getFieldStorageDefinition();
+          $field_type = $field_definition->getType();
+          if ($field_type == 'datetime') {
+            $user_time_zone = new DateTimeZone(drupal_get_user_timezone());
+            $gmt_time_zone = new DateTimeZone('GMT');
+            $old_date = new DateTime($old_value[0]['value'], $gmt_time_zone);
+            $offset = $user_time_zone->getOffset($old_date);
+            $interval = DateInterval::createFromDateString((string) $offset . 'seconds');
+            $old_date->add($interval);
+            $old_value = $old_date->format('m-d-Y H:i A');
+            $new_date = new DateTime($new_value[0]['value'], $gmt_time_zone);
+            $offset = $user_time_zone->getOffset($new_date);
+            $interval = DateInterval::createFromDateString((string) $offset . 'seconds');
+            $new_date->add($interval);
+            $new_value = $new_date->format('m-d-Y H:i A');
+          }
+          $result = new stdClass();
+          $result->logMessage = 'Changed value of field: ' . $order->getFieldDefinition($field_name)->getLabel() . '.';
+          $result->fieldName = $field_name;
+          $result->oldValue = isset($old_value[0]['value']) ? $old_value[0]['value'] :  $old_value;
+          $result->newValue = isset($new_value[0]['value']) ? $new_value[0]['value'] :  $new_value;
+          $result->order = $order;
+          $results[] = $result;
+        }
+      }
+    }
+  }
+  return $results;
+}
+
+/**
+ * Checks if items were added to the Order.
+ *
+ * @param \Drupal\commerce_order\Entity\Order $order
+ *  Order object.
+ *
+ * @return array
+ *   Array of \stdClass:
+ *     ::logMessage: Message to be displayed in the log;
+ *     ::fieldname: Machine name of the field;
+ *     ::OldValue: Previous value of the field;
+ *     ::newValue: New Value of the field.
+ *
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function _jbs_commerce_extended_log_check_added_items_changes(Order $order) {
+  $results = [];
+  if ($old_order = $order->original) {
+    // Get all original items of the Order;
+    // The method getItems() for the $old_order was returning the same items as
+    // $order. So, I decided to use get('order_items')->getValue().
+    $old_order_items_list = $old_order->get('order_items')->getValue();
+    $old_order_items = [];
+    foreach ($old_order_items_list as $item) {
+      if  (@$item['target_id']) {
+        if ($order_item = OrderItem::load($item['target_id'])) {
+          $old_order_items[$order_item->id()] = $order_item->getTitle();
+        }
+      }
+    }
+    // Get all items of the Order.
+    $new_order_items_list = $order->getItems();
+    $new_order_items = [];
+    foreach ($new_order_items_list as $item) {
+      $new_order_items[$item->id()] = [
+        'title' => $item->getTitle(),
+        'quantity' => $item->getQuantity(),
+     ];
+    }
+    // Scan for new items.
+    foreach ($new_order_items as $new_item_id => $new_item_title) {
+      if (!isset($old_order_items[$new_item_id])) {
+        $result = new stdClass();
+        $result->logMessage = 'Item added: "' .  $new_item_title['title']. '"';
+        $result->fieldName = 'item';
+        $result->oldValue = 'n/a';
+        $result->newValue = number_format($new_item_title['quantity']);
+        $result->order = $order;
+        $results[] = $result;
+      }
+    }
+  }
+  return $results;
+}
+
+/**
+ * Checks if any change has happened in the order items.
+ *
+ * @param \Drupal\commerce_order\Entity\OrderItem $item
+ *  Order object.
+ *
+ * @return array
+ *   Array of \stdClass:
+ *     ::logMessage: Message to be displayed in the log;
+ *     ::fieldname: Machine name of the field;
+ *     ::OldValue: Previous value of the field;
+ *     ::newValue: New Value of the field.
+ *
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function _jbs_commerce_extended_log_check_item_changes(OrderItem $item) {
+  $results = [];
+  if ($old_item = $item->original) {
+    $old_quantity = $old_item->get('quantity')->getValue();
+    $new_quantity = $item->get('quantity')->getValue();
+    if ($new_quantity != $old_quantity) {
+      $result = new stdClass();
+      $result->logMessage = 'Changed quantity of item "' . $item->getTitle() . '"';
+      $result->fieldName = 'quantity';
+      $result->oldValue = number_format($old_quantity[0]['value']);
+      $result->newValue = number_format($new_quantity[0]['value']);
+      $result->order = $item->getOrder();
+      $results[] = $result;
+    }
+  }
+  return $results;
+}
+
+/**
+ * Gets the order object to which a profile belongs.
+ *
+ * @param integer $profile_id
+ *   The id of the profile.
+ *
+ * @return Drupal\commerce_order\Entity\Order
+ *   Order object.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function _jbs_commerce_extended_log_get_order_from_profile($profile_id) {
+  $results = \Drupal::entityTypeManager()
+    ->getStorage('commerce_order')
+    ->loadByProperties(['billing_profile__target_id' => $profile_id]);
+  return array_shift($results);
+}
+
+/**
+ * Checks if any value in the profile fields were changed.
+ *
+ * @param \Drupal\profile\Entity\Profile $profile .
+ *  Order object.
+ *
+ * @return array
+ *   Array of \stdClass:
+ *     ::logMessage: Message to be displayed in the log;
+ *     ::fieldname: Machine name of the field;
+ *     ::oldValue: Previous value of the field;
+ *     ::newValue: New Value of the field.
+ *     ::order: The Order object.
+ *     ::profile: The Profile object.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function  _jbs_commerce_extended_log_check_billing_fields_changes(Profile $profile) {
+  $results = [];
+  // Did some change occur?
+  if ($old_profile = @$profile->original) {
+    // First, the the default address object.
+    $order = _jbs_commerce_extended_log_get_order_from_profile($profile->id());
+    $old_address = $old_profile->get('address')->getValue();
+    $new_address = $profile->get('address')->getValue();
+    foreach ($new_address as $item => $fields) {
+      foreach ($fields as $name => $value) {
+        if ($value != $old_address[$item][$name] && $order) {
+          $result = new stdClass();
+          $result->logMessage = 'Changed value of Address field: ' . $name . '.';
+          $result->fieldName = $name;
+          $result->oldValue = $old_address[$item][$name];
+          $result->newValue = $value;
+          $result->order = $order;
+          $result->profile = $profile;
+          $results[] = $result;
+        }
+      }
+    }
+    // Second, the bundled fields.
+    $fields_list = array_keys($profile->getFields());
+    foreach ($fields_list as $field_name) {
+      if (preg_match('/^field_/', $field_name)) {
+        $old_value = $old_profile->get($field_name)->getValue();
+        $new_value = $profile->get($field_name)->getValue();
+        if ($old_value != $new_value && $order) {
+          $result = new stdClass();
+          $result->logMessage = 'Changed value of Address field: ' . $profile->getFieldDefinition($field_name)->getLabel() . '.';
+          $result->fieldName = $field_name;
+          $result->oldValue = isset($old_value[0]['value']) ? $old_value[0]['value'] :  $old_value;
+          $result->newValue = isset($new_value[0]['value']) ? $new_value[0]['value'] :  $new_value;
+          $result->order = $order;
+          $result->profile = $profile;
+          $results[] = $result;
+        }
+      }
+    }
+  }
+  return $results;
+}
+
+/**
+ * Gets the original and new state of the transition.
+ *
+ * @param \Drupal\commerce_order\Entity\Order $order
+ *  Order object.
+ *
+ * @return object
+ *   The original state;
+ *   The new state;
+ *   The original and new state of the transition, formatted as "from-to".
+ */
+function _jbs_commerce_extended_log_get_state_transition(Order $order) {
+  $result = new stdClass();
+  $state = $order->getState();
+  $result->from = $state->getOriginalId();
+  $result->to = $state->getString();
+  $result->fromTo = sprintf('%s-%s', $result->from, $result->to);
+  $result->trasitioning = ($result->from  == $result->to) ? FALSE : TRUE;
+  return $result;
+}

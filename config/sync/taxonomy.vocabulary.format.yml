@@ -1,0 +1,8 @@
+uuid: 08368746-906b-46a3-9dbb-f7ee1d96b152
+langcode: en
+status: true
+dependencies: {  }
+name: Format
+vid: format
+description: 'Publication formats'
+weight: -3

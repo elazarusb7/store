@@ -1,0 +1,13 @@
+uuid: 37fa0bea-9915-4d9c-b2bd-e5b29f8d92f4
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 3vA4FKQ1Qu8B1R8UdGPnmMfJrYO6Y6uMqeNgDgXxods
+id: default
+label: 'SAMHSA Publication (PV)'
+orderItemType: default
+generateTitle: true
+traits:
+  - purchasable_entity_shippable
+locked: false

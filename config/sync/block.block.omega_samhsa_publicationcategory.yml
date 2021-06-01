@@ -1,0 +1,23 @@
+uuid: cf5b1a96-05ca-4c13-b5e4-018ac3b076e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.publication_category
+  module:
+    - facets
+  theme:
+    - omega_samhsa
+id: omega_samhsa_publicationcategory
+theme: omega_samhsa
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'facet_block:publication_category'
+settings:
+  id: 'facet_block:publication_category'
+  label: 'Publication category'
+  provider: facets
+  label_display: visible
+  block_id: publicationcategory
+visibility: {  }

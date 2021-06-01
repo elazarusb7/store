@@ -1,0 +1,33 @@
+uuid: ba0dbe62-1e81-4ad7-b6c3-b3acd66e44d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main-menu
+  module:
+    - menu_block
+    - mobile_device_detection
+  theme:
+    - omega_samhsa_pep
+id: mainmenu
+theme: omega_samhsa_pep
+region: header
+weight: -9
+provider: null
+plugin: 'menu_block:main-menu'
+settings:
+  id: 'menu_block:main-menu'
+  label: 'Main Menu'
+  provider: menu_block
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand: 0
+  parent: 'main-menu:'
+  suggestion: main_menu
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

@@ -1,0 +1,21 @@
+uuid: ad8cce45-941b-4229-970a-aedcc44529d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_last_reviewed
+  module:
+    - datetime
+id: commerce_product.samhsa_publication.field_last_reviewed
+field_name: field_last_reviewed
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Last Reviewed'
+description: 'Date the product was last reviewed by the Product Owner.  Format: 2019-09-10'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

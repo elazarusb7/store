@@ -1,0 +1,8 @@
+uuid: 72f50393-16ec-48fe-91a0-b0777cec6671
+langcode: en
+status: true
+dependencies: {  }
+name: Series
+vid: series
+description: Series
+weight: -10

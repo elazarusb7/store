@@ -1,0 +1,10 @@
+disable_order_delete: 1
+_core:
+  default_config_hash: sBc5z_EU25eZuGdC1KFylH4KqdVxauTKLtR1yFCq9Vs
+order_states:
+  completed: completed
+  draft: 0
+  onhold: 0
+  pending: 0
+  pick_slips_generated: 0
+  canceled: 0

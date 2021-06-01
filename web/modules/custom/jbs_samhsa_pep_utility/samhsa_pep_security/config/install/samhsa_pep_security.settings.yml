@@ -1,0 +1,11 @@
+track_time: 1
+user_wrong_count: 0
+disable_core_login_error: 0
+notice_attempts_available: 0
+last_login_timestamp: 0
+last_access_timestamp: 0
+notice_attempts_message: 'You have used @user_current_count out of @user_block_attempts login attempts. After all @user_block_attempts have been used, you will be unable to login.'
+user_blocked: 'The user @username has been blocked due to failed login attempts.'
+restore_blocked_user: 1
+clear_flood: 0
+log_level: 1

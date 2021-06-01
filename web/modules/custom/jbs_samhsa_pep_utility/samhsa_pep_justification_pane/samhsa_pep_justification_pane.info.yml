@@ -1,0 +1,5 @@
+name: 'Custom SAMHSA PEP Checkout Justification Pane'
+type: module
+description: 'SAMHSA PEP - Generates a pane containing a text area field for inputting the justification for quantities above the limit.'
+core: 8.x
+package: 'SAMHSA PEP Custom'

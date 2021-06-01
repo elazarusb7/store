@@ -1,0 +1,27 @@
+uuid: 0f057469-211a-4bdf-9655-44ffe9384585
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+  theme:
+    - omega_samhsa_pep
+id: footernote
+theme: omega_samhsa_pep
+region: postscript_fourth
+weight: 0
+provider: null
+plugin: footer_note_block
+settings:
+  id: footer_note_block
+  label: 'Footer Note'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

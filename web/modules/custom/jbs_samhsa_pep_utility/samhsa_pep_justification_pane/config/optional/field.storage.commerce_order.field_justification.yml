@@ -1,0 +1,19 @@
+uuid: 09d032fe-8c77-49c8-a0ea-fe32c18b7ab5
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_order
+id: commerce_order.field_justification
+field_name: field_justification
+entity_type: commerce_order
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

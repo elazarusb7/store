@@ -1,0 +1,8 @@
+name: SAMHSA PEP Product redirect
+type: module
+description: Module allows to set a redirect from a Product form
+# core: 8.x
+dependencies:
+  - redirect
+core: '8.x'
+package: 'SAMHSA PEP Custom'

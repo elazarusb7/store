@@ -1,0 +1,5 @@
+name: SSAMHSA PEP Daily Prod Report Download
+description: Provides daily Product Status Report Download.
+core: 8.x
+type: module
+package: SAMHSA

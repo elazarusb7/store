@@ -1,0 +1,422 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_term_elevation.module.
+ */
+
+// @TODO: Check if Solr server is set to bring results from Solr.
+use Drupal\search_api\Plugin\views\query\SearchApiQuery;
+use Drupal\views\ViewExecutable;
+use Solarium\QueryType\Select\Result\Result;
+use Drupal\search_api\Query\ResultSetInterface;
+use Solarium\Core\Query\QueryInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_term_elevation_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_term_elevation module.
+    case 'help.page.samhsa_term_elevation':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_search_api_solr_query_alter().
+ */
+function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solarium_query,
+                                                           \Drupal\search_api\Query\QueryInterface $query) {
+
+  $config = \Drupal::config('samhsa_term_elevation.config');
+  $use_elevation = $config->get('use_elevation');
+  $force_elevation = $config->get('force_elevation');
+  $default_index_id = $config->get('index_id');
+
+  $index = $query->getIndex();
+  if ($index->id() !== $default_index_id) {
+    return;
+  }
+
+  if (!$use_elevation) {
+    return;
+  }
+
+  $solarium_query->addParam('useElevation', TRUE);
+  $solarium_query->addParam('forceElevation', (boolean) $force_elevation);
+
+  $solarium_query->addField('id');
+  $solarium_query->addField('site');
+
+  $plugins_map = _samhsa_term_elevation_get_plugins_map();
+
+  foreach ($plugins_map as $plugin_id => $plugin_title) {
+    if ($field_id = $config->get($plugin_id)) {
+      $solarium_query->addField($field_id);
+      if ($plugin_id == 'highlight_id') {
+        $solarium_query->addParam('hl', TRUE);
+        $solarium_query->addParam('hl.fl', $field_id);
+      }
+    }
+  }
+
+  if ($search_api_view = $query->getOption('search_api_view')) {
+    $exposed_input = $search_api_view->getExposedInput();
+    if (isset($exposed_input['website_base_filter'])) {
+      if (is_array($exposed_input['website_base_filter'])) {
+        $first_filter = strtolower($exposed_input['website_base_filter'][0]);
+        if (!in_array($first_filter, ['_all', 'all'])) {
+          $filters = [];
+          foreach ($exposed_input['website_base_filter'] as $hash) {
+            $filters[] = 'hash:' . $hash;
+          }
+          $fq = implode(' OR ', $filters);
+          $solarium_query->addParam('fq', $fq);
+        }
+      }
+      else {
+        $filter = strtolower($exposed_input['website_base_filter']);
+        if (!in_array($filter, ['_all', 'all'])) {
+          $fq = 'hash:' . $exposed_input['website_base_filter'];
+          $solarium_query->addParam('fq', $fq);
+        }
+      }
+    }
+  }
+
+  $query_keys = _samhsa_term_elevation_normalize_keys($query->getKeys());
+
+  if (!$query_keys) {
+    return;
+  }
+
+  if (!$elevation_data = _samhsa_term_elevation_checked_as_elevated_terms($query_keys)) {
+    return;
+  }
+
+  $el_storage = \Drupal::entityTypeManager()->getStorage('samhsa_term_elevation');
+  $elevated_ids = [];
+  $excluded_ids = [];
+
+  foreach ($query_keys as $query_key) {
+    $query_el = \Drupal::entityQuery('samhsa_term_elevation');
+    $elevates = $query_el->condition('query', $query_key)->execute();
+    if (!$elevates) {
+      continue;
+    }
+    $elevate = $el_storage->load(array_shift($elevates));
+    foreach ($elevate->getElevatedIds() as $item) {
+      $elevated_ids[] = _samhsa_term_elevation_extract_id($item);
+    }
+    foreach ($elevate->getExcludedIds() as $item) {
+      $excluded_ids[] = _samhsa_term_elevation_extract_id($item);
+    }
+  }
+
+  if ($elevated_ids) {
+    $solarium_query->addParam('elevateIds', implode(',', $elevated_ids));
+  }
+  if ($excluded_ids) {
+    $solarium_query->addParam('excludeIds', implode(',', $excluded_ids));
+  }
+
+}
+
+/**
+ * Implements hook_search_api_solr_search_results_alter().
+ */
+function samhsa_term_elevation_search_api_solr_search_results_alter(ResultSetInterface $result_set,
+                                                                    \Drupal\search_api\Query\QueryInterface $query,
+                                                                    Result $result) {
+  $config = \Drupal::config('samhsa_term_elevation.config');
+  $default_index_id = $config->get('index_id');
+
+  $index = $query->getIndex();
+  if ($index->id() !== $default_index_id) {
+    return;
+  }
+
+  $highlight_id = $config->get('highlight_id');
+  $highlighting = $result_set->getExtraData('search_api_solr_response')['highlighting'];
+  $query_keys = _samhsa_term_elevation_normalize_keys($query->getKeys());
+  $elevation_data = _samhsa_term_elevation_checked_as_elevated_terms($query_keys);
+
+  foreach ($result_set->getResultItems() as &$result_item) {
+    $fields = $result_item->getExtraData('search_api_solr_document')->getFields();
+    if ($elevation_data && in_array($fields['id'], $elevation_data->elevated_ids)) {
+      $result_item->setExtraData('elevated_item', TRUE);
+    }
+    if ($highlighting && $highlighting[$fields['id']]) {
+      $result_item->setExtraData('highlight', $highlighting[$fields['id']]);
+    }
+    else {
+      $snippet = _samhsa_term_elevation_extract_item_snippet($fields[$highlight_id]);
+      $result_item->setExtraData('highlight', [$highlight_id => [$snippet]]);
+    }
+  }
+
+}
+
+/**
+ * Creates a snippet from the initial words if the highlighted field.
+ *
+ * @param array $texts
+ *   Texts from from where the snippet will be extracted.
+ *
+ * @return string
+ *   Snippet.
+ */
+function _samhsa_term_elevation_extract_item_snippet($texts) {
+  $length = 80;
+  $result = $text = array_shift($texts);
+  if (strlen($text) > $length) {
+    $text = substr($text, 0, $length);
+    if ($p = strrpos($text, chr(32))) {
+      $result = substr($text, 0, $p);
+    }
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function samhsa_term_elevation_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'samhsa_term_elevation/samhsa-term-elevation';
+}
+
+/**
+ * Remove all unwanted words and spaces from the search terms.
+ *
+ * @param $string
+ *   Value inputted as search terms.
+ *
+ * @return array
+ *   Query keys.
+ */
+function _samhsa_term_elevation_normalize_keys($string) {
+  $query_keys = explode(chr(32), $string);
+  $query_keys = array_filter($query_keys, '_samhsa_term_elevation_filter_terms');
+  if ($query_keys) {
+    array_unshift($query_keys, implode(chr(32), $query_keys));
+  }
+  return $query_keys;
+}
+
+/**
+ * Extract the ID from between parenthesis in the title.
+ *
+ * @param string $string
+ *   Title.
+ *
+ * @return string
+ *   ID of the Solr document.
+ */
+function _samhsa_term_elevation_extract_id($string) {
+  preg_match_all('#\((.*?)\)#', $string, $matches);
+  $match_last = end($matches);
+  $match_last = end($match_last);
+  preg_match('#[^(]+$#', $match_last, $matches_2);
+  $id = end($matches_2);
+  return $id;
+}
+
+/**
+ * Callback for array_filter: remove unwanted strings from keys.
+ *
+ * @param mixed $var
+ *
+ * @return bool
+ */
+function _samhsa_term_elevation_filter_terms($var) {
+  $var = strtolower($var);
+  if (in_array($var, [NULL, 'and', 'or'])) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+ * Check if the the keys are elevated terms.
+ *
+ * @param $query_keys
+ *
+ * @return bool|object
+ *   Object:
+ *     ->keys: Inputted keys;
+ *     ->elevated_ids: Array id elevated IDs.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function _samhsa_term_elevation_checked_as_elevated_terms($query_keys) {
+  if (!$query_keys) {
+    return FALSE;
+  }
+  $query_el = \Drupal::entityQuery('samhsa_term_elevation');
+  $elevated_entities = $query_el->condition('query', $query_keys, 'IN')->execute();
+  if ($elevated_entities) {
+    $result = new stdClass();
+    $result->keys = $query_keys;
+    $el_storage = \Drupal::entityTypeManager()->getStorage('samhsa_term_elevation');
+    $result->elevated_ids = [];
+    foreach ($el_storage->loadMultiple($elevated_entities) as $item) {
+      $elnid = $item->get('elnid')->getValue();
+      foreach ($elnid as &$value) {
+        $result->elevated_ids[] = _samhsa_term_elevation_extract_id($value['value']);
+      }
+    }
+  }
+  else {
+    $result = FALSE;
+  }
+  return $result;
+}
+
+/**
+ * Check if the elevation functionality should be used in a Views.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *
+ * @return bool
+ */
+function _samhsa_term_elevation_include_this_view(ViewExecutable $view) {
+  $result = FALSE;
+  $index_elevated = \Drupal::config('samhsa_term_elevation.config')->get('index_id');
+  $query = $view->getQuery();
+  if ($query instanceof SearchApiQuery) {
+    $index = $query->getIndex();
+    if ($index->id() == $index_elevated) {
+      $result = TRUE;
+    }
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_term_elevation_preprocess_views_view_table(&$variables) {
+  if (_samhsa_term_elevation_include_this_view($variables['view'])) {
+    foreach ($variables['result'] as $key => $result) {
+      $elevated_item = $result->_item->getExtraData('elevated_item');
+      if ($elevated_item) {
+        $variables['rows'][$key]['attributes']->addClass('elevated-row');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_term_elevation_preprocess_views_view_unformatted(&$variables) {
+  if (_samhsa_term_elevation_include_this_view($variables['view'])) {
+    foreach ($variables['rows'] as $key => &$row) {
+      $elevated_item = $row['content']['#row']->_item->getExtraData('elevated_item');
+      if ($elevated_item) {
+        $row['attributes']->addClass('elevated-row');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_term_elevation_preprocess_views_view_list(&$variables) {
+  return samhsa_term_elevation_preprocess_views_view_unformatted($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_term_elevation_preprocess_views_view_grid(&$variables) {
+  if (_samhsa_term_elevation_include_this_view($variables['view'])) {
+    foreach ($variables['items'] as $item_key => &$item) {
+      foreach ($item['content'] as $row_key => $row) {
+        $elevated_item = $row['content']['#row']->_item->getExtraData('elevated_item');
+        if ($elevated_item) {
+          $row['attributes']->addClass('elevated-row');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Extracts the plugins map from the yaml configuration file.
+ *
+ * @return array
+ *   List of plugins ids and titles.
+ */
+function _samhsa_term_elevation_get_plugins_map() {
+  $plugins = \Drupal::config('samhsa_term_elevation.config')->get('plugins_field_map');
+  return $plugins;
+}
+
+/**
+ * Implements hook_rebuild().
+ */
+function samhsa_term_elevation_rebuild() {
+  $plugins = _samhsa_term_elevation_get_native_plugins_map();
+  $extended_plugins = _samhsa_term_elevation_get_extended_plugins_map();
+  foreach ($extended_plugins as $name => $values) {
+    $plugins = $plugins + $values;
+  }
+  $config = \Drupal::service('config.factory')->getEditable('samhsa_term_elevation.config');
+  $config->set('plugins_field_map', $plugins)->save();
+}
+
+/**
+ * Extracts the plugins map from modules extending the functionality.
+ *
+ * @return array
+ *   List of plugins ids and titles.
+ */
+function _samhsa_term_elevation_get_extended_plugins_map() {
+  $modules_list = \Drupal::service('module_handler')->getModuleList();
+  $extended_plugins = [];
+  foreach ($modules_list as $module_name => $extension) {
+    if ($module_name == 'samhsa_term_elevation') {
+      continue;
+    }
+    if ($extension->getType() == 'module') {
+      $file_path = DRUPAL_ROOT . '/' . $extension->getPath() . '/' . $module_name . '.fields.map.yml';
+      if (file_exists($file_path)) {
+        $file_content = file_get_contents($file_path);
+        if ($yml_entries = Yaml::parse($file_content)) {
+          $extended_plugins[$module_name] = $yml_entries['solr_multisite_plugins_ids'];
+        }
+      }
+    };
+  }
+  return $extended_plugins;
+}
+
+/**
+ * Extracts the plugins map from the yaml configuration file.
+ *
+ * @return array
+ *   List of plugins ids and titles.
+ */
+function _samhsa_term_elevation_get_native_plugins_map() {
+  $path = drupal_get_path('module', 'samhsa_term_elevation');
+  $file_content = file_get_contents($path . '/samhsa_term_elevation.fields.map.yml');
+  if ($yml_entries = Yaml::parse($file_content)) {
+    return $yml_entries['solr_multisite_plugins_ids'];
+  }
+  else {
+    return NULL;
+  }
+}

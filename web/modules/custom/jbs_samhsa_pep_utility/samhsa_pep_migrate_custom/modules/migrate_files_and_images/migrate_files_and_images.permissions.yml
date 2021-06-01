@@ -1,0 +1,19 @@
+add files cross reference entities:
+  title: 'Create new Files cross reference entities'
+
+administer files cross reference entities:
+  title: 'Administer Files cross reference entities'
+  description: 'Allow to access the administration form to configure Files cross reference entities.'
+  restrict access: true
+
+delete files cross reference entities:
+  title: 'Delete Files cross reference entities'
+
+edit files cross reference entities:
+  title: 'Edit Files cross reference entities'
+
+view published files cross reference entities:
+  title: 'View published Files cross reference entities'
+
+view unpublished files cross reference entities:
+  title: 'View unpublished Files cross reference entities'

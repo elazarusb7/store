@@ -1,0 +1,10 @@
+uuid: 9016f08e-687c-43c8-a999-c0175508b1ba
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_stock_local
+id: commerce_stock_location.token
+label: Token
+targetEntityType: commerce_stock_location
+cache: true

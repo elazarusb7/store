@@ -1,0 +1,11 @@
+uuid: 92bbb496-33f4-4b54-a8f4-c8506eb58422
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+id: commerce_product.samhsa_publication
+target_entity_type_id: commerce_product
+target_bundle: samhsa_publication
+default_langcode: site_default
+language_alterable: false

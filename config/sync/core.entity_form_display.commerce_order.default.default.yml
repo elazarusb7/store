@@ -1,0 +1,103 @@
+uuid: be715749-1eb1-41b9-8d9e-28dda37b2316
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.default
+    - field.field.commerce_order.default.field_date_completed
+    - field.field.commerce_order.default.field_justification
+    - field.field.commerce_order.default.field_log
+    - field.field.commerce_order.default.field_order_source
+    - field.field.commerce_order.default.field_order_weight
+    - field.field.commerce_order.default.shipments
+  module:
+    - cck_select_other
+    - commerce_order
+    - inline_entity_form
+id: commerce_order.default.default
+targetEntityType: commerce_order
+bundle: default
+mode: default
+content:
+  billing_profile:
+    type: commerce_billing_profile
+    weight: 1
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  cart:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  field_justification:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_log:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_order_source:
+    weight: 5
+    settings:
+      other_label: 'Provide Other Source'
+    third_party_settings: {  }
+    type: cck_select_other
+    region: content
+  mail:
+    type: email_default
+    weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  order_items:
+    type: inline_entity_form_complex
+    weight: 2
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: 'order item'
+      label_plural: 'order items'
+      allow_new: true
+      match_operator: CONTAINS
+      collapsible: false
+      collapsed: false
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    region: content
+  order_number:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  state:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  adjustments: true
+  field_date_completed: true
+  field_order_weight: true
+  ip_address: true
+  shipments: true
+  store_id: true
+  uid: true

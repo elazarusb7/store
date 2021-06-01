@@ -1,0 +1,5 @@
+samhsa_pep_cart:
+  title: 'SAMHSA PEP Daily Product Report Download Configurations'
+  parent: system.admin_config_system
+  description: 'SAMHSA PEP Daily Product Report Download Configurations.'
+  route_name: samhsa_pep_daily_prod_report_download.settings

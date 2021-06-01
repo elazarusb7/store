@@ -1,0 +1,17 @@
+{
+  "name": "drupal/migrate_files_and_images",
+  "description": "Migrate the managed files.",
+  "type": "drupal-custom-module",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\migrate_files_and_images\\": "src/"
+    }
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  }
+}

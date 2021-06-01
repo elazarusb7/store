@@ -1,0 +1,17 @@
+{
+    "name": "drupal/jbs_commerce_import_product_data",
+    "description": "Drush 9 command to import field data to products from csv.",
+    "type": "drupal-custom-module",
+    "autoload": {
+        "psr-4": {
+            "Drupal\\jbs_commerce_import_product_data\\": "src/"
+        }
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

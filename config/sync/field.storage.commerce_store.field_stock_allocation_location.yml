@@ -1,0 +1,20 @@
+uuid: e30445b3-d099-48ee-9eff-8c398d0eb696
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_stock_local
+    - commerce_store
+id: commerce_store.field_stock_allocation_location
+field_name: field_stock_allocation_location
+entity_type: commerce_store
+type: entity_reference
+settings:
+  target_type: commerce_stock_location
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

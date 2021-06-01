@@ -1,0 +1,8 @@
+name: SAMHSA PEP Plugins
+type: module
+description: Generate plugins for SAMHSA PEP
+core: 8.x
+package: SAMHSA Custom
+dependencies:
+  - samhsa_pep_stock
+  - samhsa_pep_utility

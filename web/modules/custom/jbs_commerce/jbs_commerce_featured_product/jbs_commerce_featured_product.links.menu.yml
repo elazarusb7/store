@@ -1,0 +1,5 @@
+jbs_commerce_featured_product.admin_featured_product:
+  title: 'JBS Commerce Featured Products Config'
+  parent: 'commerce.admin_commerce'
+  description: 'Configure Featured Products'
+  route_name: 'jbs_commerce_featured_product.configuration'

@@ -1,0 +1,4 @@
+overwite order item over the limit flag:
+  title: 'Overwite Order Item Over The Limit field'
+  description: 'Allow user to overwite order item "over the limit" field value.'
+  restrict access: true

@@ -1,0 +1,160 @@
+order_default:
+  id: order_default
+  group: commerce_order
+  label: 'Default'
+  states:
+    draft:
+      label: Draft
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft]
+      to:   canceled
+
+order_default_validation:
+  id: order_default_validation
+  group: commerce_order
+  label: 'Default, with validation'
+  states:
+    draft:
+      label: Draft
+    validation:
+      label: Validation
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to:   validation
+    validate:
+      label: 'Validate order'
+      from: [validation]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft, validation]
+      to:   canceled
+
+order_fulfillment:
+  id: order_fulfillment
+  group: commerce_order
+  label: 'Fulfillment'
+  states:
+    draft:
+      label: Draft
+    fulfillment:
+      label: Fulfillment
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to:   fulfillment
+    fulfill:
+      label: 'Fulfill order'
+      from: [fulfillment]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft, fulfillment]
+      to:   canceled
+
+order_fulfillment_validation:
+  id: order_fulfillment_validation
+  group: commerce_order
+  label: 'Fulfillment, with validation'
+  states:
+    draft:
+      label: Draft
+    validation:
+      label: Validation
+    fulfillment:
+      label: Fulfillment
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to:   validation
+    validate:
+      label: 'Validate order'
+      from: [validation]
+      to:   fulfillment
+    fulfill:
+      label: 'Fulfill order'
+      from: [fulfillment]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft, validation, fulfillment]
+      to:   canceled
+
+samhsa_pep_order_states_workflow_fulfillment_processing:
+  id: samhsa_pep_order_states_workflow_fulfillment_processing
+  group: commerce_order
+  label: 'PEP Fulfillment, with validation'
+  states:
+    draft:
+      label: Draft
+      editable: Yes
+    onhold:
+      label: On Hold
+      editable: Yes
+    pending:
+      label: Pending
+      editable: Yes
+    pick_slips_generated:
+      label: Pick Slips Generated
+      editable: Yes
+    completed:
+      label: Completed
+      editable: No
+    canceled:
+      label: Canceled
+      editable: No
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to:   pending
+    placebulk:
+          label: 'Place bulk order'
+          from: [draft]
+          to:   onhold
+    approve:
+      label: 'Approve order'
+      from: [onhold]
+      to:   pending
+    process:
+      label: 'Generate Pick Slip'
+      from: [pending]
+      to:   pick_slips_generated
+    complete:
+      label: 'Complete order'
+      from: [pick_slips_generated]
+      to: completed
+    backtopending:
+          label: 'Back to Pending'
+          from: [pick_slips_generated]
+          to: pending
+    cancel:
+      label: 'Cancel order'
+      from: [draft, pending, onhold, pick_slips_generated]
+      to:   canceled

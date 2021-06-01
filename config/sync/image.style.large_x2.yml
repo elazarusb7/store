@@ -1,0 +1,23 @@
+uuid: 2e3afb43-5f18-44d9-8d87-b06109172d1b
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_style_quality
+name: large_x2
+label: 'Large (480 x 480) x2'
+effects:
+  d9319182-3905-4635-9365-0c366c0e0b01:
+    uuid: d9319182-3905-4635-9365-0c366c0e0b01
+    id: image_scale
+    weight: 1
+    data:
+      width: 960
+      height: 960
+      upscale: false
+  dca95439-f435-4a6a-aee4-784051bb968b:
+    uuid: dca95439-f435-4a6a-aee4-784051bb968b
+    id: image_style_quality
+    weight: 2
+    data:
+      quality: 40

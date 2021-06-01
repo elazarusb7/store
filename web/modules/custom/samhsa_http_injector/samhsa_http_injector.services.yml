@@ -1,0 +1,5 @@
+services:
+  samhsa_http_injector:
+    class: '\Drupal\samhsa_http_injector\EventSubscriber\SamhsaHttpInjector'
+    tags:
+      - { name: 'event_subscriber' }

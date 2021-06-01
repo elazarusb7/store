@@ -1,0 +1,22 @@
+uuid: ed78ad6d-0638-4d12-aa2e-2c69ec31734c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omega_samhsa_pep
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: omega_samhsa_pep_local_tasks
+theme: omega_samhsa_pep
+region: content
+weight: -19
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

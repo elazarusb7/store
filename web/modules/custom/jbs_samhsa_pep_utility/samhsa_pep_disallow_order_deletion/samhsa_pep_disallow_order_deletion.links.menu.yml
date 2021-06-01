@@ -1,0 +1,5 @@
+samhsa_pep_disallow_order_deletion.admin_delete_orders:
+  title: 'SAMHSA PEP Allow/Disallow Order Deletion'
+  parent: system.admin_config_system
+  description: 'Allow/Disallow Order Deletion'
+  route_name: samhsa_pep_disallow_order_deletion

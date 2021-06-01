@@ -1,0 +1,6 @@
+name: 'Custom SAMHSA PEP Checkout Customization'
+type: module
+description: 'Customization in the checkout process'
+core: 8.x
+package: 'SAMHSA PEP Custom'
+

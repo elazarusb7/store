@@ -1,0 +1,389 @@
+<?php
+
+use Drupal\commerce\Context;
+use Drupal\commerce\PurchasableEntityInterface;
+use Drupal\commerce\Response\NeedsRedirectException;
+use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\commerce_product\Entity\ProductVariation;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Field\FieldItemList;
+use Drupal\Core\Url;
+use Drupal\views\Form\ViewsForm;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\physical\Weight;
+use Drupal\physical\WeightUnit;
+use Drupal\field\Entity\FieldStorageConfig;
+use \Drupal\Component\Utility\UrlHelper;
+
+DEFINE('INTEGER_MAX_VALUE', 2147483647);
+DEFINE('FILE_UNPUBLISH',    '--HOLD--');
+DEFINE('ACTION_UNPUBLISH',  0);
+DEFINE('ACTION_PUBLISH',    1);
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_product_display_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+)
+{
+
+  //hide price column on the product variations page
+  unset($form['variations']['#header']['price']);
+  if (isset($form['variations']) && is_array($form['variations'])) {
+    foreach ($form['variations'] as $key => $variation) {
+      if (is_numeric($key)) {
+        unset($form['variations'][$key]['price']);
+      }
+    }
+  }
+
+  //add/edit product variation form
+  if($form_id == "commerce_product_variation_default_add_form" ||
+    $form_id == "commerce_product_variation_default_edit_form") {
+    $current_route = \Drupal::routeMatch();
+
+    //Hide stock information on the variation edit page
+    $form['field_available_quantity']['#attributes']['class'][] = 'visually-hidden';
+
+    //Hide Always in stock? checkbox on the variation edit page
+    $form['commerce_stock_always_in_stock']['#attributes']['class'][] = 'visually-hidden';
+
+    // Drupal has fetched the entity for us already.
+    $product = $current_route->getParameters()->get('commerce_product');
+    $product_type = $product->field_pep_product_type->getValue();
+
+    if (isset($product_type) && isset($product_type[0]['value'])) {
+      if ($product_type[0]['value'] == 'download_only'
+      ) {
+        $unit = \Drupal::config('samhsa_pep_shipping.settings')
+          ->get('unit','oz');
+        //hide weight field for download only product and set weight to 0
+        $form['weight']['widget']['0']['#default_value']['number'] = 0;
+        $form['weight']['widget']['0']['#default_value']['unit'] = $unit;
+        $form['weight']['#disabled'] = TRUE;
+
+      }
+    }
+  }
+
+  // Add to cart form.
+  if (strpos($form_id, "commerce_order_item_add_to_cart_form") !== FALSE) {
+    /** @var \Drupal\commerce_product\Entity\ProductInterface $product */
+    // entity_type: commerce_product
+    // bundle: samhsa_publication
+    $product = $form_state->get('product');
+
+    // Get the product variation.
+    // entity_type: commerce_product_variation
+    $vid = $form_state->get('selected_variation');
+    if (!empty($vid)) {
+      $variant = ProductVariation::load($vid);
+    } else {
+      $variant = $product->getDefaultVariation();
+    }
+
+    // SPD-49 - hide Add to Cart functionality for download only products
+    $product_type = $product->field_pep_product_type->getValue();
+    if (isset($product_type) && isset($product_type[0]['value'])) {
+      if ($product_type[0]['value'] == 'download_only'
+        || $product_type[0]['value'] == 'samhsa_only'
+      ) {
+        // prevent add to cart
+        $form['actions']['submit']['#disabled'] = TRUE;
+        $form['actions']['submit']['#value'] = t('Download only');
+
+        if (isset($form['quantity'])) {
+          unset($form['quantity']);
+          $product->__unset('field_qty_max_order');
+        }
+      }
+    }
+  }
+
+  // add Redirect button (thanks Vera)
+  if ($form_id == 'commerce_product_samhsa_publication_edit_form') {
+    $pid = \Drupal::routeMatch()->getParameter('commerce_product')->id();
+    $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/product/'.$pid);
+
+    $form['url_redirects']['actions'] = [
+      '#theme' => 'links',
+      '#links' => [],
+      '#attributes' => ['class' => ['action-links']],
+      '#prefix' => $alias,
+    ];
+    $form['url_redirects']['actions']['#links']['addTo'] = [
+      'title' => t('Add URL redirect TO this Product'),
+      'url' => Url::fromRoute('redirect.add', [
+        'redirect' => 'product/' . $pid,  // need to redirect from internal Drupal URI
+      ]),
+      'attributes' => [
+        'class' => 'button',
+        'target' => '_blank',
+      ],
+    ];
+    $form['url_redirects']['actions']['#links']['addFrom'] = [
+      'title' => t('Add URL redirect FROM this Product'),
+      'url' => Url::fromRoute('redirect.add', [
+        'source' => 'product/' . $pid,
+      ]),
+      'attributes' => [
+        'class' => 'button',
+        'target' => '_blank',
+      ],
+    ];
+  }
+
+  if (preg_match('/commerce_product_samhsa_publication_(add|edit)_form/', $form_id)) {
+    // change Publication Date format to YYYY-mm-dd SPD-401
+    $form["field_publication_date"]["widget"][0]['value']['#date_date_element'] = 'text';
+    $form["field_last_reviewed"]["widget"][0]['value']['#date_date_element'] = 'text';
+  }
+}
+
+
+/**
+ * impelments hook_entity_base_field_info_alter()
+ *
+ * Override Commerce-provided Product and Variant field labels
+ */
+function samhsa_pep_product_display_entity_base_field_info_alter(
+  &$fields,
+  \Drupal\Core\Entity\EntityTypeInterface $entity_type
+) {
+  $id = $entity_type->id();
+  if ($id == 'commerce_product_variation') {
+    $fields['sku']->setLabel('Publication ID');
+  }
+}
+
+
+/**
+ * custom validation function for SAMHSA Pep Product
+ *
+ */
+function _validate_samhsa_product($form, FormStateInterface &$form_state) {
+  // Reserved Quantity
+  $qty_reserved = $form_state->getValue('field_qty_reserved');
+  if (isset($qty_reserved) && isset($qty_reserved[0]['value']) ) {
+    if ($qty_reserved[0]['value'] > INTEGER_MAX_VALUE) {
+      $num = number_format(INTEGER_MAX_VALUE, 0, '.', ',');
+      $form_state->setErrorByName('field_qty_reserved', t('Reserved Quantity must be less than ' . $num));
+    }
+  }
+
+  // Max Limit
+  $qty_max = $form_state->getValue('field_qty_max_order');
+  if (isset($qty_max) && isset($qty_max[0]['value']) ) {
+    if ($qty_max[0]['value'] > 99999) {
+      $num = number_format(99999, 0, '.', ',');
+      $form_state->setErrorByName('field_qty_max_order', t('Max Limit must be less than ' . $num));
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function samhsa_pep_product_display_entity_presave(EntityInterface $entity) {
+  // Check Product Variation.
+  if ($entity instanceof ProductVariation) {
+    $price = new  \Drupal\commerce_price\Price('0', 'USD');
+    $entity->setPrice($price);
+  }
+
+  if ($entity->bundle() == 'samhsa_publication') {
+    $now = $entity->isPublished();
+    if (isset($entity->original)) {
+      $then = $entity->original->isPublished();
+    }
+    else {
+      $then = $now;
+    }
+    $pid  = $entity->id();
+    if ($then == 0 && $now == 1) {
+      _publish_unpublish_downloads($entity->field_samhsa_digital_download, ACTION_PUBLISH, $pid);
+    }
+    else if ($then == 1 && $now == 0) {
+      _publish_unpublish_downloads($entity->field_samhsa_digital_download, ACTION_UNPUBLISH, $pid);
+    }
+    else {
+      \Drupal::messenger()->addMessage("Published status unchanged");
+    }
+  }
+}
+
+
+/**
+ * helper function to rename files attached to unpublished Products
+ * so that they can no longer be downloaded if the link is bookmarked
+ *
+ * @param $field  Drupal\file\Plugin\Field\FieldType\FileFieldItemList
+ * @param $action publish or unpublish file assets
+ * @param $current_pid Product ID of publication
+ */
+function _publish_unpublish_downloads($field, $action, $current_pid)
+{
+  $root = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+  $watchdog = ($action == ACTION_PUBLISH ? 'Restoring' : 'Unpublishing') . " file assets in $root<br /><br />";
+  Drupal::messenger()->addMessage(($action == ACTION_PUBLISH ? 'Restoring' : 'Unpublishing') . " file assets");
+  $single_use_files  = [];
+  $multi_use_files   = [];
+  $paths_published   = [];
+  $paths_unpublished = [];
+  $files_restored    = [];
+  foreach ($field as $file_entity) {
+    /** @var $file \Drupal\file\Entity\File */
+    $file   = $file_entity->entity;
+    $fname  = $file->getFilename();
+    $fid    = $file->id();
+    $path   = str_replace('public:/', $root, $file->getFileUri());
+    $paths_published[$fid]    = $path;
+    $path_unpublished         = $path . FILE_UNPUBLISH;
+    $paths_unpublished[$fid]  = $path_unpublished;
+    $single_use_files[$fid]   = $fname;
+
+    if ($action == ACTION_PUBLISH) {
+      $watchdog .= "<br />Restoring '$fname'<br />";
+      if (file_exists($path_unpublished)) {
+        if (rename($path_unpublished, $path)) {
+          $files_restored[$fid] = $fname;
+          $watchdog .= "Restored '$path_unpublished' to '$path'<br />";
+        } else {
+          $watchdog .= "ERROR unable to Restore '$path_unpublished' to '$path'<br />";
+        }
+      }
+      else {
+        $watchdog .= "ERROR unable to locate '$path_unpublished'<br />";
+      }
+    }
+    else if ($action == ACTION_UNPUBLISH) {
+      $usage = file_get_file_references($file);
+      if ( isset($usage['field_samhsa_digital_download']['commerce_product'] )) {
+        foreach ($usage['field_samhsa_digital_download']['commerce_product'] as $pid => $product) {
+          /** @var $product Drupal\commerce_product\Entity\Product */
+          if ($pid != $current_pid && $product->isPublished()) {
+            // file is also used in another Published product
+            unset($single_use_files[$fid]);
+            $multi_use_files[$fid]['file'] = $fname;
+            $multi_use_files[$fid]['products'][$pid] = $product->getTitle();
+          }
+        }
+      }
+    }
+  }
+
+  $style = 'style="padding-left: 25px;"';
+  if ($action == ACTION_PUBLISH) {
+    if (count($files_restored)) {
+      $msg = "
+      <ul $style>";
+      foreach ($files_restored as $refile) {
+        $msg .= "
+        <li>$<strong>$refile</strong></li>";
+      }
+      $msg .= "
+      </ul>";
+      $msg = new \Drupal\Core\StringTranslation\TranslatableMarkup('<h5>' . count($files_restored) . ' files restored</h5>' . $msg);
+      \Drupal::messenger()->addMessage($msg);
+    }
+  }
+  else if ($action == ACTION_UNPUBLISH) {
+    if (count($single_use_files)) {
+      foreach ($single_use_files as $fid => $sufile) {
+        $watchdog .= "<br />Unpublishing '$sufile'<br />";
+        $path_published   = $paths_published[$fid];
+        $path_unpublished = $paths_unpublished[$fid];
+        if (file_exists($path_published)) {
+          if (rename($path_published, $path_unpublished)) {
+            $watchdog .= "Unpublished file '$path_published' to '$path_unpublished'<br />";
+          } else {
+            $watchdog .= "ERROR unable to unpublished '$path_published' to '$path_unpublished'<br />";
+          }
+        }
+        else {
+          $watchdog .= "ERROR unable to locate '$path_published'<br />";
+        }
+      }
+      $msg = new \Drupal\Core\StringTranslation\TranslatableMarkup('<h5>' . count($single_use_files) . ' files used only on
+    this Product &mdash; these are no longer downloadable</h5>' . implode('<br />',
+          $single_use_files));
+      \Drupal::messenger()->addMessage($msg);
+    }
+
+    if (count($multi_use_files)) {
+      $msg = '';
+      foreach ($multi_use_files as $mufile) {
+        $watchdog .= "<br />NOT unpublishing " . $mufile['file'] . "<br />";
+        $msg .= "
+      <strong>" . $mufile['file'] . "</strong>
+      <ul $style>";
+        foreach ($mufile['products'] as $prod) {
+          $msg .= "
+        <li>$prod</li>";
+        }
+        $msg .= "
+      </ul>";
+      }
+      $msg = new \Drupal\Core\StringTranslation\TranslatableMarkup('<h5>' . count($multi_use_files) . ' files used in other Products &mdash; these will remain available</h5>' . $msg);
+      \Drupal::messenger()->addMessage($msg);
+    }
+  }
+  $msg = new \Drupal\Core\StringTranslation\TranslatableMarkup($watchdog);
+  \Drupal::logger('samhsa_pep_product_display')->notice($msg);
+}
+
+/**
+ * Implements hook_entity_view().
+ *
+ * SPD-216 - hide manual YMABI fields when method is set to Auto
+ */
+function samhsa_pep_product_display_entity_view(
+  array &$build,
+  \Drupal\Core\Entity\EntityInterface $entity,
+  \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display,
+  $view_mode
+) {
+  if (get_class($entity) == 'Drupal\commerce_product\Entity\Product') {
+    // Drupal\Core\Field\FieldItemList
+    $fieldItemList = $entity->get('field_may_be_interested_in');
+    $value = $fieldItemList->getValue();
+    if (isset($value[0]['value'])) {
+      $ymabi = $value[0]['value'];
+      if ($ymabi === 'none') {
+        if ($display->getComponent('field_may_be_interested_files')) {
+          unset($build['field_may_be_interested_files']);
+        }
+        if ($display->getComponent('field_may_be_interested_manual')) {
+          unset($build['field_may_be_interested_manual']);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_field().
+ */
+function samhsa_pep_product_display_preprocess_field(&$variables, $hook)
+{
+  $element = $variables['element'];
+  $field_storage = FieldStorageConfig::loadByName('commerce_product', $element['#field_name']);
+  if (!empty($field_storage) ){ //&& in_array('page', $field_storage->getBundles())) {
+    // TODO: check why special characters in url, like [], :, etc, dont get translated(displayed) properly in the url
+    foreach ($variables['items'] as $key => $item) {
+      if (!empty($variables['items'][$key]['content']['#options']['entity_type']) && $variables['items'][$key]['content']['#options']['entity_type'] == 'taxonomy_term') {
+        //ovewrite url for the product term to go to the product search page with term selected as a search parameter
+        $options = ['absolute' => TRUE];
+        $vid = $variables['items'][$key]['content']['#options']['entity']->getVocabularyId();
+        $tid = $variables['items'][$key]['content']['#options']['entity']->id();
+        $url = Url::fromRoute('<front>', ['f[0]' => $vid . ":" . $tid], $options);
+        $variables['items'][$key]['content']['#url'] = $url;
+      }
+    }
+  }
+}
+

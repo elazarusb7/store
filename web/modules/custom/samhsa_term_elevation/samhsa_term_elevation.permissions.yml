@@ -1,0 +1,20 @@
+add sahmsa term elevation entities:
+  title: 'Create new SAHMSA Term Elevation queries'
+
+administer sahmsa term elevation entities:
+  title: 'Administer SAHMSA Term Elevation queries'
+  description: 'Allow to access the administration form to configure SAHMSA Term Elevation entities.'
+  restrict access: true
+
+delete sahmsa term elevation entities:
+  title: 'Delete SAHMSA Term Elevation queries'
+
+edit sahmsa term elevation entities:
+  title: 'Edit SAHMSA Term Elevation queries'
+
+view published sahmsa term elevation entities:
+  title: 'View published SAHMSA Term Elevation queries'
+
+view unpublished sahmsa term elevation entities:
+  title: 'View unpublished SAHMSA Term Elevation queries'
+

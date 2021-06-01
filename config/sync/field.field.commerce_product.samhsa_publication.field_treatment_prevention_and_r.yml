@@ -1,0 +1,29 @@
+uuid: cd80e1a5-ed4e-40e7-867c-9c2fb9336733
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_treatment_prevention_and_r
+    - taxonomy.vocabulary.treatment_prevention_recovery
+id: commerce_product.samhsa_publication.field_treatment_prevention_and_r
+field_name: field_treatment_prevention_and_r
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Treatment, Prevention and Recovery'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      treatment_prevention_recovery: treatment_prevention_recovery
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

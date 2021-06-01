@@ -1,0 +1,31 @@
+
+# In order to to create pages it is necessary to define routes for them.
+# A route maps a URL path to a controller. It defines with what function
+# or method will be called when a URL is accessed.
+# If the user accesses http://drupal8.dev/migrate-files-and-images, the routing
+# system will look for a route with that path. In this case it will find a
+# match, and execute the _controller callback. In this case the callback is
+# defined as a classname
+# ("\Drupal\migrate_files_and_images\Controller\ImportFilesAndImages")
+# and a method ("executeImport").
+migrate_files_and_images.import_files_and_images_execute_import:
+  path: 'admin/migrate-files-and-images/execute/{limit}'
+  defaults:
+    _controller: '\Drupal\migrate_files_and_images\Controller\ImportFilesAndImages::prepareExecuteImport'
+    _title: 'Migrating Files and Images'
+  requirements:
+    _permission: 'access content'
+
+migrate_files_and_images.form:
+  path: 'admin/migrate-files-and-images/prepare'
+  defaults:
+    _form: '\Drupal\migrate_files_and_images\Form\MigrateFilesAndImagesForm'
+    _title: 'Migrating Files and Images'
+  requirements:
+    _permission: 'access content'
+migrate_files_and_images.settings:
+  path: '/admin/config/content/files_and_images_path'
+  defaults:
+    _form: '\Drupal\migrate_files_and_images\Form\MigrateFilesAndImagesSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

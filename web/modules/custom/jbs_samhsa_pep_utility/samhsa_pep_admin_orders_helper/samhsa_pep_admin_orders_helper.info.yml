@@ -1,0 +1,9 @@
+name: 'Custom SAMHSA PEP Admin Order hooks and functions'
+type: module
+description: 'Define Custom SAMHSA PEP Admin Order hooks and functions.'
+core: 8.x
+package: 'SAMHSA PEP Custom'
+dependencies:
+  - samhsa_pep_clone_order
+  - jbs_commerce_over_the_max_limit
+  - samhsa_pep_utility

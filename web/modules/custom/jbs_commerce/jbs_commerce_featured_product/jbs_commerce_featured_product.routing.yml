@@ -1,0 +1,7 @@
+jbs_commerce_featured_product.configuration:
+  path: '/admin/commerce/config/featured_product'
+  defaults:
+    _form: '\Drupal\jbs_commerce_featured_product\Form\FeaturedProductForm'
+    _title: 'Featured Products'
+  requirements:
+    _permission: 'access commerce administration pages'

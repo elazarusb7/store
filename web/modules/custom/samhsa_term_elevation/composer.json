@@ -1,0 +1,11 @@
+{
+    "name" : "jbs/samhsa_term_elevation",
+    "type" : "drupal-custom-module",
+    "description" : "Drupal 8 JBS SAMHSA Term Elevation",
+    "keywords" : [
+        "JBS/SAMHSA",
+        "modules",
+        "drupal"
+    ],
+    "license" : "GPL-2.0+"
+}

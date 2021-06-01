@@ -1,0 +1,4 @@
+combine_pep_cart: null
+physical_count_error_message:
+  value: "<p>If your Physical Inventory Count is less than Allocated Quantity:<br />\r\nStep 1: Unpublish the product<br />\r\nStep 2: Cancel some of the orders that have been placed such that Allocated Quantity becomes less than or equal to the Physical Count.<br />\r\nStep 3: Then return to this page and choose Physical Count and provide the quantity again. Step 4: You may publish the product again.</p>\r\n"
+  format: full_html

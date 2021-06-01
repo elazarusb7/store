@@ -1,0 +1,25 @@
+uuid: e9905ac9-c701-43b6-99c6-e81d81a42b79
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_may_be_interested_manual
+id: commerce_product.samhsa_publication.field_may_be_interested_manual
+field_name: field_may_be_interested_manual
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'You May Also Be Interested Manual'
+description: 'You may manually select up to 6 products to update the block.  Type in either the first few characters of the Product Title or the SKU to bring up a list of matching Products.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: recommendation_chooser
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

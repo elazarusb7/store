@@ -1,0 +1,3 @@
+samhsa_pep_utility_order:
+  label: Commerce Order
+  entity_type: commerce_order

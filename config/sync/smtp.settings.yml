@@ -1,0 +1,20 @@
+smtp_on: false
+smtp_host: email-smtp.us-east-1.amazonaws.com
+smtp_hostbackup: ''
+smtp_port: '465'
+smtp_protocol: ssl
+smtp_username: AKIAJ6ZCSCR7BN35FM3A
+smtp_password: AqJS7iMt3KhHHqiMmoObVSedXx7mrXPgVbmtmBCuk2ue
+smtp_from: pepdev@jbsinternational.com
+smtp_fromname: ''
+smtp_client_hostname: ''
+smtp_client_helo: ''
+smtp_allowhtml: '0'
+smtp_test_address: ''
+smtp_debugging: false
+prev_mail_system: php_mail
+_core:
+  default_config_hash: WEa5Ex_IeAcm6Bm0hmQ4vU_nDwJDB8hW-vxT1qpGIbM
+smtp_autotls: false
+smtp_timeout: 30
+smtp_keepalive: false

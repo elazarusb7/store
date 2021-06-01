@@ -1,0 +1,11 @@
+{
+  "name" : "samhsa/pep_libraries",
+  "type" : "samhsa-library-repo",
+  "description" : "SAMHSA PEP Library assets",
+  "keywords" : [
+    "SAMHSA",
+    "libraries",
+    "drupal"
+  ],
+  "license" : "GPL-2.0+"
+}

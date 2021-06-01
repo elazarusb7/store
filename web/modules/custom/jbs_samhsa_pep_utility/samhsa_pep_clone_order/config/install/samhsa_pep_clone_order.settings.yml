@@ -1,0 +1,7 @@
+order_states:
+  completed: completed
+  draft: 0
+  onhold: 0
+  pending: 0
+  pick_slips_generated: 0
+  canceled: 0

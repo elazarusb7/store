@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * jbs_commerce_over_the_max_limit.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_shipping_install() {
+    // save default weight unit.
+    $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_shipping.settings');
+
+    // Set and save weight default unit.
+    $config->set('unit', 'oz')->save();
+
+    // Set and save weight in lb when order considered bulk.
+    $config->set('bulk_number', '500')->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_shipping_uninstall() {
+    Drupal::configFactory()->getEditable('samhsa_pep_shipping.settings')->delete();
+}
+
+
+

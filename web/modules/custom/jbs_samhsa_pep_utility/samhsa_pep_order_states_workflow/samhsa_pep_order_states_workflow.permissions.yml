@@ -1,0 +1,2 @@
+permission_callbacks:
+  - \Drupal\samhsa_pep_order_states_workflow\MyWorkflowPermissions::permissions

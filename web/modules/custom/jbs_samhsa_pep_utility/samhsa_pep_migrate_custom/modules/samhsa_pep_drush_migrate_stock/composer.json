@@ -1,0 +1,17 @@
+{
+  "name": "drupal/samhsa_pep_drush_migrate_stock",
+  "description": "Drush 9 command to migrate stock (available qty) field.",
+  "type": "ddrupal-custom-module",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\samhsa_pep_drush_migrate_stock\\": "src/"
+    }
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  }
+}

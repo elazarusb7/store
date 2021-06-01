@@ -1,0 +1,16 @@
+samhsa_pep_shipping_method.lib:
+  version: VERSION
+  js:
+    js/samhsa_pep_shipping_method.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal
+samhsa_pep_checkout_warning.lib:
+  version: VERSION
+  js:
+    js/samhsa_pep_checkout_warning.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal

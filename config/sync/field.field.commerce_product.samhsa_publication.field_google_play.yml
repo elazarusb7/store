@@ -1,0 +1,23 @@
+uuid: b7e30530-3a0a-4f31-9cc3-0722d270ae1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_google_play
+  module:
+    - link
+id: commerce_product.samhsa_publication.field_google_play
+field_name: field_google_play
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Google Play'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

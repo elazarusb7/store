@@ -1,0 +1,8 @@
+name: SAMHSA PEP User Security
+type: module
+description: Module to provide and enhance user security
+# core: 8.x
+dependencies:
+  - redirect
+core: '8.x'
+package: 'SAMHSA PEP Custom'

@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_te_url_replacement.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\samhsa_te_url_replacement\FakeSolrDoc;
+use Drupal\search_api\Query\ResultSetInterface;
+use Drupal\search_api\Query\QueryInterface;
+use Solarium\QueryType\Select\Result\Result;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_te_url_replacement_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_te_url_replacement module.
+    case 'help.page.samhsa_te_url_replacement':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Replaces the value of the Base URL field pulled from Solr') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_search_api_solr_search_results_alter().
+ */
+function samhsa_te_url_replacement_search_api_solr_search_results_alter(ResultSetInterface $result_set, QueryInterface $query, Result $result) {
+
+  $config = \Drupal::config('samhsa_term_elevation.config');
+  $default_server_id = $config->get('server_id');
+  $default_index_id = $config->get('index_id');
+
+  $index = $query->getIndex();
+  if ($index->getServerId() !== $default_server_id || $index->id() !== $default_index_id) {
+    return;
+  }
+
+  if (!$sites_list = unserialize(\Drupal::config('samhsa_te_url_replacement.configuration')
+    ->get('sites'))) {
+    return;
+  }
+
+  foreach ($result_set->getResultItems() as $item) {
+    $document = $item->getExtraData('search_api_solr_document');
+    $fields = $document->getFields();
+    if (@$sites_list[$fields['site']]) {
+      $fields['site'] = $sites_list[$fields['site']];
+      $fake_solr_doc = new FakeSolrDoc($fields);
+      $item->setExtraData('search_api_solr_document', $fake_solr_doc);
+    }
+
+  }
+
+}

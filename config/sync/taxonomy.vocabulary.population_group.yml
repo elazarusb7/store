@@ -1,0 +1,8 @@
+uuid: de6bb4cd-8f46-4e9d-b76f-ef0d492d209f
+langcode: en
+status: true
+dependencies: {  }
+name: 'Population Group'
+vid: population_group
+description: 'Population Group'
+weight: -7

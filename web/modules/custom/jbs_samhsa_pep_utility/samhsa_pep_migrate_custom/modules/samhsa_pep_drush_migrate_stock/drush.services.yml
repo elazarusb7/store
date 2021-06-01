@@ -1,0 +1,5 @@
+services:
+  samhsa_pep_drush_migrate_stock.commands:
+    class: \Drupal\samhsa_pep_drush_migrate_stock\Commands\StockMigrateCommands
+    tags:
+      - { name: drush.command }

@@ -1,0 +1,23 @@
+uuid: 18aafabf-dc8e-426e-9214-0240e9025689
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.substances
+  module:
+    - facets
+  theme:
+    - bartik
+id: substances
+theme: bartik
+region: sidebar_first
+weight: -5
+provider: null
+plugin: 'facet_block:substances'
+settings:
+  id: 'facet_block:substances'
+  label: Substances
+  provider: facets
+  label_display: '0'
+  block_id: substances
+visibility: {  }

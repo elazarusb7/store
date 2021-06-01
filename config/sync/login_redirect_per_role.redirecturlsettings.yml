@@ -1,0 +1,6 @@
+allow_destination: 0
+default_site_url: /
+login_redirect_per_role_administrator: /user
+login_redirect_per_role_warehouse_manager: /admin/commerce/orders/status-pending
+login_redirect_per_role_warehouse_clerk: /
+login_redirect_per_role_site_manager: /user

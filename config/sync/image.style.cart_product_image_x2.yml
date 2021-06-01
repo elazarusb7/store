@@ -1,0 +1,23 @@
+uuid: 3515e5ec-33df-4834-8ff5-efa8b2eb1dd7
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_style_quality
+name: cart_product_image_x2
+label: 'Cart Product Image x2'
+effects:
+  50bf4839-cb5d-4d67-8b35-0bb553a9a9c4:
+    uuid: 50bf4839-cb5d-4d67-8b35-0bb553a9a9c4
+    id: image_scale
+    weight: 1
+    data:
+      width: 200
+      height: 260
+      upscale: false
+  3318b41e-4054-4f55-a4b7-3d5da79df4ee:
+    uuid: 3318b41e-4054-4f55-a4b7-3d5da79df4ee
+    id: image_style_quality
+    weight: 2
+    data:
+      quality: 40

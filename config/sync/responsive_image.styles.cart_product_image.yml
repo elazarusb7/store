@@ -1,0 +1,24 @@
+uuid: 69153fab-6643-4f6b-871e-a393104e1a76
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.cart_product_image
+    - image.style.cart_product_image_x2
+  theme:
+    - omega_samhsa_pep
+id: cart_product_image
+label: 'Cart Product Image'
+image_style_mappings:
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: cart_product_image
+  -
+    breakpoint_id: omega_samhsa_pep.default.all
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: cart_product_image_x2
+breakpoint_group: omega_samhsa_pep.default
+fallback_image_style: cart_product_image_x2

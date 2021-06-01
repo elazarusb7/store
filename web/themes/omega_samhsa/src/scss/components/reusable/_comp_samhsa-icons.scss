@@ -1,0 +1,37 @@
+// samhsa-icon font icons
+//==========================================================================
+
+// Create the font family
+//----------------------------------------------
+@font-face {
+  font-family: 'samhsa-icons';
+  src:  url('../../fonts/icomoon/samhsa-icons/samhsa-icons.eot?xd8hxr');
+  src:  url('../../fonts/icomoon/samhsa-icons/samhsa-icons.eot?xd8hxr#iefix') format('embedded-opentype'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.woff2?xd8hxr') format('woff2'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.ttf?xd8hxr') format('truetype'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.woff?xd8hxr') format('woff'),
+    url('../../fonts/icomoon/samhsa-icons/samhsa-icons.svg?xd8hxr#samhsa-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="samhsa-icons-"], [class*=" samhsa-icons-"] {
+  font-family: 'samhsa-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Create the icons
+//----------------------------------------------
+.samhsa-icons-arrow-up:before {
+  content: "\e900";
+}
+/*.samhsa-icons-magnify:before {
+  content: "\e901";
+}*/

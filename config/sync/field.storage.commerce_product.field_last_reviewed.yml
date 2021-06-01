@@ -1,0 +1,20 @@
+uuid: aa0af221-9440-48fe-9cae-2a0b51005d93
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - datetime
+id: commerce_product.field_last_reviewed
+field_name: field_last_reviewed
+entity_type: commerce_product
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

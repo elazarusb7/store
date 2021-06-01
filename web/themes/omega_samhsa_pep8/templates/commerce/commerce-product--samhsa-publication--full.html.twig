@@ -1,0 +1,112 @@
+{#
+/**
+* @file
+*
+* Default product template.
+*
+* Available variables:
+* - attributes: HTML attributes for the wrapper.
+* - product: The rendered product fields.
+* Use 'product' to print them all, or print a subset such as
+* 'product.title'. Use the following code to exclude the
+* printing of a given field:
+* @code
+* {{ product|without('title') }}
+* @endcode
+* - product_entity: The product entity.
+* - product_url: The product URL.
+*
+* @ingroup themeable
+*/
+#}
+<article class="product-page">
+  {{ product.field_subtitle }}
+  <div class="product-page--main">
+    <div class="product-page--thumb-and-stock">
+      {{ product.field_thumbnail }}
+      <div class="product-page--thumb-and-stock--stock">
+        {% if product.field_pep_product_type.0['#markup'] == 'online_resource' %}Online resource - view&nbsp;only
+        {% elseif product.field_pep_product_type.0['#markup'] == 'download_only' %}Download only
+        {% elseif product.field_pep_product_type.0['#markup'] == 'order_only' or product.field_pep_product_type.0['#markup'] == 'download_order' %}
+        {% if product.variation_field_available_quantity.0['#value'] > 0 %}In stock for ordering{% else %}Out of stock for ordering{% endif %}
+        {% endif %}
+        {% if product.field_pep_product_type.0['#markup'] == 'samhsa_only' or product.field_pep_product_type.0['#markup'] == '' %}Product unavailable{% endif %}
+      </div>
+    </div>
+    <div class="product-page--overview">
+      {{ product.body }}
+      {{ product.field_app_features }}
+      {{ product.field_external_video }}
+      {{ product.variation_sku }}
+      {{ product.field_publication_date }}
+      {{ product.field_last_reviewed }}
+      {{ product.field_format }}
+      {% if product.field_series.0 %}
+        <div class="field field--label-inline">
+          <span class="field__label">More like this</span> <a href="{{ url('<front>') }}?f[0]=series:{{ product.field_series.0['#url'].routeParameters.taxonomy_term }}">{{ product.field_series.0['#title'] }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="product-page--procurement">
+    {% if product.field_pep_product_type.0['#markup'] == 'download_only' or product.field_pep_product_type.0['#markup'] == 'download_order' %}
+    <div class="product-page--block product-page--download">
+      <h2 class="product-page--block--heading">Download</h2>
+      <div class="product-page--block--inner">
+        {{ product.field_samhsa_digital_download }}
+        {% if product.field_google_play['#object'] %}
+          <a href="{{ product.field_google_play.0['#url'] }}" class="app-store-badge--google"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from Google Play</span></a>
+        {% endif %}
+        {% if product.field_apple_app_store['#object'] %}
+          <a href="{{ product.field_apple_app_store.0['#url'] }}" class="app-store-badge--apple"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from the Apple App Store</span></a>
+        {% endif %}
+        {% if product.field_microsoft_store['#object'] %}
+          <a href="{{ product.field_microsoft_store.0['#url'] }}" class="app-store-badge--microsoft"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from the Microsoft Store</span></a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+    {% if product.field_pep_product_type.0['#markup'] == 'order_only' or product.field_pep_product_type.0['#markup'] == 'download_order' %}
+    {% if product.variation_field_available_quantity.0['#value'] > 0 %}
+    <div class="product-page--block product-page--order">
+      <h2 class="product-page--block--heading">Order Print Publication</h2>
+      <div class="product-page--block--inner">
+        {{ product.variations }}
+        {{ product.field_qty_max_order }}
+        <p class="product-page--order--disclaimer">Orders exceeding the maximum quantity limit require authorization.</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+  
+  <div class="product-page--related">
+    {% if product.field_related_resource_files['#items'] or product.field_related_products['#items'] %}
+    <div class="product-page--block product-page--related-resources">
+      <h2 class="product-page--block--heading">Related Resources</h2>
+      <div class="product-page--block--inner">
+        <ul class="field__items list--bulletless">
+        {{ product.field_related_resource_files }}
+        {{ product.field_related_products }}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    {% if product.field_tags['#items'] or product.field_audience['#items'] or product.field_population_group['#items'] %}
+    <div class="product-page--block product-page--related-info">
+      <h2 class="product-page--block--heading">Find Related Information</h2>
+      <div class="product-page--block--inner">
+        {{ product.field_audience }}
+        {{ product.field_population_group }}
+        {{ product.field_series }}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% if product.field_may_be_interested_manual.0  %}
+    <div class="product-page--may-be-interested">
+      <h2>You May Also Be Interested&nbsp;In</h2>
+      {{ product.field_may_be_interested_manual }}
+    </div>
+  {% endif %}
+</article>

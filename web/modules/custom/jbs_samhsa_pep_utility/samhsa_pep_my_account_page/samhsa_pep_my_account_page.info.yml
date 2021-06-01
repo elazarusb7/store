@@ -1,0 +1,5 @@
+name: 'Custom SAMHSA My Account Page'
+type: module
+description: 'Define custom UI for My Account page.'
+core: 8.x
+package: 'SAMHSA PEP Custom'

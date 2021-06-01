@@ -1,0 +1,5 @@
+services:
+  jbs_commerce_import_product_data.commands:
+    class: \Drupal\jbs_commerce_import_product_data\Commands\ImportProductDataCommands
+    tags:
+      - { name: drush.command }

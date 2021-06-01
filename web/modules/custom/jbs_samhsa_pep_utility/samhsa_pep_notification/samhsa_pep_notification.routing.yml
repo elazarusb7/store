@@ -1,0 +1,25 @@
+samhsa_pep_notification_settings:
+  path: admin/config/people/samhsa_pep_notification
+  defaults:
+    _form: 'Drupal\samhsa_pep_notification\Form\SamhsaPepNotificationAdminSettings'
+    _title: 'SAMHSA PEP System Use Notification'
+  requirements:
+    _permission: 'administer site configuration'
+
+samhsa_pep_notification.form:
+  path: '/notification'
+  defaults:
+    _form: '\Drupal\samhsa_pep_notification\Form\SamhsaPepNotification'
+    #_title: 'System Use Notification'
+    _title_callback: '\Drupal\samhsa_pep_notification\Form\SamhsaPepNotification::getTitle'
+  requirements:
+    _permission: 'access content'
+samhsa_pep_login_redirect_per_role.redirect_url_admin_settings:
+  path: '/admin/people/samhsa-pep-login-and-logout-redirect-per-role'
+  defaults:
+    _form: '\Drupal\samhsa_pep_notification\Form\SamhsaPepRedirectURLSettingsForm'
+    _title: 'SAMHSA PEP Login and Logout redirect per role settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

@@ -1,0 +1,10 @@
+uuid: 2bf20a55-fd74-4a92-a573-c391de151d0b
+langcode: en
+status: true
+dependencies: {  }
+id: product
+label: Product
+orderItemType: default
+generateTitle: false
+traits: {  }
+locked: false

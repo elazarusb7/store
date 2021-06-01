@@ -1,0 +1,11 @@
+eventsTableName: product_recommendation__product_events
+pairsTableName: product_recommendation__product_pairs
+logTableName: product_recommendation__model_update
+autoUpdate: 0
+intervalUpdate: 7
+numberOfRecommendations: 6
+lastUpdate: 0
+default:
+  autoUpdate: 0
+  intervalUpdate: 7
+  numberOfRecommendations: 6

@@ -1,0 +1,23 @@
+uuid: a771cd68-b28b-4604-9865-0bb9a23bdf12
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_may_be_interested_in
+  module:
+    - options
+id: commerce_product.samhsa_publication.field_may_be_interested_in
+field_name: field_may_be_interested_in
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'You May Also Be Interested In updates'
+description: 'Method for updating the You May Also Be Interested In block on Product Display page'
+required: true
+translatable: false
+default_value:
+  -
+    value: auto
+default_value_callback: ''
+settings: {  }
+field_type: list_string

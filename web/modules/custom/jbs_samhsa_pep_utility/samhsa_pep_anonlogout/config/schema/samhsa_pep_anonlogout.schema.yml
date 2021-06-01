@@ -1,0 +1,12 @@
+samhsa_pep_anonlogout.settings:
+  type: config_object
+  mapping:
+    timeout:
+      type: integer
+      label: 'Timeout value'
+    redirect_url:
+      type: string
+      label: 'Redirect url'
+    add_to_cart_message:
+      type: string
+      label: 'Add To Cart message'

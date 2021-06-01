@@ -1,0 +1,302 @@
+<?php
+
+use \Drupal\Core\Url;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_my_account_page_preprocess_menu_local_tasks(&$variables) {
+  $my_account_page_routes = [
+    'entity.user.canonical',
+    'commerce_order.address_book.overview',
+    'view.commerce_user_orders.order_page',
+    'entity.user.edit_form',
+    'entity.commerce_payment_method.collection',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (in_array($route_name, $my_account_page_routes)) {
+    unset($variables['primary']['profile.user_page:shipping_profile']);
+  }
+  switch ($route_name) {
+    case 'entity.user.canonical':
+      $variables['primary'][$route_name]['#link']['title'] = t('Welcome');
+      break;
+
+    case 'commerce_order.address_book.overview':
+      $variables['primary'][$route_name]['#link']['title'] = t('Addresses');
+      break;
+
+    case 'entity.user.edit_form':
+      $variables['primary'][$route_name]['#link']['title'] = t('Email/Password');
+      break;
+
+    default:
+
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_my_account_page_preprocess_menu_local_task(&$variables) {
+  $my_account_page_routes = [
+    'entity.user.canonical',
+    'commerce_order.address_book.overview',
+    'view.commerce_user_orders.order_page',
+    'entity.user.edit_form',
+    'entity.commerce_payment_method.collection',
+  ];
+  $this_route_name = \Drupal::routeMatch()->getRouteName();
+  $link_route_name = $variables['link']['#url']->getRouteName();
+  if (in_array($this_route_name, $my_account_page_routes)) {
+    $title = strtolower($variables['link']['#title']);
+    switch ($title) {
+      case 'view':
+        $variables['link']['#title'] = t('Welcome');
+        break;
+
+      case 'address book':
+        $variables['link']['#title'] = t('Addresses');
+        break;
+
+      case 'edit':
+        $variables['link']['#title'] = t('Email/Password');
+        break;
+
+      default:
+
+    }
+  }
+  elseif ($this_route_name == 'user.pass' && $link_route_name == 'user.pass') {
+    $variables['link']['#title'] = NULL;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_my_account_page_preprocess_page_title(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  
+  if ($route_name == 'entity.user.canonical' ||
+  $route_name == 'view.commerce_user_orders.order_page') {
+      $variables['title'] = is_array($variables['title']) ? t('My Account') : ['#markup' => t('My Account')];
+  }
+  //update address book page title
+  if ($route_name == 'commerce_order.address_book.overview') {
+      $variables['title'] = t('My Account');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function samhsa_pep_my_account_page_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'entity.user.canonical') {
+    $suggestions[] = 'form_element__input__user_canonical';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$suggestions, array $variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $is_address_book_container = FALSE;
+  if(isset($variables['element']['#attributes']) && isset($variables['element']['#attributes']['class'])) {
+      $classes = $variables['element']['#attributes']['class'];
+      $is_address_book_container = array_search('address-book__container', $classes);
+  }
+  if ($route_name == 'commerce_order.address_book.overview' && $is_address_book_container !== FALSE) {
+    $suggestions[] = 'container__address_book';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_my_account_page_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (in_array($form_id, ['profile_customer_address-book-add_form', 'profile_customer_address-book-edit_form'])) {
+    $form['message_top'] = [
+      '#type' => 'markup',
+      '#markup' => '<p aria-hidden="true">Fields marked with <span class="form-required--asterisk"></span> are required.</p>',
+      '#weight' => -90,
+    ];
+    $form['custom_link_back'] = [
+      '#type' => 'link',
+      '#title' => t('Back to address list'),
+      '#url' => Url::fromRoute('commerce_order.address_book.overview', ['user' => \Drupal::currentUser()->id()]),
+      '#weight' => 999,
+    ];
+  }
+  if ($form_id == 'profile_customer_address-book-edit_form') {
+    $form['#title'] = t('Edit address');
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function samhsa_pep_my_account_page_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if($form_id != 'user_register_form') {
+      $user_id = $form_state->getformObject()->getEntity()->id();
+      $form['#title'] = t('My Account');
+      $form['message_top'] = [
+          '#type' => 'markup',
+          '#markup' => _samhsa_pep_my_account_page_get_user_edit_info_text_password_1($user_id),
+          '#weight' => -90,
+      ];
+      $form['account']['pass']['#description'] = _samhsa_pep_my_account_page_get_user_edit_info_text_password_2();
+  }
+
+  if($form_id == 'user_form'){
+      $moduleHandler = \Drupal::service('module_handler');
+      if ($moduleHandler->moduleExists('email_registration')) {
+          // If email registration module enabled, hide user name field on edit user profile page
+          $form['account']['name']['#attributes']['class'][] = 'visually-hidden';
+          $form['account']['name']['#title'] = "";
+          $form['account']['name']['#description'] = "";
+          $form['account']['name']['#required'] = FALSE;
+      }
+  }
+}
+
+/**
+ * Info text for the top of the page.
+ *
+ * @param integer/null $uid
+ *   ID of the user.
+ *
+ * @return string
+ *   HTML code.
+ */
+function _samhsa_pep_my_account_page_get_user_edit_info_text_password_1($user_id = NULL) {
+  $expiration_info = _samhsa_pep_my_account_page_get_user_password_expiration($user_id);
+  if ($expiration_info->value > 0 || $expiration_info->value === NULL) {
+    if (\Drupal::currentUser()->id() == $user_id) {
+      return "
+        <p>Use the form to edit the email address and password associated with your account. You must enter your current password to edit this information.</p>
+        <p>Your password will expire in $expiration_info->text.</p>
+      ";
+    }
+    else {
+      return "<p>The password will expire in $expiration_info->text.</p>";
+    }
+  }
+  else {
+    $days_left = $expiration_info->value * -1;
+    if (\Drupal::currentUser()->id() == $user_id) {
+      return "
+        <p>Use the form to edit the email address and password associated with your account. You must enter your current password to edit this information.</p>
+        <p>Your password has expired $expiration_info->text.</p>
+      ";
+    }
+    else {
+      return "<p>The password has expired $expiration_info->text.</p>";
+    }
+  }
+}
+
+/**
+ * Info text for the password fields.
+ *
+ * @return string
+ *   HTML code.
+ */
+function _samhsa_pep_my_account_page_get_user_edit_info_text_password_2() {
+  $lifetime_max = \Drupal::config('samhsa_pep_password.settings')->get('lifetime_max');
+  return "
+    <p>To change the current user password, enter the new password in both fields.</p>
+    <p>Password requirements:</p>
+    <ul>
+        <li>8-to-30 characters long.</li>
+        <li>Contain at least one upper case letter.</li>
+        <li>Contain at least one lower case letter.</li>
+        <li>Contain at least one digit.</li>
+        <li>Special characters are permitted.</li>
+    </ul>
+    <p>Note:</p>
+    <ul>
+        <li>Reuse of the 6 previous passwords established by a user is prohibited.</li>
+        <li>This system enforces a minimum use of passwords for 1 day with a maximum password use of $lifetime_max days.</li>
+    </ul>
+  ";
+}
+
+/**
+ * Gather info regarding password expiration.
+ *
+ * @param integer/null $uid
+ *   ID of the user.
+ *
+ * @return object
+ *   ::value = numeric value of days left to expire;
+ *   ::text = text informing the days left to expire;
+ */
+function _samhsa_pep_my_account_page_get_user_password_expiration($uid = NULL) {
+  $result = new stdClass();
+  $lifetime_max = \Drupal::config('samhsa_pep_password.settings')->get('lifetime_max');
+  if (!$uid) {
+    if (!$uid = \Drupal::currentUser()->id()) {
+      $result->value = $lifetime_max;
+      if ($lifetime_max == 1) {
+        $result->text = "$lifetime_max day";
+      }
+      else {
+        $result->text =  "$lifetime_max days";
+      }
+      return $result;
+    }
+  }
+  $user = \Drupal\user\Entity\User::load($uid);
+  $field_last_password_reset = $user->get('field_last_password_reset')->getValue();
+  if (!isset($field_last_password_reset[0]) || ! (bool) $field_last_password_reset[0]) {
+    $last_reset_day = $user->getCreatedTime();
+  }
+  else {
+    if ($field_last_password_reset[0]['value'] == '1970-01-01T00:00:00') {
+      $last_reset_day = 0;
+    }
+    else {
+      $last_reset_day = strtotime($field_last_password_reset[0]['value']);
+    }
+  }
+  if ($last_reset_day > 0) {
+    $day_to_reset = $last_reset_day + ($lifetime_max * 86400);
+    $today = time();
+    $days_left = round(($day_to_reset - $today) / 86400);
+    $result->value = $days_left;
+    if ($days_left > 0) {
+      if ($days_left == 1) {
+        $result->text =  "1 day";
+      }
+      else {
+        $result->text =  "$days_left days";
+      }
+    }
+    else {
+      $days_left *= -1;
+      switch ($days_left) {
+        case 0:
+          $result->text =  "today";
+          break;
+        case 1:
+          $result->text =  "1 day ago";
+          break;
+        default;
+          $result->text =  "$days_left days ago";
+      }
+    }
+  }
+  else {
+    $result->value = NULL;
+    if ($lifetime_max == 1) {
+      $result->text = "$lifetime_max day";
+    }
+    else {
+      $result->text =  "$lifetime_max days";
+    }
+  }
+  return $result;
+}

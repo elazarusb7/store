@@ -1,0 +1,19 @@
+uuid: fdd8645d-9bd3-4635-925e-30ba0b9b9c86
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_campaign
+id: commerce_product.samhsa_publication.field_campaign
+field_name: field_campaign
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Campaign
+description: 'Campaign the product is associated with, if applicable'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

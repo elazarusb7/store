@@ -1,0 +1,8 @@
+uuid: acb4b607-fe2b-40f8-857f-0693ee718bda
+langcode: en
+status: true
+dependencies: {  }
+name: 'Issues, Conditions and Disorders'
+vid: issues_conditions_disorders
+description: 'Issues, Conditions and Disorders'
+weight: -8

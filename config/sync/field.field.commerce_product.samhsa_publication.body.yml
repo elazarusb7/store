@@ -1,0 +1,33 @@
+uuid: 4522d010-fe4f-43f3-8943-23b928b72c5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.body
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    restricted_html: restricted_html
+    full_html: full_html
+    plain_text: plain_text
+    basic_html: '0'
+    raw_unfiltered_html: '0'
+_core:
+  default_config_hash: ObNdu_OSuSmozy8UUi9cKY41dPs7s1ZOuWhG6Q5KdR8
+id: commerce_product.samhsa_publication.body
+field_name: body
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

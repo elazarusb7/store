@@ -1,0 +1,25 @@
+uuid: 78cbd5a2-093a-41ca-bccc-0111cd728150
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - field_permissions
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: commerce_product_variation.field_pallet_location
+field_name: field_pallet_location
+entity_type: commerce_product_variation
+type: string
+settings:
+  max_length: 500
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

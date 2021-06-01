@@ -1,0 +1,1627 @@
+// /* from below file */
+// /* \themes\custom\omega_samhsa\src\scss\theme\component\_theme_component_menus.scss */
+// // Menus
+// //==========================================================================
+
+$tween-break-high: 54em;
+
+  #header-outer-wrapper {
+    #block-mainmenu {
+      @include breakpoint($max-width-tablet-portrait) {
+        display: none;
+      }
+    }
+  }
+
+
+// Main Menuvbery 
+// Might want to edit the color variables in /config/variables/colors rather than change code here
+//-----------------------------------------------------
+
+//Mobile menu icon
+//---------------------
+.block-mobile-hamburger-block .menu-toggle{
+  color: $mm-icon-color !important;
+
+  .menu-icon,
+  .menu-icon:before,
+  .menu-icon:after{
+    background-color: $mm-icon-color;
+  }
+}
+.block-mobile-hamburger-block .menu-toggle:hover,
+.block-mobile-hamburger-block .menu-toggle.animating,
+.block-mobile-hamburger-block .menu-toggle.open{
+  color: $mm-color !important;
+  background-color: $mm-bg-1;
+
+  .menu-icon,
+  .menu-icon:before,
+  .menu-icon:after{
+    background-color: $mm-color;
+  }
+}
+
+//Main menu top links
+//---------------------
+.main-menu .menu-item,
+.main-menu .menu-item.open{
+  background-color: $blue;
+
+  &:hover,
+  &:active,
+  &:focus{
+    font-weight: bold;
+    border-bottom: 4px solid $red;
+    padding: 0px;
+    text-decoration: none !important;
+    background-color: $blue;
+  }
+
+  > a,
+  > a.is-active{
+    @include link-colors($mm-color, $mm-color, $mm-color, $mm-color, $mm-color);
+  }
+}
+
+// //mega menu
+// //---------------------
+// .mega-menu-item a{
+//   @include link-colors($action-color, $action-color-hover, $action-color-hover, $action-color, $action-color-hover);
+
+//   &.heading-link{
+//     @include link-colors($action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover);
+//   }
+// }
+
+// .mega-menu-item ul.unstyled a:not(.heading-link){
+//   @include link-colors($black, $black, $black, $black, $black);
+// }
+
+// .mega-menu-item .paragraph--type--megamenu-data a{
+//   @include link-colors($black, $black, $black, $black, $black);
+// }
+
+// .mega-menu-item .paragraph--type--megamenu-data .field--name-field-section-link a{
+//   @include link-colors($action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover);
+// }
+
+
+
+// // Side Menu
+// // Might want to edit the color variables in /config/variables/colors rather than change code here
+// //-----------------------------------------------------
+// .side-menu{
+//   font-size: 1.4rem;
+
+//   &.collapsible{
+//     border-color: $sm-bg-1;
+
+//     //The button to open the menu when collapsible
+//     .menu-toggle{
+//       background-color: darken($sm-bg-1, 10%);
+
+//       .menu-icon:before,
+//       .menu-icon:after{
+//         background-color: $sm-color-1;
+//       }
+//     }
+//   }
+
+//   h2{
+//     color: $sm-color-1;
+//     background-color: $sm-bg-1;
+
+//     a{
+//       @include link-colors($sm-color-1, $sm-color-1, $sm-color-1, $sm-color-1, $sm-color-1);
+//     }
+//   }
+
+//   .menu a{
+//     @include link-colors($sm-color-2, $sm-color-2, $sm-color-2, $sm-color-2, $sm-color-2);
+//   }
+
+//   > ul.menu{
+//     background-color: $sm-bg-2;
+
+//     > li > ul{
+//       background-color: $sm-bg-3;
+//     }
+//   }
+// }
+
+
+
+
+
+// The new superfish menu implementation
+/*
+ * Sample SCSS for adding Superfish styles to themes.
+ *
+ * Instructions:
+ *
+ * 1. Change the #block-superfish-1 (below) to the ID of your Superfish menu.
+ *
+ * 2. Add the SCSS to your theme, either as a separate SCSS file or as a part of the main SCSS file.
+ *
+ * 3. Note that by removing the .sf-style-none, the style will be applied to the menu regardless of
+ *    the Style selected in the block configuration.
+ *
+ */
+
+
+/* custom styles added for desktop */
+.block-superfishmain-menu {
+  ul.sf-style-none {
+    .mobile-only {
+      display: none !important;
+    }
+    .no-link {
+      background: $lighter-gray;
+      color: $blue-gray;
+      line-height: 20px;
+      padding: 0.75em 0;
+      font-size: 16px;
+      text-align: left;
+      font-weight: 400;
+      text-decoration: none;
+      margin: 0;
+      display: block;
+      position: relative;
+    }
+    .sub-title {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .locator-icon, .locator-icon:hover, .locator-icon:focus {
+      display: inline-block;
+      padding-left: 25px;
+      background-image: url('../../images/locatorsm.png');
+      background-position: 0px 14px;
+      background-repeat: no-repeat;
+    }
+    .external-icon, .external-icon:hover, .external-icon:focus {
+      display: inline-block;
+      padding-right: 25px;
+      background-image: url('../../images/external.png');
+      background-position: 212px 14px;
+      background-repeat: no-repeat;
+    }
+    li.sf-depth-1 ul li.sf-depth-2 {
+      ul {
+        display:none !important;
+      }
+    }
+    li .about-leadership {
+      border: none;
+      padding-top: 15px;
+      clear: both;
+      float: none;
+      overflow: hidden;
+      display: block;
+    }
+    .about-leadership div span {
+      padding-left: 130px;
+      background-image: url('../../images/leadership.png');
+      background-position: 0px 0px;
+      background-repeat: no-repeat;
+      height: 120px;
+      display: block;
+    }
+  }
+}
+.extra-width .block-superfishmain-menu {
+  ul.sf-menu.menu {
+    display: flex;
+    flex-direction: row;
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+    li {
+      display: inline-block;
+      float: none;
+      width: 100%;
+    }
+    li:nth-child(1) {
+      min-width: 170px;
+    }
+    li:nth-child(2) {
+      min-width: 190px;
+    }
+    li:nth-child(3) {
+      min-width: 170px;
+    }
+  }
+}
+.block-superfishmain-menu, #block-superfish-2 {
+  #superfish-main-menu.ul.sf-menu.menu {
+    display: flex;
+    flex-direction: row;
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+    li {
+      display: inline-block;
+      float: none;
+      width: 100%;
+    }
+  }
+  .sf-style-none {
+    margin: 0;
+    padding: 0;
+    background: $blue-gray;
+    width: 100%;
+    clear: both;
+    float: none;
+    min-height: 41px;
+    display: flex;
+    display: -webkit-box!important;
+    justify-content: space-between;
+    li.sf-depth-1 {
+      a.sf-depth-1, a.sf-depth-1.sf-with-ul {
+        font-weight: 400;
+        text-decoration: none;
+        height: 41px;
+        line-height: 41px;
+        text-align: center !important;
+        padding:0 0.76em;
+        letter-spacing: 0.03em;
+        color: $white;
+        font-size: 16px;
+        @include breakpoint($max-width-tablet-portrait){
+          font-size: 12px;
+          // white-space: no-wrap;
+        }
+        @include breakpoint($max-width-tablet-landscape){
+          font-size: 14px;
+          padding: 0 0.6em;
+        }
+        @include breakpoint($max-width-fullsize){
+          font-size: 16px;
+          padding:0 0.76em;
+        }
+      }
+    }
+    &.sf-navbar {
+      width: 100%;
+      background: $blue-gray;
+    }
+    ul {
+      background: $lighter-gray;
+      border: 1px solid $light-gray;
+      border-radius: unset;
+      padding: 15px 30px !important;
+      min-width:27em !important; /* some script is overriding the menu width */
+      &.sf-megamenu li {
+        &.sf-megamenu-wrapper {
+          background: $light-gray;
+          li {
+            background: transparent;
+          }
+        }
+      }
+    }
+    a {
+      color: $white;
+      padding: 0.75em 1.05em;
+      font-size: 16px;
+      text-align: left;
+      font-family: $base-font-family;
+      font-weight: 400;
+      text-decoration: none;
+      &.sf-with-ul {
+        padding-right: 2.25em;
+      }
+      &:focus {
+        background: $blue-gray;
+        outline: 0;
+      }
+      &:hover {
+        background: $blue-gray;
+        outline: 0;
+      }
+      &:active {
+        background: $blue-gray;
+        outline: 0;
+      }
+    }
+    span {
+      &.nolink {
+        color: $blue-gray;
+        padding: 0.75em 0;
+        &.sf-with-ul {
+          padding-right: 2.25em;
+        }
+        &:hover {
+          background: $lighter-gray;
+          outline: 0;
+        }
+      }
+      &.sf-description {
+        color: $white;
+        display: block;
+        font-size: 0.833em;
+        line-height: 1.5;
+        margin: 5px 0 0 5px;
+        padding: 0;
+      }
+    }
+    &.rtl {
+      span {
+        &.sf-description {
+          margin: 5px 5px 0 0;
+        }
+        &.nolink.sf-with-ul {
+          padding-left: 2.25em;
+          padding-right: 1em;
+        }
+      }
+      a.sf-with-ul {
+        padding-left: 2.25em;
+        padding-right: 1em;
+      }
+    }
+    li.sf-item-1 li.sf-item-1, li.sf-item-3 li.sf-item-6, li li.view-full-bio, li li .about-leadership {
+      border: none;
+    }
+    li {
+      background: $blue-gray;
+
+      li {
+        background: $lighter-gray;
+        color: $blue-gray;
+        font-size: 16px;
+        line-height: 20px;
+        border-bottom: 1px solid $light-gray;
+        a {
+          background: $lighter-gray;
+          color: $blue;
+          padding-left:unset ;
+          padding-right:unset ;
+          line-height: 20px;
+          &:hover {
+            background: $lighter-gray;
+            color: $red;
+          }
+          &:focus {
+            background: $lighter-gray;
+            color: $red;
+          }
+          &:active {
+            background: $lighter-gray;
+            color: $red;
+          }
+        }
+        li {
+          background: $light-gray;
+        }
+      }
+      li:last-child {
+        border: none;
+      }
+      &:hover {
+        outline: 0;
+        > ul {
+          top: 41px;
+        }
+      }
+      &.sfHover {
+        background: $blue-gray;
+        outline: 0;
+        > ul {
+          top: 41px;
+        }
+      }
+    }
+    li.sf-item-1 ul {
+      li.sf-item-1 div span {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+      }
+      li.sf-item-2, li.sf-item-3, li.sf-item-4, li.sf-item-5 {
+        a {
+          display: inline-block;
+          padding-left: 25px;
+          background-image: url('../..//images/locatorsm.png');
+          background-position: 0px 14px;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+    li.sf-item-3 ul {
+      li.sf-item-6, li.ext-link {
+        a {
+          display: inline-block;
+          padding-right: 25px;
+          background-image: url('../../images/external.png');
+          background-position: 212px 14px;
+          background-repeat: no-repeat;
+        }
+      }
+      li.ext-link:hover {
+        background: unset;
+      }
+    }
+    li.sf-item-7 ul {
+      @include breakpoint ($tween_break_high, true) {
+        left: auto !important;
+        right: -117px !important;
+      }
+      li .about-leadership div span {
+        padding-left: 130px;
+        background-image: url('../../images/leadership.png');
+        background-position: 0px 0px;
+        background-repeat: no-repeat;
+        height: 120px;
+        display: block;
+      }
+      li.view-full-bio a {
+        text-align: center;
+      }
+    }
+    .sf-sub-indicator {
+      display: none;
+     // background-image: url('../images/dropdown-arrows.png');
+    }
+    ul ul {
+      border: unset;
+      padding: unset !important;
+    }
+  }
+  div.sf-accordion-toggle {
+    &.sf-style-none a {
+      background: $blue-gray;
+      color: $white;
+      padding: 1em;
+      &.sf-expanded {
+        background-color: $light-gray;
+        font-weight: bold;
+      }
+    }
+  }
+  .sf-menu.sf-style-none {
+    &.rtl {
+      &.sf-accordion li {
+        li {
+          a {
+            padding-left: auto;
+            padding-right: 2em;
+          }
+          li {
+            a {
+              padding-left: auto;
+              padding-right: 3em;
+            }
+            li {
+              a {
+                padding-left: auto;
+                padding-right: 4em;
+              }
+              li {
+                a {
+                  padding-left: auto;
+                  padding-right: 5em;
+                }
+                span.nolink {
+                  padding-left: auto;
+                  padding-right: 5em;
+                }
+              }
+              span.nolink {
+                padding-left: auto;
+                padding-right: 4em;
+              }
+            }
+            span.nolink {
+              padding-left: auto;
+              padding-right: 3em;
+            }
+          }
+          span.nolink {
+            padding-left: auto;
+            padding-right: 2em;
+          }
+        }
+      }
+      ul.sf-megamenu {
+        li.sf-megamenu-wrapper {
+          ol li {
+            &.sf-megamenu-column {
+              float: right;
+            }
+          }
+        }
+      }
+    }
+    &.sf-accordion li {
+      &.sf-expanded {
+        background-color: $light-gray;
+        > {
+          a {
+            font-weight: bold;
+          }
+          span.nolink {
+            font-weight: bold;
+          }
+        }
+      }
+      li {
+        a {
+          padding-left: 2em;
+        }
+        li {
+          a {
+            padding-left: 3em;
+          }
+          li {
+            a {
+              padding-left: 4em;
+            }
+            li {
+              a {
+                padding-left: 5em;
+              }
+              span.nolink {
+                padding-left: 5em;
+              }
+            }
+            span.nolink {
+              padding-left: 4em;
+            }
+          }
+          span.nolink {
+            padding-left: 3em;
+          }
+        }
+        span.nolink {
+          padding-left: 2em;
+        }
+      }
+      a.sf-accordion-button {
+        font-weight: bold;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 499;
+      }
+    }
+    ul.sf-megamenu {
+      li.sf-megamenu-wrapper {
+        ol {
+          margin: 0;
+          padding: 0;
+          li {
+            margin: 0;
+            padding: 0;
+            &.sf-megamenu-column {
+              display: inline;
+              float: left;
+            }
+          }
+        }
+        a.menuparent {
+          font-weight: bold;
+        }
+        span.nolink {
+          &.menuparent {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    li.news-room ul {
+      padding: 0 !important;
+      border: none;
+    }
+  }
+}
+ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a {
+  border-bottom: 4px solid $red;
+}
+
+.block-superfishmain-menu .sf-style-none li li a.active {
+  color: $red;
+}
+
+/* Mobile Menu */
+// @font-face {
+//   font-family: 'icomoon';
+//   src:url('../fonts/icomoon.eot');
+//   src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+//   url('../fonts/icomoon.woff') format('woff'),
+//   url('../fonts/icomoon.ttf') format('truetype'),
+//   url('../fonts/icomoon.svg#icomoon') format('svg');
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+/* cutom styles added for desktop */
+.block-mobile-menu {
+  .dl-menuwrapper {
+  ul.dl-menu {
+    .no-link {
+      background: $lighter-gray;
+      color: $blue-gray;
+      line-height: 20px;
+      padding: 0.75em 0;
+      font-size: 16px;
+      text-align: left;
+      font-weight: 400;
+      text-decoration: none;
+      margin: 0;
+      display: block;
+      position: relative;
+    }
+    .sub-title {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .locator-icon, .locator-icon:hover, .locator-icon:focus {
+      display: inline-block;
+      padding-left: 25px;
+      background-image: url('../../images/locatorsm.png');
+      background-position: 0px 14px;
+      background-repeat: no-repeat;
+    }
+    .external-icon, .external-icon:hover, .external-icon:focus {
+      display: inline-block;
+      padding-right: 25px;
+      background-image: url('../../images/external.png');
+      background-position: 212px 14px;
+      background-repeat: no-repeat;
+    }
+    li .about-leadership {
+      border: none;
+      padding-top: 15px;
+      clear: both;
+      float: none;
+      overflow: hidden;
+      display: block;
+    }
+    .about-leadership div span {
+      padding-left: 130px;
+      background-image: url('../../images/leadership.png');
+      background-position: 0px 0px;
+      background-repeat: no-repeat;
+      height: 120px;
+      display: block;
+    }
+  }
+  }
+}
+/* Common styles of menus */
+
+.dl-menuwrapper {
+  width: 100%;
+  max-width: 100%;
+  /* max-width: 300px; */
+  float: left;
+  position: absolute;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-perspective-origin: 50% 200%;
+  perspective-origin: 50% 200%;
+  opacity: 0.97;
+  height: 0;
+}
+.dl-menuwrapper {
+  z-index: 500;
+}
+
+
+.dl-menuwrapper:first-child {
+  margin-right: 100px;
+}
+
+.dl-menuwrapper button.dl-trigger {
+  background: transparent;
+  border: none;
+  width: 61px;
+  height: 61px;
+ // text-indent: -900em;
+  overflow: hidden;
+  position: absolute;
+  cursor: pointer;
+  outline: none;
+  top: -61px;
+  left: 0px;
+  // padding: 10px 10px;
+  font-size: 11px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  padding-top: 25px;
+}
+.dl-menuwrapper button:hover {
+  border: none;
+}
+/* .dl-menuwrapper button:hover,
+.dl-menuwrapper button.dl-active,*/
+.dl-menuwrapper ul {
+  background: $lighter-gray;
+}
+
+.dl-menuwrapper button:after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  background: $white;
+  top: 15px;
+  left: 25%;
+  box-shadow:
+          0 7px 0 $white,
+          0 14px 0 $white;
+}
+
+.dl-menuwrapper ul {
+  padding: 0;
+  list-style: none;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+/* override menu css styles */
+.dl-menuwrapper .menu-item, .menu-item--collapsed, .menu-item--expanded {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-image: none;
+}
+.dl-menuwrapper li {
+  position: relative;
+}
+
+.dl-menuwrapper li a {
+  display: block;
+  position: relative;
+  padding: 15px 30px 15px 0px;
+  font-family: $base-font-family;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 300;
+  color: $blue;
+  outline: none;
+  border-bottom: 1px solid $medium-gray;
+  text-decoration: none;
+}
+.dl-menuwrapper li.last a {
+  border: none;
+}
+.no-touch .dl-menuwrapper li a:hover {
+  background: rgba(255,248,213,0.1);
+}
+.dl-menuwrapper li.dl-back { background: rgba(0,0,0,0.1);  display: block; clear: both; float: none; overflow: hidden; border-bottom: 1px solid $medium-gray; margin: 0 -15px; }
+.dl-menuwrapper li.dl-back .dl-back-link {  }
+.dl-menuwrapper li.dl-back > a {
+  padding-left: 30px;
+  padding-right: 45px;
+  background: unset;
+  border-bottom: none;
+  display: inline-block;
+  cursor: pointer;
+}
+.dl-menuwrapper ul.dl-subview li.dl-back > a {
+  border-right: 1px solid $medium-gray;
+}
+a.dl-back-link:before {
+  position: absolute;
+  top: 0;
+  line-height: 50px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  text-rendering: auto;
+  font-size: 18px;
+  letter-spacing: 0;
+  font-weight: 200;
+  text-align: center;
+  left: 0;
+  width: 44px;
+  height: 50px;
+  content: " ";
+ // font-family: fontAwesome;
+ // content: "\f053";
+  padding-right: 10px;
+  color: #1f419a!important;
+  background: transparent url(../../images/left-arrow.png) 12px 12px no-repeat;
+}
+a.dl-close-link:after {
+  position: absolute;
+  top: 0;
+  line-height: 50px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  content: " ";
+  color: $blue;
+  letter-spacing: 0;
+  text-align: center;
+  right: 0;
+  width: 44px;
+  background: transparent url(../../images/close.png) 16px 12px no-repeat;
+  height: 50px;
+}
+.dl-menuwrapper li.dl-back:after,
+.dl-menuwrapper li > a:not(:only-child):after {
+  position: absolute;
+  top: 0;
+  line-height: 50px;
+  font-family: 'icomoon';
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  /* content: "\e000"; */
+}
+.dl-menuwrapper li.menu-item--expanded > span.expand:after {
+  position: absolute;
+  top: 0;
+  line-height: 50px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  content: " ";
+  //content: "\f054";
+ // font-family: FontAwesome;
+  text-rendering: auto;
+  font-size: 18px;
+  color: $blue;
+  letter-spacing: 0;
+  font-weight: 200;
+  text-align: center;
+  right: 0;
+  width: 44px;
+  height: 50px;
+  background: transparent url(../../images/right-arrow.png) 16px 12px no-repeat;
+}
+.dl-menuwrapper li.dl-back:after {
+  left: 10px;
+  color: rgba(212,204,198,0.3);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.dl-menuwrapper li .dl-close-link { display: inline-block; float: right;}
+.dl-menuwrapper li .dl-close-link {
+  padding-right: 30px;
+  background: unset;
+}
+.dl-menuwrapper li > a:after {
+  right: 10px;
+  color: rgba(0,0,0,0.15);
+}
+
+.dl-menuwrapper .dl-menu {
+  margin: 0 0 0 0;
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  // -webkit-transform: translateY(10px);
+  // transform: translateY(10px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  padding: 0 15px;
+  left:-100%;
+  top: -61px;
+}
+.dl-menuwrapper .dl-menu--1.dl-menu.dl-subview {
+  margin: -15px 0 0 0;
+}
+
+.dl-menuwrapper .dl-menu.dl-menu-toggle {
+  transition: all 0.3s ease;
+}
+
+.dl-menuwrapper .dl-menu.dl-menuopen {
+  opacity: 1;
+  pointer-events: auto;
+  // -webkit-transform: translateY(0px);
+  // transform: translateY(0px);
+  // left:-20px;
+  left: 0;
+  transition: 0.25s;
+}
+
+/* Hide the inner submenus */
+.dl-menuwrapper li .dl-submenu {
+  display: none;
+}
+
+/*
+When a submenu is openend, we will hide all li siblings.
+For that we give a class to the parent menu called "dl-subview".
+We also hide the submenu link.
+The opened submenu will get the class "dl-subviewopen".
+All this is done for any sub-level being entered.
+*/
+.dl-menu.dl-subview li,
+.dl-menu.dl-subview li.dl-subviewopen > a,
+.dl-menu.dl-subview li.dl-subview > a {
+  display: none;
+}
+
+.dl-menu.dl-subview li.dl-subview,
+.dl-menu.dl-subview li.dl-subview .dl-submenu,
+.dl-menu.dl-subview li.dl-subviewopen,
+.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu,
+.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu > li {
+  display: block;
+}
+
+/* Dynamically added submenu outside of the menu context */
+.dl-menuwrapper > .dl-submenu {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  margin: 0;
+}
+
+/* Animation classes for moving out and in */
+
+.dl-menu.dl-animate-out-1 {
+  -webkit-animation: MenuAnimOut1 0.4s;
+  animation: MenuAnimOut1 0.4s;
+}
+
+.dl-menu.dl-animate-out-2 {
+  -webkit-animation: MenuAnimOut2 0.3s ease-in-out;
+  animation: MenuAnimOut2 0.3s ease-in-out;
+}
+
+.dl-menu.dl-animate-out-3 {
+  -webkit-animation: MenuAnimOut3 0.4s ease;
+  animation: MenuAnimOut3 0.4s ease;
+}
+
+.dl-menu.dl-animate-out-4 {
+  -webkit-animation: MenuAnimOut4 0.4s ease;
+  animation: MenuAnimOut4 0.4s ease;
+}
+
+.dl-menu.dl-animate-out-5 {
+  -webkit-animation: MenuAnimOut5 0.4s ease;
+  animation: MenuAnimOut5 0.4s ease;
+}
+
+@-webkit-keyframes MenuAnimOut1 {
+  0% { }
+  50% {
+    -webkit-transform: translateZ(-250px) rotateY(30deg);
+  }
+  75% {
+    -webkit-transform: translateZ(-372.5px) rotateY(15deg);
+    opacity: .5;
+  }
+  100% {
+    -webkit-transform: translateZ(-500px) rotateY(0deg);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes MenuAnimOut2 {
+  0% { }
+  100% {
+    -webkit-transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes MenuAnimOut3 {
+  0% { }
+  100% {
+    -webkit-transform: translateZ(300px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes MenuAnimOut4 {
+  0% { }
+  100% {
+    -webkit-transform: translateZ(-300px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes MenuAnimOut5 {
+  0% { }
+  100% {
+    -webkit-transform: translateY(40%);
+    opacity: 0;
+  }
+}
+
+@keyframes MenuAnimOut1 {
+  0% { }
+  50% {
+    -webkit-transform: translateZ(-250px) rotateY(30deg);
+    transform: translateZ(-250px) rotateY(30deg);
+  }
+  75% {
+    -webkit-transform: translateZ(-372.5px) rotateY(15deg);
+    transform: translateZ(-372.5px) rotateY(15deg);
+    opacity: .5;
+  }
+  100% {
+    -webkit-transform: translateZ(-500px) rotateY(0deg);
+    transform: translateZ(-500px) rotateY(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes MenuAnimOut2 {
+  0% { }
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes MenuAnimOut3 {
+  0% { }
+  100% {
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    opacity: 0;
+  }
+}
+
+@keyframes MenuAnimOut4 {
+  0% { }
+  100% {
+    -webkit-transform: translateZ(-300px);
+    transform: translateZ(-300px);
+    opacity: 0;
+  }
+}
+
+@keyframes MenuAnimOut5 {
+  0% { }
+  100% {
+    -webkit-transform: translateY(40%);
+    transform: translateY(40%);
+    opacity: 0;
+  }
+}
+
+.dl-menu.dl-animate-in-1 {
+  -webkit-animation: MenuAnimIn1 0.3s;
+  animation: MenuAnimIn1 0.3s;
+}
+
+.dl-menu.dl-animate-in-2 {
+  -webkit-animation: MenuAnimIn2 0.3s ease-in-out;
+  animation: MenuAnimIn2 0.3s ease-in-out;
+}
+
+.dl-menu.dl-animate-in-3 {
+  -webkit-animation: MenuAnimIn3 0.4s ease;
+  animation: MenuAnimIn3 0.4s ease;
+}
+
+.dl-menu.dl-animate-in-4 {
+  -webkit-animation: MenuAnimIn4 0.4s ease;
+  animation: MenuAnimIn4 0.4s ease;
+}
+
+.dl-menu.dl-animate-in-5 {
+  -webkit-animation: MenuAnimIn5 0.4s ease;
+  animation: MenuAnimIn5 0.4s ease;
+}
+
+@-webkit-keyframes MenuAnimIn1 {
+  0% {
+    -webkit-transform: translateZ(-500px) rotateY(0deg);
+    opacity: 0;
+  }
+  20% {
+    -webkit-transform: translateZ(-250px) rotateY(30deg);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateZ(0px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes MenuAnimIn2 {
+  0% {
+    -webkit-transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes MenuAnimIn3 {
+  0% {
+    -webkit-transform: translateZ(300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes MenuAnimIn4 {
+  0% {
+    -webkit-transform: translateZ(-300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes MenuAnimIn5 {
+  0% {
+    -webkit-transform: translateY(40%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes MenuAnimIn1 {
+  0% {
+    -webkit-transform: translateZ(-500px) rotateY(0deg);
+    transform: translateZ(-500px) rotateY(0deg);
+    opacity: 0;
+  }
+  20% {
+    -webkit-transform: translateZ(-250px) rotateY(30deg);
+    transform: translateZ(-250px) rotateY(30deg);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: translateZ(0px) rotateY(0deg);
+    transform: translateZ(0px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes MenuAnimIn2 {
+  0% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes MenuAnimIn3 {
+  0% {
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes MenuAnimIn4 {
+  0% {
+    -webkit-transform: translateZ(-300px);
+    transform: translateZ(-300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes MenuAnimIn5 {
+  0% {
+    -webkit-transform: translateY(40%);
+    transform: translateY(40%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-1 {
+  -webkit-animation: SubMenuAnimIn1 0.4s ease;
+  animation: SubMenuAnimIn1 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-2 {
+  -webkit-animation: SubMenuAnimIn2 0.3s ease-in-out;
+  animation: SubMenuAnimIn2 0.3s ease-in-out;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-3 {
+  -webkit-animation: SubMenuAnimIn3 0.4s ease;
+  animation: SubMenuAnimIn3 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-4 {
+  -webkit-animation: SubMenuAnimIn4 0.4s ease;
+  animation: SubMenuAnimIn4 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-in-5 {
+  -webkit-animation: SubMenuAnimIn5 0.4s ease;
+  animation: SubMenuAnimIn5 0.4s ease;
+}
+
+@-webkit-keyframes SubMenuAnimIn1 {
+  0% {
+    -webkit-transform: translateX(50%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimIn2 {
+  0% {
+    -webkit-transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimIn3 {
+  0% {
+    -webkit-transform: translateZ(-300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimIn4 {
+  0% {
+    -webkit-transform: translateZ(300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimIn5 {
+  0% {
+    -webkit-transform: translateZ(-200px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes SubMenuAnimIn1 {
+  0% {
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes SubMenuAnimIn2 {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes SubMenuAnimIn3 {
+  0% {
+    -webkit-transform: translateZ(-300px);
+    transform: translateZ(-300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes SubMenuAnimIn4 {
+  0% {
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes SubMenuAnimIn5 {
+  0% {
+    -webkit-transform: translateZ(-200px);
+    transform: translateZ(-200px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-1 {
+  -webkit-animation: SubMenuAnimOut1 0.4s ease;
+  animation: SubMenuAnimOut1 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-2 {
+  -webkit-animation: SubMenuAnimOut2 0.3s ease-in-out;
+  animation: SubMenuAnimOut2 0.3s ease-in-out;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-3 {
+  -webkit-animation: SubMenuAnimOut3 0.4s ease;
+  animation: SubMenuAnimOut3 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-4 {
+  -webkit-animation: SubMenuAnimOut4 0.4s ease;
+  animation: SubMenuAnimOut4 0.4s ease;
+}
+
+.dl-menuwrapper > .dl-submenu.dl-animate-out-5 {
+  -webkit-animation: SubMenuAnimOut5 0.4s ease;
+  animation: SubMenuAnimOut5 0.4s ease;
+}
+
+@-webkit-keyframes SubMenuAnimOut1 {
+  0% {
+    -webkit-transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimOut2 {
+  0% {
+    -webkit-transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimOut3 {
+  0% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-300px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimOut4 {
+  0% {
+    -webkit-transform: translateZ(0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(300px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes SubMenuAnimOut5 {
+  0% {
+    -webkit-transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-200px);
+    opacity: 0;
+  }
+}
+
+@keyframes SubMenuAnimOut1 {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(50%);
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+@keyframes SubMenuAnimOut2 {
+  0% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes SubMenuAnimOut3 {
+  0% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-300px);
+    transform: translateZ(-300px);
+    opacity: 0;
+  }
+}
+
+@keyframes SubMenuAnimOut4 {
+  0% {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    opacity: 0;
+  }
+}
+
+@keyframes SubMenuAnimOut5 {
+  0% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-200px);
+    transform: translateZ(-200px);
+    opacity: 0;
+  }
+}
+
+/* No JS Fallback */
+.no-js .dl-menuwrapper .dl-menu {
+  position: relative;
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.no-js .dl-menuwrapper li .dl-submenu {
+  display: block;
+}
+
+.no-js .dl-menuwrapper li.dl-back {
+  display: none;
+}
+
+.no-js .dl-menuwrapper li > a:not(:only-child) {
+  background: rgba(0,0,0,0.1);
+}
+
+.no-js .dl-menuwrapper li > a:not(:only-child):after {
+  content: '';
+}
+.dl-menuwrapper span.nolink {
+  color: $blue-gray;
+  /* padding: 0.75em 0; */
+  padding: 15px 0;
+  display: block;
+  position: relative;
+}
+.dl-menuwrapper span.nolink div span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+.dl-menu li.first ul.dl-menu--2 li.leaf a {
+  display: block;
+  padding-left: 35px;
+  background-image: url(../../images/locatorsm.png);
+  background-position: 14px 16px;
+  background-repeat: no-repeat;
+}
+.dl-menu li.first ul.dl-menu--2 li.last.leaf a {
+  background: none;
+}
+.dl-menu li .about-leadership div span {
+  padding-left: 130px;
+  background-image: url('../../images/leadership.png');
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  height: 120px;
+  display: block;
+}
+
+@include breakpoint($max-width-tablet-portrait) {
+  .block--menu-menu-samhsa-menu, .block--system-main-menu {
+    display: none;
+  }
+}
+.block-superfishmain-menu {
+  display: none;
+  @include breakpoint($max-width-tablet-portrait) {
+    display: block;
+    ul#superfish-1.sf-style-none {
+      margin-top: 20px;
+    }
+  }
+  h2.block__title {
+    display:none;
+  }
+}
+#block-superfish-2 {
+  display: block;
+  @include breakpoint($max-width-tablet-portrait) {
+    display: none;
+  }
+}
+@include breakpoint($max-width-tablet-portrait) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+.overlay-container {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  transition: 0.5s;
+  z-index: 499;
+  background: #000000;
+  opacity: 0.7;
+}

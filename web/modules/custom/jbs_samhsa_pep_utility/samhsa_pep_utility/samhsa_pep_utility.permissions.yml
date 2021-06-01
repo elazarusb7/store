@@ -1,0 +1,36 @@
+reassign orders:
+  title: 'Reassign Orders'
+  description: 'Allow user to reassign orders to another customer.'
+  restrict access: true
+resend order receipt:
+  title: 'Resend Order Receipt'
+  description: 'Allow user to resend order receipt.'
+  restrict access: true
+have order shipments option in admin views:
+  title: 'Have Order Shipment Option in Admin Orders Views'
+  description: 'Allow user to have order shipment options in admin orders views.'
+  restrict access: true
+generate pick slips:
+  title: 'Generate Pick Slips'
+  description: 'Allow user to generate pick slips.'
+  restrict access: true
+move order to pending:
+  title: 'Move to Pending'
+  description: 'Allow user to move order to Pending.'
+  restrict access: true
+calcel order:
+  title: 'Cancel Order'
+  description: 'Allow user to Cancel order.'
+  restrict access: true
+complete order:
+  title: 'Complete Order'
+  description: 'Allow user to Complete order.'
+  restrict access: true
+create internal order:
+  title: 'Create Internal Order'
+  description: 'Allow user to Create internal order.'
+  restrict access: true
+delete order shipping:
+  title: 'Delete Order Shipping'
+  description: 'Allow user to Delete order shipping.'
+  restrict access: true

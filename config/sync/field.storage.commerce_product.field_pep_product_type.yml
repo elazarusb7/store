@@ -1,0 +1,36 @@
+uuid: 762f0e02-1c72-4174-b4d7-47520e05830c
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product.field_pep_product_type
+field_name: field_pep_product_type
+entity_type: commerce_product
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: download_only
+      label: 'Download Only'
+    -
+      value: order_only
+      label: 'Available to Order'
+    -
+      value: download_order
+      label: 'Download and Order'
+    -
+      value: online_resource
+      label: 'Online Resource'
+    -
+      value: samhsa_only
+      label: 'SAMHSA Use Only'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

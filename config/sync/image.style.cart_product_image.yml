@@ -1,0 +1,15 @@
+uuid: 525ebd47-9fff-40c7-b9c6-f4ce2b1df98a
+langcode: en
+status: true
+dependencies: {  }
+name: cart_product_image
+label: 'Cart Product Image'
+effects:
+  84d6952f-a20b-46e3-8702-64d8b5c24253:
+    uuid: 84d6952f-a20b-46e3-8702-64d8b5c24253
+    id: image_scale
+    weight: 1
+    data:
+      width: 100
+      height: 130
+      upscale: false

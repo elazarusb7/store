@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * samhsa_pep_pdf_printing.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_pdf_printing_install() {
+    //nothing to install
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_pdf_printing_uninstall() {
+    Drupal::configFactory()->getEditable('samhsa_pep_pdf_printing.settings')->delete();
+}
+
+
+

@@ -1,0 +1,22 @@
+uuid: 1704851d-f074-4a31-9a9b-da7391dd3839
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - omega_samhsa_test_two
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: omega_samhsa_test_two_breadcrumbs
+theme: omega_samhsa_test_two
+region: header_top
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

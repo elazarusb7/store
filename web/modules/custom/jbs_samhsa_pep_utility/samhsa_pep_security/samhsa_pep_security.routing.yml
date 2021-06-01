@@ -1,0 +1,7 @@
+samhsa_pep_security_settings:
+  path: admin/config/people/samhsa_pep_security
+  defaults:
+    _form: 'Drupal\samhsa_pep_security\Form\SamhsaPepSecurityAdminSettings'
+    _title: 'SAMHSA PEP Enhanced Security'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,25 @@
+uuid: eae63e23-011c-4b64-870e-903496f3b325
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - samhsa_theme_block_pep8
+  theme:
+    - omega_samhsa_pep
+third_party_settings:
+  block_class:
+    classes: social-and-buttons
+id: footersocial
+theme: omega_samhsa_pep
+region: postscript_first
+weight: -11
+provider: null
+plugin: footer_social_block
+settings:
+  id: footer_social_block
+  label: 'Footer Social'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility: {  }

@@ -1,0 +1,14 @@
+services:
+  samhsa_pep_order_states_workflow.commerce_order_guard:
+    class: Drupal\samhsa_pep_order_states_workflow\Guard\CommerceOrderGuard
+    arguments: ['@current_user', '@plugin.manager.workflow']
+    tags:
+      - { name: state_machine.guard, group: commerce_order }
+  samhsa_pep_order_states_workflow.workflow.helper:
+    class: Drupal\samhsa_pep_order_states_workflow\WorkflowHelper
+    arguments: ['@current_user']
+  samhsa_pep_order_states_workflow.workflow_transition:
+    class: Drupal\samhsa_pep_order_states_workflow\EventSubscriber\WorkflowTransitionEventSubscriber
+    arguments: ['@samhsa_pep_order_states_workflow.workflow.helper']
+    tags:
+      - { name: event_subscriber }

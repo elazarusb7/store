@@ -1,0 +1,8 @@
+uuid: 4ccf315a-f675-47fd-9381-3189c179500b
+langcode: en
+status: true
+dependencies: {  }
+id: commerce_product
+label: Product
+tags:
+  title: '[current-page:title] | [site:name]'

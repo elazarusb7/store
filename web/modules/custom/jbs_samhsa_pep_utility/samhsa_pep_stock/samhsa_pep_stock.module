@@ -1,0 +1,1062 @@
+<?php
+
+use  Drupal\Core\Form\FormStateInterface;
+use Drupal\views\Views;
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\commerce_product\Entity\ProductVariation;
+use Drupal\commerce_product\Entity\Product;
+use Drupal\commerce_stock\StockTransactionsInterface;
+use Drupal\Core\Database\Query\SelectInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\commerce_stock_local\LocalStockChecker;
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_pep_stock_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+  if($form['#theme'] == "commerce_order_edit_form" &&
+    strpos($form_id, "commerce_order_") !== FALSE &&
+    strpos($form_id, "_edit_form") !== FALSE ){
+    $form['#validate'][] = '_commerce_commerce_order_item_validate';
+  }
+
+  if ($form_id == "views_exposed_form" &&
+    (strpos($form['#id'], "views-exposed-form-publication-stock-transactions-page-1") !== FALSE)){
+    if(isset($form['transaction_time'])) {
+      $form['transaction_time']['max']['#title'] = t('Transaction End Date');
+    }
+  }
+
+  if($form_id == 'commerce_product_variation_default_edit_form'){
+    $form['field_pallet_location']['#disabled'] = TRUE;
+  }
+
+  if($form_id == 'commerce_stock_transactions1'){
+    $form['product_variation']['#maxlength'] = NULL;
+    $form['product_variation']['#title'] = t('Select product');
+  }
+
+  if($form_id == 'commerce_stock_transactions2'){
+    $transactions_options = array();
+    $transactions_options['_none'] = t('- Select transaction type -');
+    $transactions_options['receiveStock'] = t('Receive Inventory');
+    $transactions_options['returnStock'] = t('Process a Return');
+    $transactions_options['moveStock'] = t('Move Stock');
+    //$transactions_options['sellStock'] = t('Sell Inventory');
+    $form['transaction_type']['#options'] = $transactions_options;
+    //ksm($form['transaction_qty']);
+    $form['transaction_qty']['#step'] = 1;
+    $form['transaction_qty']['#min'] = 0;
+    $form['transaction_qty']['#states'] = [
+      'invisible' => [
+        ':input[name="transaction_type"]' => ['value' => 'moveStock']
+      ]
+    ];
+
+    $form['submit']['#value'] = t("Submit stock transaction");
+    $form['transaction_type']['#title'] = t('Stock Transaction Type');
+    $form['transaction_qty']['#default_value'] = 0;
+    //$form['transaction_qty']['#required'] = TRUE;
+
+    $variation_id = $form['product_variation_id']['#value'];
+    $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($variation_id);
+    $is_published = $variation->isPublished();
+
+    //Get the Stock manager:
+    /*$stockManager = \Drupal::service('commerce_stock.service_manager');
+    $stock_service = $stockManager->getService($variation);
+    $stock_checker = $stock_service->getStockChecker();
+    $stock = $stock_checker->getTotalStockLevel($variation, $stock_checker->getLocationList(true));
+    */
+    $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
+    $pallet_list_variation = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->_get_vocabulary_as_select_options('pallet_location');
+    if ($terms = taxonomy_term_load_multiple_by_name('Pick Area', 'pallet_location')) {
+      // Only use the first term returned; there should only be one anyways if we do this right.
+      $term = reset($terms);
+      $location_id = $term->id();
+      unset($pallet_list_variation[$location_id]); //unset Pick Area Location
+      unset($pallet_list_variation['']); //Unset first default option
+      //Add back default option and Pick area right after the default option before the rest of the locations
+      $pallet_list_variation = array('' => '- Select product location -', $location_id => 'Pick Area') + $pallet_list_variation;
+    }
+    //source
+    $form['source']['source_zone'] = [
+      '#type' => 'select',
+      '#options' => $pallet_list_variation,
+      '#title' => t('Product Location'. "<span class=\"form-required\" title=\"This field is required.\"></span>"),
+      //'#required' => TRUE,
+    ];
+
+    //target_zone
+    $form['target']['target_zone'] = [
+      '#type' => 'select',
+      '#options' => $pallet_list_variation,
+      '#title' => t('Product Location'. "<span class=\"form-required\" title=\"This field is required.\"></span>"),
+      //'#required' => TRUE,
+    ];
+
+    $form['transaction_note']['#required'] = TRUE;
+    $form['transaction_note']['#title'] = t('Reason');
+    $form['transaction_note']['#description'] = t('Please provide a reason for the transaction.');
+
+    //add custom form submit and validate handlers
+
+    //$form['#submit'][] = '_commerce_stock_transaction_form_submit';
+    //$form['#submit'] = array_merge( array('_commerce_stock_transaction_form_submit'), $form['#submit']);
+
+    $pallets_used = lookupPublicationPallets($variation_id);
+    $markup_pallets = count($pallets_used) > 0 ? "<br /><strong>Pallets:</strong><br /><ul>" : "";
+    $options = array();
+    $pallets_count = getPalletsCountPerProd($pallets_used);
+
+    foreach ($pallets_used as $row) {
+      // Do something with $row.
+      $markup_pallets .=
+        "<li>" . $row['name'] . "</li>";
+      $options[$row['LOCATION_ZONE']] = $row['name'];
+    }
+
+
+    $markup_pallets .= "</ul>";
+
+    $weight = isset($form['transaction_type']['#weight']) ? $form['transaction_type']['#weight'] : 0;
+    $view = samhsa_pep_helper_embed_view('publication_transaction_report', $display_id = 'block_1', $variation_id);
+    $view_result = samhsa_pep_helper_view_result('publication_transaction_report', $display_id = 'block_1', $variation_id);
+    $allocated = 0;
+    if (strpos($view, '<div class="view-content">') !== false) {
+      $markup = $view;
+      //$markup = $markup . $markup_pallots;
+      $allocated = round($view_result[0]->commerce_order_item_commerce_product_variation_field_data_qu);
+    } else {
+      $title = $variation->label() . " (" . $variation->getSku() . ")";
+      $status = ($is_published == FALSE ) ? "<strong>Status: </strong>UNPUBLISHED<br />" :  "";
+      $markup =
+        //"<strong>" . $title ."</strong><br />
+        $status . "Available Qty: " . round($stock) . "<br />
+                    Allocated Qty: 0<br />
+                    On Hand Qty: " . round($stock) . "<br />";
+      //$markup = $markup . $markup_pallots;
+    }
+
+    $form['allocated_qty'] = array(
+      '#type' => 'hidden',
+      '#value' => $allocated,
+    );
+
+    $form['pub_quantities'] = [
+      '#type' => 'fieldset',
+      '#title' => t('AVAILABLE, ALLOCATED AND ON HAND QUANTITIES'),
+      '#weight' => $weight - 1,
+    ];
+    $form['pub_quantities']['quantities_view_markup'] = [
+      '#type' => 'markup',
+      '#markup' => $markup,
+      '#weight' => 5,
+    ];
+
+    $button_classes = array();
+    $button_classes[] = 'button';
+    $button_classes[] = 'js-form-submit';
+    $button_classes[] = 'form-submit';
+
+    if(count($options) > 0 ) {
+      $form['pub_quantities']['pallets_count'] = [
+        '#type' => 'markup',
+        '#markup' => "Locations occupied: " . $pallets_count ,
+        '#weight' => 6,
+      ];
+      $form['pub_quantities']['pallets'] = [
+        '#type' => 'radios',
+        '#title' => t('Currently allocated locations'),
+        //'#default_value' => 1,
+        '#options' => $options,
+        '#description' => 'If you wold like to use one of the currently allocated locations for this product transaction, please select location from the list. Source product location field will be automatically pre-populated with the location you selected. If you would like to remove location from being used for this product, select it and click "Remove location" button.',
+        '#weight' => 7,
+      ];
+
+      $form['pub_quantities']['release_pallet'] = array(
+        '#type' => 'submit',
+        '#weight' => 8,
+        '#limit_validation_errors' => array(),
+        '#button_type' => 'danger',
+        '#submit' => array(
+          'samhsa_pep_stock_release_pallet_form'
+        ),
+        '#value' => t('Remove selected location'),
+        '#attributes' => [
+          'onclick' => 'if(!confirm("This action will remove selected locations association from this product. Are you sure you want to continue?")){ return false; }',
+        ],
+      );
+      $form['pub_quantities']['release_pallet']['#attributes']['class'][] = $button_classes;
+
+      $form['pub_quantities']['release_all_pallet'] = array(
+        '#type' => 'submit',
+        '#weight' => 9,
+        '#limit_validation_errors' => array(),
+        '#button_type' => 'danger',
+        '#submit' => array(
+          'samhsa_pep_stock_release_all_pallet_form'
+        ),
+        '#value' => t('Remove all location'),
+        '#attributes' => [
+          'onclick' => 'if(!confirm("This action will remove all locations association from this product. Are you sure you want to continue?")){ return false; }',
+        ],
+      );
+      $form['pub_quantities']['release_pallet']['#attributes']['class'][] = $button_classes;
+
+    }
+    $form['source']['source_location']['#title'] = t('Warehouse Location');
+    $form['target']['target_location']['#title'] = t('Warehouse Location');
+    $form['archive'] = array(
+      '#type' => 'submit',
+      '#weight' => 1005,
+      //'#limit_validation_errors' => array(),
+      '#button_type' => 'danger',
+      '#submit' => array(
+        'samhsa_pep_stock_archive_form'
+      ),
+      '#value' => t('Recycle publication'),
+      //'#attributes' => [
+      //    'onclick' => 'if(!confirm("This action will make available quantity set to 0. Are you sure you want to continue?")){ return false; }',
+      //],
+    );
+    $form['archive']['#attributes']['class'][] = $button_classes;
+
+    $form['submit']['#weight'] = 1000;
+    /*$form['submit']['#states'] = [
+        'invisible' => [
+            ':input[name="transaction_type"]' => ['value' => 'moveStock']
+        ]
+    ];*/
+
+    $form['transaction_note']['#weight'] = 999;
+    $form['transaction_qty']['#weight'] = 995;
+    $form['adjust_count'] = array(
+      '#type' => 'submit',
+      '#weight' => 997,
+      //'#limit_validation_errors' => array(),
+      '#validate' => array('::validateForm','transaction_qty_form_validate'), // custom form validate.
+      '#button_type' => 'danger',
+      '#submit' => array(
+        'samhsa_pep_stock_adjust_physical_count_form'
+      ),
+      '#value' => t('Adjust physical count'),
+      //'#attributes' => [
+      //    'onclick' => 'if(!confirm("This action will adjust physical count for this product to the amount specified in the quantity field. Are you sure you want to continue?")){ return false; }',
+      //],
+    );
+
+    $form['adjust_count']['#attributes']['class'][] = $button_classes;
+
+    $form['#validate'][] = '_commerce_stock_transaction_form_validate';
+
+    $form['#submit'][] = '_commerce_form_submit';
+    //$form['#submit'] = array_merge( array('_commerce_form_submit'), $form['#submit']);
+  }
+}
+
+
+/**
+ * custom _commerce_stock_transaction_form_submit function()
+ */
+function _commerce_form_submit(&$form, FormStateInterface $form_state)
+{
+  $triggeringElement = $form_state->getTriggeringElement()['#value']->__toString();
+
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $user_name = $account->get('name')->value;
+  $transaction_type = $form_state->getValue('transaction_type');
+
+  if($triggeringElement == "Submit stock transaction" && $transaction_type == 'moveStock'){
+    $transaction_note = $form_state->getValue('transaction_note');
+    $target_zone = $form_state->getValue('target_zone');
+    $source_zone = $form_state->getValue('source_zone');
+    $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+    if (isset(\Drupal::messenger()->all()['status'])) {
+      \Drupal::messenger()->deleteByType('status');
+    }
+
+    //update location zone with target_zone for the product
+    releasePallets([$source_zone], $variation_id, $target_zone);
+    $msg = getMoveStockStatusMessage($form_state);
+
+    \Drupal::messenger()->addMessage($msg);
+  }
+  if($triggeringElement == "Submit stock transaction"){
+    $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+    $variation = ProductVariation::load($variation_id);
+
+    \Drupal::service('samhsa_pep_stock.pep_stock_utility')->updateProductPallets($variation_id, $variation);
+
+    /*$pallets_used = lookupPublicationPallets($variation_id);
+    $options = array();
+    foreach ($pallets_used as $row) {
+        $options[] = $row['name'];
+    }
+    $str = implode (", ", $options);
+    $variation->set('field_pallet_location',$str);
+    $variation->save();*/
+
+  }
+}
+
+/**
+ * custom _commerce_commerce_order_item_validate function()
+ */
+function _commerce_commerce_order_item_validate(&$form, FormStateInterface $form_state)
+{
+  /** @var \Drupal\commerce_order\Entity\OrderItemInterface $order_item */
+  $items = $form_state->getCompleteForm()['order_items']['widget']['entities'];
+  $over_the_limit = 0;
+  foreach ($items as $key => $item) {
+    if (is_numeric($key)) {
+      /** @var \Drupal\commerce_order\Entity\OrderItem $entity */
+      $entity = $item['#entity'];
+
+      //get new order item qty
+      $new_qty = $entity->getQuantity();
+      $order_item_id = $entity->id(); // <-- this is NULL on new orders
+      if (isset($order_item_id)) {
+        // we are editing a previously saved order
+        /** @var \Drupal\commerce_order\Entity\OrderItemInterface $order_item */
+        $original_order_item = \Drupal::entityTypeManager()->getStorage('commerce_order_item')->load($order_item_id);
+
+        //get previously saved order item qty (if we are editing an existing order)
+        $original_qty = isset($original_order_item) ? $original_order_item->getQuantity() : 0;
+        $new_qty -= $original_qty;
+      }
+
+
+      /** @var \Drupal\commerce_product\Entity\ProductVariation $entity */
+      $variation = $entity->getPurchasedEntity();
+      $vid = $variation->id();
+
+      //TODO: replace with the service call
+
+      //Get the Stock manager:
+      $stockManager = \Drupal::service('commerce_stock.service_manager');
+      $stock_service = $stockManager->getService($variation);
+      $stock_checker = $stock_service->getStockChecker();
+
+      //get order item PurchasedEntity available qty
+      $stock = $stock_checker->getTotalStockLevel($variation, $stock_checker->getLocationList(TRUE));
+      //drupal_set_message("variation: $vid, existing order item id: $order_item_id, existing order qty:
+      // $original_qty, updated qty: $updated_qty, in stock: $stock");
+
+      //check if stock negative
+      $new_stock_tobe = $stock - $new_qty;
+
+      //if stock < 0, give error
+      if ($new_stock_tobe < 0) {
+        if (isset($entity)) {
+          $label = $entity->label();
+        }
+        if ($label == '') {
+          // a default, just in case...
+          $label = 'product';
+        }
+        $msg_vals = [
+          '%available_qty'  => $stock,
+          '%order_qty'      => $new_qty,
+          '%label'          => $label,
+        ];
+        $msg = t('Quantity entered (%order_qty) exceeds available quantity of %available_qty for "%label".',
+          $msg_vals);
+        $form_state->setErrorByName('order_items][form][inline_entity_form][entities][' . $key . '][form][quantity][0][value', $msg);
+      }
+
+      //check if over the limit and justification message is empty
+      $product = \Drupal\commerce_product\Entity\Product::load($variation->getProductId());
+      $max_qty = $product->get('field_qty_max_order')->getValue()[0]['value'];
+
+      $justification = $form_state->getValue('field_justification');
+      $justification = array_shift($justification)['value'];
+
+      if (($new_qty > $max_qty) && isset($justification) && strlen(trim($justification)) == 0) {
+        $form_state->setErrorByName('field_justification', 'Some of the Order items in the order exceeding maximum allowed limit. Please provide Order Justification.');
+      }
+
+    }
+  }
+}
+
+/**
+ * custom transaction_qty_form_validate function()
+ */
+function transaction_qty_form_validate(&$form, FormStateInterface $form_state) {
+  //ksm($form_state);
+  $allocated_qty = $form_state->getCompleteForm()['allocated_qty']['#value'];
+  $qty = $form_state->getCompleteForm()['transaction_qty']['#value'];
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $variation = ProductVariation::load($variation_id);
+
+  if (!is_null($variation) && !is_null($qty) && $qty > -1 && strlen(trim($qty)) > 0) {
+    //check if physical is greater than allocated
+    if (($qty - $allocated_qty) < 0) {
+      $form_state->setErrorByName('transaction_qty', 'Physical Inventory Count is less than Allocated Quantity');
+
+      $msg_default = "If your Physical Inventory Count is less than Allocated Quantity:<br />
+                    Step 1: Unpublish the product<br />
+                    Step 2: Cancel some of the orders that have been placed such that Allocated Quantity becomes less than or equal to the Physical Count.<br />
+                    Step 3: Then return to this page and choose Physical Count and provide the quantity again.
+                    Step 4: You may publish the product again.";
+      $msg = \Drupal::config('samhsa_pep_stock.settings')
+        ->get('physical_count_error_message');
+      $msg = isset($msg) && strlen(trim($msg)) > 0 ? $msg : $msg_default;
+      \Drupal::messenger()->addMessage(t($msg),'error');
+    }
+  } else {
+    \Drupal::messenger()->addMessage(t('Physical quantity should not be empty'),'error');
+    $form_state->setErrorByName('transaction_qty', 'Physical quantity should not be empty');
+  }
+
+}
+
+/**
+ * custom samhsa_pep_helper_embed_view function()
+ */
+function samhsa_pep_helper_embed_view($name, $display_id = 'default', $variation_id) {
+  $result = false;
+  $view = Views::getView($name);
+
+  if (is_object($view)) {
+    $view->setDisplay($display_id);
+    $view->setArguments([$variation_id]);
+    $view->execute();
+    $renderer = $view->render();
+    // Render the view
+    $result = \Drupal::service('renderer')->render($renderer);
+  }
+
+  return $result;
+}
+
+/**
+ * custom samhsa_pep_helper_view_result function()
+ */
+function samhsa_pep_helper_view_result($name, $display_id = 'default', $variation_id) {
+  $result = false;
+
+  $view = Views::getView($name);
+  $view->setArguments([$variation_id]);
+  $view->setDisplay($display_id);
+  $view->execute();
+
+  // Get the results of the view.
+  $view_result = $view->result;
+
+  return $view_result;
+}
+
+/**
+ * custom _commerce_stock_transaction_form_validate function()
+ */
+function _commerce_stock_transaction_form_validate(&$form, FormStateInterface $form_state)
+{
+  $triggeringElement = $form_state->getTriggeringElement()['#value']->__toString();
+  $additional_note = "";
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $user_name = $account->get('name')->value;
+  $user_id = $account->id();
+  $transaction_note = $form_state->getValue('transaction_note');
+  $transaction_type = $form_state->getValue('transaction_type');
+  $transaction_qty = $form_state->getValue('transaction_qty');
+  $source_zone = $form_state->getValue('source_zone');
+  $target_zone = $form_state->getValue('target_zone');
+
+  if ($triggeringElement == "Submit stock transaction" && $transaction_type != 'returnStock'){
+    if (strlen($source_zone) == 0) {
+      $form_state->setErrorByName('source_zone', 'Source product location is a required field.');
+    }
+  }
+
+  if($triggeringElement == "Submit stock transaction" && $transaction_type == '_none'){
+    $form_state->setErrorByName('transaction_type', 'Please select Stock transaction type.');
+  }
+
+  if ($triggeringElement == "Submit stock transaction" && $transaction_type == "moveStock"){
+    //check if source location currently assigned to product.
+    if (strlen($source_zone) > 0) {
+      $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+      $pallets_used = lookupPublicationPallets($variation_id);
+      $ids = array_column($pallets_used, 'LOCATION_ZONE', 'LOCATION_ZONE');
+      if (!isset($ids[$source_zone])) {
+        $form_state->setErrorByName('source_zone', 'Pick a source location from Currently allocated locations.');
+      }
+    }
+    if (strlen($target_zone) == 0) {
+      $form_state->setErrorByName('target_zone', 'Target product location is a required field.');
+    } else {
+      $additional_note = getMoveStockStatusMessage($form_state) . " ";
+    }
+  }
+
+  if(strlen($transaction_note) == 0) {
+    $form_state->setErrorByName('transaction_note', 'Reason is a required field.');
+  } else {
+    $form_state->setValue('transaction_note', $additional_note . $transaction_note  . '/' . $user_id );
+  }
+}
+
+
+/**
+ * Implements hook_views_post_execute().
+ *
+ * Recompute the Qty Allocated as the views aggregation value is not always correct.
+ *
+ * Compute Qty On Hand values for all displays in the Product Status Report.
+ *
+ * Need to use an actual data field and not a Global text field so this will render in the CSV
+ * Data Export plugin output.  Global text field is not a "real" field as it is not part of the
+ * actual query result set.  hook_views_pre_render() and PREPROCESS_views_view_field() do not
+ * work for the Export as this does not use a Twig template so does not render fields added in
+ * those hooks, which are only available for display through Twig.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ */
+function samhsa_pep_stock_views_post_execute(\Drupal\views\ViewExecutable $view)
+{
+  if ($view->id() == "product_status_report") {
+    $debug = (\Drupal::request()->query->get('debug') ? TRUE : FALSE);
+    foreach ($view->result as $key => $row) {
+      $vid = $row->variation_id;
+      $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($vid);
+      $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
+      $alloc = intval( \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getAllocated($vid));
+      // Allocated
+      $view->result[$key]->commerce_order_item_commerce_product_variation_field_data_qu = $alloc;
+      // On Hand
+      $view->result[$key]->commerce_product_field_data_commerce_product_variation_field_5 = intval($alloc + $stock);
+      if ($debug) {
+        $sku = $variation->sku->value;
+        dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
+      }
+    }
+  }
+}
+
+
+
+/**
+ * Implements template_preprocess_views_view_field
+ */
+function samhsa_pep_stock_preprocess_views_view_field(&$variables) {
+  $view  = $variables['view']->storage->id();
+  $field = $variables['field']->field;
+  $debug = (\Drupal::request()->query->get('debug') ? TRUE : FALSE);
+
+  // publication_transaction_report
+  if ($view == 'publication_transaction_report' && ($field == 'nothing' || $field == 'quantity')) {
+    $vid = $variables['row']->_entity->id();
+    $alloc = intval(\Drupal::service('samhsa_pep_stock.pep_stock_utility')->getAllocated($vid));
+    if ($field == 'nothing') {
+      // on hand
+      $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($vid);
+      $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
+      if ($debug) {
+        $sku = $variation->sku->value;
+        dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
+      }
+      $variables['output'] = $alloc + $stock;
+    }
+    else {
+      // allocated
+      $variables['output'] = intval($alloc);
+    }
+  }
+
+  // publication_stock_transactions
+  if ($view == 'publication_stock_transactions' && $field == 'data') {
+    $value = $variables['field']->advancedRender($variables['row']);
+    if (strlen($value) > 0) {
+      $value_no_user = strstr($value, '/', TRUE);
+      $pieces = explode("/", $value);
+      $uid = end($pieces);
+      if (is_numeric($uid)) {
+        $account = \Drupal\user\Entity\User::load($uid); // pass your uid
+        if ($account) {
+          $name = $account->getAccountName();
+          $user = "<a href='/user/" . $uid . "' title = 'user'>" . $name . "</a>";
+          $comment = $value_no_user . ' (' . $user . ')';
+          $variables['output'] = \Drupal\Core\Render\Markup::create($comment);
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function samhsa_pep_stock_preprocess_page_title(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  if($current_path == "/admin/commerce/config/stock/transactions2"){
+    $variation_id = \Drupal::request()->query->get('commerce_product_v_id');
+    $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($variation_id);
+
+    $variables['title'] = $variables['title'] . " for \"" . $variation->label() . " (" . $variation->getSku() . ")\"";
+  }
+}
+
+/**
+ *
+ * @param $variation_id
+ *   The Commerce Product variation id.
+ *
+ * @return multi-dimentional array
+ *  ['entity_id','LOCATION_ZONE','name']
+ */
+function lookupPublicationPallets($variation_id) {
+  // Get redirects for the given item's internal path or alias.
+  $query = \Drupal::database()->select('commerce_stock_transaction', 't');
+  $query->fields('t',['entity_id','LOCATION_ZONE', 'transaction_type_id']);
+  $query->fields('tt',['name']);
+  $query->condition('entity_id', $variation_id, '=');
+  $query->condition('LOCATION_ZONE', NULL, 'IS NOT NULL' );
+  $query->condition('LOCATION_ZONE', "", '!=' );
+  $query->condition('name', "", '!=' );
+  $query->condition('LOCATION_ZONE', "_none", '!=' );
+  $query->condition('transaction_type_id', "7", '!=' );
+  $query->addJoin('left','taxonomy_term_field_data','tt','t.LOCATION_ZONE=tt.tid');
+  $query->distinct(true);
+  $results = $query->orderBy('name', 'ASC')->execute();
+  $results->allowRowCount = TRUE;
+
+  // Get redirects if anything set for the given node.
+  if ($results->rowCount()) {
+    $results_list = [];
+
+    while ($record = $results->fetchAssoc()) {
+      $results_list[] = $record;
+    }
+    //ksm($results_list);
+    return $results_list;
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function samhsa_pep_stock_page_attachments(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if($route_name == "commerce_stock_ui.stock_transactions2") {
+    $attachments['#attached']['library'][] = 'samhsa_pep_stock/samhsa_pep_stock.lib';
+  }
+}
+
+/**
+ * Implements custom submit action().
+ */
+function samhsa_pep_stock_archive_form(&$form, FormStateInterface $form_state) {
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $user_name = $account->get('name')->value;
+  $user_id = $account->id();
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $pallets_used = lookupPublicationPallets($variation_id);
+  $pallets = array();
+  foreach ($pallets_used as $row) {
+    $pallets[] = $row['LOCATION_ZONE'];
+  }
+  $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+  $variation = ProductVariation::load($variation_id);
+  $product_id = $variation->getProductId();
+  //DO NOT UNPUBLISH, WHEN PRODUCT ARCHIVED/RECYCLED
+  //$product = Product::load($product_id);
+  //$product->setPublished(FALSE);
+  //$product->save();
+  //$variation->setPublished(FALSE);
+  //$variation->save();
+
+  if (!is_null($variation)) {
+    $message = "Publication Recycled/" . $user_id;
+    $metadata = [
+      'data' => [
+        'message' => $message,
+      ],
+    ];
+    //Get the Stock manager:
+    $stockManager = \Drupal::service('commerce_stock.service_manager');
+    $stock_service = $stockManager->getService($variation);
+    $stock_checker = $stock_service->getStockChecker();
+    $stock = $stock_checker->getTotalStockLevel($variation, $stock_checker->getLocationList(true));
+    $stockServiceManager->createTransaction($variation, 1, '', -$stock, 0, 'USD', StockTransactionsInterface::STOCK_OUT, $metadata);
+
+    if(count($pallets) > 0) {//do not remove locations when product archived/recycled
+      //releasePallets($pallets, $variation_id);
+    }
+    \Drupal::messenger()->addMessage(t('@qty has been removed from "@variation_title" using a "Archive Publication" transaction and publication was archived/unpublished.', ['@qty' => $stock, '@variation_title' => $variation->label()]));
+
+  }
+}
+
+/**
+ * Implements custom submit action().
+ */
+function samhsa_pep_stock_release_pallet_form(&$form, FormStateInterface $form_state)
+{
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $variation = ProductVariation::load($variation_id);
+  $pallet_selected = $form_state->getCompleteForm()['pub_quantities']['pallets']['#value'];
+  if (is_null($pallet_selected)) {
+    \Drupal::messenger()->addMessage(t('Please select product location to be removed.'),'warning');
+  } else {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($pallet_selected);
+    if ($term) {
+      if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
+        \Drupal::service('samhsa_pep_stock.pep_stock_utility')->releasePallets([$pallet_selected], $variation_id);
+      }
+      //releasePallets([$pallet_selected], $variation_id);
+      $pallet_name = $term->getName();
+      \Drupal::messenger()->addMessage(t('@pallet has been removed from "@variation_title" using a "Remove selected location" action.', ['@pallet' => $pallet_name, '@variation_title' => $variation->label()]));
+    }
+  }
+
+  \Drupal::service('samhsa_pep_stock.pep_stock_utility')->updateProductPallets($variation_id, $variation);
+
+  /*$pallets_used = lookupPublicationPallets($variation_id);
+  $options = array();
+
+  foreach ($pallets_used as $row) {
+      $options[] = $row['name'];
+  }
+  $str = implode (", ", $options);
+  $variation->set('field_pallet_location',$str);
+  $variation->save();*/
+}
+
+/**
+ * Implements custom submit action().
+ */
+function samhsa_pep_stock_release_all_pallet_form(&$form, FormStateInterface $form_state)
+{
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $variation = ProductVariation::load($variation_id);
+  $pallet_selected = $form_state->getCompleteForm()['pub_quantities']['pallets']['#options'];
+  $pallets = array();
+  foreach ($pallet_selected as $key => $pallet) {
+    $pallets[] = $key;
+  }
+
+  if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
+    \Drupal::service('samhsa_pep_stock.pep_stock_utility')->releasePallets($pallets, $variation_id);
+  }
+  //releasePallets($pallets, $variation_id);
+  \Drupal::messenger()->addMessage(t('All locations have been removed from "@variation_title" using a "Remove all location" action.', ['@variation_title' => $variation->label()]));
+
+  \Drupal::service('samhsa_pep_stock.pep_stock_utility')->updateProductPallets($variation_id, $variation);
+
+  /*$pallets_used = lookupPublicationPallets($variation_id);
+  $options = array();
+
+  foreach ($pallets_used as $row) {
+      $options[] = $row['name'];
+  }
+  $str = implode (", ", $options);
+  $variation->set('field_pallet_location',$str);
+  $variation->save();*/
+}
+
+
+/**
+ * Implements custom submit action().
+ */
+function releasePallets(array $pallets, $variation_id, $update_to = '') {
+  $table_name = 'commerce_stock_transaction';
+  $field = 'location_zone';
+  foreach ($pallets as $key => $pallet) {
+    \Drupal::database()->update($table_name)
+      ->condition('entity_id', $variation_id, '=')
+      ->condition('location_zone', $pallet, '=')
+      ->condition('transaction_type_id', 7, '!=')
+      //->condition('transaction_type_id', 8, '!=')
+      ->fields([
+        'location_zone' => $update_to,
+        //'some_other_field' => 20,
+      ])
+      ->execute();
+  }
+  $pallets_used = lookupPublicationPallets($variation_id);
+  $options = array();
+
+  foreach ($pallets_used as $row) {
+    $options[] = $row['name'];
+  }
+
+  $str = implode (", ", $options);
+  $variation = ProductVariation::load($variation_id);
+  $variation->set('field_pallet_location',$str);
+  $variation->save();
+}
+
+/**
+ * Implements custom submit action().
+ */
+function samhsa_pep_stock_adjust_physical_count_form(&$form, FormStateInterface $form_state)
+{
+  $allocated_qty = $form_state->getCompleteForm()['allocated_qty']['#value'];
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $user_name = $account->get('name')->value;
+  $user_id = $account->id();
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $variation = ProductVariation::load($variation_id);
+  $qty = $form_state->getCompleteForm()['transaction_qty']['#value'];
+  $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+  $variation = ProductVariation::load($variation_id);
+  if (!is_null($variation) && !is_null($qty) && $qty > -1) {
+    //check if physical is greater than allocated
+    if(($qty - $allocated_qty) < 0) {
+      /*$msg_default = "If your Physical Inventory Count is less than Allocated Quantity:<br />
+              Step 1: Unpublish the product<br />
+              Step 2: Cancel some of the orders that have been placed such that Allocated Quantity becomes less than or equal to the Physical Count.<br />
+              Step 3: Then return to this page and choose Physical Count and provide the quantity again.
+              Step 4: You may publish the product again.";
+      $msg = \Drupal::config('samhsa_pep_stock.settings')
+          ->get('physical_count_error_message');
+      $msg = isset($msg) && strlen(trim($msg)) > 0 ? $msg : $msg_default;
+      \Drupal::messenger()->addMessage(t($msg),'error');*/
+    } else {
+      $message = "Step 1: Physical count adjustment/" . $user_id;
+      $metadata = [
+        'data' => [
+          'message' => $message,
+        ],
+      ];
+      //Get the Stock manager:
+      $stockManager = \Drupal::service('commerce_stock.service_manager');
+      $stock_service = $stockManager->getService($variation);
+      $stock_checker = $stock_service->getStockChecker();
+      $stock = $stock_checker->getTotalStockLevel($variation, $stock_checker->getLocationList(true));
+      //step 1: set stock to 0
+      $stockServiceManager->createTransaction($variation, 1, '', -$stock, 0, 'USD', StockTransactionsInterface::STOCK_SALE, $metadata);
+
+      //step 2: set stock to new count
+      $message = "Step 2: Physical count adjusted/" . $user_id;
+      $metadata = [
+        'data' => [
+          'message' => $message,
+        ],
+      ];
+      $adjustment = $qty - $allocated_qty;
+      $stockServiceManager->createTransaction($variation, 1, '', $adjustment, 0, 'USD', StockTransactionsInterface::STOCK_IN, $metadata);
+
+      \Drupal::messenger()->addMessage(t('Physical quantity adjusted to @qty has for "@variation_title" using "Adjust physical quantity" action.', ['@qty' => $qty, '@variation_title' => $variation->label()]));
+    }
+  } else {
+    \Drupal::messenger()->addMessage(t('Physical quantity should not be empty'),'warning');
+
+  }
+}
+
+/**
+ *
+ * @param array $pallets_used
+ *   The array of locations that product occupies.
+ *
+ * @return float
+ *  number of locations oculied by the product
+ */
+function getPalletsCountPerProd($pallets_used) {
+  $pallets_count = 0;
+  if (isset($pallets_used)) {
+    foreach ($pallets_used as $row) {
+      $pallets_count += 1 / getProdCountPerPallet($row['LOCATION_ZONE']);
+    }
+  }
+  return round($pallets_count,2);
+}
+
+/**
+ *
+ * @param $location_id(tid)
+ *   The Commerce Stock Location Id (term reference id).
+ *
+ * @return integer
+ *  $count
+ */
+function getProdCountPerPallet($location_id) {
+  $query = \Drupal::database()->select('commerce_stock_transaction', 't');
+  $query->fields('t',['entity_id']);
+  $query->condition('LOCATION_ZONE', $location_id, '=' );
+  $query->distinct(true);
+  $results = $query->orderBy('entity_id', 'ASC')->execute();
+  $results->allowRowCount = TRUE;
+
+  // Get redirects if anything set for the given node.
+  if ($results->rowCount()) {
+    $count = $results->rowCount();
+    return $count;
+  }
+}
+
+/**
+ * Implements custom submit action().
+ */
+/*function samhsa_pep_stock_move_stock_form(&$form, FormStateInterface $form_state)
+{
+    $transaction_note = $form_state->getValue('transaction_note');
+    $target_zone = $form_state->getValue('target_zone');
+    $target_location = $form_state->getValue('target_location');
+    $source_zone = $form_state->getValue('source_zone');
+    $source_location = $form_state->getValue('source_location');
+    $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+    $variation = ProductVariation::load($variation_id);
+    if (isset(\Drupal::messenger()->all()['status'])) {
+        \Drupal::messenger()->deleteByType('status');
+    }
+
+// Display notification for end users.
+    $term_target = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_zone);
+    if ($term_target) {
+        $target_zone_name = $term_target->getName();
+    }
+    $term_source = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($source_zone);
+    if ($term_source) {
+        $source_zone_name = $term_source->getName();
+    }
+    //update location zone with target_zone for the product
+    releasePallets([$source_zone], $variation_id, $target_zone);
+
+    $target_location_entity = \Drupal::entityTypeManager()->getStorage('commerce_stock_location')->load($target_location);
+    $target_location_name = $target_location_entity->getName();
+    $source_location_entity = \Drupal::entityTypeManager()->getStorage('commerce_stock_location')->load($source_location);
+    $source_location_name = $source_location_entity->getName();
+    $msg = t('Stock has been moved from "@source_location (@source_zone)" to "@target_location (@target_zone)" for "@variation_title" using a "Move Stock" transaction.', [
+        '@variation_title' => $variation->getTitle(),
+        '@source_location' => $source_location_name,
+        '@target_location' => $target_location_name,
+        '@source_zone' => $source_zone_name,
+        '@target_zone' => $target_zone_name,
+    ]);
+
+    \Drupal::messenger()->addMessage($msg);
+
+}*/
+
+/**
+ *
+ * @param $location_id(tid)
+ *   The Commerce Stock Location Id (term reference id).
+ *
+ * @return integer
+ *  $count
+ */
+function getMoveStockStatusMessage(FormStateInterface $form_state) {
+  $msg = "";
+  $target_zone = $form_state->getValue('target_zone');
+  $target_location = $form_state->getValue('target_location');
+  $source_zone = $form_state->getValue('source_zone');
+  $source_location = $form_state->getValue('source_location');
+  $variation_id = $form_state->getCompleteForm()['product_variation_id']['#value'];
+  $variation = ProductVariation::load($variation_id);
+
+  // Display notification for end users.
+  $term_target = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($target_zone);
+  if ($term_target) {
+    $target_zone_name = $term_target->getName();
+  }
+  $term_source = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($source_zone);
+  if ($term_source) {
+    $source_zone_name = $term_source->getName();
+  }
+
+  $target_location_entity = \Drupal::entityTypeManager()->getStorage('commerce_stock_location')->load($target_location);
+  $target_location_name = $target_location_entity->getName();
+  $source_location_entity = \Drupal::entityTypeManager()->getStorage('commerce_stock_location')->load($source_location);
+  $source_location_name = $source_location_entity->getName();
+  $msg = t('Stock has been moved from "@source_location (@source_zone)" to "@target_location (@target_zone)" for "@variation_title" using a "Move Stock" transaction.', [
+    '@variation_title' => $variation->getTitle(),
+    '@source_location' => $source_location_name,
+    '@target_location' => $target_location_name,
+    '@source_zone' => $source_zone_name,
+    '@target_zone' => $target_zone_name,
+  ]);
+
+  return $msg;
+}
+
+/**
+ * Implements hook_entity_postsave().
+ */
+function samhsa_pep_stock_commerce_order_postsave(EntityInterface $entity, $op) {
+  //\Drupal::logger('samhsa_pep_stock:order_postsave')->info('postsave order hook');
+  $order_line_items = $entity->getItems();
+  $state = $entity->getState()->getValue()['value'];
+  if($state == 'canceled') {
+    foreach ($order_line_items as $item) {
+      _add_uid_to_transaction_comment($item);
+    }
+  }
+
+  $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_admin_orders_helper');
+  $is_internal = $tempstore->get('is_order_internal');
+  //\Drupal::logger('samhsa_pep_stock:is_internal')->info($is_internal);
+
+  if($is_internal) {
+    //\Drupal::logger('samhsa_pep_stock:current_state')->info($state);
+    //only set pending state when internal order gets created
+    if($state == "draft"){
+      $entity->set('state',"pending");
+      $entity->save();
+    }
+    $tempstore->set('is_order_internal', false);
+  }
+}
+
+/**
+ * Implements hook_entity_postsave().
+ */
+function samhsa_pep_stock_commerce_order_item_postsave(EntityInterface $entity, $op) {
+  _add_uid_to_transaction_comment($entity);
+}
+
+function samhsa_pep_stock_commerce_order_item_postdelete(EntityInterface $entity) {
+  _add_uid_to_transaction_comment($entity);
+}
+
+function samhsa_pep_stock_commerce_order_item_postinsert(EntityInterface $entity) {
+  _add_uid_to_transaction_comment($entity);
+}
+
+function _add_uid_to_transaction_comment(EntityInterface $entity){
+  $entity_id = $entity->id();
+  $variation = $entity->getPurchasedEntity();
+  $variation_id = $variation->id();
+  $entity_type = $entity->getEntityTypeId();
+  //$account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $uid = \Drupal::currentUser()->id();
+  //$user_name = $account->get('name')->value;
+  if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
+    $location_level = \Drupal::service('samhsa_pep_stock.pep_stock_utility')
+      ->getOrderItemTransactionInfo($entity);
+    if (isset($location_level[0]['location_id'])) {
+      $location_id = $location_level[0]['location_id'];
+    }
+    $message = $location_level[0]['data']['message'] . "/" . $uid;
+    $location_level[0]['data']['message'] = $message;
+    $transaction_id = $location_level[0]['id'];
+
+    /*\Drupal::logger('samhsa_pep_stock:location_id')
+        ->info($location_id);
+    \Drupal::logger('samhsa_pep_stock:transaction_id')
+        ->info($transaction_id);
+    \Drupal::logger('samhsa_pep_stock:message')
+        ->info($message);
+    \Drupal::logger('samhsa_pep_stock:variation_id')
+        ->info($variation_id);
+    \Drupal::logger('samhsa_pep_stock:uid')
+        ->info($uid);
+    \Drupal::logger('samhsa_pep_stock:entity_type')
+        ->info($entity_type);
+    */
+    \Drupal::database()->update('commerce_stock_transaction')
+      ->condition('entity_id', $variation_id, '=')
+      ->condition('id', $transaction_id, '=')
+      ->condition('location_id', $location_id, '=')
+      ->fields([
+        'data' => serialize($location_level[0]['data']),
+      ])
+      ->execute();
+  }
+}

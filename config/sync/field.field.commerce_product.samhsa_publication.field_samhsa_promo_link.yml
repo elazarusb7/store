@@ -1,0 +1,23 @@
+uuid: d140cd65-2d04-455b-be78-dfaf3d9314fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_samhsa_promo_link
+  module:
+    - link
+id: commerce_product.samhsa_publication.field_samhsa_promo_link
+field_name: field_samhsa_promo_link
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'SAMHSA Publication Links'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

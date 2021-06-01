@@ -1,0 +1,3 @@
+jbs_commerce_extended_log_order:
+  label: Order comment
+  entity_type: commerce_order

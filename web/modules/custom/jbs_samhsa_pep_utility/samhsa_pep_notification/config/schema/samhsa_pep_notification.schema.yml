@@ -1,0 +1,45 @@
+samhsa_pep_notification.settings:
+  type: config_object
+  label: 'SAMHSA PEP System Use Notification settings'
+  mapping:
+    title:
+      type: string
+      label: 'Notification Page Title'
+      translatable: true
+    notification_text:
+      value:
+        type: text
+        label: 'Notification text'
+        translatable: true
+      format:
+        type: text
+        label: 'Notification format'
+        translatable: true
+    submit:
+      type: string
+      label: 'Submit Text'
+      translatable: true
+    success:
+      type: text
+      label: 'Success Message'
+      translatable: true
+    failure:
+      type: text
+      label: 'Failure Message'
+      translatable: true
+    frequency:
+      type: integer
+      label: 'Frequency'
+    checkbox_text:
+      type: string
+      label: 'Checkbox Text'
+      translatable: true
+    roles:
+      type: sequence
+      label: 'User roles which require agreement'
+      sequence:
+        type: string
+    success:
+      type: text
+      label: 'Success Message'
+      translatable: true

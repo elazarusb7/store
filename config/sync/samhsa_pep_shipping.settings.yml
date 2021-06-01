@@ -1,0 +1,6 @@
+unit: oz
+_core:
+  default_config_hash: 2fAaXqeDBbn8KUA-x1tuvCfYiPtOc-E6jLEyQUdnrsE
+bulk_number: '10'
+number_of_shipments: '1'
+allow_shipment_deletion: '0'

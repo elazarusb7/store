@@ -1,0 +1,20 @@
+uuid: 7ae616c6-7a3f-449c-92b4-6bf395442ee1
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omega_samhsa_pep
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: omega_samhsa_pep_local_actions
+theme: omega_samhsa_pep
+region: content
+weight: -16
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

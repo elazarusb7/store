@@ -1,0 +1,14 @@
+uuid: e5fe5f46-7eb4-4673-8791-32144387e2bd
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 5TqAuVTl1_arKIBeD1qDfJM-pKmaFnqyYSQNdwEK_DQ
+id: samhsa_publication
+label: 'SAMHSA Publication'
+description: ''
+variationType: default
+multipleVariations: true
+injectVariationFields: true
+traits: {  }
+locked: false

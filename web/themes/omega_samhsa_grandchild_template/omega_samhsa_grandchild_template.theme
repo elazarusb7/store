@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the theme omega_samhsa_grandchild_template.
+ */
+
+
+/**
+ * Extending the block templates from the Omega SAMHSA theme
+ * -----------------------------------------------------------------
+ * https://www.drupal.org/docs/8/theming-drupal-8/creating-a-drupal-8-sub-theme-or-sub-theme-of-sub-theme
+ * If the theme you are extending has custom block templates these won't be immediately inherited because a sub-theme creates copies of all the blocks in the parent theme and renames them with the sub-theme's name as a prefix. Twig block templates are derived from the block's name, so this breaks the link between these templates and their block. Fixing this problem currently requires a hook in the sub-theme.
+ */
+
+function omega_samhsa_grandchild_template_theme_suggestions_block_alter(&$suggestions, $variables) {
+  foreach ($suggestions as &$suggestion) {
+    $suggestion = str_replace('omega_samhsa_grandchild_template_', 'omega_samhsa_', $suggestion);
+  }
+}
+
+/**
+ * Prepares variables for the html.html.twig template.
+ */
+
+/*
+function omega_samhsa_grandchild_template_preprocess_html(&$variables) {
+  
+  // If you need Apple Touch icons other than the ones used in Omega SAMHSA,
+  // uncomment the hook_preprocess_html() to set the $variables['atouchpath'] below
+  
+  //The file in templates/layout/html.html.twig is where the icons are set using this variable
+  $variables['atouchpath'] = drupal_get_path('theme','omega_samhsa_grandchild_template') . '/images/appletouch/';  //set variable for appletouch icons
+
+}
+*/

@@ -1,0 +1,31 @@
+samhsa_pep_taxonomy_tags.migrate:
+ path: '/taxonomy_tags'
+ defaults:
+  _controller: 'Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate::matchTags'
+  _title: 'Taxonomy to Tags mapping'
+ requirements:
+  _permission: 'administer taxonomy'
+
+samhsa_pep_taxonomy_tags.assign:
+  path: '/taxonomy_assign'
+  defaults:
+    _controller: 'Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate::assignTerms'
+    _title: 'Taxonomy to Tags assignment'
+  requirements:
+    _permission: 'administer taxonomy'
+
+samhsa_pep_taxonomy_tags.add:
+  path: '/taxonomy_terms'
+  defaults:
+    _controller: 'Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate::newTerms'
+    _title: 'Create new Taxonomy terms'
+  requirements:
+    _permission: 'administer taxonomy'
+
+samhsa_pep_taxonomy_tags.products:
+  path: '/taxonomy_check'
+  defaults:
+    _controller: 'Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate::migrate'
+    _title: 'Check Product status'
+  requirements:
+    _permission: 'administer taxonomy'

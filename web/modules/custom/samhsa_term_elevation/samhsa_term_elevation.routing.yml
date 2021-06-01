@@ -1,0 +1,27 @@
+samhsa_term_elevation.matcher:
+  path: '/admin/samhsa-term-elevation/handler'
+  defaults:
+    _controller: '\Drupal\samhsa_term_elevation\Controller\AutoCompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access content'
+
+samhsa_term_elevation.samhsa_term_elevation_config:
+  path: '/admin/config/samhsa-term-elevation/settings'
+  defaults:
+    _form: '\Drupal\samhsa_term_elevation\Form\SamhsaTermElevationConfig'
+    _title: 'SAMHSA Term Elevation Settings'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+samhsa_term_elevation.websites_aliases_form:
+  path: '/admin/config/samhsa-term-elevation/settings/websites-aliases'
+  defaults:
+    _form: '\Drupal\samhsa_term_elevation\Form\WebsitesAliasesForm'
+    _title: 'Websites Aliases'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE

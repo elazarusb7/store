@@ -1,0 +1,7 @@
+name: 'SAMHSA PEP User Registration'
+type: module
+description: 'Adapts the user registration process to SAMHSA requirements'
+dependencies:
+  - email_registration
+core: 8.x
+package: 'Custom'

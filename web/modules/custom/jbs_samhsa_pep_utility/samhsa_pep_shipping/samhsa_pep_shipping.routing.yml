@@ -1,0 +1,7 @@
+samhsa_pep_shipping.settings:
+  path: '/admin/config/content/pep-shipping-configs'
+  defaults:
+    _form: '\Drupal\samhsa_pep_shipping\Form\PepShippingSettingsForm'
+    _title: 'SAMHSA PEP Shipping/Weight Settings Form'
+  requirements:
+    _permission: 'administer site configuration'

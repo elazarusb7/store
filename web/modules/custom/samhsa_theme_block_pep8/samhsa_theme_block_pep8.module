@@ -1,0 +1,89 @@
+<?php
+
+function samhsa_theme_block_pep8_theme($existing, $type, $theme, $path){
+
+  $image_path = \Drupal::urlGenerator()->generateFromRoute('<front>', [], ['absolute' => TRUE]) . drupal_get_path('module', 'samhsa_theme_block_pep8') . '/img';
+
+  return [
+		'header_social' => [
+      'variables' => [],
+      'template' => 'block--HeaderSocial'
+    ],
+		'footer_address' => [
+      'variables' => [],
+      'template' => 'block--FooterAddress'
+    ],
+		'footer_social' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FooterSocial'
+    ],
+    'newsletter_signup' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--NewsletterSignup'
+    ],
+		'footer_banners' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FooterBanners'
+    ],
+		'footer_logo' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FooterLogo'
+    ],
+		'footer_motto' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FooterMotto'
+    ],
+    'footer_note' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FooterNote'
+    ],
+		'footer_motto_text' => [
+      'variables' => [],
+      'template' => 'block--FooterMottoText'
+    ],
+		'footer_nav_toggle' => [
+      'variables' => [],
+      'template' => 'block--FooterNavToggle'
+    ],
+		'frontpage_motto' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--FrontpageMotto'
+    ],
+		'language_assistance' => [
+      'variables' => [],
+      'template' => 'block--LanguageAssistance'
+    ],
+		'jump_to_top' => [
+      'variables' => [],
+      'template' => 'block--JumpToTop'
+    ],
+		'mobile_hamburger' => [
+      'variables' => [],
+      'template' => 'block--MobileHamburger'
+    ],
+		'mono_bar' => [
+      'variables' => [],
+      'template' => 'block--MonoBar'
+    ],
+		'share_buttons' => [
+      'variables' => [
+        'image_path' => $image_path,
+      ],
+      'template' => 'block--ShareButtons'
+    ],
+  ];
+}

@@ -1,0 +1,54 @@
+uuid: d2600a72-f263-4537-9f3d-327eab32daea
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product.field_office_center
+field_name: field_office_center
+entity_type: commerce_product
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Select Office or Center'
+      label: 'Select Office or Center'
+    -
+      value: OAS
+      label: OAS
+    -
+      value: OC
+      label: OC
+    -
+      value: CBHSQ
+      label: CBHSQ
+    -
+      value: CMHS
+      label: CMHS
+    -
+      value: CSAP
+      label: CSAP
+    -
+      value: CSAT
+      label: CSAT
+    -
+      value: NMHSUPL
+      label: NMHSUPL
+    -
+      value: OCMO
+      label: OCMO
+    -
+      value: OFR
+      label: OFR
+    -
+      value: OPPI
+      label: OPPI
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

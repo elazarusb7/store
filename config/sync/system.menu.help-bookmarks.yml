@@ -1,0 +1,8 @@
+uuid: 5e971abd-c91d-42e9-ab03-4febdd8bc511
+langcode: en
+status: true
+dependencies: {  }
+id: help-bookmarks
+label: 'Help Bookmarks'
+description: ''
+locked: false

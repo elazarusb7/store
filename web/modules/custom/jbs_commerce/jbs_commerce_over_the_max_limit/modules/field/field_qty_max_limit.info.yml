@@ -1,0 +1,10 @@
+name: Commerce Max Limit Field
+type: module
+description: Provides a Max Limit field for Commerce Product.
+package: Custom
+dependencies:
+  - commerce
+  - commerce:commerce_product
+  - commerce_stock:commerce_stock
+  - jbs_commerce_over_the_max_limit:jbs_commerce_over_the_max_limit
+core: 8.x

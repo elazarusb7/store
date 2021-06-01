@@ -1,0 +1,5 @@
+samhsa_pep_stock:
+  title: 'SAMHSA PEP Stock Configurations'
+  parent: system.admin_config
+  description: 'SAMHSA PEP Stock Configurations.'
+  route_name: samhsa_pep_stock.settings

@@ -1,0 +1,28 @@
+uuid: e3d85f9e-852d-44cb-8c26-c17e76ba6604
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.browse_files
+  module:
+    - entity_embed
+    - file
+    - image
+    - responsive_image
+_core:
+  default_config_hash: D5QbkhbHfWlohKBxTofPCBUqp9vCE2dFnJii5JdWEk4
+label: 'File Browser'
+id: file_browser
+type_id: entity
+type_settings:
+  entity_type: file
+  bundles: {  }
+  display_plugins:
+    - 'image:responsive_image'
+    - 'image:image'
+    - 'file:file_default'
+  entity_browser: browse_files
+  entity_browser_settings:
+    display_review: false
+icon: {  }
+icon_uuid: db2cad05-1e3b-4b35-b163-99d7d036130c

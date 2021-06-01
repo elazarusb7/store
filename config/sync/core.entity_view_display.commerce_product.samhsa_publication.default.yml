@@ -1,0 +1,410 @@
+uuid: f41f047d-531a-44bb-a7a7-1248ee2ed5ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.field.commerce_product.samhsa_publication.body
+    - field.field.commerce_product.samhsa_publication.field_app_features
+    - field.field.commerce_product.samhsa_publication.field_apple_app_store
+    - field.field.commerce_product.samhsa_publication.field_attachment
+    - field.field.commerce_product.samhsa_publication.field_audience
+    - field.field.commerce_product.samhsa_publication.field_campaign
+    - field.field.commerce_product.samhsa_publication.field_external_video
+    - field.field.commerce_product.samhsa_publication.field_featured
+    - field.field.commerce_product.samhsa_publication.field_format
+    - field.field.commerce_product.samhsa_publication.field_google_play
+    - field.field.commerce_product.samhsa_publication.field_issues_conditions_and_diso
+    - field.field.commerce_product.samhsa_publication.field_last_reviewed
+    - field.field.commerce_product.samhsa_publication.field_location
+    - field.field.commerce_product.samhsa_publication.field_may_be_interested_files
+    - field.field.commerce_product.samhsa_publication.field_may_be_interested_in
+    - field.field.commerce_product.samhsa_publication.field_may_be_interested_manual
+    - field.field.commerce_product.samhsa_publication.field_metatags
+    - field.field.commerce_product.samhsa_publication.field_microsoft_store
+    - field.field.commerce_product.samhsa_publication.field_office_center
+    - field.field.commerce_product.samhsa_publication.field_pep_product_type
+    - field.field.commerce_product.samhsa_publication.field_population_group
+    - field.field.commerce_product.samhsa_publication.field_product_owner_email
+    - field.field.commerce_product.samhsa_publication.field_product_owner_name
+    - field.field.commerce_product.samhsa_publication.field_product_owner_phone
+    - field.field.commerce_product.samhsa_publication.field_professional_and_research_
+    - field.field.commerce_product.samhsa_publication.field_pub_lang
+    - field.field.commerce_product.samhsa_publication.field_pub_target_audience
+    - field.field.commerce_product.samhsa_publication.field_publication_category
+    - field.field.commerce_product.samhsa_publication.field_publication_date
+    - field.field.commerce_product.samhsa_publication.field_qty_max_order
+    - field.field.commerce_product.samhsa_publication.field_qty_reserved
+    - field.field.commerce_product.samhsa_publication.field_related_products
+    - field.field.commerce_product.samhsa_publication.field_related_resource_files
+    - field.field.commerce_product.samhsa_publication.field_samhsa_digital_download
+    - field.field.commerce_product.samhsa_publication.field_samhsa_promo_link
+    - field.field.commerce_product.samhsa_publication.field_series
+    - field.field.commerce_product.samhsa_publication.field_substances
+    - field.field.commerce_product.samhsa_publication.field_subtitle
+    - field.field.commerce_product.samhsa_publication.field_supplemental_materials
+    - field.field.commerce_product.samhsa_publication.field_tags
+    - field.field.commerce_product.samhsa_publication.field_thumbnail
+    - field.field.commerce_product.samhsa_publication.field_treatment_prevention_and_r
+    - field.field.commerce_product.samhsa_publication.field_web_card_image
+    - responsive_image.styles.product_page_image
+  module:
+    - commerce_product
+    - datetime
+    - file
+    - link
+    - metatag
+    - options
+    - responsive_image
+    - text
+_core:
+  default_config_hash: gT03TFcuSod4d9uPQNs_gqK1F1QZ0Ray5CBYW0BNLnk
+id: commerce_product.samhsa_publication.default
+targetEntityType: commerce_product
+bundle: samhsa_publication
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_app_features:
+    weight: 36
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_apple_app_store:
+    weight: 34
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_audience:
+    weight: 25
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_campaign:
+    weight: 15
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_external_video:
+    type: entity_reference_entity_view
+    weight: 32
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_featured:
+    weight: 37
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_format:
+    weight: 28
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_google_play:
+    weight: 33
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_issues_conditions_and_diso:
+    weight: 18
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_last_reviewed:
+    type: datetime_custom
+    weight: 0
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      date_format: 'F Y'
+    third_party_settings: {  }
+  field_location:
+    weight: 27
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_may_be_interested_files:
+    weight: 9
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_may_be_interested_manual:
+    weight: 22
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_metatags:
+    weight: 38
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_microsoft_store:
+    weight: 35
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_pep_product_type:
+    type: list_key
+    weight: 29
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_population_group:
+    weight: 26
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_product_owner_email:
+    weight: 13
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_product_owner_name:
+    weight: 12
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_product_owner_phone:
+    weight: 14
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_professional_and_research_:
+    weight: 20
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_pub_lang:
+    weight: 23
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_pub_target_audience:
+    weight: 30
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_publication_category:
+    weight: 21
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_publication_date:
+    type: datetime_custom
+    weight: 6
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      date_format: 'F Y'
+    third_party_settings: {  }
+  field_qty_max_order:
+    weight: 8
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_related_products:
+    weight: 10
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_related_resource_files:
+    weight: 11
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_samhsa_digital_download:
+    weight: 4
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_samhsa_promo_link:
+    weight: 5
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_series:
+    weight: 24
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_substances:
+    weight: 17
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_subtitle:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_tags:
+    weight: 31
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_thumbnail:
+    weight: 16
+    label: hidden
+    settings:
+      responsive_image_style: product_page_image
+      image_link: file
+    third_party_settings: {  }
+    type: responsive_image
+    region: content
+  field_treatment_prevention_and_r:
+    weight: 19
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  title:
+    label: hidden
+    type: string
+    weight: 1
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  variations:
+    type: commerce_add_to_cart
+    weight: 7
+    label: hidden
+    settings:
+      combine: true
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_attachment: true
+  field_may_be_interested_in: true
+  field_office_center: true
+  field_qty_reserved: true
+  field_supplemental_materials: true
+  field_web_card_image: true
+  langcode: true
+  search_api_excerpt: true
+  stores: true
+  uid: true

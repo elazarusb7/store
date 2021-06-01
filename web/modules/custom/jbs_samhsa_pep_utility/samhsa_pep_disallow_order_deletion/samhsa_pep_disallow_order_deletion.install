@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * samhsa_pep_disallow_order_deletion.install.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_pep_disallow_order_deletion_install() {
+    //nothing to install
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_pep_disallow_order_deletion_uninstall() {
+    Drupal::configFactory()->getEditable('samhsa_pep_disallow_order_deletion.settings')->delete();
+}
+
+
+

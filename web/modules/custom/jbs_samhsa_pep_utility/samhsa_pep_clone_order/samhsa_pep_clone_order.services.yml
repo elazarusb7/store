@@ -1,0 +1,4 @@
+services:
+  samhsa_pep_clone_order.pep_clone_order_functions:
+    class: Drupal\samhsa_pep_clone_order\PepCloneOrderFunctions
+    arguments: []

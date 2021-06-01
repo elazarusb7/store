@@ -1,0 +1,5 @@
+name: SAMSHA PEP Drush Import Stock Locations
+description: Provides drush command to migrate stock locations.
+core: 8.x
+type: module
+package: SAMHSA

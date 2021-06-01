@@ -1,0 +1,6 @@
+timeout: 900
+redirect_url: /
+_core:
+  default_config_hash: e6h0bU0PkiNGxvQWPP60W23U4owDSYKWDjJSIFa-Xwk
+cron_threshold: '250'
+add_to_cart_message: 'Your cart will expire after 15 minutes of inactivity.  Please complete your transaction in a timely manner.'

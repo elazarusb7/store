@@ -1,0 +1,14 @@
+uuid: 11f4aa27-ca0c-4cce-95c3-a0a739eb248a
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.warehouse_manager
+  module:
+    - user
+id: user_add_role_action.warehouse_manager
+label: 'Add the Warehouse Manager role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: warehouse_manager

@@ -1,0 +1,5 @@
+name: 'Custom SAMHSA PEP Cart'
+type: module
+description: 'Define Custom SAMHSA PEP Cart functions and overrides.'
+core: 8.x
+package: 'SAMHSA PEP Custom'

@@ -1,0 +1,8 @@
+samhsa_pep_no_copy_paste.lib:
+  version: VERSION
+  js:
+    js/no_paste_email_confirmation.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal

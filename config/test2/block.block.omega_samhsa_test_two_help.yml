@@ -1,0 +1,22 @@
+uuid: 3a0ac16b-6cf0-4ad6-850f-2a954171e800
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - omega_samhsa_test_two
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: omega_samhsa_test_two_help
+theme: omega_samhsa_test_two
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,37 @@
+uuid: d5a735f3-e68a-472a-851e-3468836ca3a8
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:dfd351e0-b620-4c98-b999-04c9fe79035d'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - omega_samhsa_pep
+id: helptextfortheuserregistrationpage_2
+theme: omega_samhsa_pep
+region: content
+weight: -15
+provider: null
+plugin: 'block_content:dfd351e0-b620-4c98-b999-04c9fe79035d'
+settings:
+  id: 'block_content:dfd351e0-b620-4c98-b999-04c9fe79035d'
+  label: 'Help text for the user registration page'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: /user/register
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,8 @@
+name: 'SAMHSA PEP Shipping Functionality'
+type: module
+description: 'SAMSHA PEP Shipping functionality'
+dependencies:
+  - commerce:commerce_order
+  - physical
+core: 8.x
+package: 'SAMSHA Custom'

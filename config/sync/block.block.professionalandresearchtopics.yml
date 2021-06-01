@@ -1,0 +1,23 @@
+uuid: 30baa199-5a57-42b7-873a-25a857015c2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.professional_and_research_topics
+  module:
+    - facets
+  theme:
+    - bartik
+id: professionalandresearchtopics
+theme: bartik
+region: sidebar_first
+weight: -7
+provider: null
+plugin: 'facet_block:professional_and_research_topics'
+settings:
+  id: 'facet_block:professional_and_research_topics'
+  label: 'Professional and Research Topics'
+  provider: facets
+  label_display: '0'
+  block_id: professionalandresearchtopics
+visibility: {  }

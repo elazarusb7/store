@@ -1,0 +1,8 @@
+uuid: 8b1623ff-6232-43c7-9b90-3a7a5b2114b2
+langcode: en
+status: true
+dependencies: {  }
+id: commerce_product__samhsa_publication
+label: 'Product: SAMHSA Publication'
+tags:
+  title: '[current-page:title] | [site:name]'

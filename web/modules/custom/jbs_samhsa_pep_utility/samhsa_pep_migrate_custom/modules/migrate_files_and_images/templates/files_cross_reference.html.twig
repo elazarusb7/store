@@ -1,0 +1,22 @@
+{#
+/**
+ * @file files_cross_reference.html.twig
+ * Default theme implementation to present Files cross reference data.
+ *
+ * This template is used when viewing Files cross reference pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_files_cross_reference()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('files_cross_reference') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

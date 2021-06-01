@@ -1,0 +1,56 @@
+uuid: ce174eda-45be-44fb-b856-cd85609868cc
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_shipping
+    - email_registration
+    - samhsa_pep_justification_pane
+_core:
+  default_config_hash: wwkDVBiXUqSzRifJbb71ajFBklJdNJ_DgS67IF-_qgY
+id: default
+label: Default
+plugin: multistep_default
+configuration:
+  display_checkout_progress: true
+  panes:
+    login:
+      allow_guest_checkout: true
+      allow_registration: false
+      step: _disabled
+      weight: 10
+    checkout_justification:
+      step: order_information
+      weight: 1
+    contact_information:
+      double_entry: true
+      step: order_information
+      weight: 2
+    billing_information:
+      step: order_information
+      weight: 3
+    checkout_review_justification:
+      step: review
+      weight: 4
+    review:
+      step: review
+      weight: 5
+    completion_message:
+      step: complete
+      weight: 6
+    completion_register:
+      step: complete
+      weight: 7
+    order_summary:
+      view: commerce_checkout_order_summary
+      step: _sidebar
+      weight: 8
+    shipping_information:
+      require_shipping_profile: true
+      step: _disabled
+      weight: 9
+    email_registration_login:
+      allow_guest_checkout: true
+      allow_registration: false
+      step: login
+      weight: 0

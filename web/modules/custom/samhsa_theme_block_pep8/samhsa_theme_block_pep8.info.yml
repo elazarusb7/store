@@ -1,0 +1,8 @@
+core: 8.x
+type: module
+name: SAMHSA Theme Blocks
+description: 'Block Hooks for the components of SAMHSA''s Omega 5 Framework'
+package: SAMHSA
+configure: samhsa_theme_block_pep8.settings
+dependencies:
+  - block

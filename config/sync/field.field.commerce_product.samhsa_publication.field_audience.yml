@@ -1,0 +1,29 @@
+uuid: 6bd9e540-0611-4bc6-84eb-0729d22f8ef7
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_audience
+    - taxonomy.vocabulary.audience
+id: commerce_product.samhsa_publication.field_audience
+field_name: field_audience
+entity_type: commerce_product
+bundle: samhsa_publication
+label: Audience
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audience: audience
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

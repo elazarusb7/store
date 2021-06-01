@@ -1,0 +1,32 @@
+omega_samhsa_pep:
+  omega:
+    allow_clone_for_subtheme: true
+    allow_enable_disable: true
+    title: 'Default library for SAMHSA.'
+    description: 'Default Omega grandchild subtheme for SAMHSA websites.'
+  version: VERSION
+  css:
+    base:
+      css/base/base.css: {}
+    layout:
+      css/regions/regions.css: {}
+    component:
+      css/components/components.css: {}
+  js:
+    js/modernizr.custom.js: {}
+    # js/aria.accordion.min.js: {}
+    js/omega-samhsa-pep-behaviors.js: {}
+    js/jquery.dlmenu.js: {}
+    js/responsive-elements.js: {}
+  dependencies:
+    - core/jquery
+
+tablesaw:
+  js:
+    /libraries/tablesaw/dist/tablesaw.jquery.js: {}
+    /libraries/tablesaw/dist/tablesaw-init.js: {}
+  css:
+    theme:
+      /libraries/tablesaw/dist/tablesaw.css: {}
+  dependencies:
+    - core/jquery

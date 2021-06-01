@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function samhsa_pep_notification_schema() {
+  $schema['samhsa_pep_notification_history'] = [
+    'description' => "Stores user's notification acceptance",
+    'fields' => [
+      'uid' => [
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'User ID',
+      ],
+      'sid' => [
+        'type'        => 'varchar',
+        'length'      => 100,
+        'not null'    => TRUE,
+        'description' => 'Session ID',
+      ],
+      'timestamp' => [
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'When notification last accepted',
+      ],
+    ],
+    'primary key' => ['uid'],
+  ];
+  return $schema;
+}

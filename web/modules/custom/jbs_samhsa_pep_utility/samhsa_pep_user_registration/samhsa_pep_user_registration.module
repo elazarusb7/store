@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_pep_user_registration.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_pep_user_registration_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_pep_user_registration module.
+    case 'help.page.samhsa_pep_user_registration':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Adapts the user registration process to SAMHSA requirements') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function samhsa_pep_user_registration_form_user_register_form_alter(
+  &$form,
+  \Drupal\Core\Form\FormStateInterface $form_state,
+  $form_id
+) {
+  $form['actions']['submit']['#submit'][] = "_samhsa_pep_user_reg_message";
+}
+
+/**
+ *  helper function to replace welcome message text for new user registration
+ *
+ */
+function _samhsa_pep_user_reg_message($form, FormStateInterface $form_state) {
+  $messages = \Drupal::messenger()->all();
+  \Drupal::messenger()->deleteAll();
+  foreach ($messages['status'] as $msg) {
+    if( $msg == 'A welcome message with further instructions has been sent to your email address.') {
+      // replace with our custom message
+      $newMsg = \Drupal\Core\Render\Markup::create('A welcome message with login instructions has been sent to your email address.');
+      \Drupal::messenger()->addMessage($newMsg);
+    }
+    else {
+      // pass all other messages in original state
+      \Drupal::messenger()->addMessage($msg);
+    }
+  }
+}
+
+/**
+ * Implements hook_email_registration_name().
+ */
+function samhsa_pep_user_registration_email_registration_name(UserInterface $account) {
+  $email = $account->getEmail();
+  return email_registration_cleanup_username($email);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function samhsa_pep_user_registration_form_user_form_alter(
+  &$form,
+  \Drupal\Core\Form\FormStateInterface $form_state,
+  $form_id
+) {
+  unset($form['field_last_password_reset']);
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function samhsa_pep_user_registration_form_commerce_checkout_flow_multistep_default_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form['#step_id'] == 'complete') {
+    $form['#after_build'][] = '_samhsa_pep_user_registration_form_commerce_checkout_complete_after_build';
+  }
+      $form['completion_register']['customer_profiles']['widget'][0]['#type'] = 'container';
+    $form['completion_register']['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';
+}
+
+/**
+ * Changes the behavior of the username input field.
+ *
+ * @param array $form
+ *   Form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form State object.
+ *
+ * @return array
+ *   Altered form array.
+ */
+function _samhsa_pep_user_registration_form_commerce_checkout_complete_after_build($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  if (isset($form['completion_register']['name'])) {
+    $build_info = $form_state->getBuildInfo();
+    $order = $build_info['callback_object']->getOrder();
+    $email = $order->getEmail();
+    $form['completion_register']['name']['#type'] = 'email';
+    $form['completion_register']['name']['#title'] = t('Email account');
+    $form['completion_register']['name']['#value'] = $email;
+    $form['completion_register']['name']['#description'] = NULL;
+  }
+  return $form;
+}
+
+function samhsa_pep_user_registration_preprocess_menu(&$variables) {
+// Hide particular link for the authenticated user.
+    $items = $variables['items'];
+
+    foreach ($items as $key => &$item) {
+// Hide register link on internal routes
+        if (!$item['url']->isExternal() && $item['url']->getRouteName() == 'user.register' && \Drupal::currentUser()->isAuthenticated()) {
+            unset($variables['items'][$key]);
+        }
+    }
+}

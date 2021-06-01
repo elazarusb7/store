@@ -1,0 +1,4 @@
+services:
+  samhsa_te_url_replacement:
+    class: Drupal\samhsa_te_url_replacement\UrlParsingService
+    arguments: []

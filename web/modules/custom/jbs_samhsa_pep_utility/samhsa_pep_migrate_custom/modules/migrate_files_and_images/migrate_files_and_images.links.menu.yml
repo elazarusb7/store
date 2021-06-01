@@ -1,0 +1,19 @@
+# Files cross reference menu items definition
+entity.files_cross_reference.collection:
+  title: 'Files cross reference list'
+  route_name: entity.files_cross_reference.collection
+  description: 'List Files cross reference entities'
+  parent: system.admin_structure
+  weight: 100
+
+files_cross_reference.admin.structure.settings:
+  title: Files cross reference settings
+  description: 'Configure Files cross reference entities'
+  route_name: files_cross_reference.settings
+  parent: system.admin_structure
+
+migrate_files_and_images.settings:
+  title: 'Set Source Files Path'
+  parent: system.admin_structure
+  description: 'Configure Source Files Path.'
+  route_name: jbs_commerce_over_the_max_limit.settings

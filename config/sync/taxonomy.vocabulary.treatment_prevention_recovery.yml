@@ -1,0 +1,8 @@
+uuid: 4c3b293a-153b-4af5-923e-b9b5ffb1ab79
+langcode: en
+status: true
+dependencies: {  }
+name: 'Treatment, Prevention and Recovery'
+vid: treatment_prevention_recovery
+description: 'Treatment, Prevention and Recovery'
+weight: -6

@@ -1,0 +1,7 @@
+field.value.field_qty_max_limit:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    value:
+      type: numeric
+      label: 'Value'

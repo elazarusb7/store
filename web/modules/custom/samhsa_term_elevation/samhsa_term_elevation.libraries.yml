@@ -1,0 +1,20 @@
+samhsa-term-elevation:
+  version: 1.x
+  css:
+    theme:
+      css/samhsa-term-elevation.css: {}
+
+samhsa-term-elevation-query-filter:
+  version: 1.x
+  js:
+    js/query_filter.js: {}
+  dependencies:
+    - core/jquery
+
+managing_radios:
+  version: 1.x
+  js:
+    js/checkboxes_management.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

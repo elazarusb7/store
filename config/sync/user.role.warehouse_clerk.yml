@@ -1,0 +1,23 @@
+uuid: 9d270988-2af7-41e3-a98b-d4ef6003855a
+langcode: en
+status: true
+dependencies: {  }
+id: warehouse_clerk
+label: 'Warehouse Clerk'
+weight: 4
+is_admin: null
+permissions:
+  - 'create field_source_of_the_order'
+  - 'edit field_source_of_the_order'
+  - 'edit own field_source_of_the_order'
+  - 'setup own tfa'
+  - 'view field_comments'
+  - 'view field_is_over_the_limit'
+  - 'view field_order_source'
+  - 'view field_requested_quantity'
+  - 'view field_source_of_the_order'
+  - 'view own field_comments'
+  - 'view own field_is_over_the_limit'
+  - 'view own field_order_source'
+  - 'view own field_requested_quantity'
+  - 'view own field_source_of_the_order'

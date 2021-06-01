@@ -1,0 +1,7 @@
+samhsa_pep_disallow_order_deletion:
+  path: '/admin/config/order_delete_permission'
+  defaults:
+    _form: '\Drupal\samhsa_pep_disallow_order_deletion\Form\OrderDeletePermissionSettingsForm'
+    _title: 'Disallow Order Deletion'
+  requirements:
+    _permission: 'administer site configuration'

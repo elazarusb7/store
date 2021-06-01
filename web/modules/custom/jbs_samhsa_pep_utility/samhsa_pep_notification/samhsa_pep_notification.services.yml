@@ -1,0 +1,10 @@
+services:
+  samhsa_pep_notification_subscriber:
+    class: Drupal\samhsa_pep_notification\EventSubscriber\SamhsaPepNotificationSubscriber
+    arguments: ['@database', '@path.current', '@session_manager', '@current_user']
+    tags:
+      - { name: event_subscriber }
+  samhsa_pep_login_redirect_per_role.service:
+      class: Drupal\samhsa_pep_notification\SamhsaPepLoginRedirectPerRole
+      arguments: ['@current_route_match', '@request_stack', '@config.factory', '@current_user', '@token']
+

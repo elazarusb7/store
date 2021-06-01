@@ -1,0 +1,162 @@
+<?php
+use Drupal\node\Entity\NodeType;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+
+/**
+ * @file
+ * Functions to support theming in the theme omega_samhsa_pep.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK()
+ *
+ * extract "v=<vocabulary>" from request query_string
+ * and set value into [expand_vocab] TWIG variable
+ */
+function omega_samhsa_pep_preprocess_facets_item_list(&$variables) {
+  // "v=issues_conditions_and_disorders"
+  $qs = \Drupal::request()->getQueryString();
+  if (strpos($qs,'v=') !== FALSE) {
+    $pair = explode('=', $qs);
+    if (isset($pair[1]) && $pair[1] != '') {
+      $variables['expand_vocab'] = $pair[1];
+    }
+  }
+}
+
+
+/**
+ * Extending the block templates from the Omega SAMHSA theme
+ * -----------------------------------------------------------------
+ * https://www.drupal.org/docs/8/theming-drupal-8/creating-a-drupal-8-sub-theme-or-sub-theme-of-sub-theme
+ * If the theme you are extending has custom block templates these won't be immediately inherited because a sub-theme creates copies of all the blocks in the parent theme and renames them with the sub-theme's name as a prefix. Twig block templates are derived from the block's name, so this breaks the link between these templates and their block. Fixing this problem currently requires a hook in the sub-theme.
+ */
+
+function omega_samhsa_pep_theme_suggestions_block_alter(&$suggestions, $variables) {
+  foreach ($suggestions as &$suggestion) {
+    $suggestion = str_replace('omega_samhsa_pep_', 'omega_samhsa_', $suggestion);
+  }
+}
+
+/**
+ * Prepares variables for the html.html.twig template.
+ */
+
+/*
+function omega_samhsa_pep_preprocess_html(&$variables) {
+
+  // If you need Apple Touch icons other than the ones used in Omega SAMHSA,
+  // uncomment the hook_preprocess_html() to set the $variables['atouchpath'] below
+
+  //The file in templates/layout/html.html.twig is where the icons are set using this variable
+  $variables['atouchpath'] = drupal_get_path('theme','omega_samhsa_pep') . '/images/appletouch/';  //set variable for appletouch icons
+
+}
+*/
+
+
+/**
+ * Implements theme_preprocess_superfish_menu_item()
+ * With elements from https://www.drupal.org/project/superfish/issues/2958789#comment-12568378
+ */
+function omega_samhsa_pep_preprocess_superfish_menu_items(array &$variables) {
+    template_preprocess_superfish_menu_items($variables);
+
+    // Get the menu name
+    $menu_id = $variables['element']['#menu_name'];
+    // Iterate through the menu items
+    foreach ($variables['menu_items'] as &$menu_item) {
+        $menu_item_id = $menu_item['attributes']['id']->value();
+        // Get the Menu Item Extras by UUID and menu name, using a helper function
+        $entity = \Drupal::entityTypeManager()
+            ->getStorage('menu_link_content')
+            ->loadByProperties([
+                'menu_name' => $menu_id,
+                'uuid' => _omega_samhsa_pep_superfish_uuid($menu_item_id)
+                ]);
+        // This should return an array with one item with an arbitrary numeric key, get the value
+        $entity = reset($entity);
+        // verify that the resulting value is an Entity, build a view, and add it to the menu item
+        if ($entity instanceof \Drupal\Core\Entity\EntityInterface) {
+            $view_builder = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId());
+            // Provide a view mode to allow control of which fields appear in the Superfish menu
+            $entity_view = $view_builder->view($entity, 'superfish');
+            $menu_item['entity'] = $entity_view;
+            $menu_item['entity']['#show_item_link'] = FALSE;
+        }
+    }
+}
+
+/**
+ * @param $uuid, a Superfish ID
+ * @return string $uuid
+ *
+ * Helper function to extract a UUID from a Superfish menu item ID string
+ */
+function _omega_samhsa_pep_superfish_uuid($uuid) {
+    $uuid = preg_replace('/^.*-menu-link-content/', '', $uuid);
+    $uuid = explode("--", $uuid);
+    $uuid = $uuid[0];
+    return $uuid;
+}
+
+// makes it so searches keep select facets
+function omega_samhsa_pep_form_views_exposed_form_alter(&$form, $form_state, $form_id) {
+  $params = \Drupal::requestStack()->getCurrentRequest()->query->all();
+  $facet_manager = \Drupal::service('facets.manager');
+  $facets = $facet_manager->getEnabledFacets();
+  foreach ($facets as $facet) {
+    $filter_keys[] = empty($facet->getFacetSourceConfig()->getFilterKey()) ? 'f' : $facet->getFacetSourceConfig()->getFilterKey();
+
+  }
+  if (!empty($filter_keys)) {
+    foreach (array_unique($filter_keys) as $filter_key) {
+      if (!empty($params[$filter_key]) && !empty($param_values = $params[$filter_key])) {
+        // Add facet parameters to hidden fields in the forms.
+        foreach ($param_values as $key => $value) {
+          $form[$filter_key . '[' . $key . ']'] = [
+            '#type' => 'hidden',
+            '#value' => $value,
+          ];
+        }
+      }
+    }
+  }
+}
+function omega_samhsa_pep_preprocess_file_link(&$variables) {
+  if (isset($variables['file'])) {
+    $fileMime = $variables['file']->getMimeType();
+    if ($fileMime == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        $variables['fileHumanMime'] = 'DOCX';
+      }
+    if ($fileMime == 'application/pdf') {
+        $variables['fileHumanMime'] = 'PDF';
+      }
+    if ($fileMime == 'text/plain') {
+        $variables['fileHumanMime'] = 'TXT';
+      }
+    if ($fileMime == 'application/msword') {
+        $variables['fileHumanMime'] = 'DOC';
+      }
+    if ($fileMime == 'application/zip') {
+        $variables['fileHumanMime'] = 'ZIP';
+      }
+    if ($fileMime == 'application/vnd.ms-powerpoint') {
+        $variables['fileHumanMime'] = 'PPT';
+      }
+    if ($fileMime == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+        $variables['fileHumanMime'] = 'PPTX';
+      }
+  }
+}
+// function omega_samhsa_pep_theme_suggestions_file_link_alter(&$suggestions, $vars, $hook) {
+//   // Get the node type.
+//   $product = \Drupal::routeMatch()->getParameter('product');
+//   $type = $product->getType();
+
+//   // Create the theme hook suggestion.
+//   $suggestions[] = 'file_link__' . 'type_' . $type;
+// }

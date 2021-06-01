@@ -1,0 +1,31 @@
+uuid: f3678196-8ddf-479d-bc7c-522d6b73a8dc
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:dfd351e0-b620-4c98-b999-04c9fe79035d'
+  module:
+    - block_content
+    - system
+  theme:
+    - bartik
+id: helptextfortheuserregistrationpage
+theme: bartik
+region: content
+weight: -6
+provider: null
+plugin: 'block_content:dfd351e0-b620-4c98-b999-04c9fe79035d'
+settings:
+  id: 'block_content:dfd351e0-b620-4c98-b999-04c9fe79035d'
+  label: 'Help text for the user registration page'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /user/register
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,18 @@
+extlink_target: false
+extlink_target_no_override: false
+extlink_nofollow: false
+extlink_follow_no_override: false
+extlink_subdomains: true
+extlink_alert: true
+extlink_alert_text: "You are now leaving the SAMHSA Publications website to go to a non-government site.\r\nSAMHSA is not responsible for the availability or content of these external, non-governmental sites, nor does SAMHSA endorse, warrant, or guarantee the products, services, or information described or offered."
+extlink_exclude: (amazonaws)|(hhs\.gov)|(samhsa\.gov)|(docksal)
+extlink_include: usersurvey
+extlink_class: ext
+extlink_label: '(link is external)'
+extlink_img_class: false
+extlink_css_exclude: ''
+extlink_css_explicit: ''
+extlink_mailto_class: mailto
+extlink_mailto_label: '(link sends email)'
+_core:
+  default_config_hash: rHbHZIIF9TP3H2Vs37uCHz4Gm4phULg0rQ_OKihxJfM

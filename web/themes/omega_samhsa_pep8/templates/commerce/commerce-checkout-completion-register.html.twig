@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * A layout for the checkout registration form
+ *
+ * Available variables:
+ * - form: The form.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="commerce-checkout-completion-register">
+  <div class="commerce-checkout-completion-register__text">
+    <h2>{%trans%}Create your account{%endtrans%}</h2>
+    <p>
+      {%trans%}Create an account to save your shipping information and order history. An account is not required to place orders.{%endtrans%}
+    <a href="/help#help--accounts">{%trans%}Learn more about accounts{%endtrans%}</a>.
+    </p>
+  </div>
+  <div class="commerce-checkout-completion-register__form">
+    {{ form }}
+  </div>
+</div>

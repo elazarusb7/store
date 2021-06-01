@@ -1,0 +1,3 @@
+timeout: 900
+redirect_url: https://google.com
+add_to_cart_message: Your cart will expire after several minutes of inactivity

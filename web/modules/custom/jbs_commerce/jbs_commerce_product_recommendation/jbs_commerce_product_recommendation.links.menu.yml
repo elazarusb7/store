@@ -1,0 +1,5 @@
+jbs_commerce_product_recommendation.admin_refresh_model:
+  title: 'Recommendation Engine Config'
+  parent: system.admin_config
+  description: 'Configure Recommendation Model Refresh'
+  route_name: product_recommendation

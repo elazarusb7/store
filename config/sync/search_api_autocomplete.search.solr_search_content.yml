@@ -1,0 +1,50 @@
+uuid: bdbdc426-6060-4bc9-88f4-c4726804802e
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.default_solr_index
+    - views.view.solr_search_content
+  module:
+    - views
+    - search_api_autocomplete
+    - search_api_solr
+id: solr_search_content
+label: 'Solr search content'
+index_id: default_solr_index
+suggester_settings:
+  live_results:
+    fields:
+      - body
+      - sku
+      - title
+    view_modes:
+      'entity:commerce_product':
+        samhsa_publication: ''
+  search_api_solr_spellcheck: {  }
+  search_api_solr_suggester:
+    search_api_solr/site_hash: 1
+    search_api/index: default_solr_index
+    drupal/langcode: any
+suggester_weights:
+  live_results: 0
+  search_api_solr_spellcheck: 0
+  search_api_solr_suggester: 0
+suggester_limits:
+  search_api_solr_spellcheck: 10
+  search_api_solr_suggester: 10
+search_settings:
+  'views:solr_search_content':
+    displays:
+      default: false
+      selected:
+        - default
+        - block_1
+        - page_1
+options:
+  limit: 15
+  min_length: 2
+  show_count: false
+  autosubmit: true
+  submit_button_selector: ':submit'
+  delay: 300

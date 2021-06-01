@@ -1,0 +1,5 @@
+services:
+  samhsa_pep_taxonomy_tags.commands:
+    class: \Drupal\samhsa_pep_taxonomy_tags\Commands\SamhsaPepTaxonomyTagsCommands
+    tags:
+      - { name: drush.command }
