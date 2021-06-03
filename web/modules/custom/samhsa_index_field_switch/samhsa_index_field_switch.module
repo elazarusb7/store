@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains samhsa_index_field_switch.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\samhsa_index_field_switch\FieldSwitchTypecasting;
+
+/**
+ * Implements hook_help().
+ */
+function samhsa_index_field_switch_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the samhsa_index_field_switch module.
+    case 'help.page.samhsa_index_field_switch':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_search_api_solr_documents_alter().
+ */
+function samhsa_index_field_switch_search_api_solr_documents_alter(array &$documents, \Drupal\search_api\IndexInterface $index, array $items) {
+
+  $list =  $config = \Drupal::config('samhsa_index_field_switch.configuration')->get('list');
+
+  if (!$list) {
+    return;
+  }
+
+  foreach ($documents as &$document) {
+    $fields = $document->getFields();
+    foreach ($list as $field_switch) {
+      $from_field = $field_switch['from_field'];
+      $from_field_value = $fields[$field_switch['from_field']];
+      $to_field = $field_switch['to_field'];
+      if (isset($fields[$from_field])) {
+        $method_name = strtolower($field_switch['from_field_type']) .
+          'To' .
+          ucfirst(strtolower($field_switch['to_field_type']));
+        $typecasting = new FieldSwitchTypecasting($from_field_value, $field_switch['from_field_format'], $field_switch['to_field_format']);
+        if (method_exists($typecasting, $method_name)) {
+          $converted_value = $typecasting::$method_name();
+        }
+        else {
+          $converted_value = $from_field_value;
+        }
+        $document->setField($to_field, $converted_value);
+      }
+    }
+  }
+
+}

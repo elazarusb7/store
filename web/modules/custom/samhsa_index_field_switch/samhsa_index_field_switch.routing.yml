@@ -1,0 +1,33 @@
+samhsa_index_field_switch.configuration_controller:
+  path: '/admin/config/samhsa-index-field-switch/settings'
+  defaults:
+    _controller: '\Drupal\samhsa_index_field_switch\Controller\ManageFieldsController::content'
+    _title: 'SAMHSA Index Field Switching Settings'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE'
+
+samhsa_index_field_switch.add_new_field_switch_form:
+  path: '/samhsa-index-field-switch/add'
+  defaults:
+    _form: '\Drupal\samhsa_index_field_switch\Form\AddNewFieldSwitchForm'
+    _title: 'Add New Field Switching'
+  requirements:
+    _access: 'TRUE'
+
+samhsa_index_field_switch.edit_field_switch_form:
+  path: '/samhsa-index-field-switch/edit/{item_id}'
+  defaults:
+    _form: '\Drupal\samhsa_index_field_switch\Form\AddNewFieldSwitchForm'
+    _title: 'Edit Field Switching'
+  requirements:
+    _access: 'TRUE'
+
+samhsa_index_field_switch.delete_field_switch_form:
+  path: '/samhsa-index-field-switch/delete/{item_info}'
+  defaults:
+    _form: '\Drupal\samhsa_index_field_switch\Form\DeleteFieldSwitchForm'
+    _title: 'Delete Field Switching'
+  requirements:
+    _access: 'TRUE'

@@ -1,0 +1,11 @@
+{
+    "name": "jbs/samhsa_index_field_switch",
+    "type": "drupal-module",
+    "description": "Allows to move values between field during the Solr indexing process.",
+    "keywords" : [
+        "JBS/SAMHSA",
+        "modules",
+        "drupal"
+    ],
+    "license" : "GPL-2.0+"
+}

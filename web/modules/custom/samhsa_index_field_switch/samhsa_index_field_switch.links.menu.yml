@@ -1,0 +1,6 @@
+samhsa_index_field_switch.configuration_form:
+  title: 'SAMHSA Index Field Switching Settings'
+  route_name: samhsa_index_field_switch.configuration_controller
+  description: 'Administrative tasks for SAMHSA Index Field Switching'
+  parent: system.admin_config_system
+  weight: 99

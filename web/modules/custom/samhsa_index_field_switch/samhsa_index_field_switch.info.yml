@@ -1,0 +1,5 @@
+name: 'SAMHSA Index Field Switching'
+type: module
+description: 'Allows to move values between field during the Solr indexing process.'
+core: 8.x
+package: 'Custom'
