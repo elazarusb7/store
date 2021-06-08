@@ -1,7 +1,7 @@
 type: module
 name: SAMHSA PEP Notification
 description: 'Force user to view and accept system use notification'
-core: 8.x
+#core: 8.x
 package: 'SAMHSA PEP Custom'
 core_version_requirement: ^8 || ^9
 configure: samhsa_pep_notification.overview

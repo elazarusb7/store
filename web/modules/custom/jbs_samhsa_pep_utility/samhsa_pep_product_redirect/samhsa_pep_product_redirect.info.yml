@@ -4,5 +4,6 @@ description: Module allows to set a redirect from a Product form
 # core: 8.x
 dependencies:
   - redirect
-core: '8.x'
+#core: '8.x'
+core_version_requirement: ^8.8 || ^9
 package: 'SAMHSA PEP Custom'

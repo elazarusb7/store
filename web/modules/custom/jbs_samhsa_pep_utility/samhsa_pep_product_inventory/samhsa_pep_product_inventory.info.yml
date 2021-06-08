@@ -1,5 +1,6 @@
 name: 'Custom SAMHSA PEP Product Inventory Report'
 type: module
 description: 'Define Custom SAMHSA PEP Product Inventory Report.'
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: 'SAMHSA PEP Custom'

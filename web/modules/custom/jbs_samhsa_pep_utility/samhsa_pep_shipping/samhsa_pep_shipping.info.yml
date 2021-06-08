@@ -4,5 +4,6 @@ description: 'SAMSHA PEP Shipping functionality'
 dependencies:
   - commerce:commerce_order
   - physical
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: 'SAMSHA Custom'
