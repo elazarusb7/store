@@ -1,7 +1,7 @@
 name: 'JBS Commerce Import Product Data'
 type: module
 description: 'Import Product Data from CSV'
-core: 8.x
+#core: 8.x
 package: 'Custom'
 configure: jbs_commerce_import_product_data.admin_config
 core_version_requirement: ^8.8 || ^9

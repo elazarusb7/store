@@ -1,7 +1,7 @@
 name: 'JBS Commerce Featured Product'
 type: module
 description: 'Create Featured Products'
-core: 8.x
+#core: 8.x
 package: 'Custom'
 configure: jbs_commerce_featured_product.admin_config
 core_version_requirement: ^8.8 || ^9
