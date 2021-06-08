@@ -1,7 +1,8 @@
 name: 'Custom SAMHSA PEP Clone Order'
 type: module
 description: 'SAMHSA PEP CLone Order.'
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: 'SAMHSA PEP Custom'
 dependencies:
   - samhsa_pep_order_states_workflow
