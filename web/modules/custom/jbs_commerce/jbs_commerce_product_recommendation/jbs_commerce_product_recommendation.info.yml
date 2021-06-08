@@ -1,5 +1,6 @@
 name: 'JBS Commerce Product Recommendation Engine'
 type: module
 description: 'Custom Commerce Product Recommendation Engine.'
-core: 8.x
+#core: 8.x
 package: 'Custom'
+core_version_requirement: ^8.8 || ^9
