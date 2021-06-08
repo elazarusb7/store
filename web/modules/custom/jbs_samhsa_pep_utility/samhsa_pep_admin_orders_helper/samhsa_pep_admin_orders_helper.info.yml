@@ -1,7 +1,8 @@
 name: 'Custom SAMHSA PEP Admin Order hooks and functions'
 type: module
 description: 'Define Custom SAMHSA PEP Admin Order hooks and functions.'
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: 'SAMHSA PEP Custom'
 dependencies:
   - samhsa_pep_clone_order
