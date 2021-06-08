@@ -7,4 +7,5 @@ dependencies:
   - commerce:commerce_product
   - commerce_stock:commerce_stock
   - jbs_commerce_over_the_max_limit:jbs_commerce_over_the_max_limit
-core: 8.x
+#core: 8.x
+core_version_requirement: ^8.8 || ^9
