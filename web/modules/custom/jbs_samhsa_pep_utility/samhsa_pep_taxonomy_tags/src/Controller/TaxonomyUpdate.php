@@ -154,7 +154,7 @@ class TaxonomyUpdate extends ControllerBase {
 
     // all data read in
     $this->output .= $this->nl . "successfully read $records records";
-    $entity_manager = \Drupal::entityManager();
+    $entity_manager = \Drupal::entityTypeManager();
 
     // get header
     /*[
