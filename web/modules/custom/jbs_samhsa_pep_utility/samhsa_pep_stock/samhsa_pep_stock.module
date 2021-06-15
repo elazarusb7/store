@@ -530,7 +530,7 @@ function samhsa_pep_stock_views_post_execute(\Drupal\views\ViewExecutable $view)
       $view->result[$key]->commerce_product_field_data_commerce_product_variation_field_5 = intval($alloc + $stock);
       if ($debug) {
         $sku = $variation->sku->value;
-        dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
+        //dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
       }
     }
   }
@@ -556,7 +556,7 @@ function samhsa_pep_stock_preprocess_views_view_field(&$variables) {
       $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
       if ($debug) {
         $sku = $variation->sku->value;
-        dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
+        //dsm("$sku ($vid): stock: $stock, alloc: $alloc, on hand: " . intval($alloc + $stock));
       }
       $variables['output'] = $alloc + $stock;
     }

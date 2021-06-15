@@ -89,7 +89,7 @@ function _rpt_download_execute() {
   $file = file_save_data(
     $fileContent,
     $destination,
-    FILE_EXISTS_REPLACE
+    \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE
   );
 
   //get totals
