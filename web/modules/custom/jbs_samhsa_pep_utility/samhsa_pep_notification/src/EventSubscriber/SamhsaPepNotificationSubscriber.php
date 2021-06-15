@@ -128,7 +128,7 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
       // - redirect to the samhsa_pep_notification page.
       if ($referer_uri != $path && $referer_uri != '/user/login') {
         // use tried to click away w/o accepting
-        drupal_set_message($config->get('failure'), 'warning');
+        \Drupal::messenger()->addMessage($config->get('failure'), 'warning');
       }
       $redirect_path = \Drupal\Core\Url::fromRoute('samhsa_pep_notification.form')->toString();
       //drupal_set_message("forcing redirect to '$redirect_path'");

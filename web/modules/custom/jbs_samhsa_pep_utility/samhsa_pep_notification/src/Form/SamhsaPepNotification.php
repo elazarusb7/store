@@ -77,7 +77,7 @@ class SamhsaPepNotification extends FormBase
         ->fields([
           'uid'       => $uid,
           'sid'       => session_id(),
-          'timestamp' => REQUEST_TIME,
+          'timestamp' => \Drupal::time()->getRequestTime(),
         ])
         ->condition('uid', $uid)
         ->execute();
