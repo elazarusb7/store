@@ -227,7 +227,7 @@ function samhsa_pep_product_display_entity_presave(EntityInterface $entity) {
  */
 function _publish_unpublish_downloads($field, $action, $current_pid)
 {
-  $root = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+  $root = \Drupal::service('file_system')->realpath(\Drupal::config('system.file')->get('default_scheme') . "://");
   $watchdog = ($action == ACTION_PUBLISH ? 'Restoring' : 'Unpublishing') . " file assets in $root<br /><br />";
   Drupal::messenger()->addMessage(($action == ACTION_PUBLISH ? 'Restoring' : 'Unpublishing') . " file assets");
   $single_use_files  = [];
