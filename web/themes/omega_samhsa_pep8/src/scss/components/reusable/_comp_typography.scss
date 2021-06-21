@@ -1,0 +1,24 @@
+// Classes applied to Typography (<a>, <p>, headings, etc)
+// try to use naming conventions without style info (no color, size or weight info)
+//==========================================================================
+
+
+// Add this class to the classes created with gulp optimize-sprites
+// It simply sets the display and overflow to only show the background image of the sprite
+.sprite{
+  overflow: hidden;
+  display: inline-block;
+  text-indent: 999em;
+}
+
+// Simple clear for paragraphs
+.p-clear{
+  clear: both;
+}
+
+
+
+
+
+
+

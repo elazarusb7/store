@@ -1,17 +1,17 @@
 name: omega_samhsa_pep
 type: theme
-description: 'The granddaughter theme where most of the local style is set'
+description: 'Omega PEP subtheme for SAMHSA websites.'
 package: Core
-'base theme': omega_samhsa
+'base theme': omega
 force_export: false
 inherit_layout: false
 scss_support: false
 libraries:
   - omega_samhsa_pep/omega_samhsa_pep
-libraries-override:
-  omega_samhsa/omega_samhsa:
-    js:
-      src/js/omega-samhsa-behaviors.js: false
+#libraries-override:
+#  omega_samhsa/omega_samhsa:
+#    js:
+#      src/js/omega-samhsa-behaviors.js: false
 regions:
   header_top: 'Header Top'
   header: Header
