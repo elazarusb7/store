@@ -3,7 +3,9 @@
 namespace Drupal\jbs_commerce_extended_log\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
+#use Symfony\Component\EventDispatcher\Event;
+use Drupal\state_machine\Event\WorkflowTransitionEvent;
+
 
 /**
  * Class OrderLogEvents.
@@ -39,21 +41,19 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "place" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
    */
-  public function onOrderPlace(Event $event) {
+  public function onOrderPlace(WorkflowTransitionEvent $event) {
     // Placeholder for eventual implementation of "place" event.
   }
 
   /**
    * This method is called when the event "place" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onBulkOrderPlace(Event $event) {
+  public function onBulkOrderPlace(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'Bulk Order placed';
     $change->fieldName = 'order';
@@ -65,11 +65,11 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "place" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onOrderApproved(Event $event) {
+  public function onOrderApproved(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'Order approved';
     $change->fieldName = 'order';
@@ -79,13 +79,14 @@ class OrderLogEvents implements EventSubscriberInterface {
     jbs_commerce_extended_log_log_the_changes([$change]);
   }
 
+
   /**
    * This method is called when the event "process" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onOrderPickSlipsGenerated(Event $event) {
+  public function onOrderPickSlipsGenerated(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'Pick Slips Generated';
     $change->fieldName = 'order';
@@ -97,11 +98,11 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "complete" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onOrderComplete(Event $event) {
+  public function onOrderComplete(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'The order was completed';
     $change->fieldName = 'order';
@@ -113,11 +114,11 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "cancel" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onOrderCancel(Event $event) {
+  public function onOrderCancel(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'The order was canceled';
     $change->fieldName = 'order';
@@ -129,11 +130,11 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "backtopending" is dispatched.
-   *
-   * @param \Symfony\Component\EventDispatcher\Event $event
-   *   The dispatched event.
+   * @param WorkflowTransitionEvent $event
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function onOrderBackToPending(Event $event) {
+  public function onOrderBackToPending(WorkflowTransitionEvent $event) {
     $change = new \stdClass();
     $change->logMessage = 'The order is back to pending';
     $change->fieldName = 'order';
