@@ -1,7 +1,0 @@
-// Used in the mega menu
-.heading-link{
-  font-weight: $weight-bold;
-  @include hover-link;
-  @include link-colors($action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover, $action-color-hover);
-}
-

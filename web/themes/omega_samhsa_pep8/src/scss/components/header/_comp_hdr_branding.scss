@@ -1,13 +1,13 @@
 // Logo
 //============================================================
 
-.region-header{
+.region-header {
   background-color: $blue-gray;
   @include breakpoint ($max-width-tablet-portrait) {
     background-color: transparent; 
   }
 }
-.site-branding{
+.site-branding {
   max-width: 130px;
   margin: 0 auto;
   padding: 8px 0 2px; 

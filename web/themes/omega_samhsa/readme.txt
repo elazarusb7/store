@@ -1,1 +1,0 @@
-This initializes the repository.
