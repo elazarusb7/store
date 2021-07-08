@@ -91,7 +91,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
           /* @var Symfony\Component\HttpFoundation\RedirectResponse */
           $redirect = new RedirectResponse($url2);
           $event->setResponse($redirect);
-          drupal_set_message(t('Your password has expired.  You must change it to continue.'), 'error');
+          \Drupal::messenger()->addMessage(t('Your password has expired.  You must change it to continue.'), 'error');
         }
       }
     }
