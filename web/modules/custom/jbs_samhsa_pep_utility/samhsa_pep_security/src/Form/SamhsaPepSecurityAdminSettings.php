@@ -180,7 +180,7 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
    */
   public function cleanTrackedEvents(array &$form, FormStateInterface $form_state) {
     $count = _samhsa_pep_security_remove_all_events();
-    drupal_set_message($this->t('Login Security event track list is now empty. @count item(s) deleted.', ['@count' => $count]));
+    \Drupal::messenger()->addMessage($this->t('Login Security event track list is now empty. @count item(s) deleted.', ['@count' => $count]));
   }
 
   public function killSession(array &$form, FormStateInterface $form_state) {

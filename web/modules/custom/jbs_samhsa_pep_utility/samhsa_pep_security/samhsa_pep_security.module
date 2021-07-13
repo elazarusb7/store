@@ -5,14 +5,17 @@
  * Contains samhsa_pep_security.module.
  */
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\UserInterface;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
 use Drupal\Core\Datetime\DrupalDateTime;
 
-function getFile() { return end(explode('/',__FILE__)) . ': ';}
+function getFile() {
+  $test = explode('/',__FILE__) . ': ';
+  return end($test);
+}
 
 /*
  * Hook user_login_form:
@@ -199,7 +202,8 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
         // activated or is blocked.", and any other errors that might be
         // helpful to an attacker it should not reset the attempts message
         // because it is a warning, not an error.
-        drupal_get_messages('error', TRUE);
+        //drupal_get_messages('error', TRUE);
+        \Drupal::messenger()->deleteByType('error');
       }
 
       // Should the user be advised about the remaining login attempts?
@@ -217,12 +221,12 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
         // See https://drupal.org/node/1743996#comment-6421246.
         // @ignore security_2
         if ($isBlocked) {
-          $message = SafeMarkup::format($conf->get('user_blocked'), $variables);
+          $message = new FormattableMarkup($conf->get('user_blocked'), $variables);
         }
         else {
-          $message = SafeMarkup::format($message['message'], $message['variables']);
+          $message = new FormattableMarkup($message['message'], $message['variables']);
         }
-        drupal_set_message($message, 'warning', TRUE);
+        \Drupal::messenger()->addWarning($message, TRUE);
       }
     }
   }
@@ -250,12 +254,12 @@ function _login_form_validate_submit_post(array $form, FormStateInterface $form_
   if (is_object($user)) {
     $login = _login_timestamp();
     if ($conf->get('last_login_timestamp') && $login > 0) {
-      drupal_set_message(t('Your last login was @stamp.', ['@stamp' => format_date($login, 'long')]), 'status');
+      \Drupal::messenger()->addMessage(t('Your last login was @stamp.', ['@stamp' => \Drupal::service('date.formatter')->format($login, 'long')]), 'status');
     }
 
     $access = _access_timestamp();
     if ($conf->get('last_access_timestamp') && $access > 0) {
-      drupal_set_message(t('Your last page access (site activity) was @stamp.', ['@stamp' => format_date($access, 'long')]), 'status');
+      \Drupal::messenger()->addMessage(t('Your last page access (site activity) was @stamp.', ['@stamp' => \Drupal::service('date.formatter')->format($access, 'long')]), 'status');
     }
   }
 }
@@ -487,15 +491,15 @@ function _get_variables_by_name($name = '') {
   $ipaddress = \Drupal::request()->getClientIp();
   $variables = [
     '@log_level' => $config->get('log_level'),
-    '@date' => format_date(REQUEST_TIME),
+    '@date' => \Drupal::service('date.formatter')->format(Drupal::time()->getRequestTime()),
     '@ip' => $ipaddress,
     '@request_time' => \Drupal::time()->getRequestTime(),
     '@username' => $account->getAccountName(),
     '@email' => $account->getEmail(),
-    '@uid' => $account->uid->value,
+    '@uid' => $account->id(),
     '@site' => \Drupal::config('system.site')->get('name'),
     '@uri' => $base_url,
-    '@edit_uri' => Url::fromRoute('entity.user.edit_form', ['user' => $account->uid->value], ['absolute' => TRUE])->toString(),
+    '@edit_uri' => Url::fromRoute('entity.user.edit_form', ['user' => $account->id()], ['absolute' => TRUE])->toString(),
     '@user_block_attempts' => $config->get('user_wrong_count'),
     '@clear_flood' => $config->get('clear_flood'),
     '@user_current_count' => \Drupal::database()->select('samhsa_pep_security_track', 'spst')
