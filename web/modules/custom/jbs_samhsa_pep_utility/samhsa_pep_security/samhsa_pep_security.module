@@ -234,7 +234,8 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
   // valid login
   else {
     // login is valid so clear all previous attempts for this user
-    db_delete('samhsa_pep_security_track')
+    $conn = \Drupal::database();
+    $conn->delete('samhsa_pep_security_track')
       ->condition('uid', $variables['@uid'])
       ->execute();
   }
@@ -299,7 +300,9 @@ function _security_add_event($uid, $name, $ip, $timestamp) {
   // Each attempt is kept for future mining of advanced brute forcing like
   // multiple IP or X-Forwarded-for usage and automated track data cleanup.
   //drupal_set_message('login_security #' . __LINE__ . ': ' . __FUNCTION__);
-  db_insert('samhsa_pep_security_track')
+  $conn = \Drupal::database();
+
+  $conn->insert('samhsa_pep_security_track')
     ->fields([
       'host' => $ip,
       'uid'  => $uid,
@@ -438,7 +441,8 @@ function _login_user_block_user_name($variables, FormStateInterface $form_state)
         user_logout();
       }
       // create an entry in the lock table so we'll know to restore this user
-      db_insert('samhsa_pep_security_lock')
+      $conn = \Drupal::database();
+      $conn->insert('samhsa_pep_security_lock')
         ->fields([
           'uid'  => $uid,
           'name' => $name,
