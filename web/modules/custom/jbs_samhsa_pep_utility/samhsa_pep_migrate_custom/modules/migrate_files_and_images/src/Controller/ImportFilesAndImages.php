@@ -483,8 +483,8 @@ class ImportFilesAndImages extends ControllerBase {
             $file = getcwd() . $this->getd7PrivateFolder() . $file_name;
             $uri = $uri . "priv/";
         }
-        drush_print("file: " . $file);
-        drush_print("uri: " . $uri . $file_name);
+        $this->output()->writeln("file: " . $file);
+        $this->output()->writeln("uri: " . $uri . $file_name);
         $data = @file_get_contents($file);
 
         if ($data && $file = file_save_data($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {

@@ -25,9 +25,9 @@ function samhsa_pep_migrate_custom_drush_command() {
 function drush_samhsa_pep_migrate_custom_truncate_ul($limit = 0) {
   $db = Database::getConnection();
   if ($db->query('DELETE FROM unconverted_links;')) {
-    drush_print('Unconverted Links table truncated. You can now uninstall migrate_custom module.');
+    Drush::output()->writeln('Unconverted Links table truncated. You can now uninstall migrate_custom module.');
   }
   else {
-    drush_print('Could not truncate Unconverted Links table!');
+    Drush::output()->writeln('Could not truncate Unconverted Links table!');
   }
 }

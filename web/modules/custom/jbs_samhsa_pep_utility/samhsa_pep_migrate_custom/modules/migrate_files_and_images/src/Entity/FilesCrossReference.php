@@ -146,7 +146,7 @@ class FilesCrossReference extends ContentEntityBase implements FilesCrossReferen
    * {@inheritdoc}
    */
   public function setPublished($published) {
-    $this->set('status', $published ? NODE_PUBLISHED : NODE_NOT_PUBLISHED);
+    $this->set('status', $published ? \Drupal\node\NodeInterface::PUBLISHED : \Drupal\node\NodeInterface::NOT_PUBLISHED);
     return $this;
   }
 

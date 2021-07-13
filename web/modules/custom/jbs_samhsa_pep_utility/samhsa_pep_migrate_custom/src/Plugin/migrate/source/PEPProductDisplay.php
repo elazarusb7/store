@@ -2,7 +2,7 @@
 
 namespace Drupal\samhsa_pep_migrate_custom\Plugin\migrate\source;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\commerce_store\Resolver\DefaultStoreResolver;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -31,8 +31,8 @@ class PEPProductDisplay extends FieldableEntity {
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityManagerInterface $entity_manager, DefaultStoreResolver $default_store_resolver) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, StateInterface $state, EntityTypeManagerInterface $entity_type_manager, DefaultStoreResolver $default_store_resolver) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_type_manager);
     $this->defaultStoreResolver = $default_store_resolver;
 
   }

@@ -24,15 +24,15 @@ class FilesImagesMigrateCommands extends DrushCommands {
         $migrate = new ImportFilesAndImages();
         if ($migrate->truncateCrossReference()) {
 
-            drush_print('Migrating Managed Files');
+          $this->output()->writeln('Migrating Managed Files');
             $result = $migrate->executeManagedFilesImport($limit);
             if ($result['managed_error_message']) {
-                drush_print($result['managed_error_message']);
+              $this->output()->writeln($result['managed_error_message']);
             }
             else {
-                drush_print($result['managed_processed'] . ' files imported.');
-                drush_print($result['managed_not_found'] . ' files not found in public://d7 directory.');
-                drush_print('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->managedCsvFileName));
+              $this->output()->writeln($result['managed_processed'] . ' files imported.');
+              $this->output()->writeln($result['managed_not_found'] . ' files not found in public://d7 directory.');
+              $this->output()->writeln('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->managedCsvFileName));
             }
 //We only migration managed files and images and don't need to rest. Commenting out for now
             /*drush_print(' ');
@@ -61,7 +61,7 @@ class FilesImagesMigrateCommands extends DrushCommands {
         }
 
         else {
-            drush_print('Could not truncate files_cross_reference table!');
+          $this->output()->writeln('Could not truncate files_cross_reference table!');
         }
 
         $this->output()->writeln('Hello World!');
