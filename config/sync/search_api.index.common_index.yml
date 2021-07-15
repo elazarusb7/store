@@ -1,0 +1,146 @@
+uuid: e93910d9-e1fc-4970-8ef8-13a331db51fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_solr
+    - commerce_product
+    - search_api
+  config:
+    - field.storage.commerce_product.body
+    - field.storage.commerce_product.field_publication_date
+    - search_api.server.common
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
+    term_modifiers:
+      slop: 10000000
+      fuzzy: 2
+id: common_index
+name: 'Common Index'
+description: ''
+read_only: false
+field_settings:
+  body:
+    label: Body
+    datasource_id: 'entity:commerce_product'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.commerce_product.body
+  changed:
+    label: Changed
+    datasource_id: 'entity:commerce_product'
+    property_path: changed
+    type: text
+    dependencies:
+      module:
+        - commerce_product
+  field_publication_date:
+    label: 'Publication Date'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_publication_date
+    type: text
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_publication_date
+  status:
+    label: Published
+    datasource_id: 'entity:commerce_product'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - commerce_product
+  title:
+    label: Title
+    datasource_id: 'entity:commerce_product'
+    property_path: title
+    type: text
+    dependencies:
+      module:
+        - commerce_product
+  url:
+    label: URI
+    property_path: search_api_url
+    type: solr_string_storage
+    configuration:
+      absolute: false
+datasource_settings:
+  'entity:commerce_product':
+    bundles:
+      default: false
+      selected:
+        - samhsa_publication
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  html_filter:
+    all_fields: false
+    fields:
+      - body
+      - title
+    title: true
+    alt: true
+    tags:
+      b: 2
+      em: 1
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+      u: 1
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+  language_with_fallback: {  }
+  rendered_item: {  }
+  solr_date_range:
+    weights:
+      preprocess_index: 0
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: common

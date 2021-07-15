@@ -1,4 +1,4 @@
-uuid: 8a1ed458-ccaf-41dc-922d-f776d0def295
+uuid: 51c0ca11-d2f2-4d2a-b556-6df1f117877c
 langcode: en
 status: true
 dependencies:
@@ -13,11 +13,9 @@ dependencies:
     - search_api_solr.solr_field_type.text_und_7_0_0
   module:
     - search_api_solr
-_core:
-  default_config_hash: _DKsimfQ-fLQ6YLEjuoEJ2cxxunBjtMWUygs34KoamA
-id: default_solr_server
-name: 'Solr Server'
-description: 'Default Solr server created by the Solr Search Defaults module'
+id: common
+name: Common
+description: ''
 backend: search_api_solr
 backend_config:
   connector: standard
@@ -26,17 +24,17 @@ backend_config:
     host: solr.samhsa.gov
     port: 8983
     path: /
-    core: samhsastore
+    core: common
     timeout: 5
-    index_timeout: 10
-    optimize_timeout: 15
+    index_timeout: 5
+    optimize_timeout: 10
     finalize_timeout: 30
-    commit_within: 10
+    commit_within: 1000
     solr_version: ''
     http_method: AUTO
     skip_schema_check: false
     jmx: false
-    solr_install_dir: ../../..
+    solr_install_dir: ''
   disabled_field_types: {  }
   disabled_caches: {  }
   disabled_request_handlers: {  }
@@ -44,10 +42,10 @@ backend_config:
   rows: 10
   index_single_documents_fallback_count: 10
   retrieve_data: true
-  highlight_data: true
+  highlight_data: false
   fallback_multiple: true
   server_prefix: ''
   domain: generic
   environment: default
   optimize: false
-  site_hash: true
+  site_hash: false

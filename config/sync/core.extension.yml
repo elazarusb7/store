@@ -56,7 +56,6 @@ module:
   ctools: 0
   datetime: 0
   dblog: 0
-  devel: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
   dynamic_page_cache: 0
@@ -79,7 +78,6 @@ module:
   file_browser: 0
   filter: 0
   ga_login: 0
-  google_tag: 0
   help: 0
   helper: 0
   history: 0
@@ -87,6 +85,7 @@ module:
   htmlmail: 0
   image: 0
   image_style_quality: 0
+  imce: 0
   inline_entity_form: 0
   jbs_commerce_back_to_browse_block: 0
   jbs_commerce_extended_log: 0
@@ -95,13 +94,11 @@ module:
   jbs_commerce_over_the_max_limit: 0
   jbs_commerce_product_recommendation: 0
   key: 0
-  kint: 0
   language: 0
   link: 0
   link_alter: 0
   mailsystem: 0
   media: 0
-  memcache: 0
   menu_block: 0
   menu_breadcrumb: 0
   menu_export: 0
@@ -215,6 +212,7 @@ module:
   extlink: 1
   menu_link_content: 1
   pathauto: 1
+  xmlsitemap: 1
   views: 10
   login_redirect_per_role: 1000
   standard: 1000

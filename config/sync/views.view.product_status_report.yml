@@ -1799,11 +1799,12 @@ display:
     display_options:
       display_extenders:
         mobile_device_detection: {  }
+        metatag_display_extender: {  }
       path: admin/product-status-rpt/export
       display_description: ''
       filename: 'Product-Status-Daily-Report-[date:custom:Y-m-d-H-i-s].csv'
       automatic_download: false
-      store_in_public_file_directory: false
+      store_in_public_file_directory: true
       redirect_to_display: none
       custom_redirect_path: false
       include_query_params: false
@@ -1824,6 +1825,8 @@ display:
       displays:
         page_1: page_1
         default: '0'
+      export_method: batch
+      export_batch_size: 100
     cache_metadata:
       max-age: -1
       contexts:

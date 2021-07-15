@@ -5,8 +5,6 @@ dependencies:
   module:
     - commerce_log
     - user
-_core:
-  default_config_hash: RmvWt3_p5shNsl91t7WPulftb_2pFCD8msoJqgnoEaU
 id: commerce_activity
 label: Activity
 module: views
@@ -14,7 +12,6 @@ description: ''
 tag: ''
 base_table: commerce_log
 base_field: log_id
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -87,7 +84,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: created
+          default: '-1'
           empty_table: false
       row:
         type: fields
@@ -292,7 +289,16 @@ display:
           entity_field: log_id
           plugin_id: standard
       title: 'Order logs'
-      header: {  }
+      header:
+        commerce_log_admin_comment_form:
+          id: commerce_log_admin_comment_form
+          table: views
+          field: commerce_log_admin_comment_form
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          plugin_id: commerce_log_admin_comment_form
       footer: {  }
       empty:
         area_text_custom:

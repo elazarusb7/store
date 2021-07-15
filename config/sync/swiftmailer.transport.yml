@@ -1,12 +1,12 @@
 transport: smtp
-smtp_host: email-smtp.us-east-1.amazonaws.com
-smtp_port: 587
-smtp_encryption: tls
+smtp_host: smtp.ees.hhs.gov
+smtp_port: 25
+smtp_encryption: '0'
 smtp_credential_provider: swiftmailer
 smtp_credentials:
   swiftmailer:
-    username: AKIAJ6ZCSCR7BN35FM3A
-    password: AqJS7iMt3KhHHqiMmoObVSedXx7mrXPgVbmtmBCuk2ue
+    username: ''
+    password: null
 sendmail_path: /usr/sbin/sendmail
 sendmail_mode: bs
 spool_directory: ''

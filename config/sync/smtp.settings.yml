@@ -1,12 +1,12 @@
 smtp_on: false
-smtp_host: email-smtp.us-east-1.amazonaws.com
+smtp_host: smtp.ees.hhs.gov
 smtp_hostbackup: ''
-smtp_port: '465'
-smtp_protocol: ssl
-smtp_username: AKIAJ6ZCSCR7BN35FM3A
-smtp_password: AqJS7iMt3KhHHqiMmoObVSedXx7mrXPgVbmtmBCuk2ue
-smtp_from: pepdev@jbsinternational.com
-smtp_fromname: ''
+smtp_port: '25'
+smtp_protocol: standard
+smtp_username: ''
+smtp_password: ''
+smtp_from: order@samhsa.hhs.gov
+smtp_fromname: 'SAMHSA Publications and Digital Products'
 smtp_client_hostname: ''
 smtp_client_helo: ''
 smtp_allowhtml: '0'

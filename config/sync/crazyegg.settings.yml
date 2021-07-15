@@ -1,0 +1,11 @@
+crazyegg_enabled: 1
+crazyegg_account_id: '00836179'
+crazyegg_js_scope: header
+crazyegg_roles_excluded:
+  anonymous: 0
+  authenticated: 0
+  administrator: 0
+  warehouse_manager: 0
+  warehouse_clerk: 0
+  site_manager: 0
+crazyegg_paths: ''

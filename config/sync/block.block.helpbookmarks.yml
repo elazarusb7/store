@@ -25,11 +25,15 @@ settings:
   label: 'Help Bookmarks'
   provider: menu_block
   label_display: visible
+  follow: false
+  follow_parent: child
   level: 1
   depth: 0
-  expand: 0
+  expand_all_items: false
   parent: 'help-bookmarks:'
   suggestion: help_bookmarks
+  label_type: block
+  label_link: false
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin

@@ -1,7 +1,7 @@
 timeout: 900
 max_timeout: 172800
 padding: 20
-role_logout: true
+role_logout: false
 redirect_url: /
 no_dialog: false
 message: 'Your session is about to expire. Do you want to reset it?'
@@ -13,3 +13,11 @@ use_alt_logout_method: false
 use_watchdog: true
 _core:
   default_config_hash: zJS1GknUylh656CJSNXOupqKSqm6Xw200h1cq1eI970
+no_individual_logout_threshold: false
+role_logout_max: false
+dialog_title: 'Publications and Digital Products Alert'
+inactivity_message_type: status
+disable_buttons: false
+yes_button: ''
+no_button: ''
+whitelisted_ip_addresses: ''

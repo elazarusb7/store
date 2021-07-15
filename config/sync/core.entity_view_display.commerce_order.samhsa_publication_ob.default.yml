@@ -12,6 +12,7 @@ dependencies:
     - field.field.commerce_order.samhsa_publication_ob.shipments
   module:
     - commerce_order
+    - commerce_price
     - datetime
     - options
     - physical
@@ -23,6 +24,15 @@ targetEntityType: commerce_order
 bundle: samhsa_publication_ob
 mode: default
 content:
+  balance:
+    type: commerce_price_default
+    label: inline
+    weight: 12
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    region: content
   completed:
     label: above
     type: timestamp

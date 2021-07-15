@@ -63,6 +63,9 @@ third_party_settings:
       index_prefix: ''
       collection: ''
       timezone: ''
+    term_modifiers:
+      slop: 10000000
+      fuzzy: 2
 _core:
   default_config_hash: lcYnKd7EBuLnAdRQR3jS8E4SqChn3zAaFqUx9DdoTqA
 id: default_solr_index

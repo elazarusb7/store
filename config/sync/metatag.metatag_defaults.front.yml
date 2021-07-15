@@ -7,5 +7,6 @@ _core:
 id: front
 label: 'Front page'
 tags:
-  canonical_url: '[site:url]'
   shortlink: '[site:url]'
+  canonical_url: '[site:url]'
+  google: w0Poq768QWPTYdPnJR1mrtfaQDkSF8evVHVl_pzkOeo

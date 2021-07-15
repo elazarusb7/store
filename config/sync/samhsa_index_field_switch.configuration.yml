@@ -1,0 +1,19 @@
+list:
+  -
+    server_id: common
+    index_id: common_index
+    from_field: tm_X3b_en_field_publication_date
+    from_field_type: date
+    from_field_format: Y-m-d
+    to_field: tm_X3b_en_changed
+    to_field_type: timestamp
+    to_field_format: ''
+  -
+    server_id: common
+    index_id: common_index
+    from_field: sort_X3b_en_field_publication_date
+    from_field_type: date
+    from_field_format: Y-m-d
+    to_field: sort_X3b_en_changed
+    to_field_type: timestamp
+    to_field_format: ''
