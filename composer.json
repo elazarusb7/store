@@ -212,6 +212,7 @@
         "drupal/twig_tweak": "^2.9",
         "drupal/twig_vardumper": "^2.2",
         "drupal/typed_data": "^1.0@alpha",
+        "drupal/upgrade_status": "^3.7",
         "drupal/username_enumeration_prevention": "^1.2",
         "drupal/vertical_tabs_config": "^1.2",
         "drupal/view_unpublished": "^1.0@alpha",
@@ -280,15 +281,6 @@
             }
         }
     ],
-    "require-dev": {
-        "behat/mink": "~1.7",
-        "behat/mink-goutte-driver": "~1.2",
-        "jcalderonzumba/gastonjs": "~1.0.2",
-        "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-        "mikey179/vfsstream": "~1.2",
-        "phpunit/phpunit": ">=4.8.28 <5",
-        "symfony/css-selector": "~2.8|~3.0"
-    },
     "conflict": {
         "drupal/drupal": "*"
     },
@@ -344,5 +336,8 @@
         },
         "enable-patching": true,
         "patches-file": "composer.patches.json"
+    },
+    "require-dev": {
+        "drupal/core-dev": "8.9.16"
     }
 }
