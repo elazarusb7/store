@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "200a7aac53039de982a78be29e38a16a",
+    "content-hash": "c011914e95f90b92edab5cd2ea01f2fb",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -14258,66 +14258,6 @@
             }
         },
         {
-            "name": "drupal/taxonomy_import",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/taxonomy_import.git",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_import-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "75c6802a8055b265ced760c443bb0cb126eb148c"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1601653345",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "AswathyAjish",
-                    "homepage": "https://www.drupal.org/user/2584696"
-                },
-                {
-                    "name": "colan",
-                    "homepage": "https://www.drupal.org/user/58704"
-                },
-                {
-                    "name": "neethups",
-                    "homepage": "https://www.drupal.org/user/3516137"
-                },
-                {
-                    "name": "sajiniantony",
-                    "homepage": "https://www.drupal.org/user/2603884"
-                },
-                {
-                    "name": "vuil",
-                    "homepage": "https://www.drupal.org/user/3568458"
-                }
-            ],
-            "description": "A module to import taxonomy using CSV or XML file to a user defined vocabulary",
-            "homepage": "https://www.drupal.org/project/taxonomy_import",
-            "support": {
-                "source": "https://git.drupalcode.org/project/taxonomy_import"
-            }
-        },
-        {
             "name": "drupal/term_condition",
             "version": "2.0.1",
             "source": {
@@ -15297,116 +15237,6 @@
             }
         },
         {
-            "name": "drupal/views_base_url",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_base_url.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_base_url-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "7a4bfd54cc01cd175e5eead4580d1f5ff327f07a"
-            },
-            "require": {
-                "drupal/core": "~8"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1505975345",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "subhojit777",
-                    "homepage": "https://www.drupal.org/user/1812492"
-                }
-            ],
-            "description": "Global views field that provides site's base url",
-            "homepage": "https://www.drupal.org/project/views_base_url",
-            "support": {
-                "source": "http://cgit.drupalcode.org/views_base_url"
-            }
-        },
-        {
-            "name": "drupal/views_breadcrumb",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_breadcrumb.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_breadcrumb-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "9a428d0f43b4ef9e59f1426c9a07f8db5a9f7fd2"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1462289639",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Greg Boggs",
-                    "homepage": "https://www.drupal.org/user/153069"
-                },
-                {
-                    "name": "aditya_anurag",
-                    "homepage": "https://www.drupal.org/user/2672183"
-                },
-                {
-                    "name": "manojapare",
-                    "homepage": "https://www.drupal.org/user/2825053"
-                },
-                {
-                    "name": "rakesh.gectcr",
-                    "homepage": "https://www.drupal.org/user/1177822"
-                }
-            ],
-            "description": "Setting bread crumbs for all the view's pages.",
-            "homepage": "https://www.drupal.org/project/views_breadcrumb",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/views_breadcrumb",
-                "issues": "http://drupal.org/project/issues/views_breadcrumb"
-            }
-        },
-        {
             "name": "drupal/views_bulk_operations",
             "version": "3.13.0",
             "source": {
@@ -15611,48 +15441,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/views_data_export"
             }
-        },
-        {
-            "name": "drupal/views_date_format_sql",
-            "version": "dev-3.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_date_format_sql.git",
-                "reference": "0e3b74768b89c823c1c4ef1f96d8ba9092b19ca9"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-3.x-dev",
-                    "datestamp": "1528045682",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "zany",
-                    "homepage": "https://www.drupal.org/user/284183"
-                }
-            ],
-            "description": "Allows to format date fields using SQL. This enables group aggregation.",
-            "homepage": "https://www.drupal.org/project/views_date_format_sql",
-            "support": {
-                "source": "http://cgit.drupalcode.org/views_date_format_sql"
-            },
-            "time": "2018-06-08T08:24:23+00:00"
         },
         {
             "name": "drupal/views_entity_form_field",
@@ -16201,66 +15989,6 @@
             }
         },
         {
-            "name": "drupal/wordpress_migrate",
-            "version": "3.0.0-alpha3",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/wordpress_migrate.git",
-                "reference": "8.x-3.0-alpha3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/wordpress_migrate-8.x-3.0-alpha3.zip",
-                "reference": "8.x-3.0-alpha3",
-                "shasum": "23ae7947811d981e095d649852a6e856619de68d"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/migrate_plus": "*"
-            },
-            "require-dev": {
-                "drupal/ctools": "*",
-                "drupal/migrate_tools": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-3.0-alpha3",
-                    "datestamp": "1551288780",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "HongPong",
-                    "homepage": "https://www.drupal.org/user/60005"
-                },
-                {
-                    "name": "mikeryan",
-                    "homepage": "https://www.drupal.org/user/4420"
-                },
-                {
-                    "name": "moshe weitzman",
-                    "homepage": "https://www.drupal.org/user/23"
-                }
-            ],
-            "description": "Support for importing WordPress sites into Drupal",
-            "homepage": "https://www.drupal.org/project/wordpress_migrate",
-            "support": {
-                "source": "https://git.drupalcode.org/project/wordpress_migrate"
-            }
-        },
-        {
             "name": "drupal/workbench",
             "version": "1.3.0",
             "source": {
@@ -16494,53 +16222,6 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/workbench_moderation",
                 "issues": "http://drupal.org/project/issues/workbench_moderation"
-            }
-        },
-        {
-            "name": "drupal/workbench_moderation_actions",
-            "version": "1.0.0-alpha2",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/workbench_moderation_actions.git",
-                "reference": "8.x-1.0-alpha2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workbench_moderation_actions-8.x-1.0-alpha2.zip",
-                "reference": "8.x-1.0-alpha2",
-                "shasum": "ba61d44371febe9eebeb3bfa8d6285e3a0826bcd"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/workbench_moderation": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-alpha2",
-                    "datestamp": "1571397488",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "nicrodgers",
-                    "homepage": "https://www.drupal.org/user/194371"
-                }
-            ],
-            "homepage": "https://www.drupal.org/project/workbench_moderation_actions",
-            "support": {
-                "source": "https://git.drupalcode.org/project/workbench_moderation_actions"
             }
         },
         {
@@ -26317,12 +25998,9 @@
         "drupal/view_unpublished": 15,
         "drupal/viewfield": 15,
         "drupal/views_data_export": 15,
-        "drupal/views_date_format_sql": 20,
         "drupal/views_entity_form_field": 10,
         "drupal/views_jump_menu": 10,
-        "drupal/wordpress_migrate": 15,
         "drupal/workbench_access": 15,
-        "drupal/workbench_moderation_actions": 15,
         "drupal/workflow": 10,
         "drupal/xmlsitemap": 15,
         "gnikolovski/link_alter": 20
