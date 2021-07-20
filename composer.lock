@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ae23e2aac6c49610bfe17c4ac9cc007",
+    "content-hash": "fa0e768cfad296543374139634e2ecb8",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -507,61 +507,6 @@
             "extra": {
                 "installer-name": "ckeditor.link"
             }
-        },
-        {
-            "name": "clue/graph",
-            "version": "v0.9.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/graphp/graph.git",
-                "reference": "187902e158dead96fc5da3ae368ea1080abf267d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/graphp/graph/zipball/187902e158dead96fc5da3ae368ea1080abf267d",
-                "reference": "187902e158dead96fc5da3ae368ea1080abf267d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
-            },
-            "suggest": {
-                "graphp/algorithms": "Common graph algorithms, such as Dijkstra and Moore-Bellman-Ford (shortest path), minimum spanning tree (MST), Kruskal, Prim and many more..",
-                "graphp/graphviz": "GraphViz graph drawing / DOT output"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Fhaculty\\Graph\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@clue.engineering"
-                }
-            ],
-            "description": "GraPHP is the mathematical graph/network library written in PHP.",
-            "homepage": "https://github.com/graphp/graph",
-            "keywords": [
-                "edge",
-                "graph",
-                "mathematical",
-                "network",
-                "vertex"
-            ],
-            "support": {
-                "issues": "https://github.com/graphp/graph/issues",
-                "source": "https://github.com/graphp/graph/tree/v0.9.2"
-            },
-            "time": "2020-12-03T18:55:21+00:00"
         },
         {
             "name": "codemirror/codemirror",
@@ -5604,75 +5549,6 @@
             }
         },
         {
-            "name": "drupal/conflict",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/conflict.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/conflict-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "9dc956fc91e5b98e36c330ec695e3c7971b5eb74"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "graphp/algorithms": "~0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1493568242",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "bdragon",
-                    "homepage": "https://www.drupal.org/user/53081"
-                },
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "drumm",
-                    "homepage": "https://www.drupal.org/user/3064"
-                },
-                {
-                    "name": "dww",
-                    "homepage": "https://www.drupal.org/user/46549"
-                },
-                {
-                    "name": "hchonov",
-                    "homepage": "https://www.drupal.org/user/2901211"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                }
-            ],
-            "description": "Find merge conflicts in revisionable entities.",
-            "homepage": "https://www.drupal.org/project/conflict",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "https://git.drupal.org/project/conflict.git",
-                "issues": "https://www.drupal.org/project/issues/conflict"
-            }
-        },
-        {
             "name": "drupal/console",
             "version": "1.9.7",
             "source": {
@@ -6911,80 +6787,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/datalayer",
                 "issues": "https://www.drupal.org/project/issues/datalayer"
-            }
-        },
-        {
-            "name": "drupal/deploy",
-            "version": "1.0.0-beta21",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/deploy.git",
-                "reference": "8.x-1.0-beta21"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/deploy-8.x-1.0-beta21.zip",
-                "reference": "8.x-1.0-beta21",
-                "shasum": "ff94daac330a809e13bcde92b1e0715a69f36921"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/workspace": "*",
-                "relaxedws/replicator": "~1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-beta21",
-                    "datestamp": "1562756588",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Tim Millwood",
-                    "homepage": "https://www.drupal.org/user/213194",
-                    "email": "tim@millwoodonline.co.uk"
-                },
-                {
-                    "name": "amateescu",
-                    "homepage": "https://www.drupal.org/user/729614"
-                },
-                {
-                    "name": "badjava",
-                    "homepage": "https://www.drupal.org/user/83372"
-                },
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                },
-                {
-                    "name": "skwashd",
-                    "homepage": "https://www.drupal.org/user/116305"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": " Allows content to be deployed between servers. Either to be used as a content staging solution or to deploy content across a cluster of different sites.",
-            "homepage": "https://www.drupal.org/project/deploy",
-            "support": {
-                "source": "https://git.drupalcode.org/project/deploy"
             }
         },
         {
@@ -10659,65 +10461,6 @@
             }
         },
         {
-            "name": "drupal/key_value",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/key_value.git",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/key_value-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "6d627af7630b28de18b3cf935014ca996f344874"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1493569142",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": "Extends the core key-value API with a backend for lists and sorted sets that you can do range queries on.",
-            "homepage": "https://www.drupal.org/project/key_value",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "https://git.drupal.org/project/key_value.git",
-                "issues": "https://www.drupal.org/project/issues/key_value"
-            }
-        },
-        {
             "name": "drupal/layout_plugin",
             "version": "1.0.0-alpha23",
             "source": {
@@ -12336,73 +12079,6 @@
             }
         },
         {
-            "name": "drupal/multiversion",
-            "version": "1.0.0-beta34",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/multiversion.git",
-                "reference": "8.x-1.0-beta34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/multiversion-8.x-1.0-beta34.zip",
-                "reference": "8.x-1.0-beta34",
-                "shasum": "0ede8695c221f9e4f33c84ba43ebee3b8c3b425f"
-            },
-            "require": {
-                "drupal/conflict": "^1-beta",
-                "drupal/core": "^8.4.0",
-                "drupal/key_value": "^1",
-                "relaxedws/lca": "dev-master"
-            },
-            "require-dev": {
-                "drupal/entity_reference_revisions": "*",
-                "drupal/paragraphs": "^1.1.0",
-                "drupal/poll": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-beta34",
-                    "datestamp": "1581331977",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "amateescu",
-                    "homepage": "https://www.drupal.org/user/729614"
-                },
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": "Extends the revision support for content entities.",
-            "homepage": "https://www.drupal.org/project/multiversion",
-            "support": {
-                "source": "https://git.drupalcode.org/project/multiversion"
-            }
-        },
-        {
             "name": "drupal/omega",
             "version": "5.0.0-alpha7",
             "source": {
@@ -13920,74 +13596,6 @@
             "homepage": "https://www.drupal.org/project/redirect",
             "support": {
                 "source": "https://git.drupalcode.org/project/redirect"
-            }
-        },
-        {
-            "name": "drupal/replication",
-            "version": "1.0.0-beta24",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/replication.git",
-                "reference": "8.x-1.0-beta24"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/replication-8.x-1.0-beta24.zip",
-                "reference": "8.x-1.0-beta24",
-                "shasum": "a8a0e59e3c250419472c2ef1a1bf05bb20229bb0"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/multiversion": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-beta24",
-                    "datestamp": "1564738989",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "amateescu",
-                    "homepage": "https://www.drupal.org/user/729614"
-                },
-                {
-                    "name": "damiankloip",
-                    "homepage": "https://www.drupal.org/user/1037976"
-                },
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                },
-                {
-                    "name": "rooey",
-                    "homepage": "https://www.drupal.org/user/9705"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": "Provides services and entities types so assist with and log content replication.",
-            "homepage": "http://drupal.org/project/replication",
-            "support": {
-                "source": "https://git.drupalcode.org/project/replication"
             }
         },
         {
@@ -18132,85 +17740,6 @@
             }
         },
         {
-            "name": "drupal/workspace",
-            "version": "1.0.0-beta23",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/workspace.git",
-                "reference": "8.x-1.0-beta23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workspace-8.x-1.0-beta23.zip",
-                "reference": "8.x-1.0-beta23",
-                "shasum": "a3154d21700ed5f6303e898681259edd2bc0ed5e"
-            },
-            "require": {
-                "drupal/core": "*",
-                "drupal/replication": "*"
-            },
-            "require-dev": {
-                "drupal/pathauto": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-beta23",
-                    "datestamp": "1562756588",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Crell",
-                    "homepage": "https://www.drupal.org/user/26398"
-                },
-                {
-                    "name": "Frank Ralf",
-                    "homepage": "https://www.drupal.org/user/216048"
-                },
-                {
-                    "name": "amateescu",
-                    "homepage": "https://www.drupal.org/user/729614"
-                },
-                {
-                    "name": "dixon_",
-                    "homepage": "https://www.drupal.org/user/239911"
-                },
-                {
-                    "name": "jeqq",
-                    "homepage": "https://www.drupal.org/user/1427908"
-                },
-                {
-                    "name": "jvandyk",
-                    "homepage": "https://www.drupal.org/user/2375"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": "The workspace module",
-            "homepage": "https://www.drupal.org/project/workspace",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/workspace",
-                "issues": "http://drupal.org/project/issues/workspace"
-            }
-        },
-        {
             "name": "drupal/wp_migrate",
             "version": "1.1.0",
             "source": {
@@ -18980,60 +18509,6 @@
                 "source": "https://github.com/google/recaptcha"
             },
             "time": "2020-03-31T17:50:54+00:00"
-        },
-        {
-            "name": "graphp/algorithms",
-            "version": "v0.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/graphp/algorithms.git",
-                "reference": "abebbc44109f65c2962cd66f048ea3b8563e0a4a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/graphp/algorithms/zipball/abebbc44109f65c2962cd66f048ea3b8563e0a4a",
-                "reference": "abebbc44109f65c2962cd66f048ea3b8563e0a4a",
-                "shasum": ""
-            },
-            "require": {
-                "clue/graph": "~0.9.0|~0.8.0",
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Graphp\\Algorithms\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@clue.engineering"
-                }
-            ],
-            "description": "Common mathematical graph algorithms implemented in PHP",
-            "homepage": "https://github.com/graphp/algorithms",
-            "keywords": [
-                "Graph algorithms",
-                "dijkstra",
-                "kruskal",
-                "minimum spanning tree",
-                "moore-bellman-ford",
-                "prim",
-                "shortest path"
-            ],
-            "support": {
-                "issues": "https://github.com/graphp/algorithms/issues",
-                "source": "https://github.com/graphp/algorithms/tree/v0.8.2"
-            },
-            "time": "2020-02-20T18:01:41+00:00"
         },
         {
             "name": "grasmash/expander",
@@ -22060,131 +21535,6 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
-        },
-        {
-            "name": "relaxedws/couchdb",
-            "version": "2.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/relaxedws/couchdb-client.git",
-                "reference": "ab6537a03145ebfffafd05db93624a4dd8398295"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/relaxedws/couchdb-client/zipball/ab6537a03145ebfffafd05db93624a4dd8398295",
-                "reference": "ab6537a03145ebfffafd05db93624a4dd8398295",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\CouchDB": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
-                {
-                    "name": "Lukas Kahwe Smith",
-                    "email": "smith@pooteeweet.org"
-                }
-            ],
-            "description": "CouchDB Client",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "couchdb",
-                "persistence"
-            ],
-            "time": "2019-08-02T13:16:40+00:00"
-        },
-        {
-            "name": "relaxedws/lca",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/relaxedws/lca.git",
-                "reference": "c192d3f2c63af5114001ac8ad0eb5e7434584bf3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/relaxedws/lca/zipball/c192d3f2c63af5114001ac8ad0eb5e7434584bf3",
-                "reference": "c192d3f2c63af5114001ac8ad0eb5e7434584bf3",
-                "shasum": ""
-            },
-            "require": {
-                "graphp/algorithms": "~0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Relaxed\\LCA\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0+"
-            ],
-            "description": "Library used to find lowest common ancestor in graphs.",
-            "time": "2017-04-30T16:26:14+00:00"
-        },
-        {
-            "name": "relaxedws/replicator",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/relaxedws/couchdb-replicator.git",
-                "reference": "40b0c1915cbcaffab54fd422f8bfee95457cb5cd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/relaxedws/couchdb-replicator/zipball/40b0c1915cbcaffab54fd422f8bfee95457cb5cd",
-                "reference": "40b0c1915cbcaffab54fd422f8bfee95457cb5cd",
-                "shasum": ""
-            },
-            "require": {
-                "relaxedws/couchdb": "~2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Relaxed\\Replicator\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "abhishek kumar",
-                    "email": "abhi170893@gmail.com"
-                }
-            ],
-            "description": "couchdb-replicator",
-            "time": "2019-06-21T12:42:36+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -28159,7 +27509,6 @@
         "drupal/context_active_trail": 5,
         "drupal/context_ui": 10,
         "drupal/datalayer": 10,
-        "drupal/deploy": 10,
         "drupal/diff": 5,
         "drupal/eform": 20,
         "drupal/email_registration": 5,
