@@ -145,8 +145,8 @@ function _jbs_commerce_extended_log_check_custom_fields_changes(Order $order) {
           $field_definition = $order->getFieldDefinition($field_name)->getFieldStorageDefinition();
           $field_type = $field_definition->getType();
           if ($field_type == 'datetime') {
-            $user_time_zone = new DateTimeZone(drupal_get_user_timezone());
-            //$user_time_zone = new DateTimeZone(date_default_timezone_get());
+            //$user_time_zone = new DateTimeZone(drupal_get_user_timezone());
+            $user_time_zone = new DateTimeZone(date_default_timezone_get());
             $gmt_time_zone = new DateTimeZone('GMT');
             $old_date = new DateTime($old_value[0]['value'], $gmt_time_zone);
             $offset = $user_time_zone->getOffset($old_date);
