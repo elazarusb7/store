@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1ac8e91a2b394208ffb74471b848f24",
+    "content-hash": "1ae23e2aac6c49610bfe17c4ac9cc007",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -557,6 +557,10 @@
                 "network",
                 "vertex"
             ],
+            "support": {
+                "issues": "https://github.com/graphp/graph/issues",
+                "source": "https://github.com/graphp/graph/tree/v0.9.2"
+            },
             "time": "2020-12-03T18:55:21+00:00"
         },
         {
@@ -2963,59 +2967,6 @@
             }
         },
         {
-            "name": "drupal/admin_notes",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/admin_notes.git",
-                "reference": "8.x-2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_notes-8.x-2.0.zip",
-                "reference": "8.x-2.0",
-                "shasum": "f1d08b7c9507373474265cb29c7bf22abc29e87b"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.0",
-                    "datestamp": "1554974904",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Shreya Shetty",
-                    "homepage": "https://www.drupal.org/user/2943029"
-                },
-                {
-                    "name": "aaron",
-                    "homepage": "https://www.drupal.org/user/33420"
-                },
-                {
-                    "name": "bocaj",
-                    "homepage": "https://www.drupal.org/user/582042"
-                }
-            ],
-            "description": "Allows administrators to view/post notes on specific pages.",
-            "homepage": "https://www.drupal.org/project/admin_notes",
-            "support": {
-                "source": "https://git.drupalcode.org/project/admin_notes",
-                "issues": "https://www.drupal.org/project/issues/admin_notes"
-            }
-        },
-        {
             "name": "drupal/admin_toolbar",
             "version": "3.0.0",
             "source": {
@@ -3153,108 +3104,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/admin_toolbar"
             }
-        },
-        {
-            "name": "drupal/advanced_shortcodes",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/advanced_shortcodes.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/advanced_shortcodes-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "b85efdea033fe4e9f5327576ce1c074e74d76d1f"
-            },
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/shortcode": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1492444744",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "nakous_web",
-                    "homepage": "https://www.drupal.org/user/3521216"
-                }
-            ],
-            "description": "Advanced shortcodes create by Nakous Mustapha.",
-            "homepage": "https://www.drupal.org/project/advanced_shortcodes",
-            "support": {
-                "source": "http://cgit.drupalcode.org/advanced_shortcodes"
-            }
-        },
-        {
-            "name": "drupal/akismet",
-            "version": "dev-1.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/akismet.git",
-                "reference": "1d072cde4159f02a7d5f4fbee38921585edaa74f"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1526027584",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "drewish",
-                    "homepage": "https://www.drupal.org/user/34869"
-                },
-                {
-                    "name": "eaton",
-                    "homepage": "https://www.drupal.org/user/16496"
-                },
-                {
-                    "name": "ksenzee",
-                    "homepage": "https://www.drupal.org/user/139855"
-                },
-                {
-                    "name": "timmillwood",
-                    "homepage": "https://www.drupal.org/user/227849"
-                }
-            ],
-            "description": "Protects your site from spam by sending user-submitted content to the Akismet anti-spam service.",
-            "homepage": "https://www.drupal.org/project/akismet",
-            "support": {
-                "source": "http://cgit.drupalcode.org/akismet"
-            },
-            "time": "2018-05-11T08:29:16+00:00"
         },
         {
             "name": "drupal/allowed_formats",
@@ -3449,73 +3298,6 @@
             "homepage": "http://drupal.org/project/autologout",
             "support": {
                 "source": "https://git.drupalcode.org/project/autologout"
-            }
-        },
-        {
-            "name": "drupal/backup_migrate",
-            "version": "4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/backup_migrate.git",
-                "reference": "8.x-4.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/backup_migrate-8.x-4.1.zip",
-                "reference": "8.x-4.1",
-                "shasum": "5ee3b9a1131e6dd1ad4bc65cdef8248c7784dc51"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-4.1",
-                    "datestamp": "1576877587",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Ronan Dowling",
-                    "homepage": "https://www.drupal.org/u/ronan",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Alex Andrascu",
-                    "homepage": "https://www.drupal.org/u/alex-andrascu",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "dgorton",
-                    "homepage": "https://www.drupal.org/user/19044"
-                },
-                {
-                    "name": "ikit-claw",
-                    "homepage": "https://www.drupal.org/user/3285813"
-                },
-                {
-                    "name": "ronan",
-                    "homepage": "https://www.drupal.org/user/72815"
-                }
-            ],
-            "description": "Backup and Migrate Drupal Module",
-            "homepage": "https://www.drupal.org/project/backup_migrate",
-            "support": {
-                "source": "http://cgit.drupalcode.org/backup_migrate",
-                "issues": "https://www.drupal.org/project/issues/backup_migrate",
-                "slack": "https://drupal.slack.com/messages/C7C4M4QJV/details/"
             }
         },
         {
@@ -3799,64 +3581,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/block_field"
             }
-        },
-        {
-            "name": "drupal/block_titlelink",
-            "version": "dev-1.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/block_titlelink.git",
-                "reference": "4d1a9e076340fc763d584a5d829529b4d66d1b11"
-            },
-            "require": {
-                "drupal/core": "^8"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1501598343",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Anybody",
-                    "homepage": "https://www.drupal.org/user/291091"
-                },
-                {
-                    "name": "adammalone",
-                    "homepage": "https://www.drupal.org/user/1295980"
-                },
-                {
-                    "name": "neclimdul",
-                    "homepage": "https://www.drupal.org/user/48673"
-                },
-                {
-                    "name": "ngmaloney",
-                    "homepage": "https://www.drupal.org/user/225012"
-                },
-                {
-                    "name": "thomas.frobieter",
-                    "homepage": "https://www.drupal.org/user/409335"
-                }
-            ],
-            "description": "Allows assigning links to Block titles",
-            "homepage": "https://www.drupal.org/project/block_titlelink",
-            "support": {
-                "source": "http://cgit.drupalcode.org/block_titlelink"
-            },
-            "time": "2018-09-25T00:25:05+00:00"
         },
         {
             "name": "drupal/block_visibility_groups",
@@ -5899,9 +5623,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.0",
                     "datestamp": "1493568242",
@@ -19308,6 +19029,10 @@
                 "prim",
                 "shortest path"
             ],
+            "support": {
+                "issues": "https://github.com/graphp/algorithms/issues",
+                "source": "https://github.com/graphp/algorithms/tree/v0.8.2"
+            },
             "time": "2020-02-20T18:01:41+00:00"
         },
         {
@@ -28421,13 +28146,10 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "behat/mink-selenium2-driver": 20,
-        "drupal/akismet": 20,
         "drupal/autocomplete_deluxe": 5,
-        "drupal/backup_migrate": 10,
         "drupal/better_exposed_filters": 10,
         "drupal/block_class": 15,
         "drupal/block_field": 5,
-        "drupal/block_titlelink": 20,
         "drupal/comment_notify": 10,
         "drupal/commerce_paypal": 5,
         "drupal/commerce_stock": 15,
