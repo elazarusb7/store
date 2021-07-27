@@ -22,11 +22,11 @@ backend: search_api_solr
 backend_config:
   connector: standard
   connector_config:
-    scheme: https
-    host: solr.samhsa.gov
+    scheme: http
+    host: solr
     port: 8983
     path: /
-    core: samhsastore
+    core: drupal
     timeout: 5
     index_timeout: 10
     optimize_timeout: 15
@@ -36,7 +36,7 @@ backend_config:
     http_method: AUTO
     skip_schema_check: false
     jmx: false
-    solr_install_dir: ../../..
+    solr_install_dir: ''
   disabled_field_types: {  }
   disabled_caches: {  }
   disabled_request_handlers: {  }

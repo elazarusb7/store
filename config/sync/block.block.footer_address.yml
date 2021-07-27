@@ -1,0 +1,31 @@
+uuid: ec06bed7-5068-4a3c-a6bf-157b9ec57e62
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+  theme:
+    - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: footer-address
+id: footer_address
+theme: samhsa_pep_uswds
+region: footer
+weight: 0
+provider: null
+plugin: footer_address_block
+settings:
+  id: footer_address_block
+  label: 'Footer Address'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

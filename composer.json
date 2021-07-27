@@ -186,6 +186,7 @@
         "drupal/typed_data": "^1.0@alpha",
         "drupal/upgrade_status": "^3.7",
         "drupal/username_enumeration_prevention": "^1.2",
+        "drupal/uswds_base": "^2.10",
         "drupal/vertical_tabs_config": "^1.2",
         "drupal/view_unpublished": "^1.0@alpha",
         "drupal/viewfield": "^3.0@alpha",

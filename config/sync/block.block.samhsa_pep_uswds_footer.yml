@@ -1,0 +1,37 @@
+uuid: bed9ed2a-63bf-4d83-9f35-16289fe36f28
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - menu_block
+    - mobile_device_detection
+  theme:
+    - samhsa_pep_uswds
+id: samhsa_pep_uswds_footer
+theme: samhsa_pep_uswds
+region: postscript_fourth
+weight: -20
+provider: null
+plugin: 'menu_block:footer'
+settings:
+  id: 'menu_block:footer'
+  label: 'Footer Menu'
+  provider: menu_block
+  label_display: '0'
+  follow: false
+  follow_parent: child
+  level: 1
+  depth: 0
+  expand_all_items: false
+  parent: 'footer:'
+  suggestion: footer
+  label_type: block
+  label_link: false
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

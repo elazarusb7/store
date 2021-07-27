@@ -1,0 +1,37 @@
+uuid: ccbe9563-0089-4051-b8ae-dd3dd2779f62
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:49fdb6dc-6864-49af-a66c-ba5e6ccc53af'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: samhsa_pep_uswds_privacypolicylink
+theme: samhsa_pep_uswds
+region: content
+weight: -5
+provider: null
+plugin: 'block_content:49fdb6dc-6864-49af-a66c-ba5e6ccc53af'
+settings:
+  id: 'block_content:49fdb6dc-6864-49af-a66c-ba5e6ccc53af'
+  label: 'Privacy Policy Link'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: /user/register
+    negate: false
+    context_mapping: {  }

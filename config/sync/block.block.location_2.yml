@@ -1,0 +1,35 @@
+uuid: b4c13a04-7d2f-4d25-be83-415b862d33b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.location
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: location_2
+theme: samhsa_pep_uswds
+region: sidebar_second
+weight: -10
+provider: null
+plugin: 'facet_block:location'
+settings:
+  id: 'facet_block:location'
+  label: Location
+  provider: facets
+  label_display: visible
+  block_id: location_2
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

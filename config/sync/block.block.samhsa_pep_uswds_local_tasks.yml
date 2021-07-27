@@ -1,0 +1,22 @@
+uuid: 3a754990-e81b-406e-823b-71059ee1337d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - samhsa_pep_uswds
+_core:
+  default_config_hash: nzixR-0PbiKErOlfehzoOnJ2Iy6Jy4rsBxeDNPuDCng
+id: samhsa_pep_uswds_local_tasks
+theme: samhsa_pep_uswds
+region: content
+weight: -9
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

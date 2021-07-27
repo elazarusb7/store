@@ -1,0 +1,26 @@
+uuid: 8117cf20-be96-4304-856b-c6f6e990b766
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+    - mobile_device_detection
+  theme:
+    - samhsa_pep_uswds
+id: help
+theme: samhsa_pep_uswds
+region: content
+weight: -8
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

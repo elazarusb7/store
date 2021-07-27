@@ -1,0 +1,37 @@
+uuid: 056230ca-348c-49bf-84d0-f24d271478a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main-menu
+  module:
+    - menu_block
+    - mobile_device_detection
+  theme:
+    - samhsa_pep_uswds
+id: mainmenu_3
+theme: samhsa_pep_uswds
+region: header
+weight: -4
+provider: null
+plugin: 'menu_block:main-menu'
+settings:
+  id: 'menu_block:main-menu'
+  label: 'Main Menu'
+  provider: menu_block
+  label_display: '0'
+  follow: false
+  follow_parent: child
+  level: 1
+  depth: 0
+  expand_all_items: false
+  parent: 'main-menu:'
+  suggestion: main_menu
+  label_type: block
+  label_link: false
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

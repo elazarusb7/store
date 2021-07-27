@@ -1,0 +1,35 @@
+uuid: 19a2c7e7-26a2-42e6-ae59-76de8711893b
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.issues_conditions_and_disorders
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: issuesconditionsanddisorders_2
+theme: samhsa_pep_uswds
+region: sidebar_second
+weight: -17
+provider: null
+plugin: 'facet_block:issues_conditions_and_disorders'
+settings:
+  id: 'facet_block:issues_conditions_and_disorders'
+  label: 'Issues, Conditions and Disorders'
+  provider: facets
+  label_display: visible
+  block_id: issuesconditionsanddisorders_2
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

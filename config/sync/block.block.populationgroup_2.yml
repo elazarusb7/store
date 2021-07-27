@@ -1,0 +1,35 @@
+uuid: ecb96614-8ccb-4a2c-af56-bf52ffbf8909
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.population_group
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: populationgroup_2
+theme: samhsa_pep_uswds
+region: sidebar_second
+weight: -11
+provider: null
+plugin: 'facet_block:population_group'
+settings:
+  id: 'facet_block:population_group'
+  label: 'Population Group'
+  provider: facets
+  label_display: visible
+  block_id: populationgroup_2
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

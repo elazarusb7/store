@@ -1,0 +1,77 @@
+uuid: 4831a7db-bd47-488a-85cf-b6efb1b48b79
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main-menu
+  module:
+    - mobile_device_detection
+    - superfish
+  theme:
+    - samhsa_pep_uswds
+id: mainmenu_4
+theme: samhsa_pep_uswds
+region: preface_first
+weight: 0
+provider: null
+plugin: 'superfish:main-menu'
+settings:
+  id: 'superfish:main-menu'
+  label: 'Main Menu'
+  provider: superfish
+  label_display: '0'
+  level: '1'
+  depth: '0'
+  expand_all_items: false
+  menu_type: horizontal
+  style: none
+  arrow: 1
+  shadow: 1
+  speed: fast
+  delay: '800'
+  slide: vertical
+  supposition: 1
+  hoverintent: 1
+  touch: '0'
+  touchbh: '2'
+  touchbp: '768'
+  touchua: '0'
+  touchual: ''
+  touchuam: '0'
+  small: '2'
+  smallbp: '768'
+  smallua: '0'
+  smallual: ''
+  smalluam: '0'
+  smallact: '1'
+  smallset: ''
+  smallasa: 0
+  smallcmc: 0
+  smallecm: ''
+  smallchc: 0
+  smallech: ''
+  smallicm: ''
+  smallich: ''
+  smallamt: ''
+  smallabt: '1'
+  supersubs: 1
+  minwidth: '12'
+  maxwidth: '27'
+  multicolumn: 0
+  multicolumn_depth: '1'
+  multicolumn_levels: '1'
+  pathlevels: '1'
+  expanded: 0
+  clone_parent: 0
+  hide_linkdescription: 0
+  add_linkdescription: 0
+  link_depth_class: 1
+  custom_list_class: ''
+  custom_item_class: ''
+  custom_link_class: ''
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

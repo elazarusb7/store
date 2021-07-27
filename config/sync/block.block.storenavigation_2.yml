@@ -1,0 +1,32 @@
+uuid: 53d95e44-008b-472f-aab1-2004cfa08b86
+langcode: en
+status: true
+dependencies:
+  module:
+    - jbs_commerce_back_to_browse_block
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: storenavigation_2
+theme: samhsa_pep_uswds
+region: preface_third
+weight: 0
+provider: null
+plugin: jbs_commerce_back_to_browse_block
+settings:
+  id: jbs_commerce_back_to_browse_block
+  label: 'Store Navigation'
+  provider: jbs_commerce_back_to_browse_block
+  label_display: '0'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications\r\n/user/*\r\n/login\r\n/tfa/*\r\n/notification"
+    negate: true
+    context_mapping: {  }

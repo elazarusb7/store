@@ -1,0 +1,35 @@
+uuid: 5fdc2118-494b-43d8-a35c-281c02d2a53b
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.professional_and_research_topics
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: professionalandresearchtopics_2
+theme: samhsa_pep_uswds
+region: sidebar_second
+weight: -15
+provider: null
+plugin: 'facet_block:professional_and_research_topics'
+settings:
+  id: 'facet_block:professional_and_research_topics'
+  label: 'Professional and Research Topics'
+  provider: facets
+  label_display: '0'
+  block_id: professionalandresearchtopics_2
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

@@ -1,4 +1,4 @@
 admin: seven
-default: omega_samhsa_pep
+default: samhsa_pep_uswds
 _core:
   default_config_hash: fOjer9hADYYnbCJVZMFZIIM1azTFWyg84ZkFDHfAbUg

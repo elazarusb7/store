@@ -20,8 +20,8 @@ backend: search_api_solr
 backend_config:
   connector: standard
   connector_config:
-    scheme: https
-    host: solr.samhsa.gov
+    scheme: http
+    host: solr
     port: 8983
     path: /
     core: common

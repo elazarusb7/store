@@ -1,0 +1,20 @@
+uuid: b6d8167a-7d1a-44bd-a6b9-5a1203d6aaea
+langcode: en
+status: true
+dependencies:
+  theme:
+    - samhsa_pep_uswds
+_core:
+  default_config_hash: JjsaZv2SbikIFSVj1s05dAYWwwe9LZ8jyyqz1CN4w10
+id: samhsa_pep_uswdse_local_actions
+theme: samhsa_pep_uswds
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

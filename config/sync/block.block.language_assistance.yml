@@ -1,0 +1,27 @@
+uuid: 71684ad0-8df5-4804-ab6c-d5d87df0bd79
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+  theme:
+    - samhsa_pep_uswds
+id: language_assistance
+theme: samhsa_pep_uswds
+region: postscript_fourth
+weight: -21
+provider: null
+plugin: language_assistance_block
+settings:
+  id: language_assistance_block
+  label: 'Language Assistance'
+  provider: samhsa_theme_block_pep8
+  label_display: visible
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

@@ -1,0 +1,22 @@
+uuid: dca93aaf-b4e4-4337-b02b-3ac19f63b059
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - samhsa_pep_uswds
+_core:
+  default_config_hash: puHdbpF6KptbbVPiVFuIWve29D49jqaIEbwJ3XCVwiw
+id: samhsa_pep_uswds_content
+theme: samhsa_pep_uswds
+region: content
+weight: -1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

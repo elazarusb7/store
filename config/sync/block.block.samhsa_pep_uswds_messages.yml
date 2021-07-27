@@ -1,0 +1,22 @@
+uuid: f73824ee-71d0-456f-922d-9e3c57f730e6
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - samhsa_pep_uswds
+_core:
+  default_config_hash: 3GdsqLOtuZKMbSVM0vX6vjzjViCDGPBrme3FcIRog5Q
+id: samhsa_pep_uswds_messages
+theme: samhsa_pep_uswds
+region: highlighted
+weight: -50
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

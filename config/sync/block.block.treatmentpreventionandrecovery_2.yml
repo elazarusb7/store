@@ -1,0 +1,35 @@
+uuid: 1475e9ae-28e7-4f58-99b8-a150fcda327a
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.treatment_prevention_and_recovery
+  module:
+    - facets
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: treatmentpreventionandrecovery_2
+theme: samhsa_pep_uswds
+region: sidebar_second
+weight: -16
+provider: null
+plugin: 'facet_block:treatment_prevention_and_recovery'
+settings:
+  id: 'facet_block:treatment_prevention_and_recovery'
+  label: 'Treatment, Prevention and Recovery'
+  provider: facets
+  label_display: '0'
+  block_id: treatmentpreventionandrecovery_2
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

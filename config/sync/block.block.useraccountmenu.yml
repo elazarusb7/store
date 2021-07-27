@@ -1,0 +1,41 @@
+uuid: 15c8c2a6-04bc-4502-9807-1ff6e9ce7ac6
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - block_class
+    - menu_block
+    - mobile_device_detection
+  theme:
+    - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: text-menu
+id: useraccountmenu
+theme: samhsa_pep_uswds
+region: preface_third
+weight: -5
+provider: null
+plugin: 'menu_block:account'
+settings:
+  id: 'menu_block:account'
+  label: 'User account menu'
+  provider: menu_block
+  label_display: '0'
+  follow: false
+  follow_parent: child
+  level: 1
+  depth: 0
+  expand_all_items: false
+  parent: 'account:'
+  suggestion: account
+  label_type: block
+  label_link: false
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

@@ -1,0 +1,33 @@
+uuid: 782f437c-7077-4b36-92ca-7a73a1268177
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+    - system
+  theme:
+    - samhsa_pep_uswds
+id: sharebuttons_2
+theme: samhsa_pep_uswds
+region: content
+weight: -11
+provider: null
+plugin: share_buttons_block
+settings:
+  id: share_buttons_block
+  label: 'Share Buttons'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: '/product/*'
+    negate: false
+    context_mapping: {  }
