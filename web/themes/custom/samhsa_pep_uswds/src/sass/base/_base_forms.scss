@@ -1,0 +1,286 @@
+
+// Forms
+//==========================================================================
+
+form{
+  margin: $base-spacing 0;
+}
+fieldset {
+  background-color: transparent;
+  margin: 0 0 $small-spacing;
+  padding: $form-padding $form-padding*2;
+  border-radius: $base-border-radius;
+  border: $base-border;
+}
+legend {
+  font-weight: $weight-bold;
+  margin-bottom: math.div($small-spacing, 2);
+  padding: 0;
+}
+label {
+  cursor: pointer;
+  vertical-align: top;
+  display: inline-block;
+  font-weight: $weight-bold;
+  margin-bottom: math.div($small-spacing, 2);
+}
+
+select,
+textarea {
+  display: block;
+  font-family: $base-font-family;
+  vertical-align: middle;
+  margin: 0 0 $small-spacing;
+  padding: $form-padding;
+  border-radius: $base-border-radius;
+  border: $base-border;
+  background-color: $form-field-bg;
+  box-sizing: border-box;
+  width: 100%;
+  &:hover {
+    border-color: shade($base-border-color, 20%);
+  }  
+  &:focus {
+    border-color: $form-focus-color;
+    box-shadow: $form-box-shadow-focus;
+    outline: none;
+  }  
+  &:disabled {
+    cursor: not-allowed;
+    color: $medium-gray;
+    &:hover {
+      border: $base-border;
+    }
+  }
+}
+/*#{
+  $form-input-text
+  } 
+  {
+  line-height: $form-line-height; //line height is used to make the submit button the same height as inputs
+  padding: 0 $form-padding;
+}*/
+textarea {
+  resize: vertical;
+}
+[type="checkbox"],
+[type="radio"] {
+  display: inline;
+  margin-right: math.div($small-spacing, 2);
+}
+[type="file"] {
+  margin-bottom: $small-spacing;
+  width: 100%;
+}
+input[type="submit"],
+input[type="reset"],
+.button,
+button:not(.toolbar-icon){
+  @include button();
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+textarea, 
+select { 
+-webkit-border-radius: 0;
+border-radius: 0;
+-webkit-box-shadow: none;
+box-shadow: none;
+ }
+ 
+
+.button, button:not(.toolbar-icon), input[type=reset], input[type=submit] {
+  height: 38px;
+  transition: background-color $base-duration $base-timing;
+}
+label {
+  vertical-align: baseline;
+}
+
+.form-select--surrounding-label {
+  select {
+    display: inline-block;
+  }
+}
+select {
+  max-width: 100%;
+  appearance: none;
+  padding: math.div($gutters,2) $gutters*2.5 math.div($gutters, 2) math.div($gutters, 1.5);
+  position: relative;
+  background-image: url("../../images/select_arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  border-radius: $base-border-radius;
+  border: $light-gray solid 1px;
+  &::-ms-expand {
+    display: none;
+  }
+  &:hover {
+    background-color: $lighter-gray;
+  }
+  &:focus {
+    // @extend %is-focus;
+  }
+  option {
+    font-size: $gutters;
+  }
+}
+input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"] {
+  height: 38px;
+}
+input[type="radio"] {
+  appearance: none;
+  border-radius: 50%;
+  border: 2px $dark-gray $light-gray;
+  height: $gutters;
+  width: $gutters;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  &:checked {
+    background-color: white;
+    &:after {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      background-color: $dark-gray;
+      border-radius: 50%;
+    }
+  }
+  &:focus {
+    // @extend %is-focus;
+  }
+  + label {
+    vertical-align: middle;
+  }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    input[type="radio"]  {
+      display: inline-block;
+      vertical-align: middle;
+      appearance: radio;
+      + label {
+        vertical-align: middle;
+      }
+    }
+}
+input[type="checkbox"] {
+  appearance: none;
+  border: 1px $dark-gray solid;
+  height: 20px;
+  width: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  position: relative;
+  // display: inline-flex;
+  // justify-content: center;
+  // align-items: center;
+  // vertical-align: middle;
+  &:checked {
+    background-color: $blue-gray;
+    border-color: $blue-gray;
+    &:after {
+      content: "";
+      background-image: url("data:image/svg+xml,%3Csvg width='13' height='10' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M4.415 9.804L.19 5.445a.686.686 0 010-.948l.92-.948a.636.636 0 01.919 0l2.846 2.936L10.971.196a.636.636 0 01.92 0l.919.949a.686.686 0 010 .948l-7.475 7.71a.636.636 0 01-.92 0z' id='a'/%3E%3C/defs%3E%3Cuse fill='%23FFF' fill-rule='nonzero' xlink:href='%23a'/%3E%3C/svg%3E");
+      width: 20px;
+      height: 20px;
+      display: block;
+      background-repeat: no-repeat;
+      background-position: 3px 4px;
+    }
+  }
+  &:focus {
+    // @extend %is-focus;
+  }
+  + label {
+    vertical-align: middle;
+  }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    input[type="checkbox"] {
+      // display: inline-block;
+      // vertical-align: middle;
+      + label {
+        // vertical-align: middle;
+      }
+    }
+}
+.js-form-type-checkbox {
+  display: flex;
+  input[type="checkbox"] {
+    // min-width: 12px;
+    // margin-top: 5px;
+    // VORPAL
+    + label {
+      margin-left: math.div($gutters, 2);
+    }
+  }
+}
+@supports (-ms-ime-align: auto) {
+  input[type="checkbox"]:checked {
+    border-width: 1px;
+  }
+}
+
+.form-required--asterisk {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.2em;
+  content: "";
+  vertical-align: super;
+  background-image: url(/core/misc/icons/ee0000/required.svg);
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
+
+fieldset {
+  padding-bottom: 1em;
+  .fieldset-wrapper {
+    .form-item:first-of-type {
+      margin-top: 0;
+    }
+  }
+}
+
+
+.form-actions {
+   input,  button, .button, .button:first-child, > * {
+    margin-right: $gutters;
+    margin-left: 0;
+  }
+}
+
+// Some typical fields that we want to render shorter then they appear by default 
+
+.form-type-tel,
+ .form-item-completion-register-customer-profiles-0-entity-field-phone-extension-0-value,
+ .form-item-customer-profiles-0-entity-field-phone-extension-0-value, 
+ .form-item-shipping-information-shipping-profile-field-phone-extension-0-value,
+ .form-item-payment-information-billing-information-field-phone-extension-0-value  {
+  max-width: 10em;
+}
+.form-type-email, .form-type-password {
+  max-width: 30em;
+}
+.button-big {
+  font-size: 2rem;
+  height: $gutters*4;
+  padding: 0 $gutters*3;
+}
+
+a.button {
+  text-decoration: none;
+  line-height: 2.5714285;
+  color: white;
+} 
+

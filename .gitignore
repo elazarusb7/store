@@ -68,3 +68,4 @@ docker-compose.override.yml
 
 # Solr configuration files.
 solr/
+node_modules

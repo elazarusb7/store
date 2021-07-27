@@ -1,0 +1,117 @@
+.layout-facet-search {
+  //unset base/singularity layout
+  .with--sidebar-first.with--sidebar-second {
+   .region--sidebar-first,  .region--sidebar-second, .region--content {
+      width: auto;
+      float: none;
+      margin: 0;
+      clear: none;
+      padding: 0;
+    }
+  }
+  .region--sidebar-second {
+    max-height: 0;
+    overflow: hidden;
+    transition:  all $base-duration $base-timing;
+    &.active {
+      max-height:7500px;
+    }
+    @include breakpoint($max-width-tablet-portrait) {
+      max-height:75000px;
+    }
+  }
+  .main-layout {
+    @include breakpoint($max-width-tablet-portrait) {
+      display: flex;
+    }
+  }
+  .content-sidebar-regions {
+    @include breakpoint($max-width-tablet-portrait) {
+      min-width: 303px;
+      margin-right: $gutters*2;
+    }
+  }
+  .collapse-region {
+    @include breakpoint($max-width-tablet-portrait) {
+      display: none;
+    }
+  }
+  .content-inner-regions {
+    width: 100%;
+  }
+  #views-exposed-form-solr-search-content-page-1 {
+    margin: $gutters 0;
+    @include breakpoint($max-width-tablet-portrait){
+      margin-top: 0;
+    }
+    .form--inline {
+      display: flex;
+      flex-wrap: wrap;
+      @include breakpoint($max-width-tablet-portrait) {
+        flex-wrap: nowrap;
+      }
+      justify-content: space-between;
+      width: 100%;
+      .form-item-items-per-page {
+        order: 12;
+        margin: 0;
+        @include breakpoint($max-width-tablet-portrait) {
+          flex-basis: 50%;
+          margin-left: $gutters*2;
+        }
+        select {
+          margin: math.div($gutters, 2) math.div($gutters, 4);
+        }
+        @include breakpoint($max-width-tablet-portrait $max-width-fullsize - 1) {
+          .form-select--items-per-page:before {
+            display: block;
+          }
+          .form-select--items-per-page:after {
+            padding-left: 6px;
+          }
+          select {
+            margin: math.div($gutters,2) 0;
+          }
+        }
+      }
+      .form-item-sort-bef-combine { 
+        margin: 0;
+        @include breakpoint($max-width-tablet-portrait) {
+          flex-basis: 50%;
+        }
+        select {
+          margin: math.div($gutters, 2) math.div($gutters, 4);
+        }
+        @include breakpoint($max-width-tablet-portrait $max-width-fullsize - 1) {
+          label {
+            display: block;
+            margin-bottom: 0;
+          }
+          select {
+            margin: math.div($gutters, 2) 0;
+          }
+        }
+      }
+      .form-actions {
+        display: none;
+      }
+    }
+    .form-type-search-api-autocomplete {
+      display: none;
+    }
+  }
+  #views-exposed-form-solr-search-content-block-1 {
+    .form-item-sort-bef-combine {
+      display: none;
+    }
+    @include breakpoint($max-width-tablet-landscape) {
+      margin-bottom: 0;
+    }
+  }
+  .view-header {
+    margin-bottom: $gutters;
+  }
+  #block-storefacetssummary {
+    margin: $gutters 0;
+  }
+}

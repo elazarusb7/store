@@ -1,0 +1,30 @@
+// Share Buttons (Add this)
+//==========================================================================
+//Vertically aligning everything and adding some space between the items
+
+.share-block{
+    display: none;
+  }
+  
+@include breakpoint ($break-mobile-landscape){
+  .share-block{
+    float: right;
+    padding: $gutters $gutters 0 0;
+    display: block;
+    width: 160px;
+    ul.share-buttons{
+      overflow: hidden;
+      li{
+        float: right;
+        margin-left: 5px;
+      }  
+      img{
+        display: block;
+        margin: 0;
+      }
+    }
+  }
+} 
+ 
+
+

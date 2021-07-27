@@ -1,0 +1,74 @@
+// .tabs {
+//   ul {
+//     margin-left: 0;
+//     border-bottom: 1px solid $dark-gray2;
+//     li {
+//       margin-bottom: 0;
+//     }
+//   }
+//   a {
+//     padding: $gutters/2 $gutters;
+//     &.is-active {
+//       background-color: $dark-gray2;
+//       color: white;
+//       &:hover {
+//         color: white;
+//       }
+//     }
+//   }
+// }
+
+.tabs {
+  ul.tabs.primary {
+    margin-left: 0;
+    li {
+      display: block;
+      &.is-active {
+        a {
+          padding: math.div($gutters,2) $gutters;
+        }
+        a.is-active {
+          color: black;
+          &:hover {
+            color: black;
+          }
+        }
+      }
+    }
+  }
+  @include breakpoint($max-width-mobile-portrait-large) {
+    ul {
+      display: flex;
+      margin: 0 0 $gutters*2;
+      align-items: flex-end;
+      &:before, &:after {
+        content: "";
+        display: inline-block;
+        height: 20px;
+        width: 5px;
+        border-bottom: 1px solid $light-gray;
+      }
+      &:after {
+        flex-grow: 1;
+      }
+      li {
+        margin: 0;
+        border-bottom: 1px solid $light-gray;
+
+        &.is-active {
+          border: 1px solid $light-gray;
+          border-bottom: 1px solid white;
+          a.is-active {
+            background-color: transparent;
+          }
+        }
+      }
+      a {
+        padding: math.div($gutters, 2) $gutters;
+        &:hover, &:active {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}

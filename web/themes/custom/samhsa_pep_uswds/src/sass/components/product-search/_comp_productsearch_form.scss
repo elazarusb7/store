@@ -1,0 +1,62 @@
+#views-exposed-form-solr-search-content-page-1 {
+  .form-select {
+    display: inline;
+    width: auto;
+    vertical-align: baseline;
+
+    &--items-per-page {
+      &:before {
+        content: "View";
+        font-weight: bold;
+        padding-right: 5px;
+      }
+
+      &:after {
+        content: "per page";
+        padding-left: 3px;
+      }
+    }
+  }
+}
+#views-exposed-form-solr-search-content-block-1 {
+  background: $graydient;
+  padding: $gutters $gutters $gutters*1.5;
+  margin-top: 0;
+  .form--inline {
+    position: relative;
+    .form-item {
+      float: none;
+      margin: 0;
+      input {
+        margin-bottom: 0;
+        margin-top: math.div($gutters, 4);
+        width: calc(100% - 82px);
+        border-color: white;
+      }
+    }
+  }
+  .form-actions {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    input { 
+      font-size: 1.6rem;
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+  }
+  label[for="edit-search-api-fulltext"] {
+    font-weight: normal;
+    font-size: 1.9rem;
+    line-height: 1.4;
+    .form-item--sublabel {
+      display: block;
+      font-size: 1.4rem;
+      @include breakpoint($max-width-mobile-portrait-large $max-width-tablet-portrait - 1){
+        display: inline;
+        font-size: inherit;
+      }
+    }
+  }
+}

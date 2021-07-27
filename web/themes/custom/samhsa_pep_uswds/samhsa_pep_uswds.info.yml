@@ -1,0 +1,47 @@
+type: theme
+base theme: classy
+
+name: 'SAMHSA PEP USWDS'
+description: 'Uses the USWDS Base and requires download of the USWDS assets'
+package: 'Core'
+core: 8.x
+logo: 'logo.png'
+screenshot: 'screenshot.png'
+
+regions:
+  header_top: 'Header Top'
+  header: Header
+  page_top: 'Page Top'
+  highlighted: Highlighted
+  preface_first: 'Preface First'
+  preface_second: 'Preface Second'
+  preface_third: 'Preface Third'
+  preface_fourth: 'Preface Fourth'
+  content: Content
+  content_bottom: 'Content Bottom'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  postscript_first: 'Postscript First'
+  postscript_second: 'Postscript Second'
+  postscript_third: 'Postscript Third'
+  postscript_fourth: 'Postscript Fourth'
+  footer: Footer
+  page_bottom: 'Page Bottom'
+
+#regions:
+#  header_top: 'Above Header'
+#  header: 'Header'
+#  primary_menu: 'Primary Menu'
+#  secondary_menu: 'Secondary Menu'
+#  sidebar_second: 'Second sidebar'
+#  breadcrumb: 'Breadcrumb'
+#  highlighted: 'Highlighted'
+#  help: 'Help'
+#  hero: 'Hero'
+#  content: 'Content'
+#  footer_menu: 'Footer Menu'
+#  footer: 'Primary Footer'
+#  footer_secondary: 'Secondary Footer'
+
+libraries:
+  - 'samhsa_pep_uswds/assets'

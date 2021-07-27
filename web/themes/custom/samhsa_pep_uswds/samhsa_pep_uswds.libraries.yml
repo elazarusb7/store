@@ -1,0 +1,14 @@
+assets:
+  version: VERSION
+  css:
+    theme:
+      css/styles.css: {}
+  js:
+    assets/js/uswds.min.js: {}
+    assets/js/modernizr.custom.js: {}
+    # assets/js/aria.accordion.min.js: {}
+    assets/js/samhsa-pep-uswds-behaviors.js: {}
+    assets/js/jquery.dlmenu.js: {}
+    assets/js/responsive-elements.js: {}
+  dependencies:
+    - core/jquery

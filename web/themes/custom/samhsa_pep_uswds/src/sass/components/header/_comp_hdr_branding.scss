@@ -1,0 +1,52 @@
+// Logo
+//============================================================
+
+.region-header {
+  background-color: $blue-gray;
+  @include breakpoint ($max-width-tablet-portrait) {
+    background-color: transparent; 
+  }
+}
+.site-branding {
+  max-width: 130px;
+  margin: 0 auto;
+  padding: 8px 0 2px; 
+  text-align: center;
+  @include breakpoint(0 $max-width-tablet-portrait - 1) {
+    height: 61px;
+    .site-logo {
+      background-image: url("../../images/logo-white.png");
+      width: 130px;
+      height: 45px;
+      display: block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      &__image {
+        display: none;
+      }
+    }
+  }
+
+  .samhsa-logo {
+    fill: $white;
+    width: 118px;
+    height: 46px
+  }
+  @include breakpoint ($max-width-tablet-portrait) {
+    margin: 0;
+    max-width: 100%;
+    padding: 20px 0 20px;
+    text-align: left;
+    .samhsa-logo {
+      fill: $blue-gray;
+      width: 250px;
+      height: 85px
+    } 
+  }
+}
+//IE10+ Only
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .site-branding svg {
+      max-height: 85px;
+  }
+}

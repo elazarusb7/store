@@ -1,0 +1,10 @@
+//Stop theme release notes from showing
+$theme-show-compile-warnings: false;
+$theme-show-notifications: false;
+
+// Import overrides of USWDS variables.
+@import "_variables.scss";
+// Import the USWDS source.
+//@import "../../node_modules/uswds/src/stylesheets/uswds.scss";
+
+@import "../../node_modules/breakpoint-sass/stylesheets/breakpoint.scss";

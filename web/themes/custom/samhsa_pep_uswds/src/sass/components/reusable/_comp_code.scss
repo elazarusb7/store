@@ -1,0 +1,6 @@
+.code-block {
+  padding: 10px $gutters;
+  background-color: $lighter-gray;
+  display: block;
+  margin: math.div($gutters, 2) 0 $gutters;
+}

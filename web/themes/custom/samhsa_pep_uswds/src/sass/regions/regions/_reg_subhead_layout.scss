@@ -1,0 +1,123 @@
+.region--preface-third {
+  padding: $gutters;
+  &--wrapper {
+      clear: both;
+    }
+  #block-omega-samhsa-pep-account-menu {
+    //help vertically align menu with cart icon
+    display: flex;
+    align-items: center;  
+    justify-self: end;
+    -ms-grid-column-align: end;
+  }
+  #block-subsitetitleinner  {
+    margin-bottom: math.div($gutters, 4) ;
+  }
+  #block-storenavigation {
+    margin-top: $gutters;
+    @include breakpoint($max-width-mobile-portrait-large) {
+      margin-top: math.div($gutters, 2);
+    }
+    @include breakpoint($max-width-tablet-portrait) {
+      margin-top: math.div($gutters, 4);
+    }
+  }
+  @include breakpoint(0 $max-width-mobile-portrait-large - 1) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    #block-subsitetitle, #block-subsitetitleinner {
+      width: 100%;
+    }
+  }
+  @include breakpoint($max-width-mobile-portrait-large) {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    grid-template-rows: auto auto auto;
+    #block-subsitetitle {
+      grid-column: 1 / 4;
+      grid-row: 1 / 2;
+    }
+    #block-omega-samhsa-pep-account-menu {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      align-self: start;
+      -ms-grid-row-align: start;
+      padding-top: 17px;
+    }
+    #block-omega-samhsa-pep-cart {
+      padding-left: 1em;
+      grid-column: 3 / 4;
+      grid-row: 2 / 3;
+      justify-self: end;
+      align-self: start;
+      -ms-grid-column-align: end;
+      -ms-grid-row-align: start;
+      padding-top: 11px;
+    }
+    #block-storenavigation {
+      grid-column: 1 / 4;
+      grid-row: 3 / 4;
+    }
+    body:not(.path-frontpage) & {
+      #block-subsitetitleinner {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+      #block-omega-samhsa-pep-account-menu {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        align-self: start;
+        -ms-grid-row-align: start;
+        padding-top: 17px;
+      }
+      #block-omega-samhsa-pep-cart {
+        padding-left: 1em;
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+        justify-self: end;
+        align-self: start;
+        -ms-grid-column-align: end;
+        -ms-grid-row-align: start;
+        padding-top: 11px;
+      }
+      #block-storenavigation {
+        grid-column: 1 / 4;
+        grid-row: 3 / 4;
+    }
+    }
+  }
+  @include breakpoint($max-width-mobile-landscape) {
+    grid-template-columns: 2fr 2fr auto;
+    #block-subsitetitle, #block-subsitetitleinner {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      margin-top: 0.5em;
+    }
+    #block-omega-samhsa-pep-account-menu {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+    #block-omega-samhsa-pep-cart {
+      grid-column: 3 / 4;
+      grid-row: 1 / 2;
+    }
+    #block-storenavigation {
+      grid-column: 1 / 4;
+      grid-row: 3 / 4;
+    }
+  }
+  @include breakpoint($max-width-tablet-portrait) {
+    grid-template-columns: 3fr 2fr auto;
+    padding: $gutters $gutters math.div($gutters, 2);
+  }
+}
+
+// making sure on really small screens there's enough room for a very full cart (100+ items)
+@include breakpoint(0 $max-width-mobile-portrait-small - 1) {
+  #block-omega-samhsa-pep-account-menu {
+    .menu-item:after {
+      margin: 0 math.div($gutters, 2);
+    }
+  }
+}

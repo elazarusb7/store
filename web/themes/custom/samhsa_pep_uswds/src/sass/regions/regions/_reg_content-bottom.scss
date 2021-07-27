@@ -1,0 +1,8 @@
+.region-content-bottom {
+  padding: $gutters;
+  margin-bottom: $gutters*2;
+  h2 {
+    @include heading-underline;
+    margin-top: 0;
+  }
+}

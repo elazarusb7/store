@@ -1,0 +1,13 @@
+// Utility Menu
+//==========================================================================
+
+.utility-menu{ 
+  @include breakpoint ($max-width-tablet-portrait){
+    padding: 10px 0 0;
+    ul.menu{
+      text-align: right;
+    }
+  }
+}
+
+
