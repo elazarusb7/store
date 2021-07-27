@@ -1,0 +1,17 @@
+.region-content .checkout-progress {
+  margin-left: math.div($gutters, 2);
+  display: flex;
+  flex-wrap: wrap;
+  @include breakpoint($max-width-mobile-portrait-large) {
+    flex-wrap: nowrap;
+    margin-left: 0;
+  }
+  &--step {
+    width: 100%;
+    display: inline;
+    @include breakpoint($max-width-mobile-portrait-large) {
+      width: auto;
+    }
+  }
+}
+

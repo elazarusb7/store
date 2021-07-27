@@ -1,0 +1,55 @@
+// @import "../base/base_forms";
+
+.checkout-pane {
+  margin-bottom: $gutters*3;
+}
+.checkout-pane-checkout-justification {
+  .region-content &--products {
+    margin-top: $gutters;
+  }
+}
+#edit-review-shipping-information-summary-0 {
+  margin-top: 0.75em;
+}
+.layout-region-checkout-footer .link--front {
+  margin-top: $gutters;
+  display: block;
+}
+
+#edit-review-payment-information, #edit-review-shipping-information {
+  .field--name-field-phone-number {
+    margin-bottom: $gutters;
+  }
+}
+input[value="Place order"] {
+  .button-big {
+    font-size: 2rem;
+    height: $gutters*4;
+    padding: 0 $gutters*3;
+  }
+}
+
+.checkout-pane-checkout-review-justification {
+  margin-bottom: $gutters;
+  &--text {
+    margin-bottom: $gutters;
+    .field__item {
+      &:before {
+        content: "“";
+      }
+      &:after {
+        content: "”";
+      }
+    }
+  }
+}
+
+// Override commerce's override of our fieldset padding
+.form-wrapper__login-option {
+  padding: $form-padding $form-padding*2;
+}
+
+// this button isn't wrapped in form-actions container, so we need to manually give it more margin on the bottom.
+.form-wrapper__guest-checkout input.button {
+  margin-bottom: 1em;
+}

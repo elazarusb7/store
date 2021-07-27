@@ -1,0 +1,23 @@
+{#
+/**
+ * This is a copy of the block template from the Omega theme
+ * it simply allows for block titles to contain links
+ * without this template, links are rendered as text rather than being a link
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+{% if content[0]['#items'] %}
+  <div{{ attributes.addClass(classes) }}>
+    <div{{ content_attributes.addClass('block-content') }}>
+      {% block content %}
+        {{ content }}
+      {% endblock %}
+    </div>
+  </div>
+{% endif %}

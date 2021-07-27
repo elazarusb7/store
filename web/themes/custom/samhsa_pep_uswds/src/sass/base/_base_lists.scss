@@ -1,0 +1,23 @@
+//Removing all default formatting for lists
+//------------------------------------------
+ul,
+ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+li{
+  list-style-image: none;
+  list-style-type: none;
+}
+dl {
+  margin: 0;
+}
+dt {
+  font-weight: 600;
+  margin: 0;
+}
+dd {
+  margin: 0;
+}
+

@@ -1,0 +1,84 @@
+// PLEASE REMEMBER TO USE PROPER NAMING CONVENTIONS FOR FILES!!!
+// Partial should be named: _component_foldername_file-name.scss
+// For example: src/scss/component/header/_component_header_site-branding.scss
+
+// Layout: discrete, reusable UI elements.
+// Minor layout components - Blocks, menus, callouts
+//==========================================================================
+//@import "../config/*.scss"; //YOU MUST INCLUDE THIS IF YOU ARE IMPORTING ANYTHING BELOW!!!
+@use 'sass:math';
+
+@import "../config/config";
+
+// Choose how you want to import your partials
+// ONLY USE 1 OF THE 2 OPTIONS!
+//==========================================================================
+
+// Option 1: import all partials alphabetically by folder/filename
+//==========================================================================
+//@import "*.scss";
+
+// Option 2: import files one at a time in the order you decide
+// Below is an example of loading 2 partials
+//==========================================================================
+@import "content/comp_cont_blocks";
+@import "content/comp_cont_calendars";
+@import "content/comp_cont_featured";
+@import "content/comp_cont_forms";
+@import "content/comp_cont_lists";
+@import "content/comp_cont_views";
+@import "footer/comp_foot_address";
+@import "footer/comp_foot_back-to-top";
+@import "footer/comp_foot_links";
+@import "footer/comp_foot_logos";
+@import "footer/comp_foot_signup";
+@import "footer/comp_foot_social";
+@import "header/comp_addthis";
+@import "header/comp_hdr_branding";
+@import "header/comp_hdr_connect";
+@import "header/comp_hdr_main-menu";
+@import "header/comp_hdr_monobar";
+@import "header/comp_hdr_search";
+@import "header/comp_hdr_subhead";
+@import "header/comp_hdr_user-menu";
+@import "header/comp_hdr_utility-menu";
+@import "prefaces/comp_hdr_share-buttons";
+@import "prefaces/comp_pref_breadcrumbs";
+@import "prefaces/comp_pref_mainmenu";
+@import "reusable/comp_accordion";
+@import "reusable/comp_app-store-badge";
+@import "reusable/comp_blocks";
+@import "reusable/comp_calendars";
+@import "reusable/comp_code";
+@import "reusable/comp_files";
+@import "reusable/comp_forms";
+@import "reusable/comp_lists";
+@import "reusable/comp_media";
+@import "reusable/comp_menus";
+@import "reusable/comp_pager";
+@import "reusable/comp_product-card";
+@import "reusable/comp_product-thumb";
+@import "reusable/comp_samhsa-icons";
+@import "reusable/comp_sliders";
+@import "reusable/comp_tables";
+@import "reusable/comp_tabs";
+@import "reusable/comp_tags";
+@import "reusable/comp_typography";
+@import "reusable/comp_views";
+@import "user/comp_user_email-password";
+@import "user/comp_user_orders";
+@import "user/comp_user_registration-form";
+@import "sidebars/comp_lr-menu";
+@import "sidebars/comp_rr_blocks";
+@import "checkout/comp_checkout_progress";
+@import "checkout/comp_checkout_summary";
+@import "checkout/comp_checkout";
+@import "commerce-cart/comp_cart_cart-block";
+@import "commerce-cart/comp_cart_cart";
+@import "product-search/comp_productsearch_facets";
+@import "product-search/comp_productsearch_form";
+@import "product-search/comp_productsearch_layout";
+@import "product-search/comp_productsearch_results";
+@import "product-page/comp_productpage_layout";
+@import "product-page/comp_productpage";
+@import "back-to-browse/comp_back_to_browse";

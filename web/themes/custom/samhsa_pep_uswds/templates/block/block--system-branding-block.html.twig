@@ -1,0 +1,33 @@
+{#
+/**
+* @file
+* Theme override for a branding block.
+*
+* Each branding element variable (logo, name, slogan) is only available if
+* enabled in the block configuration.
+*
+* Available variables:
+* - site_logo: Logo for site as defined in Appearance or theme settings.
+* - site_name: Name for site as defined in Site information settings.
+* - site_slogan: Slogan for site as defined in Site information settings.
+*/
+#}
+{%
+set classes = [
+'block',
+'block-' ~ configuration.provider|clean_class,
+'block-' ~ plugin_id|clean_class,
+]
+%}
+<div {{ attributes.addClass(classes) }}>
+  <div {{ content_attributes.addClass('block-content') }}>
+    {% block content %}
+    {% if site_logo %}
+    <a href="https://www.samhsa.gov/" title="{{ 'SAMHSA.gov'|t }}" rel="home" class="site-logo">
+      <img src="{{ site_logo }}" class="site-logo__image" alt="{{ 'Substance Abuse and Mental Health Services Administration'|t }}" />
+      <span class="visually-hidden">SAMHSA.gov</span>
+    </a>
+    {% endif %}
+    {% endblock %}
+  </div>
+</div>

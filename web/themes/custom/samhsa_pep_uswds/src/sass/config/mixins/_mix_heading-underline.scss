@@ -1,0 +1,11 @@
+@mixin heading-underline {
+  position: relative;
+  &:after {
+    position: absolute;
+    left: 0;
+    width: 80px;
+    content: "";
+    border-bottom: 4px solid $red;
+    bottom: -8px;
+  }
+}

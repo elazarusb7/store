@@ -1,0 +1,59 @@
+<?php
+use Drupal\node\Entity\NodeType;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+
+/**
+ * @file
+ * USWDS Base sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+  function samhsa_pep_uswds_preprocess_facets_item_list(&$variables) {
+    // "v=issues_conditions_and_disorders"
+    $qs = \Drupal::request()->getQueryString();
+    if (strpos($qs,'v=') !== FALSE) {
+      $pair = explode('=', $qs);
+      if (isset($pair[1]) && $pair[1] != '') {
+        $variables['expand_vocab'] = $pair[1];
+      }
+    }
+  }
+
+function samhsa_pep_uswds_theme_suggestions_block_alter(&$suggestions, $variables) {
+  foreach ($suggestions as &$suggestion) {
+    $suggestion = str_replace('omega_samhsa_pep_', 'omega_samhsa_', $suggestion);
+  }
+}
+
+function samhsa_pep_uswds_preprocess_page(&$variables) {
+  $page = 'page';
+    if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])){
+      $variables['region_classes']['main'] = "main-layout with--content with--sidebar-first with--sidebar-second";
+      $variables['page_classes'] = "with--header without--menus with--preface-first with--preface-second without--preface-third without--preface-fourth with--highlighted with--content without--sidebar-first without--sidebar-second with--postscript-first without--postscript-second without--postscript-third with--postscript-fourth with--footer";
+    }
+    else if ($variables['page']['sidebar_first']){
+      $variables['region_classes']['main'] = "main-layout with--content with--sidebar-first without--sidebar-second";
+      $variables['page_classes'] = "with--header without--menus with--preface-first with--preface-second without--preface-third without--preface-fourth with--highlighted with--content without--sidebar-first without--sidebar-second with--postscript-first without--postscript-second without--postscript-third with--postscript-fourth with--footer";
+    }
+    else if ($variables['page']['sidebar_second']){
+      $variables['region_classes']['main'] = "main-layout with--content without--sidebar-first with--sidebar-second";
+      $variables['page_classes'] = "with--header without--menus with--preface-first with--preface-second without--preface-third without--preface-fourth with--highlighted with--content without--sidebar-first without--sidebar-second with--postscript-first without--postscript-second without--postscript-third with--postscript-fourth with--footer";
+    }
+    /** Unset sidebar-first for grants_awards content type (with url /grants/awards/[dddd]/). */
+    else if (preg_match("/\/grants\/awards\/\d{4}\/.+/",\Drupal::request()->getRequestUri())) {
+      unset($variables['page']['sidebar_first']);
+      $variables['region_classes']['main'] = "main-layout with--content without--sidebar-first without--sidebar-second";
+      $variables['page_classes'] = "with--header without--menus with--preface-first with--preface-second without--preface-third without--preface-fourth with--highlighted with--content without--sidebar-first without--sidebar-second with--postscript-first without--postscript-second without--postscript-third with--postscript-fourth with--footer";
+    }
+    else if (\Drupal::service('path.matcher')->isFrontPage()) {
+      $variables['#attached']['library'][] = 'samhsa_uswds_base/home_page_carousel';
+    }
+}
+function samhsa_pep_uswds_preprocess_region(&$vars) {
+  // add a region class in the format region--REGION-NAME
+  $altered_region_id = str_replace("_", "-", $vars['region']);
+  $vars['attributes']['class'][] = 'region--' . $altered_region_id;
+}

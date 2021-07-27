@@ -1,0 +1,131 @@
+// Sideblocks
+//===========================================
+
+//Right Rail sidebar
+
+.sideblock {
+  margin-bottom: $gutters;
+  border: 1px solid $black;
+  border-color: $lighter-gray;   
+
+ 
+  .block-title {
+    font-size: 1em;
+    margin: 0;
+    padding: 0.75em 1em;;
+    background-color: $lighter-gray; 
+    color: $base-accent-color;
+    
+      a {
+        color: $base-accent-color; 
+        text-decoration: none;      
+          
+          &:hover,
+          &:active,
+          &:focus {
+            text-decoration: underline;
+          }
+        }
+  }
+    
+  .block-content {
+    padding: 1em;
+  }
+}
+
+.region--sidebar-second {
+	
+	 a {
+        color: $base-accent-color; 
+        text-decoration: none;      
+          
+          &:hover,
+          &:active,
+          &:focus {
+            text-decoration: underline;
+          }
+        }
+	
+	//Plain Block with banner
+	.rr-plain-block {
+		img{
+    		width:100%;
+    		margin-bottom: -5px;
+    	}
+
+ 	}
+ 	
+	//Header Box Block
+	.rr-headerbox-block {
+		margin-bottom: $gutters;
+		  h2 {
+		    display: block;
+		    font-size: 1.6rem;
+		    font-weight: bold;
+		    background-color: $lighter-gray;
+		    margin: 0;
+		    padding: 7px 10px;
+		    color: $blue-gray;
+		    text-decoration: none;
+		  }
+		  .field--name-body {
+		    padding: 10px 15px;
+		   border: 1px solid $lighter-gray;
+		    ul{
+		      list-style-type: none;
+		      margin: 0 0 1.5em 0.25em;
+		      li{
+		        padding: 0.25em 1em;
+		        &:before {
+		          content: "\0BB \020";
+		        }
+		      }
+		    }//ul
+		  }//body	
+ 	}
+ 	
+ 	//Color BG Block
+	.rr-solidbox-block {
+		 background-color: $lighter-gray;
+		 margin-bottom: $gutters;
+	
+	  	h2 {
+		    display: block;
+		    font-size: 1.6rem;
+		    font-weight: bold;
+		    margin-bottom:5px;
+		    padding: 7px 10px;
+		    color: $red;
+		    text-decoration: none;
+		  }
+		  .field--name-body {
+		    padding: 10px 15px;
+		   border: 1px solid $lighter-gray;
+		    ul{
+		      list-style-type: none;
+		      margin: 0 0 1.5em 0.25em;
+		      li{
+		        padding: 0.25em 1em;
+		        &:before {
+		          content: "\0BB \020";
+		        }
+		      }
+		    }//ul
+		  }//body	
+		}
+
+}
+
+//Right Rail sidebar
+
+.region--sidebar-second {
+  a {
+    color: $blue;
+  }
+}
+
+.region-sidebar-first {
+  h2 {
+    margin-top: 0;
+  }
+}

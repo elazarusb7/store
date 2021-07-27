@@ -1,0 +1,48 @@
+//Social media - preface one region
+//====================================
+#block-footersocial {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  @include breakpoint ($max-width-mobile-landscape){
+    width: 26%;
+    text-align: left;
+  } 
+  @include breakpoint ($max-width-tablet-landscape) {
+    width: 20%;
+    text-align: left;
+  }
+
+}
+
+.social {
+  a {
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    background-color: $dark-gray;
+    margin-right: 0.5em; 
+    border-radius: 3px; 
+  }
+  a.facebook:hover{
+    background-color: $fb-color;
+  }
+  a.twitter:hover{
+    background-color: $tw-color;
+  }
+  a.youtube:hover{
+    background-color: $yt-color;
+  }
+  a.linkedin:hover{
+    background-color: $lk-color;
+  }
+  a.rss:hover{
+    background-color: $rss-color;
+  }
+  a.blog:hover{
+    background-color: $blog-color;
+  }
+  span.ext{
+    display: none;
+  }
+}

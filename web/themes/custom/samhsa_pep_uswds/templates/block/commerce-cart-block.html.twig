@@ -1,0 +1,35 @@
+{% if count > 999 %}
+  {% set cart_status = "cart-block--summary__count__big-order" %}
+{% else %}
+  {% set cart_status = "" %}
+{% endif %}
+<div{{ attributes}}>
+  <div class="cart-block--summary">
+    <a class="cart-block--link__expand" href="{{ url }}">
+      <span class="cart-block--summary__icon">
+        <svg width="31" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M28.006 16.39L30.468 5.42c.178-.792-.416-1.546-1.219-1.546H8.792l-.477-2.363A1.254 1.254 0 007.09.5H1.75C1.06.5.5 1.067.5 1.766v.843c0 .7.56 1.266 1.25 1.266h3.64l3.658 18.11a2.958 2.958 0 00-1.465 2.562c0 1.63 1.306 2.953 2.917 2.953 1.61 0 2.917-1.322 2.917-2.953 0-.827-.336-1.573-.877-2.11h10.92a2.962 2.962 0 00-.877 2.11c0 1.63 1.306 2.953 2.917 2.953 1.61 0 2.917-1.322 2.917-2.953 0-1.17-.672-2.18-1.645-2.658l.287-1.28c.178-.792-.416-1.547-1.219-1.547H11.86l-.34-1.687h15.267c.584 0 1.09-.409 1.22-.985z" fill="#1F419A" fill-rule="nonzero"/></svg>
+      </span>
+      {% if count > 0 and count < 1000 %}
+        <span class="cart-block--summary__count {{ cart_status }}">{{ count }}</span>
+      {% endif %}
+      {% if count >= 1000 %}
+        <span class="cart-block--summary__count {{ cart_status }}">999+</span>
+      {% endif %}
+
+    </a>
+  </div>
+  {% if content %}
+  <div class="cart-block--contents">
+    <div class="cart-block--contents__inner">
+      <div class="cart-block--contents__items">
+        {{ content }}
+      </div>
+{#       <p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p>
+      <p class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p> #}
+      <div class="cart-block--contents__links">
+        {{ links }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
