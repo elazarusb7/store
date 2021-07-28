@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c8017d379c047ca3df125c53927d105",
+    "content-hash": "e2c53fd2c3884abc83bcfdf8e46ac4cd",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2913,17 +2913,17 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/admin_toolbar.git",
-                "reference": "3.0.0"
+                "reference": "3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "204f7a0e8b62a8a54256142cf38ca139739fb65c"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.0.1.zip",
+                "reference": "3.0.1",
+                "shasum": "e25ca22db1317174a7fba4734c0412293b573f43"
             },
             "require": {
                 "drupal/core": "^8.8.0 || ^9.0"
@@ -2934,8 +2934,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1611311186",
+                    "version": "3.0.1",
+                    "datestamp": "1622644077",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3096,17 +3096,17 @@
         },
         {
             "name": "drupal/autocomplete_deluxe",
-            "version": "2.0.0-rc1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/autocomplete_deluxe.git",
-                "reference": "2.0.0-rc1"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/autocomplete_deluxe-2.0.0-rc1.zip",
-                "reference": "2.0.0-rc1",
-                "shasum": "9f3c63862652862322184bb892cc1fa80c9f47c1"
+                "url": "https://ftp.drupal.org/files/projects/autocomplete_deluxe-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "b3b8a3b89692e6f9c6a4847b6900d5fd6cef2264"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -3114,11 +3114,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0-rc1",
-                    "datestamp": "1592389562",
+                    "version": "2.0.0",
+                    "datestamp": "1622966404",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -3136,10 +3136,6 @@
                     "name": "Mediacurrent",
                     "homepage": "https://www.drupal.org/mediacurrent",
                     "role": "Supporting organization"
-                },
-                {
-                    "name": "RajabNatshah",
-                    "homepage": "https://www.drupal.org/user/1414312"
                 },
                 {
                     "name": "edwardchiapet",
@@ -3247,17 +3243,17 @@
         },
         {
             "name": "drupal/better_exposed_filters",
-            "version": "5.0.0-beta1",
+            "version": "5.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/better_exposed_filters.git",
-                "reference": "8.x-5.0-beta1"
+                "reference": "8.x-5.0-beta3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/better_exposed_filters-8.x-5.0-beta1.zip",
-                "reference": "8.x-5.0-beta1",
-                "shasum": "bc5ce873fa699ee584fdeb2fd28ad6c5cb456b03"
+                "url": "https://ftp.drupal.org/files/projects/better_exposed_filters-8.x-5.0-beta3.zip",
+                "reference": "8.x-5.0-beta3",
+                "shasum": "23f00fe898cd9e4f2278ef790bc9f1d197312ac3"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9",
@@ -3269,8 +3265,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-5.0-beta1",
-                    "datestamp": "1594141892",
+                    "version": "8.x-5.0-beta3",
+                    "datestamp": "1625665853",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -3279,7 +3275,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3291,8 +3287,8 @@
                     "homepage": "https://www.drupal.org/u/etroid"
                 },
                 {
-                    "name": "chr.fritsch",
-                    "homepage": "https://www.drupal.org/user/2103716"
+                    "name": "Neslee Canil Pinto",
+                    "homepage": "https://www.drupal.org/u/neslee-canil-pinto"
                 },
                 {
                     "name": "jkopel",
@@ -4097,27 +4093,27 @@
         },
         {
             "name": "drupal/colorbutton",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/colorbutton.git",
-                "reference": "8.x-1.2"
+                "reference": "8.x-1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/colorbutton-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "a3467286d9882819bc45e9573dc2253444971bfc"
+                "url": "https://ftp.drupal.org/files/projects/colorbutton-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "1a3c8996b1db88e30a512d1a329e570160d783df"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
-                "drupal/panelbutton": "*"
+                "drupal/panelbutton": "^1.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1589886092",
+                    "version": "8.x-1.3",
+                    "datestamp": "1626792032",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4126,7 +4122,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -25909,7 +25905,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "behat/mink-selenium2-driver": 20,
-        "drupal/autocomplete_deluxe": 5,
         "drupal/better_exposed_filters": 10,
         "drupal/block_class": 15,
         "drupal/block_field": 5,
