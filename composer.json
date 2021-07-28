@@ -43,7 +43,7 @@
         "drupal/commerce": "^2.24",
         "drupal/commerce_cart": "^2.24",
         "drupal/commerce_combine_carts": "^1.0",
-        "drupal/commerce_fedex": "^1.0",
+        "drupal/commerce_fedex": "^1.0@beta",
         "drupal/commerce_invoice": "^2.0",
         "drupal/commerce_migrate": "^2.0",
         "drupal/commerce_number_pattern": "^2.24",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2c53fd2c3884abc83bcfdf8e46ac4cd",
+    "content-hash": "104a080044c7acf73e4e2b70e868fda2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -525,27 +525,27 @@
         },
         {
             "name": "commerceguys/addressing",
-            "version": "v1.1.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "2450ca97631042faf786855db206a2e48fb7dbb7"
+                "reference": "311040bd78ea2ea82105dd1f17205c449ac8de47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/2450ca97631042faf786855db206a2e48fb7dbb7",
-                "reference": "2450ca97631042faf786855db206a2e48fb7dbb7",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/311040bd78ea2ea82105dd1f17205c449ac8de47",
+                "reference": "311040bd78ea2ea82105dd1f17205c449ac8de47",
                 "shasum": ""
             },
             "require": {
                 "doctrine/collections": "~1.0",
-                "php": ">=7.0.8"
+                "php": ">=7.1.3"
             },
             "require-dev": {
                 "mikey179/vfsstream": "1.*",
-                "phpunit/phpunit": "^6.0",
-                "squizlabs/php_codesniffer": "2.*",
-                "symfony/validator": "^3.4"
+                "phpunit/phpunit": "^7.5",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/validator": "^4.4"
             },
             "suggest": {
                 "symfony/validator": "to validate addresses"
@@ -580,28 +580,32 @@
                 "localization",
                 "postal"
             ],
-            "time": "2020-11-29T18:48:07+00:00"
+            "support": {
+                "issues": "https://github.com/commerceguys/addressing/issues",
+                "source": "https://github.com/commerceguys/addressing/tree/v1.2.1"
+            },
+            "time": "2021-05-17T08:05:21+00:00"
         },
         {
             "name": "commerceguys/intl",
-            "version": "v1.0.7",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/intl.git",
-                "reference": "0bf0beb12e37ef1a61e0d09dc66cdaa1a23e62e1"
+                "reference": "90b4f75c4917927a1960c0dcaa002a91ab97f5d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/intl/zipball/0bf0beb12e37ef1a61e0d09dc66cdaa1a23e62e1",
-                "reference": "0bf0beb12e37ef1a61e0d09dc66cdaa1a23e62e1",
+                "url": "https://api.github.com/repos/commerceguys/intl/zipball/90b4f75c4917927a1960c0dcaa002a91ab97f5d5",
+                "reference": "90b4f75c4917927a1960c0dcaa002a91ab97f5d5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.8"
+                "php": ">=7.1.3"
             },
             "require-dev": {
                 "mikey179/vfsstream": "1.*",
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^7.5"
             },
             "type": "library",
             "extra": {
@@ -624,7 +628,11 @@
                 }
             ],
             "description": "Internationalization library powered by CLDR data.",
-            "time": "2020-10-04T20:58:22+00:00"
+            "support": {
+                "issues": "https://github.com/commerceguys/intl/issues",
+                "source": "https://github.com/commerceguys/intl/tree/v1.1.0"
+            },
+            "time": "2021-05-17T08:25:58+00:00"
         },
         {
             "name": "components/highlightjs",
@@ -4204,30 +4212,30 @@
         },
         {
             "name": "drupal/commerce",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce.git",
-                "reference": "8.x-2.24"
+                "reference": "8.x-2.25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce-8.x-2.24.zip",
-                "reference": "8.x-2.24",
-                "shasum": "ebe1b58bc87446ad1edbfd62ed8fffb8583b68fb"
+                "url": "https://ftp.drupal.org/files/projects/commerce-8.x-2.25.zip",
+                "reference": "8.x-2.25",
+                "shasum": "c9833bd698798e7f84fb18bf2ce74b61c009e8ca"
             },
             "require": {
                 "commerceguys/intl": "^1.0.0",
                 "drupal/address": "^1.7",
-                "drupal/core": "^8.8 || ^9",
-                "drupal/entity": "^1.0-rc2",
+                "drupal/core": "^8.9 || ^9",
+                "drupal/entity": "^1.0",
                 "drupal/entity_reference_revisions": "~1.0",
                 "drupal/inline_entity_form": "^1.0-rc6",
-                "drupal/profile": "^1.0",
-                "drupal/state_machine": "^1.0-rc1",
-                "drupal/token": "^1.0",
+                "drupal/profile": "^1.2",
+                "drupal/state_machine": "^1.4",
+                "drupal/token": "^1.7",
                 "ext-bcmath": "*",
-                "php": ">=7.0.8"
+                "php": ">=7.1"
             },
             "require-dev": {
                 "drupal/commerce_cart": "*",
@@ -4246,8 +4254,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.24",
-                    "datestamp": "1612928996",
+                    "version": "8.x-2.25",
+                    "datestamp": "1625057724",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4259,6 +4267,10 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -4381,34 +4393,31 @@
         },
         {
             "name": "drupal/commerce_fedex",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_fedex.git",
-                "reference": "8.x-1.0-beta2"
+                "reference": "8.x-1.0-beta3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_fedex-8.x-1.0-beta2.zip",
-                "reference": "8.x-1.0-beta2",
-                "shasum": "3acedb211b05eba9947bd49f25ed09172c1de7f3"
+                "url": "https://ftp.drupal.org/files/projects/commerce_fedex-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "c0a3f4f73f27c1bd213bbbd5037effa2ef2ca443"
             },
             "require": {
                 "drupal/commerce": "~2",
                 "drupal/commerce_shipping": "~2",
-                "drupal/core": "~8.0",
+                "drupal/core": "^8 || ^9",
                 "ext-soap": "*",
-                "nicholascreativemedia/fedexphp": "^1.0.6",
+                "nicholascreativemedia/fedexphp": "^1.0.7",
                 "php": ">=5.6"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1583431535",
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1625760573",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -4604,17 +4613,17 @@
         },
         {
             "name": "drupal/commerce_number_pattern",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "require": {
                 "drupal/commerce": "*",
                 "drupal/commerce_store": "*",
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.9 || ^9"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.24",
-                    "datestamp": "1612928996",
+                    "version": "8.x-2.25",
+                    "datestamp": "1625057724",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4626,6 +4635,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -4651,13 +4664,13 @@
         },
         {
             "name": "drupal/commerce_order",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "require": {
                 "drupal/commerce": "*",
                 "drupal/commerce_number_pattern": "*",
                 "drupal/commerce_price": "*",
                 "drupal/commerce_store": "*",
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": "^8.9 || ^9",
                 "drupal/entity_reference_revisions": "*",
                 "drupal/profile": "*",
                 "drupal/state_machine": "*"
@@ -4665,8 +4678,8 @@
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.24",
-                    "datestamp": "1612928996",
+                    "version": "8.x-2.25",
+                    "datestamp": "1625057724",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4678,6 +4691,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -4810,16 +4827,16 @@
         },
         {
             "name": "drupal/commerce_price",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "require": {
                 "drupal/commerce": "*",
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.9 || ^9"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.24",
-                    "datestamp": "1612928996",
+                    "version": "8.x-2.25",
+                    "datestamp": "1625057724",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4831,6 +4848,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -4981,20 +5002,20 @@
         },
         {
             "name": "drupal/commerce_shipping",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_shipping.git",
-                "reference": "8.x-2.0"
+                "reference": "8.x-2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_shipping-8.x-2.0.zip",
-                "reference": "8.x-2.0",
-                "shasum": "f52f974c0aafcda667259beaa05056d18727f5d9"
+                "url": "https://ftp.drupal.org/files/projects/commerce_shipping-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "9a06adb8576379e3d0aa92e726f6238618813154"
             },
             "require": {
-                "drupal/commerce": "^2.17",
+                "drupal/commerce": "^2.25",
                 "drupal/commerce_order": "*",
                 "drupal/commerce_price": "*",
                 "drupal/core": "^8.7.7 || ^9",
@@ -5003,8 +5024,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.0",
-                    "datestamp": "1617094283",
+                    "version": "8.x-2.1",
+                    "datestamp": "1625056749",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5045,17 +5066,17 @@
         },
         {
             "name": "drupal/commerce_stock",
-            "version": "1.0.0-alpha5",
+            "version": "1.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_stock.git",
-                "reference": "8.x-1.0-alpha5"
+                "reference": "8.x-1.0-alpha6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_stock-8.x-1.0-alpha5.zip",
-                "reference": "8.x-1.0-alpha5",
-                "shasum": "667e94185655a0bb21c19e37b66e44efc94183cf"
+                "url": "https://ftp.drupal.org/files/projects/commerce_stock-8.x-1.0-alpha6.zip",
+                "reference": "8.x-1.0-alpha6",
+                "shasum": "27a84f3279bba93f1e683ccdd1db4b49b7293699"
             },
             "require": {
                 "drupal/commerce": "~2.0",
@@ -5070,8 +5091,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha5",
-                    "datestamp": "1605624595",
+                    "version": "8.x-1.0-alpha6",
+                    "datestamp": "1624900196",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -5116,17 +5137,17 @@
         },
         {
             "name": "drupal/commerce_store",
-            "version": "2.24.0",
+            "version": "2.25.0",
             "require": {
                 "drupal/commerce": "*",
                 "drupal/commerce_price": "*",
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.9 || ^9"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.24",
-                    "datestamp": "1612928996",
+                    "version": "8.x-2.25",
+                    "datestamp": "1625057724",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5138,6 +5159,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
@@ -12112,9 +12137,6 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
                     "version": "8.x-1.1",
                     "datestamp": "1581940864",
@@ -13863,17 +13885,17 @@
         },
         {
             "name": "drupal/state_machine",
-            "version": "1.0.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/state_machine.git",
-                "reference": "8.x-1.0"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/state_machine-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "b39ca317ca8d9cd5c9ebcf720a84d44ca697d57f"
+                "url": "https://ftp.drupal.org/files/projects/state_machine-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "6e07fe9e9a73a07cdd077a9f79f2ae26147bd5ce"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9",
@@ -13881,12 +13903,9 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1582902575",
+                    "version": "8.x-1.4",
+                    "datestamp": "1625048408",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13895,7 +13914,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -13933,6 +13952,10 @@
                 {
                     "name": "indytechcook",
                     "homepage": "https://www.drupal.org/user/245817"
+                },
+                {
+                    "name": "jsacksick",
+                    "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
                     "name": "robeano",
@@ -18761,22 +18784,22 @@
         },
         {
             "name": "nicholascreativemedia/fedexphp",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NicholasCreativeMedia/FedExPHP.git",
-                "reference": "66f130ea52f423840f5d21e9d813298b9735f1e4"
+                "reference": "9433c5928c6ea7f963cdf00ab70dcc4c04a5689a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NicholasCreativeMedia/FedExPHP/zipball/66f130ea52f423840f5d21e9d813298b9735f1e4",
-                "reference": "66f130ea52f423840f5d21e9d813298b9735f1e4",
+                "url": "https://api.github.com/repos/NicholasCreativeMedia/FedExPHP/zipball/9433c5928c6ea7f963cdf00ab70dcc4c04a5689a",
+                "reference": "9433c5928c6ea7f963cdf00ab70dcc4c04a5689a",
                 "shasum": ""
             },
             "require": {
                 "ext-soap": "*",
                 "php": ">=5.3.3",
-                "wsdltophp/packagebase": "dev-master"
+                "wsdltophp/packagebase": "^2.2.2"
             },
             "type": "library",
             "autoload": {
@@ -18790,7 +18813,11 @@
             ],
             "description": "FedEx PHP package. Classes generated using wsdltophp/packagegenerator",
             "homepage": "https://github.com/NicholasCreativeMedia/FedExPHP",
-            "time": "2017-05-11T17:01:24+00:00"
+            "support": {
+                "issues": "https://github.com/NicholasCreativeMedia/FedExPHP/issues",
+                "source": "https://github.com/NicholasCreativeMedia/FedExPHP/tree/v1.0.7"
+            },
+            "time": "2021-07-08T16:04:13+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -20557,100 +20584,6 @@
             "time": "2020-10-24T10:57:07+00:00"
         },
         {
-            "name": "symfony/contracts",
-            "version": "v1.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/contracts.git",
-                "reference": "011c20407c4b99d454f44021d023fb39ce23b73d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/011c20407c4b99d454f44021d023fb39ce23b73d",
-                "reference": "011c20407c4b99d454f44021d023fb39ce23b73d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "psr/cache": "^1.0",
-                "psr/container": "^1.0"
-            },
-            "replace": {
-                "symfony/cache-contracts": "self.version",
-                "symfony/event-dispatcher-contracts": "self.version",
-                "symfony/http-client-contracts": "self.version",
-                "symfony/service-contracts": "self.version",
-                "symfony/translation-contracts": "self.version"
-            },
-            "require-dev": {
-                "symfony/polyfill-intl-idn": "^1.10"
-            },
-            "suggest": {
-                "psr/event-dispatcher": "When using the EventDispatcher contracts",
-                "symfony/cache-implementation": "",
-                "symfony/event-dispatcher-implementation": "",
-                "symfony/http-client-implementation": "",
-                "symfony/service-implementation": "",
-                "symfony/translation-implementation": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Contracts\\": ""
-                },
-                "exclude-from-classmap": [
-                    "**/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "A set of abstractions extracted out of the Symfony components",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "abstractions",
-                "contracts",
-                "decoupling",
-                "interfaces",
-                "interoperability",
-                "standards"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/contracts/tree/v1.1.10"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-09-02T16:08:58+00:00"
-        },
-        {
             "name": "symfony/css-selector",
             "version": "v3.4.47",
             "source": {
@@ -21007,6 +20940,85 @@
                 "source": "https://github.com/symfony/event-dispatcher/tree/v4.3.10"
             },
             "time": "2020-01-09T13:17:05+00:00"
+        },
+        {
+            "name": "symfony/event-dispatcher-contracts",
+            "version": "v1.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher-contracts.git",
+                "reference": "84e23fdcd2517bf37aecbd16967e83f0caee25a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/84e23fdcd2517bf37aecbd16967e83f0caee25a7",
+                "reference": "84e23fdcd2517bf37aecbd16967e83f0caee25a7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3"
+            },
+            "suggest": {
+                "psr/event-dispatcher": "",
+                "symfony/event-dispatcher-implementation": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Contracts\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Generic abstractions related to dispatching event",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v1.1.9"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-07-06T13:19:58+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -22495,23 +22507,23 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.4.26",
+            "version": "v4.4.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "a586efdf2aa832d05b9249e9115d24f6a2691160"
+                "reference": "391d6d0e7a06ab54eb7c38fab29b8d174471b3ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/a586efdf2aa832d05b9249e9115d24f6a2691160",
-                "reference": "a586efdf2aa832d05b9249e9115d24f6a2691160",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/391d6d0e7a06ab54eb7c38fab29b8d174471b3ba",
+                "reference": "391d6d0e7a06ab54eb7c38fab29b8d174471b3ba",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php72": "~1.5",
-                "symfony/polyfill-php80": "^1.15"
+                "symfony/polyfill-php80": "^1.16"
             },
             "conflict": {
                 "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
@@ -22564,7 +22576,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v4.4.26"
+                "source": "https://github.com/symfony/var-dumper/tree/v4.4.27"
             },
             "funding": [
                 {
@@ -22580,7 +22592,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-17T06:35:48+00:00"
+            "time": "2021-07-23T15:41:52+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -22981,16 +22993,16 @@
         },
         {
             "name": "wsdltophp/packagebase",
-            "version": "dev-master",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WsdlToPhp/PackageBase.git",
-                "reference": "3acde5c5b6c8c85293e077e3910b7990dfac64ca"
+                "reference": "1175889721ecfe9be7a48225a3f878dec13ee86a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WsdlToPhp/PackageBase/zipball/3acde5c5b6c8c85293e077e3910b7990dfac64ca",
-                "reference": "3acde5c5b6c8c85293e077e3910b7990dfac64ca",
+                "url": "https://api.github.com/repos/WsdlToPhp/PackageBase/zipball/1175889721ecfe9be7a48225a3f878dec13ee86a",
+                "reference": "1175889721ecfe9be7a48225a3f878dec13ee86a",
                 "shasum": ""
             },
             "require": {
@@ -23053,7 +23065,12 @@
                 "models",
                 "php"
             ],
-            "time": "2020-09-11T08:37:47+00:00"
+            "support": {
+                "email": "contact@wsdltophp.com",
+                "issues": "https://github.com/WsdlToPhp/PackageBase/issues",
+                "source": "https://github.com/WsdlToPhp/PackageBase/tree/2.2.3"
+            },
+            "time": "2021-07-11T05:43:29+00:00"
         }
     ],
     "packages-dev": [
@@ -25909,6 +25926,7 @@
         "drupal/block_class": 15,
         "drupal/block_field": 5,
         "drupal/comment_notify": 10,
+        "drupal/commerce_fedex": 10,
         "drupal/commerce_paypal": 5,
         "drupal/commerce_stock": 15,
         "drupal/conditional_fields": 15,
