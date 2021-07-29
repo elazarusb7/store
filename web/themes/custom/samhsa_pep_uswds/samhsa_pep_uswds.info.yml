@@ -5,6 +5,7 @@ name: 'SAMHSA PEP USWDS'
 description: 'Uses the USWDS Base and requires download of the USWDS assets'
 package: 'Core'
 core: 8.x
+core_version_requirement: ^8 || ^9
 logo: 'logo.png'
 screenshot: 'screenshot.png'
 
