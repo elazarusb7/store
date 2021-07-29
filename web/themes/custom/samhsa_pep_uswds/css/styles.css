@@ -1491,6 +1491,7 @@ ul.tabs.primary li {
 .region-postscript-fourth .lang {
   margin: 0 -8px 20px;
   font-size: 0;
+  padding: 0;
 }
 .region-postscript-fourth .menu .menu-item,
 .region-postscript-fourth .lang .menu-item {
@@ -1552,52 +1553,52 @@ ul.tabs.primary li {
   display: none;
 }
 
-#block-newslettersignup {
+#block-newsletter-signup {
   width: 100%;
   float: right;
 }
 @media (min-width: 624px) {
-  #block-newslettersignup {
+  #block-newsletter-signup {
     width: 68%;
   }
 }
 @media (min-width: 864px) {
-  #block-newslettersignup {
+  #block-newsletter-signup {
     width: 65%;
   }
 }
-#block-newslettersignup .footer-signup {
+#block-newsletter-signup .footer-signup {
   width: 100%;
 }
-#block-newslettersignup .footer-signup h2.footer-title {
+#block-newsletter-signup .footer-signup h2.footer-title {
   color: inherit;
   font-weight: normal;
   margin-bottom: 10px;
   font-size: 2rem;
   margin-top: 0;
 }
-#block-newslettersignup .footer-signup .signup-text {
+#block-newsletter-signup .footer-signup .signup-text {
   width: 100%;
   float: left;
 }
 @media (min-width: 624px) {
-  #block-newslettersignup .footer-signup .signup-text {
+  #block-newsletter-signup .footer-signup .signup-text {
     width: 45%;
   }
 }
-#block-newslettersignup .footer-signup .signup-form {
+#block-newsletter-signup .footer-signup .signup-form {
   width: 100%;
   float: right;
 }
 @media (min-width: 624px) {
-  #block-newslettersignup .footer-signup .signup-form {
+  #block-newsletter-signup .footer-signup .signup-form {
     width: 55%;
   }
 }
-#block-newslettersignup .footer-signup .signup-form form {
+#block-newsletter-signup .footer-signup .signup-form form {
   margin: 0;
 }
-#block-newslettersignup .footer-signup .signup-form .signup-email {
+#block-newsletter-signup .footer-signup .signup-form .signup-email {
   width: 100%;
   float: left;
   color: #5f636a;
@@ -1607,11 +1608,11 @@ ul.tabs.primary li {
   padding: 0 10px;
 }
 @media (min-width: 864px) {
-  #block-newslettersignup .footer-signup .signup-form .signup-email {
+  #block-newsletter-signup .footer-signup .signup-form .signup-email {
     width: 67%;
   }
 }
-#block-newslettersignup .footer-signup .signup-form .signup-btn {
+#block-newsletter-signup .footer-signup .signup-form .signup-btn {
   background-color: #1A6986;
   border: 1px solid #1A6986;
   border-radius: 0;
@@ -1620,7 +1621,7 @@ ul.tabs.primary li {
   padding: 0 15px;
 }
 @media (min-width: 864px) {
-  #block-newslettersignup .footer-signup .signup-form .signup-btn {
+  #block-newsletter-signup .footer-signup .signup-form .signup-btn {
     width: auto;
   }
 }
@@ -1641,19 +1642,19 @@ ul.tabs.primary li {
   text-decoration: none;
 }
 
-#block-footersocial {
+#block-footersocial-2 {
   width: 100%;
   display: inline-block;
   text-align: center;
 }
 @media (min-width: 624px) {
-  #block-footersocial {
+  #block-footersocial-2 {
     width: 26%;
     text-align: left;
   }
 }
 @media (min-width: 864px) {
-  #block-footersocial {
+  #block-footersocial-2 {
     width: 20%;
     text-align: left;
   }
@@ -5757,9 +5758,25 @@ button.collapse-region.active .collaspse--label:before {
 #footer-outer-wrapper .contextual-links a {
   color: #1F419A;
 }
-@media (min-width: 624px) and (max-width: 767px) {
+@media (min-width: 624px) {
   #footer-outer-wrapper {
     text-align: left;
+  }
+  #footer-outer-wrapper .footer-address {
+    width: 50%;
+    float: left;
+    margin-right: -100%;
+    clear: none;
+    padding-right: 14px;
+  }
+  #footer-outer-wrapper .footer-logo {
+    width: 50%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0;
+    text-align: right;
   }
 }
 

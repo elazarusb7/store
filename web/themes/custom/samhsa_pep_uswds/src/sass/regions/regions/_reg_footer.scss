@@ -15,14 +15,28 @@
   }
   
   //Setting up 2 columns
+
   
-  @include breakpoint ($break-mobile-landscape){
+  
+  @include breakpoint($max-width-mobile-landscape){
     text-align: left; 
     .footer-address{
       //@include grid-span(6, 1);
+      width: 50%;
+      float: left;
+      margin-right: -100%;
+      clear: none;
+      padding-right: 14px;
     }
     .footer-logo{
       //@include grid-span(6, 7);
+      width: 50%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      clear: none;
+      padding-right: 0;
+      text-align: right;
     }
   }
 }
