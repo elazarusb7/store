@@ -42,6 +42,7 @@
                 font-size: 16px;
                 height: 38px;
                 padding: 0 10px;
+                margin-bottom: .75em;
                 @include breakpoint ($max-width-tablet-landscape) {
                     width: 67%;
                 }
@@ -54,6 +55,7 @@
                 width: 100%;
                 height: 38px;
                 padding: 0 15px;
+               
                 @include breakpoint ($max-width-tablet-landscape) {
                     width: auto;
                 }

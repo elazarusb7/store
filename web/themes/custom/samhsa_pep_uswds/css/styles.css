@@ -1606,6 +1606,7 @@ ul.tabs.primary li {
   font-size: 16px;
   height: 38px;
   padding: 0 10px;
+  margin-bottom: 0.75em;
 }
 @media (min-width: 864px) {
   #block-newsletter-signup .footer-signup .signup-form .signup-email {
