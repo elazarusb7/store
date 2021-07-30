@@ -128,7 +128,7 @@
         "drupal/menu_position": "1.x-dev",
         "drupal/message": "^1.0@RC",
         "drupal/metatag": "^1.16",
-        "drupal/migrate_plus": "^4.0",
+        "drupal/migrate_plus": "^5.1",
         "drupal/migrate_tools": "^4",
         "drupal/migrate_upgrade": "^3.0",
         "drupal/mimemail": "^1.0",
