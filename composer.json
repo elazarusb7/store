@@ -247,6 +247,189 @@
                     "reference": "8.x-1.x"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/fakeobjects",
+                "version": "4.7.2",
+                "type": "drupal-library",
+                "vendor": "ckeditor-plugin",
+                "dist": {
+                    "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.7.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/link",
+                "version": "4.6.2",
+                "type": "drupal-library",
+                "vendor": "ckeditor-plugin",
+                "dist": {
+                    "url": "https://download.ckeditor.com/link/releases/link_4.6.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/image",
+                "version": "4.7.2",
+                "type": "drupal-library",
+                "vendor": "ckeditor-plugin",
+                "dist": {
+                    "url": "https://download.ckeditor.com/image/releases/image_4.7.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "codemirror/codemirror",
+                "version": "5.27.4",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/components/codemirror/archive/5.27.4.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/geocomplete",
+                "version": "1.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/ubilabs/geocomplete/archive/1.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/icheck",
+                "version": "1.0.2",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/fronteed/icheck/archive/1.0.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/image-picker",
+                "version": "0.3.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/rvera/image-picker/archive/0.3.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/inputmask",
+                "version": "3.3.7",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/RobinHerbots/jquery.inputmask/archive/3.3.7.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/intl-tel-input",
+                "version": "12.0.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/jackocnr/intl-tel-input/archive/v12.0.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/rateit",
+                "version": "1.1.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/gjunge/rateit.js/archive/1.1.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/select2",
+                "version": "4.0.3",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/select2/select2/archive/4.0.3.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/timepicker",
+                "version": "1.11.11",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/jonthornton/jquery-timepicker/archive/1.11.11.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/toggles",
+                "version": "4.0.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/simontabor/jquery-toggles/archive/v4.0.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/word-and-character-counter",
+                "version": "2.5.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/qwertypants/jQuery-Word-and-Character-Counter-Plugin/archive/2.5.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "progress-tracker/progress-tracker",
+                "version": "1.4.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/NigelOToole/progress-tracker/archive/v1.4.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "conflict": {
@@ -259,8 +442,7 @@
         "secure-http": false,
         "preferred-install": {
             "drupal/commerce": "source",
-            "drupal/core": "source",
-            "drupal/tfa": "source"
+            "drupal/core": "source"
         }
     },
     "autoload": {
