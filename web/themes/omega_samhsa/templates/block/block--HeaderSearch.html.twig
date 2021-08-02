@@ -1,0 +1,60 @@
+{# Magnifying icon at mobile sizes #}
+
+<div>
+ <a href="#" id="search-toggle" rel="nofollow">
+  	<svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" >
+  	<path  d="M15.333 15.333c1.316-1.317 1.975-2.902 1.975-4.755 0-1.853-.659-3.438-1.975-4.756-1.317-1.316-2.903-1.975-4.756-1.975-1.852 0-3.438.659-4.754 1.975-1.317 1.318-1.976 2.903-1.976 4.756 0 1.853.659 3.438 1.976 4.755 1.316 1.317 2.902 1.976 4.754 1.976 1.853 0 3.439-.659 4.756-1.976zm9.113 6.393c.369.37.554.822.554 1.353 0 .52-.19.97-.57 1.35-.38.38-.832.571-1.351.571a1.79 1.79 0 0 1-1.354-.57l-5.153-5.138c-1.793 1.242-3.79 1.863-5.995 1.863-1.431 0-2.8-.278-4.11-.835a10.546 10.546 0 0 1-3.377-2.252 10.539 10.539 0 0 1-2.254-3.382A10.365 10.365 0 0 1 0 10.578c0-1.432.279-2.802.836-4.11.554-1.306 1.307-2.434 2.254-3.38C4.035 2.141 5.16 1.39 6.468.835A10.38 10.38 0 0 1 10.578 0c1.431 0 2.803.277 4.11.835a10.556 10.556 0 0 1 3.38 2.253 10.554 10.554 0 0 1 2.252 3.38c.556 1.308.835 2.678.835 4.11 0 2.203-.621 4.2-1.863 5.995l5.154 5.153z"/>
+	</svg> 
+ 	{#<span class="samhsa-icons-magnify" aria-label="Search"></span>#}
+ 	<span class="visually-hidden">Search</span>
+ </a>
+</div>
+
+{# The Search #}
+<div{{ attributes.addClass('head-search-wrapper') }}>
+	<div class="search-form-wrapper">
+		<form action="{{ form_action }}" class="searchcontainer {{ search_radio ? 'with-radios' }} {{ use_search_icon ? 'use-search-icon' }}" id="searchSAMHSA" method="get" name="gs" role="search" target="_self">
+			<input class="samhsasearchbox" id="q" name="q" placeholder="Search All SAMHSA" type="search" aria-label="SAMHSA Search" />
+
+      <label class="visually-hidden" for="q">SAMHSA Search</label> <input name="sort" type="hidden" value="date:D:L:d1" />
+			<input name="output" type="hidden" value="xml_no_dtd" /> <input name="ie" type="hidden" value="UTF-8" />
+      <input name="oe" type="hidden" value="UTF-8" />
+      <input name="lr" type="hidden" value="lang_en" />
+      <input name="client" type="hidden" value="{{ client }}" />
+      <input name="proxystylesheet" type="hidden" value="{{ stylesheet }}" />
+      <input name="filter" type="hidden" value="1" />
+      <input id="gsa_sitevar" name="site" type="hidden" value="{{ samhsa_main_site_index }}" />
+
+      {# Only show if configuration is set to display #}
+
+      {% if search_radio %}
+        <div class="search_radio">
+  				<div class="collection_all">
+  					<label class="radio_button_show" for="allsamhsa">All SAMHSA&nbsp;</label>
+  					<input id="allsamhsa" type="radio" class="collectionator" name="collectionator" value="{{ samhsa_main_site_index }}" {{ (not search_only_this_site) ? 'checked="checked"' }} >
+  				</div>
+  				<div class="collection_dataonly">
+  					<label class="radio_button_show" for="dataonly">{{ site_title }}&nbsp;</label>
+  					<input id="dataonly" type="radio" class="collectionator"
+  						name="collectionator" value="{{ current_site_index }}"
+  						{{ search_only_this_site ? 'checked="checked"' }} >
+  				</div>
+  			</div>
+      {% endif %}
+      
+      <label class="btn samhsasearchbuttonlabel visually-hidden" for="bodySearchAll">Search All SAMHSA</label>
+			<button id="bodySearchAll" class="btn samhsasearchbutton">
+        {% if use_search_icon %}
+          <img src="{{ image_path }}/search.svg" class="whitehouse-logo" alt="Search" aria-label="Search" width="16" height="16" />
+          {#	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="16" height="16">
+  				<path  d="M15.333 15.333c1.316-1.317 1.975-2.902 1.975-4.755 0-1.853-.659-3.438-1.975-4.756-1.317-1.316-2.903-1.975-4.756-1.975-1.852 0-3.438.659-4.754 1.975-1.317 1.318-1.976 2.903-1.976 4.756 0 1.853.659 3.438 1.976 4.755 1.316 1.317 2.902 1.976 4.754 1.976 1.853 0 3.439-.659 4.756-1.976zm9.113 6.393c.369.37.554.822.554 1.353 0 .52-.19.97-.57 1.35-.38.38-.832.571-1.351.571a1.79 1.79 0 0 1-1.354-.57l-5.153-5.138c-1.793 1.242-3.79 1.863-5.995 1.863-1.431 0-2.8-.278-4.11-.835a10.546 10.546 0 0 1-3.377-2.252 10.539 10.539 0 0 1-2.254-3.382A10.365 10.365 0 0 1 0 10.578c0-1.432.279-2.802.836-4.11.554-1.306 1.307-2.434 2.254-3.38C4.035 2.141 5.16 1.39 6.468.835A10.38 10.38 0 0 1 10.578 0c1.431 0 2.803.277 4.11.835a10.556 10.556 0 0 1 3.38 2.253 10.554 10.554 0 0 1 2.252 3.38c.556 1.308.835 2.678.835 4.11 0 2.203-.621 4.2-1.863 5.995l5.154 5.153z"/>
+			</svg> #}
+        {% else %}
+          Search
+        {% endif %}
+      </button>
+      
+      
+		</form>
+	</div>
+</div>

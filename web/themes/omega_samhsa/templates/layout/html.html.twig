@@ -1,0 +1,76 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the basic structure of a single Drupal page.
+ *
+ * Variables:
+ * - logged_in: A flag indicating if user is logged in.
+ * - root_path: The root path of the current page (e.g., node, admin, user).
+ * - node_type: The content type for the current node, if the page is a node.
+ * - head_title: List of text elements that make up the head_title variable.
+ *   May contain or more of the following:
+ *   - title: The title of the page.
+ *   - name: The name of the site.
+ *   - slogan: The slogan of the site.
+ * - page_top: Initial rendered markup. This should be printed before 'page'.
+ * - page: The rendered page markup.
+ * - page_bottom: Closing rendered markup. This variable should be printed after
+ *   'page'.
+ * - db_offline: A flag indicating if the database is offline.
+ * - placeholder_token: The token for generating head, css, js and js-bottom
+ *   placeholders.
+ *
+ * @see template_preprocess_html()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'node--type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token|raw }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token|raw }}">
+    <js-placeholder token="{{ placeholder_token|raw }}">
+    
+    {#
+      /**
+       * Icons
+       * {{ url('<front>') }} is the site's base URL
+       * The {{ atouchpath }} variable is set in bwl.theme in hook_preprocess_html()
+       */
+    #}
+    <link rel="apple-touch-icon" href="{{ url('<front>') }}{{ atouchpath }}appletouch-76.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url('<front>') }}{{ atouchpath }}appletouch-57.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url('<front>') }}{{ atouchpath }}appletouch-76.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('<front>') }}{{ atouchpath }}appletouch-120.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="{{ url('<front>') }}{{ atouchpath }}appletouch-128.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url('<front>') }}{{ atouchpath }}appletouch-152.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ url('<front>') }}{{ atouchpath }}appletouch-167.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('<front>') }}{{ atouchpath }}appletouch-180.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="{{ url('<front>') }}{{ atouchpath }}appletouch-192.png" />
+    
+    {# ...and don't forget android #}
+    <link rel="icon" sizes="192x192" href="{{ url('<front>') }}{{ atouchpath }}appletouch-192.png" />
+    <link rel="icon" sizes="128x128" href="{{ url('<front>') }}{{ atouchpath }}appletouch-128.png" />
+    
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    <a href="#main-layout" class="visually-hidden focusable">
+      {{ 'Skip to main content'|t }}
+    </a>
+    {{ page_top }}
+    {{ page.header_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+  </body>
+</html>

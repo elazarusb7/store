@@ -1,0 +1,11 @@
+{
+	"name" : "samhsa/omega_samhsa",
+	"type" : "drupal-custom-theme",
+	"description" : "Drupal 8 Omega Theme Framework",
+	"keywords" : [
+		"SAMHSA",
+		"themes",
+		"drupal"
+	],
+	"license" : "GPL-2.0+"
+}

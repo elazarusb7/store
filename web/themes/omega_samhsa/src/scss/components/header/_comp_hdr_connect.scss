@@ -1,0 +1,17 @@
+// Connect with SAMHSA
+//==========================================================================
+
+//Vertically aligning everything and adding some space between the items
+.header-social ul.social-links-container{
+  display: block;
+  text-align: right;
+  li{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 0.25em;
+  }
+  a{
+    text-align: left;
+    text-indent: -999em;
+  }
+}

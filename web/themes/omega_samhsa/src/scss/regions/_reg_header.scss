@@ -1,0 +1,80 @@
+// Header
+//==========================================================================
+// Top colored rectangles - container - not used in the new thenme
+//-------------------------------------------
+.header-layout{
+  position: relative;  
+  @include breakpoint ($break-mobile-landscape){
+    .region--header:before{
+      display: block;
+      content: '';
+      height: 5px;
+      padding: 0;
+    }
+  }
+}
+
+// Mobile Search button
+// #block-exposedformsearchpage-1 is the block that houses the form and mobile button button
+// #search-toggle is the <a>
+//-------------------------------------------
+
+.site-search{
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
+#search-toggle{
+  display: block;
+}
+@include breakpoint ($break-mobile-landscape){
+  #search-toggle{
+    display: none;
+  }  
+  .site-search{
+    position: relative;
+    bottom: auto;
+    right: auto;
+  }
+}
+
+//Hiding / Showing User menu, search and social
+//-------------------------------------------
+.header-social,
+.search-form-wrapper,
+.user-menu{
+  display: none;
+}
+
+//Show mobile search when magify icon has been clicked
+.search-form-wrapper.open{
+  display: block;
+}
+
+//Layout and display at screen sizes above mobile
+@include breakpoint ($break-mobile-landscape){ 
+  .site-branding{
+    @include grid-span(5, 1);
+  } 
+  .site-search .search-form-wrapper,
+  .user-menu{
+    display: block;
+  } 
+  .header-social,
+  .site-search{
+    display: block;
+    @include grid-span(7, 6);
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+@include breakpoint ($break-tablet-portrait){  
+  .site-branding,
+  .site-search{
+    @include grid-span(6, 1);
+  }  
+  .header-social{
+    @include grid-span(6, 7);
+  }
+}
+
