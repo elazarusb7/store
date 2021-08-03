@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8e7f6110f57f7431cfa25a7f7ab8b35",
+    "content-hash": "8205c46675806f072d4e1d2e4d272a58",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5109,32 +5109,29 @@
         },
         {
             "name": "drupal/commerce_reports",
-            "version": "1.0.0-beta1",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_reports.git",
-                "reference": "8.x-1.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_reports-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "855163322ddaed153691e01f2d8f344044c11927"
+                "reference": "e303b4ce332c54ab7bc24d0adfe4b87f6ec06ebe"
             },
             "require": {
-                "drupal/commerce": "^2",
+                "drupal/commerce": "^2.7",
                 "drupal/commerce_order": "*",
                 "drupal/commerce_price": "*",
                 "drupal/core": "^8"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1527793680",
+                    "version": "8.x-1.0-beta1+3-dev",
+                    "datestamp": "1558644485",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -26171,6 +26168,7 @@
         "drupal/comment_notify": 10,
         "drupal/commerce_fedex": 10,
         "drupal/commerce_paypal": 5,
+        "drupal/commerce_reports": 20,
         "drupal/commerce_stock": 15,
         "drupal/conditional_fields": 15,
         "drupal/content_access": 15,
