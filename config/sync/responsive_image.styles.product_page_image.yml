@@ -5,20 +5,13 @@ dependencies:
   config:
     - image.style.product_page_image
     - image.style.product_page_image_x2
-  theme:
-    - omega_samhsa_pep
 id: product_page_image
 label: 'Product Page Image'
 image_style_mappings:
   -
-    breakpoint_id: omega_samhsa_pep.default.all
+    breakpoint_id: responsive_image.viewport_sizing
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: product_page_image
-  -
-    breakpoint_id: omega_samhsa_pep.default.all
-    multiplier: 2x
-    image_mapping_type: image_style
-    image_mapping: product_page_image_x2
-breakpoint_group: omega_samhsa_pep.default
+breakpoint_group: responsive_image
 fallback_image_style: product_page_image_x2
