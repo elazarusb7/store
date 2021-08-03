@@ -3,7 +3,7 @@
   &--wrapper {
       clear: both;
     }
-  #block-omega-samhsa-pep-account-menu {
+  #block-useraccountmenu {
     //help vertically align menu with cart icon
     display: flex;
     align-items: center;  
@@ -38,14 +38,14 @@
       grid-column: 1 / 4;
       grid-row: 1 / 2;
     }
-    #block-omega-samhsa-pep-account-menu {
+    #block-useraccountmenu {
       grid-column: 2 / 3;
-      grid-row: 2 / 3;
+      grid-row: 1 / 2;
       align-self: start;
       -ms-grid-row-align: start;
       padding-top: 17px;
     }
-    #block-omega-samhsa-pep-cart {
+    #block-cart-2 {
       padding-left: 1em;
       grid-column: 3 / 4;
       grid-row: 2 / 3;
@@ -64,14 +64,14 @@
         grid-column: 1 / 2;
         grid-row: 1 / 2;
       }
-      #block-omega-samhsa-pep-account-menu {
+      #block-useraccountmenu {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
         align-self: start;
         -ms-grid-row-align: start;
         padding-top: 17px;
       }
-      #block-omega-samhsa-pep-cart {
+      #block-cart-2 {
         padding-left: 1em;
         grid-column: 3 / 4;
         grid-row: 1 / 2;
@@ -98,7 +98,7 @@
       grid-column: 2 / 3;
       grid-row: 1 / 2;
     }
-    #block-omega-samhsa-pep-cart {
+    #block-cart-2 {
       grid-column: 3 / 4;
       grid-row: 1 / 2;
     }
@@ -115,7 +115,7 @@
 
 // making sure on really small screens there's enough room for a very full cart (100+ items)
 @include breakpoint(0 $max-width-mobile-portrait-small - 1) {
-  #block-omega-samhsa-pep-account-menu {
+ #block-useraccountmenu {
     .menu-item:after {
       margin: 0 math.div($gutters, 2);
     }
