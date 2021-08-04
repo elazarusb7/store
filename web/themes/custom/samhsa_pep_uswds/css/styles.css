@@ -856,6 +856,15 @@ p {
   max-width: 45em;
 }
 
+ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+li, ol, ul {
+  list-style-type: none;
+}
+
 li {
   max-width: 45em;
 }
@@ -880,6 +889,7 @@ blockquote {
 }
 
 a {
+  color: #1F419A;
   transition: color 150ms ease;
   transition-property: color, background-color, font-decoration;
 }
@@ -896,6 +906,9 @@ a.link--tel {
 a.link--big {
   font-size: 1.7rem;
   font-weight: bold;
+}
+a:hover {
+  color: #A82D2B;
 }
 
 @font-face {
@@ -1680,6 +1693,9 @@ ul.tabs.primary li {
 }
 .social a.linkedin:hover {
   background-color: #0077AC;
+}
+.social a.instagram:hover {
+  background-color: #b24382;
 }
 .social a.rss:hover {
   background-color: #FF971B;
@@ -4126,19 +4142,19 @@ details.details--list-accordion[open] summary:after {
 }
 
 .file--application-pdf {
-  background-image: url(../../images/icons/file-icon-pdf.svg);
+  background-image: url(../assets/img/file-icon-pdf.svg);
 }
 
 .file--x-office-document {
-  background-image: url(../../images/icons/file-icon-doc.svg);
+  background-image: url(../assets/img/file-icon-doc.svg);
 }
 
 .file--x-office-presentation {
-  background-image: url(../../images/icons/file-icon-ppt.svg);
+  background-image: url(../assets/img/file-icon-ppt.svg);
 }
 
 .file--mime-application-zip {
-  background-image: url(../../images/icons/file-icon-zip.svg);
+  background-image: url(../assets/img/file-icon-zip.svg);
 }
 
 .field--type-file .field__item {
@@ -5259,6 +5275,7 @@ button.collapse-region.active .collaspse--label:before {
   margin-top: 3.5px;
   width: calc(100% - 82px);
   border-color: white;
+  border: 0;
 }
 #views-exposed-form-solr-search-content-block-1 .form-actions {
   position: absolute;
@@ -5566,11 +5583,11 @@ button.collapse-region.active .collaspse--label:before {
   margin-bottom: 28px;
 }
 .product-page--block.product-page--download .product-page--block--heading {
-  background-image: url("../../images/icons/icon-download.svg");
+  background-image: url("../assets/img/icon-download.svg");
   padding-left: 48px;
 }
 .product-page--block.product-page--order .product-page--block--heading {
-  background-image: url("../../images/icons/icon-shopping-cart.svg");
+  background-image: url("../assets/img/icon-shopping-cart.svg");
   padding-left: 48px;
 }
 .product-page--block--heading {
@@ -5706,13 +5723,13 @@ button.collapse-region.active .collaspse--label:before {
   vertical-align: middle;
 }
 .block-jbs-commerce-back-to-browse-block .menu .return-btn a:before {
-  background-image: url("../../images/icons/arrow.svg");
+  background-image: url("../assets/img/arrow.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .block-jbs-commerce-back-to-browse-block .menu .new-search-btn a:before {
-  background-image: url("../../images/icons/restart.svg");
+  background-image: url("../assets/img/restart.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

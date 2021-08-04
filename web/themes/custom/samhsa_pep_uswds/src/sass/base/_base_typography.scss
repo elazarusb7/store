@@ -60,6 +60,13 @@ p {
   margin: 0 0 $small-spacing;
   max-width: 45em;
 }
+ol, ul {
+    margin: 0;
+    padding: 0;
+}
+li, ol, ul {
+    list-style-type: none;
+}
 li {
   max-width: 45em;
 }
@@ -77,6 +84,8 @@ hr {
 
 
 
+
+
 //Blockquote
 //-----------------------------------
 
@@ -91,6 +100,7 @@ blockquote{
 //------------------------------------------
 
 a {
+  color: $blue;
   @include hover-unstyled-link;
   transition: color $base-duration $base-timing;
   transition-property: color, background-color, font-decoration;
@@ -102,6 +112,9 @@ a {
   &.link--big {
     font-size: 1.7rem;
     font-weight: bold;
+  }
+  &:hover{
+    color: $red-dark
   }
 }
 

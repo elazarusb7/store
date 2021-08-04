@@ -16,11 +16,11 @@
     border: 1px solid $lighter-gray;
     margin-bottom: $gutters*2;
     &.product-page--download &--heading {
-        background-image: url("../../images/icons/icon-download.svg");
+        background-image: url("../assets/img/icon-download.svg");
         padding-left: $gutters + 20 + $gutters;
     }
     &.product-page--order &--heading {
-        background-image: url("../../images/icons/icon-shopping-cart.svg");
+        background-image: url("../assets/img/icon-shopping-cart.svg");
         padding-left: $gutters + 20 + $gutters;
     }
     &--heading {
