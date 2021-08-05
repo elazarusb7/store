@@ -378,7 +378,7 @@ function samhsa_pep_product_display_preprocess_field(&$variables, $hook)
       if (!empty($variables['items'][$key]['content']['#options']['entity_type']) && $variables['items'][$key]['content']['#options']['entity_type'] == 'taxonomy_term') {
         //ovewrite url for the product term to go to the product search page with term selected as a search parameter
         $options = ['absolute' => TRUE];
-        $vid = $variables['items'][$key]['content']['#options']['entity']->getVocabularyId();
+        $vid = $variables['items'][$key]['content']['#options']['entity']->bundle();
         $tid = $variables['items'][$key]['content']['#options']['entity']->id();
         $url = Url::fromRoute('<front>', ['f[0]' => $vid . ":" . $tid], $options);
         $variables['items'][$key]['content']['#url'] = $url;
