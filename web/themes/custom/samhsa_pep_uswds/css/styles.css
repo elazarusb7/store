@@ -1247,6 +1247,19 @@ a.button {
   color: white;
 }
 
+input[type=email], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=url], select, textarea {
+  display: block;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  vertical-align: middle;
+  margin: 0 0 0.75em;
+  padding: 0.5em;
+  border-radius: 0;
+  border: 1px solid #cdcdcd;
+  background-color: #fff;
+  box-sizing: border-box;
+  width: 100%;
+}
+
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -5611,7 +5624,7 @@ button.collapse-region.active .collaspse--label:before {
 }
 .product-page--related-resources .field--type-link {
   background-repeat: no-repeat;
-  background-image: url(../../images/icons/icon-paperclip.svg);
+  background-image: url(../assets/img/icon-paperclip.svg);
   background-position: left 3px;
 }
 .product-page--download .file--mime-size {
