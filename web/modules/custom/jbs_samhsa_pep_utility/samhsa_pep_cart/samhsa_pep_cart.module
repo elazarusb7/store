@@ -2,6 +2,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\samhsa_pep_cart\PepCartBlockPrerender;
 use Drupal\Core\Url;
 
 /**
@@ -68,10 +69,12 @@ function _cart_return_to_browsing(&$form, FormStateInterface $form_state) {
  */
 function samhsa_pep_cart_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
     if ($block->getBaseId() === 'commerce_cart') {
-        $build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
+        //$build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
+      $build['#pre_render'][] = [PepCartBlockPrerender::class, '_pep_cart_block_cart_prerender'];
     }
 }
 
+/*
 function _samhsa_pep_cart_block_cart_prerender(array $build) {
     $all_carts = \Drupal::service('commerce_cart.cart_provider')
         ->getCarts();
@@ -100,3 +103,4 @@ function _samhsa_pep_cart_block_cart_prerender(array $build) {
     }
     return $build;
 }
+*/

@@ -107,7 +107,9 @@ function samhsa_pep_product_display_form_alter(
   // add Redirect button (thanks Vera)
   if ($form_id == 'commerce_product_samhsa_publication_edit_form') {
     $pid = \Drupal::routeMatch()->getParameter('commerce_product')->id();
-    $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/product/'.$pid);
+
+    //$alias = \Drupal::service('path.alias_manager')->getAliasByPath('/product/'.$pid);
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/product/'.$pid);
 
     $form['url_redirects']['actions'] = [
       '#theme' => 'links',
