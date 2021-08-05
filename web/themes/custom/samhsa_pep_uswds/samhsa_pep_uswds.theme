@@ -49,7 +49,7 @@ function samhsa_pep_uswds_preprocess_page(&$variables) {
       $variables['page_classes'] = "with--header without--menus with--preface-first with--preface-second without--preface-third without--preface-fourth with--highlighted with--content without--sidebar-first without--sidebar-second with--postscript-first without--postscript-second without--postscript-third with--postscript-fourth with--footer";
     }
     else if (\Drupal::service('path.matcher')->isFrontPage()) {
-      $variables['#attached']['library'][] = 'samhsa_uswds_base/home_page_carousel';
+      //$variables['#attached']['library'][] = 'samhsa_uswds_base/home_page_carousel';
     }
 }
 function samhsa_pep_uswds_preprocess_region(&$vars) {
