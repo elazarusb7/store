@@ -1,0 +1,36 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="19" height="25" viewBox="0 0 19 25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d14525;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        opacity: 0.49;
+      }
+    </style>
+  </defs>
+  <title>ppt</title>
+  <g id="Symbols">
+    <g id="Download-Block-x3-bastard">
+      <g id="Group-11">
+        <g id="Group-10-Copy">
+          <g id="PDF-2">
+            <g id="PDF">
+              <polygon id="Shape-Copy-22" class="cls-1" points="18.947 24.851 0 24.851 0 0 13.026 0 18.947 5.917 18.947 24.851"/>
+              <polygon id="Shape-Copy-21" class="cls-2" points="18.137 6.556 12.512 6.556 12.512 0.935 18.137 6.556"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g>
+    <path class="cls-3" d="M10.44436,11.15565A4.27546,4.27546,0,1,0,12.86917,16.94L8.97739,15.172Z"/>
+    <path class="cls-3" d="M11.75009,11.08l-1.303,3.56728,3.45665,1.57036A3.79746,3.79746,0,0,0,11.75009,11.08Z"/>
+  </g>
+</svg>

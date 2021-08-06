@@ -16,20 +16,20 @@
 }
 .file--application-pdf {
   @extend %pep8-file-icon;
-  background-image: url(../../images/icons/file-icon-pdf.svg);
+  background-image: url(../assets/img/file-icon-pdf.svg);
 }
 .file--x-office-document {
   @extend %pep8-file-icon;
-  background-image: url(../../images/icons/file-icon-doc.svg);
+  background-image: url(../assets/img/file-icon-doc.svg);
 }
 .file--x-office-presentation {
    @extend %pep8-file-icon;
-  background-image: url(../../images/icons/file-icon-ppt.svg); 
+  background-image: url(../assets/img/file-icon-ppt.svg); 
 }
 
 .file--mime-application-zip {
    @extend %pep8-file-icon;
-  background-image: url(../../images/icons/file-icon-zip.svg); 
+  background-image: url(../assets/img/file-icon-zip.svg); 
 }
  .field--type-file {
   .field__item {
