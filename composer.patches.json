@@ -19,9 +19,6 @@
     "drupal/entity_reference_revisions": {
       "entity_reference_revisions broken relationship to host": "_patches/2799479-91-DO_NOT_COMMIT.patch"
     },
-    "drupal/omega": {
-      "Undefined index in preprocess page": "_patches/3047552-2.patch"
-    },
     "drupal/menu_export": {
       "Menu item roles are not exported correctly": "_patches/export-menu-item-roles-3064238-2.patch"
     },

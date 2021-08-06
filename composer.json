@@ -136,7 +136,6 @@
         "drupal/modal_page": "^4.0",
         "drupal/module_filter": "^3.2",
         "drupal/multiselect": "^2.0@alpha",
-        "drupal/omega": "^5.0@alpha",
         "drupal/page_manager": "^4.0@beta",
         "drupal/panelbutton": "^1.4",
         "drupal/panelizer": "^4.1",
