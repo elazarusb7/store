@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26b7a62f31bebb5fb841328b3161ff75",
+    "content-hash": "a91dbfe18337390683232404b0642eb6",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -13299,54 +13299,6 @@
             }
         },
         {
-            "name": "drupal/search_api_synonym",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/search_api_synonym.git",
-                "reference": "8.x-1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_synonym-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "2f59562bf268eb5cceba84fbef070753aaf68b52"
-            },
-            "require": {
-                "drupal/core": "^8.2.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1500888242",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "beltofte",
-                    "homepage": "https://www.drupal.org/user/151799"
-                }
-            ],
-            "description": "Managing of search synonyms in Drupal.",
-            "homepage": "https://www.drupal.org/project/search_api_synonym",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/search_api_synonym",
-                "issues": "http://drupal.org/project/issues/search_api_synonym"
-            }
-        },
-        {
             "name": "drupal/seckit",
             "version": "2.0.0",
             "source": {
@@ -15805,54 +15757,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/views_jump_menu",
                 "issues": "https://www.drupal.org/project/issues/views_jump_menu"
-            }
-        },
-        {
-            "name": "drupal/views_simple_math_field",
-            "version": "1.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/views_simple_math_field.git",
-                "reference": "8.x-1.9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_simple_math_field-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "bb4d494cbf9f4b0c5588a4ced90fa1563a96e4b5"
-            },
-            "require": {
-                "drupal/core": "^8"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1551827280",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Beakerboy",
-                    "homepage": "https://www.drupal.org/user/1700098"
-                },
-                {
-                    "name": "andileco",
-                    "homepage": "https://www.drupal.org/user/2054544"
-                }
-            ],
-            "description": "Creates a Views field handler that enables you to perform simple math expressions",
-            "homepage": "https://www.drupal.org/project/views_simple_math_field",
-            "support": {
-                "source": "https://git.drupalcode.org/project/views_simple_math_field"
             }
         },
         {
