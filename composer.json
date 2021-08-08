@@ -18,7 +18,7 @@
         "ckeditor/link": "4.6.2",
         "codemirror/codemirror": "5.27.4",
         "components/highlightjs": "^9.12",
-        "composer/installers": "^1.7",
+        "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^3.0",
         "drupal/admin_toolbar_links_access_filter": "^3.0",
