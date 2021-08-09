@@ -65,7 +65,7 @@
         "drupal/context": "^4.0@beta",
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
-        "drupal/core-recommended": "^8.9",
+        "drupal/core-recommended": "^9",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^1.5",
         "drupal/ctools": "^3.7",
@@ -482,6 +482,6 @@
         "patches-file": "composer.patches.json"
     },
     "require-dev": {
-        "drupal/core-dev": "8.9.16"
+        "drupal/core-dev": "^9"
     }
 }

@@ -26,9 +26,6 @@
       "Fix Commerce Stock Uninstall Validation script": "_patches/commerce_reports_fix_get_onnull_error.patch",
       "D9 Compatible": "_patches/commerce_reports-d9compat-3167290-12.patch"
     },
-    "drupal/search_api_autocomplete": {
-      "Autocomplete broken on views with Better Exposed Filters": "_patches/3159000-14--fix_autocomplete_with_bef.patch"
-    },
     "drupal/mobile_device_detection": {
       "Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
     }

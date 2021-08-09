@@ -100,7 +100,7 @@ index 6dd8ec6..28e0db5 100644
 +        // Provide a reverse relationship for the entity type that is referenced
 +        // by the entity reference revisions field.
 +        $args['@entity'] = $entity_type->getLabel();
-+        $args['@label'] = $target_entity_type->getLowercaseLabel();
++        $args['@label'] = $target_entity_type->getSingularLabel();
 +        $pseudo_field_name = 'reverse__' . $entity_type_id . '__' . $field_name . '_target_' . $column;
 +        if ($field->getCardinality() == 1) {
 +          $field_data = [
@@ -246,7 +246,7 @@ index 6dd8ec6..28e0db5 100644
 +      // Provide a reverse relationship for the entity type that is referenced
 +      // by the field.
 +      $args['@entity'] = $entity_type->getLabel();
-+      $args['@label'] = $target_entity_type->getLowercaseLabel();
++      $args['@label'] = $target_entity_type->getSingularLabel();
 +      $pseudo_field_name = 'reverse__' . $entity_type_id . '__' . $field_name . '_target_' . $column;
 +      $data[$target_base_table][$pseudo_field_name]['relationship'] = [
 +        'title' => $key == 'id' ? t('@entity using @field_name', $args) : t('@entity revision using @field_name', $args),
