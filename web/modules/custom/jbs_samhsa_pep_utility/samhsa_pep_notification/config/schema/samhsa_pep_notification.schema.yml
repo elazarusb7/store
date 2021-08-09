@@ -39,7 +39,3 @@ samhsa_pep_notification.settings:
       label: 'User roles which require agreement'
       sequence:
         type: string
-    success:
-      type: text
-      label: 'Success Message'
-      translatable: true
