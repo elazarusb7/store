@@ -82,8 +82,8 @@ function samhsa_pep_user_registration_form_commerce_checkout_flow_multistep_defa
   if ($form['#step_id'] == 'complete') {
     $form['#after_build'][] = '_samhsa_pep_user_registration_form_commerce_checkout_complete_after_build';
   }
-      $form['completion_register']['customer_profiles']['widget'][0]['#type'] = 'container';
-    $form['completion_register']['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';
+  $form['completion_register']['customer_profiles']['widget'][0]['#type'] = 'container';
+  $form['completion_register']['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';
 }
 
 /**
@@ -112,12 +112,13 @@ function _samhsa_pep_user_registration_form_commerce_checkout_complete_after_bui
 
 function samhsa_pep_user_registration_preprocess_menu(&$variables) {
 // Hide particular link for the authenticated user.
-    $items = $variables['items'];
+  $items = $variables['items'];
 
-    foreach ($items as $key => &$item) {
-// Hide register link on internal routes
-        if (!$item['url']->isExternal() && $item['url']->getRouteName() == 'user.register' && \Drupal::currentUser()->isAuthenticated()) {
-            unset($variables['items'][$key]);
-        }
+  foreach ($items as $key => &$item) {
+    if (!$item['url']->isExternal()) {
+      if (($item['url']->isRouted() && $item['url']->getRouteName() == 'user.register' && \Drupal::currentUser()->isAuthenticated())) {
+        unset($variables['items'][$key]);
+      }
     }
+  }
 }
