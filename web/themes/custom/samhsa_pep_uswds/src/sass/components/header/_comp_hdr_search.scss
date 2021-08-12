@@ -61,7 +61,13 @@
   width: 61px;
   height: 61px;
   left: inherit;
+  text-decoration: none;
+  font-size: 32px;
+  text-align: center;
   svg.search-icon {
     top: 10px;
+    fill: #fff;
+    width: 30px;
+    height: 30px;
   }
 }

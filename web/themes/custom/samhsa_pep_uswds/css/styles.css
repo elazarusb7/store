@@ -617,6 +617,10 @@ body {
     fill: #1E384B;
   }
 }
+.path-frontpage .page-title {
+  display: none;
+}
+
 body {
   color: #4A4A4A;
   font-family: Tahoma, Segoe, sans-serif;
@@ -1758,6 +1762,7 @@ ul.tabs.primary li {
 
 .region-header {
   background-color: #1E384B;
+  position: relative;
 }
 @media (min-width: 768px) {
   .region-header {
@@ -1776,7 +1781,7 @@ ul.tabs.primary li {
     height: 61px;
   }
   .site-branding .site-logo {
-    background-image: url("../../images/logo-white.png");
+    background-image: url("../assets/img/logo-white.png");
     width: 130px;
     height: 45px;
     display: block;
@@ -3369,9 +3374,15 @@ All this is done for any sub-level being entered.
   width: 61px;
   height: 61px;
   left: inherit;
+  text-decoration: none;
+  font-size: 32px;
+  text-align: center;
 }
 #search-toggle svg.search-icon {
   top: 10px;
+  fill: #fff;
+  width: 30px;
+  height: 30px;
 }
 
 .program-title {
@@ -5902,7 +5913,7 @@ button.collapse-region.active .collaspse--label:before {
   }
 }
 @media (min-width: 0) and (max-width: 767px) {
-  #block-utilitymenu {
+  #block-utilitymenu-2 {
     margin: -1px;
     padding: 0;
     width: 1px;
@@ -5924,7 +5935,7 @@ button.collapse-region.active .collaspse--label:before {
   .search-toggle-wrapper {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 10px;
     z-index: 490;
   }
 }

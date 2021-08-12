@@ -3,8 +3,9 @@
 
 .region-header {
   background-color: $blue-gray;
+  position: relative;
   @include breakpoint ($max-width-tablet-portrait) {
-    background-color: transparent; 
+    background-color: transparent;
   }
 }
 .site-branding {
@@ -15,7 +16,7 @@
   @include breakpoint(0 $max-width-tablet-portrait - 1) {
     height: 61px;
     .site-logo {
-      background-image: url("../../images/logo-white.png");
+      background-image: url("../assets/img/logo-white.png");
       width: 130px;
       height: 45px;
       display: block;
