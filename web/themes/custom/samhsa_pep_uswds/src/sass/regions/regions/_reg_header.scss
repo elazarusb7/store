@@ -104,7 +104,7 @@
 
 
 @include breakpoint(0 $max-width-tablet-portrait - 1) {
-  #block-utilitymenu {
+  #block-utilitymenu-2 {
     @include visuallyhidden;
   }
   .site-search {
@@ -119,7 +119,7 @@
   .search-toggle-wrapper {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 10px;
     z-index: 490;
   }
 }

@@ -81,3 +81,8 @@ body {
     }
   }
 }
+
+//Remove title from front page
+.path-frontpage {
+  .page-title { display: none; }
+}
