@@ -1830,6 +1830,25 @@ ul.tabs.primary li {
   text-indent: -999em;
 }
 
+.block-samhsa-uswds-base-sharebuttons ul.share-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  list-style-type: none;
+}
+.block-samhsa-uswds-base-sharebuttons ul.share-buttons li {
+  margin-left: 5px;
+}
+.block-samhsa-uswds-base-sharebuttons ul.share-buttons li a svg {
+  font-size: 26px;
+  fill: #617381;
+  height: 28px;
+}
+.block-samhsa-uswds-base-sharebuttons ul.share-buttons li a svg:hover {
+  fill: #1F419A;
+}
+
 @media (min-width: 768px) {
   #header-outer-wrapper #block-mainmenu {
     display: none;
