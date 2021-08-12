@@ -51,7 +51,10 @@ display:
         options: {  }
       query:
         type: search_api_query
-        options: {  }
+        options:
+          skip_access: false
+          bypass_access: false
+          preserve_facet_query_args: true
       exposed_form:
         type: basic
         options:
@@ -1231,6 +1234,7 @@ display:
         - 'config:field.storage.commerce_product.field_substances'
         - 'config:field.storage.commerce_product.field_thumbnail'
         - 'config:field.storage.commerce_product.field_treatment_prevention_and_r'
+        - 'config:search_api.index.default_solr_index'
   block_1:
     display_plugin: block
     id: block_1
@@ -1391,6 +1395,7 @@ display:
         - 'config:field.storage.commerce_product.field_substances'
         - 'config:field.storage.commerce_product.field_thumbnail'
         - 'config:field.storage.commerce_product.field_treatment_prevention_and_r'
+        - 'config:search_api.index.default_solr_index'
   page_1:
     display_plugin: page
     id: page_1
@@ -1399,6 +1404,7 @@ display:
     display_options:
       display_extenders:
         mobile_device_detection: {  }
+        metatag_display_extender: {  }
       path: publications
       exposed_block: true
       menu:
@@ -2214,3 +2220,4 @@ display:
         - 'config:field.storage.commerce_product.body'
         - 'config:field.storage.commerce_product.field_publication_date'
         - 'config:field.storage.commerce_product.field_thumbnail'
+        - 'config:search_api.index.default_solr_index'
