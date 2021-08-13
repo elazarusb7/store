@@ -1030,33 +1030,29 @@ function _add_uid_to_transaction_comment(EntityInterface $entity){
   if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
     $location_level = \Drupal::service('samhsa_pep_stock.pep_stock_utility')
       ->getOrderItemTransactionInfo($entity);
+
     if (isset($location_level[0]['location_id'])) {
       $location_id = $location_level[0]['location_id'];
     }
-    $message = $location_level[0]['data']['message'] . "/" . $uid;
-    $location_level[0]['data']['message'] = $message;
-    $transaction_id = $location_level[0]['id'];
+    if (isset($location_level)) {
+      if (isset($location_level[0]['data'])) {
+        $message = $location_level[0]['data']['message'] . "/" . $uid;
+        $location_level[0]['data']['message'] = $message;
+      }
+      if (isset($location_level[0])) {
+        $transaction_id = $location_level[0]['id'];
+      }
+    }
 
-    /*\Drupal::logger('samhsa_pep_stock:location_id')
-        ->info($location_id);
-    \Drupal::logger('samhsa_pep_stock:transaction_id')
-        ->info($transaction_id);
-    \Drupal::logger('samhsa_pep_stock:message')
-        ->info($message);
-    \Drupal::logger('samhsa_pep_stock:variation_id')
-        ->info($variation_id);
-    \Drupal::logger('samhsa_pep_stock:uid')
-        ->info($uid);
-    \Drupal::logger('samhsa_pep_stock:entity_type')
-        ->info($entity_type);
-    */
-    \Drupal::database()->update('commerce_stock_transaction')
-      ->condition('entity_id', $variation_id, '=')
-      ->condition('id', $transaction_id, '=')
-      ->condition('location_id', $location_id, '=')
-      ->fields([
-        'data' => serialize($location_level[0]['data']),
-      ])
-      ->execute();
+    if (isset($location_id) && !empty($location_id) && isset($transaction_id)) {
+      \Drupal::database()->update('commerce_stock_transaction')
+        ->condition('entity_id', $variation_id, '=')
+        ->condition('id', $transaction_id, '=')
+        ->condition('location_id', $location_id, '=')
+        ->fields([
+          'data' => serialize($location_level[0]['data']),
+        ])
+        ->execute();
+    }
   }
 }
