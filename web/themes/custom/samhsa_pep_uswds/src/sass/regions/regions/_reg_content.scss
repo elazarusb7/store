@@ -11,7 +11,10 @@
 // Content Columns
 //==========================================================================
 
-@include breakpoint ($break-mobile-landscape){
+
+
+
+@include breakpoint ($max-width-mobile-landscape){
   .region--content{
     //@include grid-span(12, 1);
   }
@@ -21,9 +24,20 @@
   .with--sidebar-first.without--sidebar-second{   
     .region--content{
       //@include grid-span(9, 4);
+      width: 75%;
+      float: right;
+      margin-left: 0;
+      margin-right: 0;
+      clear: none;
+      padding-right: 0;
     }
     .region--sidebar-first{
       //@include grid-span(3, 1);
+      width: 25%;
+      float: left;
+      margin-right: -100%;
+      clear: none;
+      padding-right: 14px;
     }
   }
 

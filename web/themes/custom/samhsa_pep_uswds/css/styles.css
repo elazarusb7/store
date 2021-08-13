@@ -4452,6 +4452,9 @@ ul.list--bulletless li {
 .tabs ul.tabs.primary li {
   display: block;
 }
+.tabs ul.tabs.primary li a {
+  text-decoration: none;
+}
 .tabs ul.tabs.primary li.is-active a {
   padding: 7px 14px;
 }
@@ -4572,6 +4575,7 @@ ul.list--bulletless li {
   padding: 0.75em;
   color: #000000;
   font-weight: normal;
+  text-decoration: none;
 }
 .side-menu .menu-item--active-trail > a,
 .side-menu a.is-active {
@@ -5785,7 +5789,23 @@ button.collapse-region.active .collaspse--label:before {
   background-color: #FFFFFF;
 }
 
-@media (min-width: 624px) and (max-width: 767px) {
+@media (min-width: 624px) {
+  .with--sidebar-first.without--sidebar-second .region--content {
+    width: 75%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0;
+  }
+  .with--sidebar-first.without--sidebar-second .region--sidebar-first {
+    width: 25%;
+    float: left;
+    margin-right: -100%;
+    clear: none;
+    padding-right: 14px;
+  }
+
   .with--sidebar-first.with--sidebar-second .region--sidebar-second {
     clear: both;
   }
