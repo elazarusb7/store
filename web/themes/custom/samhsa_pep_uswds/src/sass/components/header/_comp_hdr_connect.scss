@@ -15,3 +15,30 @@
     text-indent: -999em;
   }
 }
+
+.block-samhsa-uswds-base-sharebuttons {
+
+  ul.share-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    list-style-type: none;
+
+    li {
+      margin-left: 5px;
+
+      a {
+        svg {
+          font-size: 26px;
+          fill: $color-midnight-60;
+          height: 28px;
+
+          &:hover {
+            fill: $color-sapphite;
+          }
+        }
+      }
+    }
+  }
+}
