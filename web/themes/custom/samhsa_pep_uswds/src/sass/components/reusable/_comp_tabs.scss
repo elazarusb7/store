@@ -20,12 +20,17 @@
 
 .tabs {
   ul.tabs.primary {
+
     margin-left: 0;
     li {
       display: block;
+      a {
+      text-decoration: none;
+      }
       &.is-active {
         a {
           padding: math.div($gutters,2) $gutters;
+          
         }
         a.is-active {
           color: black;
