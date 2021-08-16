@@ -989,7 +989,8 @@ function samhsa_pep_stock_commerce_order_postsave(EntityInterface $entity, $op) 
     }
   }
 
-  $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_admin_orders_helper');
+  //$tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_admin_orders_helper');
+  $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_admin_orders_helper');
   $is_internal = $tempstore->get('is_order_internal');
   //\Drupal::logger('samhsa_pep_stock:is_internal')->info($is_internal);
 

@@ -35,7 +35,9 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
         $selectedItems = array_map(function ($listItem) {
             return reset($listItem);
         }, $this->context['list']);
-        $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
+        //$tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility')
+        $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
+
         $tempstore->set('list', $selectedItems);
 
         if(is_array($selectedItems) && count($selectedItems)>0) {
@@ -71,7 +73,9 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
      */
     public function submitConfigurationForm(array &$form, FormStateInterface $form_state)
     {
-        $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
+        //$tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
+        $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
+
         $selectedItems = $tempstore->get('list');
         $reasons = array();
         foreach($selectedItems as $key => $id) {
@@ -97,7 +101,8 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
             //user who canceled the order
             $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
             $username = $user->getAccountName();
-            $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
+            //$tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
+            $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
             $reason = $tempstore->get('reason');
             $reasons = $tempstore->get('reasons');
             if(is_array($reasons) && count($reasons)>0){
