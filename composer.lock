@@ -4409,17 +4409,17 @@
         },
         {
             "name": "drupal/commerce_invoice",
-            "version": "2.0.0-beta3",
+            "version": "2.0.0-beta4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_invoice.git",
-                "reference": "8.x-2.0-beta3"
+                "reference": "8.x-2.0-beta4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_invoice-8.x-2.0-beta3.zip",
-                "reference": "8.x-2.0-beta3",
-                "shasum": "89028a8ea5ef6aed75498dc640f5eebedeea2897"
+                "url": "https://ftp.drupal.org/files/projects/commerce_invoice-8.x-2.0-beta4.zip",
+                "reference": "8.x-2.0-beta4",
+                "shasum": "29cf7399ba6ffc47a4af8dc9d9e7b67627908803"
             },
             "require": {
                 "drupal/commerce": "^2.15",
@@ -4436,8 +4436,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.0-beta3",
-                    "datestamp": "1596452052",
+                    "version": "8.x-2.0-beta4",
+                    "datestamp": "1628680431",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -11142,17 +11142,17 @@
         },
         {
             "name": "drupal/modal_page",
-            "version": "4.1.1",
+            "version": "4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/modal_page.git",
-                "reference": "4.1.1"
+                "reference": "4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/modal_page-4.1.1.zip",
-                "reference": "4.1.1",
-                "shasum": "14d6c5ede84b2003317cb14f4c66b320fccfb759"
+                "url": "https://ftp.drupal.org/files/projects/modal_page-4.1.2.zip",
+                "reference": "4.1.2",
+                "shasum": "a6fa52fd2e1f5a2169c2ccbadf43ff54d2bb3407"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -11160,8 +11160,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.1.1",
-                    "datestamp": "1628137541",
+                    "version": "4.1.2",
+                    "datestamp": "1628622149",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12916,17 +12916,17 @@
         },
         {
             "name": "drupal/search_api_solr",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_solr.git",
-                "reference": "4.2.0"
+                "reference": "4.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.2.0.zip",
-                "reference": "4.2.0",
-                "shasum": "ebdd5e5fdb0169207f544e2e5600bb8bc566f420"
+                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.2.1.zip",
+                "reference": "4.2.1",
+                "shasum": "54e40c7ce41cef8edfb92807f87db06b0b13e9c8"
             },
             "require": {
                 "composer/semver": "^1.0|^3.0",
@@ -12939,7 +12939,7 @@
                 "laminas/laminas-stdlib": "^3.2",
                 "maennchen/zipstream-php": "^1.2|^2.0",
                 "php": "^7.3|^8.0",
-                "solarium/solarium": "^6.1.3"
+                "solarium/solarium": "^6.1.5"
             },
             "conflict": {
                 "drupal/acquia_search_solr": "<1.0.0-beta8",
@@ -12965,8 +12965,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.2.0",
-                    "datestamp": "1624552136",
+                    "version": "4.2.1",
+                    "datestamp": "1628871708",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -14595,22 +14595,22 @@
         },
         {
             "name": "drupal/upgrade_status",
-            "version": "3.8.0",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/upgrade_status.git",
-                "reference": "8.x-3.8"
+                "reference": "8.x-3.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/upgrade_status-8.x-3.8.zip",
-                "reference": "8.x-3.8",
-                "shasum": "76e0893e6f8e1a4fd99f8a935f414c0f242d0620"
+                "url": "https://ftp.drupal.org/files/projects/upgrade_status-8.x-3.9.zip",
+                "reference": "8.x-3.9",
+                "shasum": "5a0c33e882d72ac8d1ac28d68013937fcdced6cd"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
                 "mathieuviossat/arraytotexttable": "~1.0.0",
-                "mglaman/phpstan-drupal": "^0.12.11",
+                "mglaman/phpstan-drupal": "^0.12.12",
                 "nikic/php-parser": "^4.0.0",
                 "phpstan/phpstan-deprecation-rules": "^0.12.0",
                 "webflo/drupal-finder": "^1.2"
@@ -14618,8 +14618,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.8",
-                    "datestamp": "1626775913",
+                    "version": "8.x-3.9",
+                    "datestamp": "1628707640",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19821,16 +19821,16 @@
         },
         {
             "name": "solarium/solarium",
-            "version": "6.1.4",
+            "version": "6.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/solariumphp/solarium.git",
-                "reference": "6265dc4484c433325a3f71871ea8e2a2247d27fa"
+                "reference": "beec496540c3d227201c556729d2c61d1c1f8ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/solariumphp/solarium/zipball/6265dc4484c433325a3f71871ea8e2a2247d27fa",
-                "reference": "6265dc4484c433325a3f71871ea8e2a2247d27fa",
+                "url": "https://api.github.com/repos/solariumphp/solarium/zipball/beec496540c3d227201c556729d2c61d1c1f8ab1",
+                "reference": "beec496540c3d227201c556729d2c61d1c1f8ab1",
                 "shasum": ""
             },
             "require": {
@@ -19878,9 +19878,9 @@
             ],
             "support": {
                 "issues": "https://github.com/solariumphp/solarium/issues",
-                "source": "https://github.com/solariumphp/solarium/tree/6.1.4"
+                "source": "https://github.com/solariumphp/solarium/tree/6.1.5"
             },
-            "time": "2021-07-06T10:45:42+00:00"
+            "time": "2021-08-12T15:28:32+00:00"
         },
         {
             "name": "stack/builder",
