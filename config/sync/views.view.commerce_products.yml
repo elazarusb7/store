@@ -1548,6 +1548,7 @@ display:
     display_options:
       display_extenders:
         mobile_device_detection: {  }
+        metatag_display_extender: {  }
       display_description: ''
       style:
         type: data_export
@@ -1567,12 +1568,14 @@ display:
         page_1: page_1
         default: '0'
       path: admin/products/export
-      filename: ''
+      filename: 'products_[date:custom:Y-m-d--H_i_s].csv'
       automatic_download: false
       store_in_public_file_directory: false
-      redirect_to_display: none
+      redirect_to_display: page_1
       custom_redirect_path: false
-      include_query_params: false
+      include_query_params: true
+      export_method: batch
+      export_batch_size: 200
     cache_metadata:
       max-age: 0
       contexts:
