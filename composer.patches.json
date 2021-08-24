@@ -23,8 +23,7 @@
       "Menu item roles are not exported correctly": "_patches/export-menu-item-roles-3064238-2.patch"
     },
     "drupal/commerce_reports": {
-      "Fix Commerce Stock Uninstall Validation script": "_patches/commerce_reports_fix_get_onnull_error.patch",
-      "D9 Compatible": "_patches/commerce_reports-d9compat-3167290-12.patch"
+      "Fix Commerce Stock Uninstall Validation script": "_patches/commerce_reports_fix_get_onnull_error.patch"
     },
     "drupal/mobile_device_detection": {
       "Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
