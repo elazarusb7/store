@@ -382,15 +382,15 @@ $tween-break-high: 54em;
           line-height: 20px;
           &:hover {
             background: $lighter-gray;
-            color: $red;
+            color: $red-dark;
           }
           &:focus {
             background: $lighter-gray;
-            color: $red;
+            color: $red-dark;
           }
           &:active {
             background: $lighter-gray;
-            color: $red;
+            color: $red-dark;
           }
         }
         li {
