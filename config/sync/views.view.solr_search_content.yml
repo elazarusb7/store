@@ -1285,7 +1285,7 @@ display:
               warehouse_manager: '0'
               warehouse_clerk: '0'
               site_manager: '0'
-            placeholder: 'e.g., substance use, adolescent, survey'
+            placeholder: 'e.g., substance use'
             expose_fields: false
             searched_fields_id: ''
             autocomplete_filter: 0
@@ -2013,7 +2013,7 @@ display:
               warehouse_manager: '0'
               warehouse_clerk: '0'
               site_manager: '0'
-            placeholder: 'e.g., substance use, adolescent, survey'
+            placeholder: 'e.g., substance use'
             expose_fields: false
             searched_fields_id: ''
             autocomplete_filter: 0
