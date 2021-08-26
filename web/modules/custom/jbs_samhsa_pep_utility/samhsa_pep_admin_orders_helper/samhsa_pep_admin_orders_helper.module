@@ -429,6 +429,9 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, \Drupal\Core\Form\For
       case 'order_information':
         $form['shipping_information']['#title'] = t('Shipping Address');
         $form['billing_information']['#title'] = t('Mailing Information');
+        // Todo: Remove this line once Commerce module security is resolved.
+        // To completely remove the edit button from the page.
+        unset($form['shipping_information']['shipping_profile']['edit_button']);
         break;
       case 'complete':
         //remove warning about session expiration on the order complete page
