@@ -109,9 +109,9 @@ label {
 select {
   max-width: 100%;
   appearance: none;
-  padding: math.div($gutters,2) $gutters*2.5 math.div($gutters, 2) math.div($gutters, 1.5);
+  padding: math.div($gutters,2) $gutters*2.5 math.div($gutters, 2) math.div($gutters, 1.5) !important;
   position: relative;
-  background-image: url("../../images/select_arrow.svg");
+  background-image: url("../assets/img/select_arrow.svg");
   background-repeat: no-repeat;
   background-position: right 10px center;
   border-radius: $base-border-radius;
