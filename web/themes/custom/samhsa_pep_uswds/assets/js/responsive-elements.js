@@ -40,7 +40,7 @@ var ResponsiveElements = {
 			};
 			self.events();
 		}
-		document.addEventListener("DOMContentLoaded", function() { 
+		document.addEventListener("DOMContentLoaded", function() {
 			onloadStuff();
 		}, self);
 	},
@@ -80,7 +80,6 @@ var ResponsiveElements = {
 		}
 	},
 	generateBreakpointsOnElement: function(_el) {
-		console.log(_el);
 		var options_string = _el.getAttribute(this.elementsAttributeName),
 			options = this.parseOptions(options_string) || this.defaults,
 			breakpoints = this.generateBreakpoints(_el.clientWidth, options);
