@@ -177,7 +177,7 @@ $tween-break-high: 54em;
     .locator-icon, .locator-icon:hover, .locator-icon:focus {
       display: inline-block;
       padding-left: 25px;
-      background-image: url('../../images/locatorsm.png');
+      background-image: url('../assets/img/locatorsm.png');
       background-position: 0px 14px;
       background-repeat: no-repeat;
     }
@@ -424,7 +424,7 @@ $tween-break-high: 54em;
         a {
           display: inline-block;
           padding-left: 25px;
-          background-image: url('../..//images/locatorsm.png');
+          background-image: url('../assets/img/locatorsm.png');
           background-position: 0px 14px;
           background-repeat: no-repeat;
         }
@@ -662,7 +662,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
     .locator-icon, .locator-icon:hover, .locator-icon:focus {
       display: inline-block;
       padding-left: 25px;
-      background-image: url('../../images/locatorsm.png');
+      background-image: url('../assets/img/locatorsm.png');
       background-position: 0px 14px;
       background-repeat: no-repeat;
     }
@@ -829,7 +829,7 @@ a.dl-back-link:before {
  // content: "\f053";
   padding-right: 10px;
   color: #1f419a!important;
-  background: transparent url(../../images/left-arrow.png) 12px 12px no-repeat;
+  background: transparent url("../assets/img/left-arrow.png") 12px 12px no-repeat;
 }
 a.dl-close-link:after {
   position: absolute;
@@ -844,7 +844,7 @@ a.dl-close-link:after {
   text-align: center;
   right: 0;
   width: 44px;
-  background: transparent url(../../images/close.png) 16px 12px no-repeat;
+  background: transparent url("../assets/img/close.png") 16px 12px no-repeat;
   height: 50px;
 }
 .dl-menuwrapper li.dl-back:after,
@@ -876,7 +876,7 @@ a.dl-close-link:after {
   right: 0;
   width: 44px;
   height: 50px;
-  background: transparent url(../../images/right-arrow.png) 16px 12px no-repeat;
+  background: transparent url("../assets/img/right-arrow.png") 16px 12px no-repeat;
 }
 .dl-menuwrapper li.dl-back:after {
   left: 10px;
@@ -1571,7 +1571,7 @@ All this is done for any sub-level being entered.
 .dl-menu li.first ul.dl-menu--2 li.leaf a {
   display: block;
   padding-left: 35px;
-  background-image: url(../../images/locatorsm.png);
+  background-image: url('../assets/img/locatorsm.png');
   background-position: 14px 16px;
   background-repeat: no-repeat;
 }
