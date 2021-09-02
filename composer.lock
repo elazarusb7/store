@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63f0b763674548ca79733028a5486052",
+    "content-hash": "fc80ce3ee481c6aa4fb0b329f626367b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3860,30 +3860,27 @@
         },
         {
             "name": "drupal/ckeditor_youtube",
-            "version": "1.3.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ckeditor_youtube.git",
-                "reference": "8.x-1.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor_youtube-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "18b5da4328c3ffee5b3c9b280e48d6195c519c54"
+                "reference": "5fdd55ede97187e04016f9dabf72df6f20180567"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1587581152",
+                    "version": "8.x-1.2+1-dev",
+                    "datestamp": "1587580963",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -12131,69 +12128,6 @@
             "homepage": "http://drupal.org/project/physical",
             "support": {
                 "source": "https://git.drupalcode.org/project/physical"
-            }
-        },
-        {
-            "name": "drupal/plugin",
-            "version": "2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/plugin.git",
-                "reference": "8.x-2.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/plugin-8.x-2.8.zip",
-                "reference": "8.x-2.8",
-                "shasum": "dc97912f7982fc87d905d32167e90c13d7d44093"
-            },
-            "require": {
-                "drupal/core": "^8.7.7 || ^9",
-                "php": "~7.1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.8",
-                    "datestamp": "1595360847",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Drupal\\plugin\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Drupal\\Tests\\plugin\\": "tests/src"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Berdir",
-                    "homepage": "https://www.drupal.org/user/214652"
-                },
-                {
-                    "name": "bradjones1",
-                    "homepage": "https://www.drupal.org/user/405824"
-                },
-                {
-                    "name": "joachim",
-                    "homepage": "https://www.drupal.org/user/107701"
-                }
-            ],
-            "description": "Provides tools that extend Drupal's plugin system.",
-            "homepage": "https://www.drupal.org/project/plugin",
-            "support": {
-                "source": "https://git.drupalcode.org/project/plugin"
             }
         },
         {
@@ -26742,6 +26676,7 @@
         "drupal/better_exposed_filters": 10,
         "drupal/block_class": 15,
         "drupal/block_field": 5,
+        "drupal/ckeditor_youtube": 20,
         "drupal/comment_notify": 10,
         "drupal/commerce_fedex": 10,
         "drupal/commerce_paypal": 5,
