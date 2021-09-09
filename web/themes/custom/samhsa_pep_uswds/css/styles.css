@@ -2009,6 +2009,7 @@ ul.tabs.primary li {
   min-height: 41px;
   display: flex;
   display: -webkit-box !important;
+  -webkit-box-pack: justify;
   justify-content: space-between;
 }
 .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
