@@ -13,7 +13,7 @@
   #block-subsitetitleinner  {
     margin-bottom: math.div($gutters, 4) ;
   }
-  #block-storenavigation {
+  #block-storenavigation-2 {
     margin-top: $gutters;
     @include breakpoint($max-width-mobile-portrait-large) {
       margin-top: math.div($gutters, 2);
@@ -55,7 +55,7 @@
       -ms-grid-row-align: start;
       padding-top: 11px;
     }
-    #block-storenavigation {
+    #block-storenavigation-2 {
       grid-column: 1 / 4;
       grid-row: 3 / 4;
     }
@@ -81,7 +81,7 @@
         -ms-grid-row-align: start;
         padding-top: 11px;
       }
-      #block-storenavigation {
+      #block-storenavigation-2 {
         grid-column: 1 / 4;
         grid-row: 3 / 4;
     }
@@ -102,7 +102,7 @@
       grid-column: 3 / 4;
       grid-row: 1 / 2;
     }
-    #block-storenavigation {
+    #block-storenavigation-2 {
       grid-column: 1 / 4;
       grid-row: 3 / 4;
     }

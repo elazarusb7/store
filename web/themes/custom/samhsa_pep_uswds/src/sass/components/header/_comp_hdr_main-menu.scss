@@ -257,6 +257,7 @@ $tween-break-high: 54em;
     min-height: 41px;
     display: flex;
     display: -webkit-box!important;
+    -webkit-box-pack: justify;
     justify-content: space-between;
     li.sf-depth-1 {
       a.sf-depth-1, a.sf-depth-1.sf-with-ul {
