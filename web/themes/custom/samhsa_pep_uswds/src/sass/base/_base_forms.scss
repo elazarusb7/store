@@ -91,6 +91,12 @@ border-radius: 0;
 -webkit-box-shadow: none;
 box-shadow: none;
  }
+
+input:focus, textarea:focus {
+    border-color: #3b99fc !important;
+    box-shadow: 0 0 5px rgb(59 153 252 / 70%) !important;
+    outline: none !important;
+}
  
 
 .button, button:not(.toolbar-icon), input[type=reset], input[type=submit] {
