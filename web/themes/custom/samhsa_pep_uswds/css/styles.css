@@ -6033,16 +6033,16 @@ button.collapse-region.active .collaspse--label:before {
 .region--preface-third #block-subsitetitleinner {
   margin-bottom: 3.5px;
 }
-.region--preface-third #block-storenavigation {
+.region--preface-third #block-storenavigation-2 {
   margin-top: 14px;
 }
 @media (min-width: 524px) {
-  .region--preface-third #block-storenavigation {
+  .region--preface-third #block-storenavigation-2 {
     margin-top: 7px;
   }
 }
 @media (min-width: 768px) {
-  .region--preface-third #block-storenavigation {
+  .region--preface-third #block-storenavigation-2 {
     margin-top: 3.5px;
   }
 }
@@ -6083,7 +6083,7 @@ button.collapse-region.active .collaspse--label:before {
     -ms-grid-row-align: start;
     padding-top: 11px;
   }
-  .region--preface-third #block-storenavigation {
+  .region--preface-third #block-storenavigation-2 {
     grid-column: 1/4;
     grid-row: 3/4;
   }
@@ -6108,7 +6108,7 @@ button.collapse-region.active .collaspse--label:before {
     -ms-grid-row-align: start;
     padding-top: 11px;
   }
-  body:not(.path-frontpage) .region--preface-third #block-storenavigation {
+  body:not(.path-frontpage) .region--preface-third #block-storenavigation-2 {
     grid-column: 1/4;
     grid-row: 3/4;
   }
@@ -6130,7 +6130,7 @@ button.collapse-region.active .collaspse--label:before {
     grid-column: 3/4;
     grid-row: 1/2;
   }
-  .region--preface-third #block-storenavigation {
+  .region--preface-third #block-storenavigation-2 {
     grid-column: 1/4;
     grid-row: 3/4;
   }
