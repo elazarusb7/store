@@ -3437,6 +3437,11 @@ body:not(.path-frontpage) .program-title {
   color: #1E384B;
   margin-bottom: 15px;
 }
+@media only screen and (max-width: 768px) {
+  body:not(.path-frontpage) .program-title {
+    font-size: 5.25vw;
+  }
+}
 
 .region--preface-third {
   background: white;
