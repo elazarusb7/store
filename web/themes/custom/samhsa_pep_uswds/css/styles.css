@@ -1088,6 +1088,12 @@ select {
   box-shadow: none;
 }
 
+input:focus, textarea:focus {
+  border-color: #3b99fc !important;
+  box-shadow: 0 0 5px rgba(59, 153, 252, 0.7) !important;
+  outline: none !important;
+}
+
 .button, button:not(.toolbar-icon), input[type=reset], input[type=submit] {
   height: 38px;
   transition: background-color 150ms ease;
