@@ -279,7 +279,8 @@ function lookupToRedirects($pid, $current_alias) {
     while ($record = $redirects->fetchAssoc()) {
       $redirect_list[] = $record;
     }
-    $list = _redirect_from_list_table($redirect_list, $header, $destination, $lang);
+    //$list = _redirect_from_list_table($redirect_list, $header, $destination, $lang);
+    $list = _redirect_from_list_table($redirect_list, $header, $destination, '');
     return $list;
   }
   return [];
@@ -305,7 +306,8 @@ function lookupFromRedirects($pid, $current_alias) {
     while ($record = $redirects->fetchAssoc()) {
       $redirect_list[] = $record;
     }
-    return _redirect_to_list_table($redirect_list, $header, $destination, $lang);
+    //return _redirect_to_list_table($redirect_list, $header, $destination, $lang);
+    return _redirect_to_list_table($redirect_list, $header, $destination, '');
   }
   return [];
 }

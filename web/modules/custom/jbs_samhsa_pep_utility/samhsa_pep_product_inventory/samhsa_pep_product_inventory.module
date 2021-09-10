@@ -10,26 +10,28 @@ use Drupal\views\Views;
  */
 function samhsa_pep_product_inventory_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == "views_exposed_form" && $form['#id'] == "views-exposed-form-commerce-products-page-1") {
-    $options = $form['field_samhsa_digital_download_target_id_op']['#options'];
-    //build another options list
-    $new_options = [];
-    $new_options['<'] = 'With or Without Digital Downloads';
-    $form['field_samhsa_digital_download_target_id_op']['#title'] = t("Digital Downloads");
-    foreach ($options as $key => $value) {
-      if ($key == 'empty' || $key == 'not empty') {
-        switch ($key) {
-          case 'empty':
-            $value = 'Without Digital Download(s)';
-            break;
-          case 'not empty':
-            $value = 'With Digital Download(s)';
-            break;
+    if (isset($form['field_samhsa_digital_download_target_id_op'])) {
+      $options = $form['field_samhsa_digital_download_target_id_op']['#options'];
+      //build another options list
+      $new_options = [];
+      $new_options['<'] = 'With or Without Digital Downloads';
+      $form['field_samhsa_digital_download_target_id_op']['#title'] = t("Digital Downloads");
+      foreach ($options as $key => $value) {
+        if ($key == 'empty' || $key == 'not empty') {
+          switch ($key) {
+            case 'empty':
+              $value = 'Without Digital Download(s)';
+              break;
+            case 'not empty':
+              $value = 'With Digital Download(s)';
+              break;
+          }
+          $new_options[$key] = $value;
         }
-        $new_options[$key] = $value;
       }
+      $form['field_samhsa_digital_download_target_id_op']['#options'] = $new_options;
+      $form['field_samhsa_digital_download_target_id']['value']['#type'] = 'hidden';
     }
-    $form['field_samhsa_digital_download_target_id_op']['#options'] = $new_options;
-    $form['field_samhsa_digital_download_target_id']['value']['#type'] = 'hidden';
   }
 
   if ($form_id == "views_exposed_form" && $form['#id'] == "views-exposed-form-product-inventory-report-page-1") {
