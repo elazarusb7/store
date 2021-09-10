@@ -8,7 +8,8 @@
     }
   }
   body:not(.path-frontpage) & {
-    font-size: 1.75rem;
+    font-size: 24px;
+    //font-size: 1.75rem;
     // @include fluid-type(font-size, 320px, 600px, 17px, 24px);
     // font-size: 2.4rem;
     //@include responsive-font(5.25vw, 17px, 24px);
@@ -16,6 +17,10 @@
     font-weight: bold;
     color: $blue-gray;
     margin-bottom: 15px;
+
+    @media only screen and (max-width:$max-width-tablet-portrait) {
+      font-size: 5.25vw;
+    }
   }
 }
 
