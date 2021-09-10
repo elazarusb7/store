@@ -102,7 +102,7 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
           }
         }
         $build['field_may_be_interested_manual'] = array_values($build['field_may_be_interested_manual']);
-        
+
         $build['field_may_be_interested_manual']['#theme'] = 'field';
         $build['field_may_be_interested_manual']['#title'] = 'You May Also Be Interested In';
         $build['field_may_be_interested_manual']['#label_display'] = 'above';
@@ -116,7 +116,7 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
         $build['field_may_be_interested_manual']['#object'] = $entity;
         $build['field_may_be_interested_manual']['#formatter'] = 'entity_reference_label';
         $build['field_may_be_interested_manual']['#is_multiple'] = true;
-        $build['field_may_be_interested_manual']['#weight'] = 21;    
+        $build['field_may_be_interested_manual']['#weight'] = 21;
       }
     }
   }
@@ -156,7 +156,7 @@ function track_product($session, $eventTableName, $pid) {
 
 function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $manualRecommendations) {
   $pairs = array();
-  
+
   if (!empty($tableName) && !empty($numberOfRecommendations)) {
     try {
       $query = \Drupal::database()->select($tableName, 't');
@@ -171,7 +171,7 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       $query->innerJoin('commerce_product_field_data', 'pdata2', 'pdata2.product_id = t.p2');
       $query->condition('pdata1.status', 1, '=');
       $query->condition('pdata2.status', 1, '=');
-      
+
       if (!empty($manualRecommendations)) {
         $query->condition('p1', array_keys($manualRecommendations), 'NOT IN');
         $query->condition('p2', array_keys($manualRecommendations), 'NOT IN');
@@ -179,7 +179,7 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       $query->orderBy('score', 'DESC');
       $query->range(0, $numberOfRecommendations);
       $result = $query->execute()->fetchAll();
-      
+
       foreach ($result as $p => $product) {
         $pairs[($product->p1 == $pid ? $product->p2 : $product->p1)] = (float) $product->score;
       }
@@ -207,16 +207,16 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
       $queryString = '';
       for ($i = 0; $i < count($commerceTables); $i++) {
           // Testing each product for published status is performed by the JOIN and associated WHERE condition
-          $queryString .= '(SELECT t' . $i . '.* FROM {'. $prefix . $commerceTables[$i] . '} AS t' . $i . 
-                          ' LEFT JOIN commerce_product_field_data AS pdata' . $i . ' ON pdata' . $i . '.product_id = t' .$i . '.entity_id ' . 
+          $queryString .= '(SELECT t' . $i . '.* FROM {'. $prefix . $commerceTables[$i] . '} AS t' . $i .
+                          ' LEFT JOIN commerce_product_field_data AS pdata' . $i . ' ON pdata' . $i . '.product_id = t' .$i . '.entity_id ' .
                           'WHERE pdata' . $i . '.status = 1) ' . ($i < count($commerceTables) - 1 ? 'UNION ALL ' : '');
       }
       return '(' . $queryString . ') ';
     })($commerceTables);
-    
+
     try {
       $queryTaxonomies = $db->query('SELECT DISTINCT field_tags_target_id AS taxonomy_term, entity_id FROM (' . t($union) . 'AS taxonomies) WHERE entity_id=:id', [':id' => $pid]);
-      
+
       $taxonomies = (function($queryTaxonomies) {
         $result = array();
         $response = $queryTaxonomies->fetchAll();
@@ -225,20 +225,20 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
         }
         return $result;
       })($queryTaxonomies);
-      
+
       $queryLanguage = $db->query('SELECT field_pub_lang_value FROM {commerce_product__field_pub_lang} where entity_id=:id', [':id' => $pid]);
       $language = (function($queryLanguage) {
         $result = array();
         $response = $queryLanguage->fetchAll();
         return (!empty($response) ? $response[0]->field_pub_lang_value : 'EN');
       })($queryLanguage);
-      
+
       $queryRanking = $db->queryRange(
         'SELECT entity_id, COUNT(*) AS count FROM ' .
-        '(SELECT entity_id, field_tags_target_id, field_pub_lang_value FROM ' . 
+        '(SELECT entity_id, field_tags_target_id, field_pub_lang_value FROM ' .
         '(SELECT category.*, (SELECT lang.field_pub_lang_value FROM {commerce_product__field_pub_lang} AS lang ' .
-        'WHERE lang.entity_id=category.entity_id) AS field_pub_lang_value FROM ' . 
-        '(' . t($union) . ') AS category) AS combined_result WHERE field_pub_lang_value=:lang OR field_pub_lang_value IS NULL) AS taxonomies ' . 
+        'WHERE lang.entity_id=category.entity_id) AS field_pub_lang_value FROM ' .
+        '(' . t($union) . ') AS category) AS combined_result WHERE field_pub_lang_value=:lang OR field_pub_lang_value IS NULL) AS taxonomies ' .
         'WHERE field_tags_target_id IN (:taxonomies[]) AND entity_id<>:id ' .
         (!empty($ignoreProducts) ? t('AND entity_id NOT IN (:ignore[])') : t('')) . ' GROUP BY entity_id ORDER BY count DESC',
         0, $numberOfRecommendations,
@@ -249,11 +249,11 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
           ':ignore[]' => $ignoreProducts
         ]);
       $result = $queryRanking->fetchAll();
-      
+
       foreach ($result as $p => $product) {
         $related[$product->entity_id] = $product->count;
       }
-      
+
     } catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: queries failed in get_products_from_related_taxonomy() for product with id ' . $pid . '.');
