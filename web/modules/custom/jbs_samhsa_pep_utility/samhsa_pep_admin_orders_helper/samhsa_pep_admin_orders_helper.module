@@ -709,11 +709,13 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, \Drupal\Core\Form\For
       $form['#id'] == 'views-exposed-form-commerce-orders-page-1')){
 
     $form['#validate'][] = "_custom_exposed_admin_order_validate";
-    if(isset($form['placed'])) {
-      $form['placed']['max']['#title'] = t('End Date');
+    if(isset($form['placed_wrapper']['placed'])) {
+      $form['placed_wrapper']['placed']['min']['#title'] = t('Start Date');
+      $form['placed_wrapper']['placed']['max']['#title'] = t('End Date');
     }
-    if(isset($form['changed'])) {
-      $form['changed']['max']['#title'] = t('End Date');
+    if(isset($form['changed_wrapper']['changed'])) {
+      $form['changed_wrapper']['changed']['min']['#title'] = t('Start Date');
+      $form['changed_wrapper']['changed']['max']['#title'] = t('End Date');
     }
     $form['address_administrative_area']['#options']['All'] = '- Select State -';
 
@@ -721,11 +723,13 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, \Drupal\Core\Form\For
 
   if ($form_id == "views_exposed_form" &&
     $form['#id'] == 'views-exposed-form-order-information-report-page-1'){
-    if(isset($form['placed'])) {
-      $form['placed']['max']['#title'] = t('Placed End Date');
+    if(isset($form['placed_wrapper']['placed'])) {
+      $form['placed_wrapper']['placed']['min']['#title'] = t('Placed Start Date');
+      $form['placed_wrapper']['placed']['max']['#title'] = t('Placed End Date');
     }
-    if(isset($form['completed'])) {
-      $form['completed']['max']['#title'] = t('Completed End Date');
+    if(isset($form['completed_wrapper']['completed'])) {
+      $form['completed_wrapper']['completed']['min']['#title'] = t('Completed Start Date');
+      $form['completed_wrapper']['completed']['max']['#title'] = t('Completed End Date');
     }
   }
 }

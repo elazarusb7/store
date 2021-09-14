@@ -35,7 +35,8 @@ function samhsa_pep_product_inventory_form_alter(&$form, FormStateInterface $for
   }
 
   if ($form_id == "views_exposed_form" && $form['#id'] == "views-exposed-form-product-inventory-report-page-1") {
-    $form['placed']['max']['#title'] = t('End Date');
+    $form['placed_wrapper']['placed']['min']['#title'] = t('Start Date');
+    $form['placed_wrapper']['placed']['max']['#title'] = t('End Date');
     $form['#validate'][] = "_custom_product_inventory_exposed_admin_order_validate";
   }
 }
