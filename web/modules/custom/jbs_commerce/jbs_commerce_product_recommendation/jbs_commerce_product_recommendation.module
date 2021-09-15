@@ -148,7 +148,7 @@ function track_product($session, $eventTableName, $pid) {
         ->execute();
     } catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
-        ->info('Error: could not log event in track_product() for product with id ' . $pid . '.');
+        ->info('Error: could not log event in track_product() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
   }
   $session->set('previous_product', $pid);
@@ -185,7 +185,7 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       }
     } catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
-        ->info('Error: queries failed in get_products_from_pairs() product with id ' . $pid . '.');
+        ->info('Error: queries failed in get_products_from_pairs() product with id ' . $pid . '.<br />' . $e->getMessage());
     }
   }
   return $pairs;
@@ -256,7 +256,7 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
 
     } catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
-        ->info('Error: queries failed in get_products_from_related_taxonomy() for product with id ' . $pid . '.');
+        ->info('Error: queries failed in get_products_from_related_taxonomy() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
   }
   return $related;
