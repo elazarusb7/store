@@ -23,8 +23,9 @@ function samhsa_pep_stock_form_alter(&$form, FormStateInterface $form_state, $fo
 
   if ($form_id == "views_exposed_form" &&
     (strpos($form['#id'], "views-exposed-form-publication-stock-transactions-page-1") !== FALSE)){
-    if(isset($form['transaction_time'])) {
-      $form['transaction_time']['max']['#title'] = t('Transaction End Date');
+    if(isset($form['transaction_time_wrapper']['transaction_time'])) {
+      $form['transaction_time_wrapper']['transaction_time']['min']['#title'] = t('Start Date');
+      $form['transaction_time_wrapper']['transaction_time']['max']['#title'] = t('End Date');
     }
   }
 

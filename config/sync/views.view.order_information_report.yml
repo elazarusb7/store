@@ -1170,8 +1170,8 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
             placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
+            min_placeholder: mm/dd/yyyy
+            max_placeholder: mm/dd/yyyy
           is_grouped: false
           group_info:
             label: ''
@@ -1222,8 +1222,8 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
             placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
+            min_placeholder: mm/dd/yyyy
+            max_placeholder: mm/dd/yyyy
           is_grouped: false
           group_info:
             label: ''
