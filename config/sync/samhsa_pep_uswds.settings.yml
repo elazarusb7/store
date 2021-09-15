@@ -7,7 +7,9 @@ features:
 logo:
   use_default: 1
 favicon:
-  use_default: 1
+  use_default: 0
+  path: themes/custom/samhsa_pep_uswds/favicon.ico
+  mimetype: image/vnd.microsoft.icon
 cdn_provider: ''
 cdn_custom_img: 'https://cdn.jsdelivr.net/npm/uswds@2.10.0/dist/img'
 cdn_custom_css: 'https://cdn.jsdelivr.net/npm/uswds@2.10.0/dist/css/uswds.css'
