@@ -93,9 +93,14 @@ box-shadow: none;
  }
 
 input:focus, textarea:focus {
-    border-color: #3b99fc !important;
+    border-color: $highlight-blue !important;
     box-shadow: 0 0 5px rgb(59 153 252 / 70%) !important;
     outline: none !important;
+}
+.facet-item input:focus {
+    border-color: $dark-gray !important;
+    box-shadow: none !important;
+    outline: none;
 }
  
 
