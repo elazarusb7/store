@@ -1094,6 +1094,12 @@ input:focus, textarea:focus {
   outline: none !important;
 }
 
+.facet-item input:focus {
+  border-color: #4A4A4A !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
 .button, button:not(.toolbar-icon), input[type=reset], input[type=submit] {
   height: 38px;
   transition: background-color 150ms ease;
