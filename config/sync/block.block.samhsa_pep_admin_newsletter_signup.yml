@@ -1,0 +1,27 @@
+uuid: f8f42b9f-d1eb-4b33-90ae-860b276a6f2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_newsletter_signup
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: newsletter_signup_block
+settings:
+  id: newsletter_signup_block
+  label: 'Newsletter Signup'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

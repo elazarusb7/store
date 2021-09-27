@@ -1,0 +1,22 @@
+uuid: 17d7d054-ddd2-4db4-8f88-70fa6244bb1a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - samhsa_pep_admin
+_core:
+  default_config_hash: puHdbpF6KptbbVPiVFuIWve29D49jqaIEbwJ3XCVwiw
+id: samhsa_pep_admin_content
+theme: samhsa_pep_admin
+region: content
+weight: -14
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

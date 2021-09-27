@@ -1,0 +1,25 @@
+uuid: fe937bee-6d4f-49ba-835d-08e936de14ec
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_breadcrumbs
+theme: samhsa_pep_admin
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
