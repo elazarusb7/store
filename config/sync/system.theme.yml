@@ -1,4 +1,4 @@
-admin: samhsa_pep_admin
+admin: seven
 default: samhsa_pep_uswds
 _core:
   default_config_hash: fOjer9hADYYnbCJVZMFZIIM1azTFWyg84ZkFDHfAbUg
