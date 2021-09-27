@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Seven theme.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\media\MediaForm;
+use Drupal\views\Form\ViewsForm;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_preprocess() for document templates.
+ */
+function samhsa_pep_admin_preprocess(&$variables, $hook) {
+
+  // Based on site url, update the theme path variables.
+  switch ($GLOBALS['base_url']) {
+    default:
+      $variables['theme_path'] = $GLOBALS['base_url'] . '/' . drupal_get_path('theme', 'samhsa_pep_admin');
+      break;
+  }
+}
+
+function samhsa_pep_admin_preprocess_page(&$variables) {
+   $variables['#attached']['library'][] = 'samhsa_pep_admin/global_styling';
+}

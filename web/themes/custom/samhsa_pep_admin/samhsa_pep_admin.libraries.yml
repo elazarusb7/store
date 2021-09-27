@@ -1,0 +1,8 @@
+global-styling:
+  version: VERSION
+  css:
+    theme:
+      css/samhsa-pep-admin-theme-styles.css: {}
+  dependencies:
+    - system/admin
+    - core/drupal
