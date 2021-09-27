@@ -69,19 +69,19 @@
        * The {{ atouchpath }} variable is set in bwl.theme in hook_preprocess_html()
        */
     #}
-    <link rel="apple-touch-icon" href="{{ url('<front>') }}{{ atouchpath }}appletouch-76.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ url('<front>') }}{{ atouchpath }}appletouch-57.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ url('<front>') }}{{ atouchpath }}appletouch-76.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('<front>') }}{{ atouchpath }}appletouch-120.png" />
-    <link rel="apple-touch-icon" sizes="128x128" href="{{ url('<front>') }}{{ atouchpath }}appletouch-128.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ url('<front>') }}{{ atouchpath }}appletouch-152.png" />
-    <link rel="apple-touch-icon" sizes="167x167" href="{{ url('<front>') }}{{ atouchpath }}appletouch-167.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url('<front>') }}{{ atouchpath }}appletouch-180.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="{{ url('<front>') }}{{ atouchpath }}appletouch-192.png" />
+    <link rel="apple-touch-icon" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-76.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-57.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-76.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-120.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-128.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-152.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-167.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-180.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-192.png" />
 
     {# ...and don't forget android #}
-    <link rel="icon" sizes="192x192" href="{{ url('<front>') }}{{ atouchpath }}appletouch-192.png" />
-    <link rel="icon" sizes="128x128" href="{{ url('<front>') }}{{ atouchpath }}appletouch-128.png" />
+    <link rel="icon" sizes="192x192" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-192.png" />
+    <link rel="icon" sizes="128x128" href="{{ base_path ~ directory }}/assets/img/apple-icons/appletouch-128.png" />
 
   </head>
   <body{{ attributes.addClass(body_classes) }}>
