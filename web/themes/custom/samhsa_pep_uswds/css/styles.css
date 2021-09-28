@@ -4164,15 +4164,15 @@ details.details--list-accordion[open] summary:after {
 
 .app-store-badge--microsoft {
   height: 66px;
-  background-image: url("../../images/app-store-badge-microsoft.svg");
+  background-image: url("../assets/img/app-store-badge-microsoft.svg");
 }
 .app-store-badge--apple {
   height: 61px;
-  background-image: url("../../images/app-store-badge-apple.svg");
+  background-image: url("../assets/img/app-store-badge-apple.svg");
 }
 .app-store-badge--google {
   height: 54px;
-  background-image: url("../../images/app-store-badge-google.svg");
+  background-image: url("../assets/img/app-store-badge-google.svg");
 }
 
 .display-block {
