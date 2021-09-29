@@ -12,17 +12,20 @@
 .app-store-badge {
   &--microsoft {
     @extend %app-store-badge--base;
-    height: 66px;
+    height: 48px;
+    width: auto;
     background-image: url("../assets/img/app-store-badge-microsoft.svg");
   }
   &--apple {
     @extend %app-store-badge--base;
-    height: 61px;
+    height: 45px;
+    width: auto;
     background-image: url("../assets/img/app-store-badge-apple.svg");
   }
   &--google {
     @extend %app-store-badge--base;
-    height: 54px;
+    height: 40px;
+    width: auto;
     background-image: url("../assets/img/app-store-badge-google.svg");
   }
 }

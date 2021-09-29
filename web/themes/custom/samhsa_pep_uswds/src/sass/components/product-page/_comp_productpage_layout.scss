@@ -81,6 +81,7 @@
   }
   @include breakpoint($max-width-tablet-landscape) {
     display: grid;
+    width: 100%;
     grid-template-columns: 1fr 276px;
     grid-template-rows: min-content min-content 1fr min-content;
     .field--name-field-subtitle {
