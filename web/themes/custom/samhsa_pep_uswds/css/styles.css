@@ -4163,15 +4163,18 @@ details.details--list-accordion[open] summary:after {
 }
 
 .app-store-badge--microsoft {
-  height: 66px;
+  height: 48px;
+  width: auto;
   background-image: url("../assets/img/app-store-badge-microsoft.svg");
 }
 .app-store-badge--apple {
-  height: 61px;
+  height: 45px;
+  width: auto;
   background-image: url("../assets/img/app-store-badge-apple.svg");
 }
 .app-store-badge--google {
-  height: 54px;
+  height: 40px;
+  width: auto;
   background-image: url("../assets/img/app-store-badge-google.svg");
 }
 
@@ -5585,6 +5588,7 @@ button.collapse-region.active .collaspse--label:before {
 @media (min-width: 864px) {
   .product-page {
     display: grid;
+    width: 100%;
     grid-template-columns: 1fr 276px;
     grid-template-rows: min-content min-content 1fr min-content;
   }
