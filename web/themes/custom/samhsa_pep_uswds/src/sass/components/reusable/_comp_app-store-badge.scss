@@ -12,20 +12,35 @@
 .app-store-badge {
   &--microsoft {
     @extend %app-store-badge--base;
-    height: 48px;
+    height: 54px;
     width: auto;
     background-image: url("../assets/img/app-store-badge-microsoft.svg");
+    background-position: center;
+
+    .ext{
+      display: none;
+    }
   }
   &--apple {
     @extend %app-store-badge--base;
-    height: 45px;
+    height: 51px;
     width: auto;
     background-image: url("../assets/img/app-store-badge-apple.svg");
+    background-position: center;
+
+     .ext{
+      display: none;
+    }
   }
   &--google {
     @extend %app-store-badge--base;
-    height: 40px;
+    height: 45px;
     width: auto;
     background-image: url("../assets/img/app-store-badge-google.svg");
+    background-position: center;
+
+     .ext{
+      display: none;
+    }
   }
 }
