@@ -4163,19 +4163,31 @@ details.details--list-accordion[open] summary:after {
 }
 
 .app-store-badge--microsoft {
-  height: 48px;
+  height: 54px;
   width: auto;
   background-image: url("../assets/img/app-store-badge-microsoft.svg");
+  background-position: center;
+}
+.app-store-badge--microsoft .ext {
+  display: none;
 }
 .app-store-badge--apple {
-  height: 45px;
+  height: 51px;
   width: auto;
   background-image: url("../assets/img/app-store-badge-apple.svg");
+  background-position: center;
+}
+.app-store-badge--apple .ext {
+  display: none;
 }
 .app-store-badge--google {
-  height: 40px;
+  height: 45px;
   width: auto;
   background-image: url("../assets/img/app-store-badge-google.svg");
+  background-position: center;
+}
+.app-store-badge--google .ext {
+  display: none;
 }
 
 .display-block {
