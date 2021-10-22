@@ -1,0 +1,27 @@
+uuid: 58c2104f-7906-45e5-bfbe-aef1e851b735
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_cart
+    - mobile_device_detection
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_cart_2
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: -4
+provider: null
+plugin: commerce_cart
+settings:
+  id: commerce_cart
+  label: Cart
+  provider: commerce_cart
+  label_display: '0'
+  dropdown: true
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

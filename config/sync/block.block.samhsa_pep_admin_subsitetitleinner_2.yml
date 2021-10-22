@@ -1,0 +1,37 @@
+uuid: 419c5595-874b-4259-a052-79e4ecee6cd9
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_subsitetitleinner_2
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: -6
+provider: null
+plugin: 'block_content:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
+settings:
+  id: 'block_content:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
+  label: 'Subsite Title (inner)'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
