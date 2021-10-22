@@ -8,5 +8,5 @@ logo:
   path: ''
 favicon:
   use_default: 0
-  path: 'public://favicon.ico'
+  path: themes/custom/samhsa_pep_admin/images/favicon.ico
   mimetype: image/vnd.microsoft.icon
