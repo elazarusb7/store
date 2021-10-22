@@ -1,0 +1,33 @@
+uuid: 1c862f59-1270-47bd-906c-a602c9a39f5e
+langcode: en
+status: true
+dependencies:
+  module:
+    - mobile_device_detection
+    - system
+    - views_exposed_filter_blocks
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_viewsexposedfilterblock_2
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: -13
+provider: null
+plugin: views_exposed_filter_blocks_block
+settings:
+  id: views_exposed_filter_blocks_block
+  label: 'Views exposed filter block'
+  provider: views_exposed_filter_blocks
+  label_display: '0'
+  view_display: 'solr_search_content:block_1'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

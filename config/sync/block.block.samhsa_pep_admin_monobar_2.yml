@@ -1,0 +1,31 @@
+uuid: af26f287-298e-4272-af2f-09b9ed7d4774
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - mobile_device_detection
+    - samhsa_theme_block_pep8
+  theme:
+    - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: mono-bar
+id: samhsa_pep_admin_monobar_2
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: mono_bar_block
+settings:
+  id: mono_bar_block
+  label: 'Mono Bar'
+  provider: samhsa_theme_block_pep8
+  label_display: '0'
+  my_block_settings: null
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }

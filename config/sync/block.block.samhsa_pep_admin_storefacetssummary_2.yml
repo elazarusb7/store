@@ -1,0 +1,38 @@
+uuid: 1be124e6-b620-45f5-9d55-01cd6232f95e
+langcode: en
+status: false
+dependencies:
+  config:
+    - facets_summary.facets_summary.store_facets_summary
+  module:
+    - block_class
+    - facets_summary
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: block-facets-summary
+id: samhsa_pep_admin_storefacetssummary_2
+theme: samhsa_pep_admin
+region: content
+weight: -9
+provider: null
+plugin: 'facets_summary_block:store_facets_summary'
+settings:
+  id: 'facets_summary_block:store_facets_summary'
+  label: 'Store Facets Summary'
+  provider: facets_summary
+  label_display: '0'
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: "<front>\r\n/publications"
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,20 @@
+uuid: cb09b43c-c40a-4a4c-a49f-7713916a4a8d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - samhsa_pep_admin
+_core:
+  default_config_hash: Ja8hHSpY1oTpUepdMm7K9BarYiG0is5gdIcAJDSgJj4
+id: samhsa_pep_admin_page_title
+theme: samhsa_pep_admin
+region: header
+weight: -15
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

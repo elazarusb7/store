@@ -1,0 +1,37 @@
+uuid: 637d9bb1-b802-4e86-a6af-8e9491896f5a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:bc4c2785-4e6c-4eac-8a95-bf165a7688e3'
+  module:
+    - block_content
+    - mobile_device_detection
+    - system
+  theme:
+    - samhsa_pep_admin
+id: samhsa_pep_admin_gethelp_2
+theme: samhsa_pep_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'block_content:bc4c2785-4e6c-4eac-8a95-bf165a7688e3'
+settings:
+  id: 'block_content:bc4c2785-4e6c-4eac-8a95-bf165a7688e3'
+  label: 'Get Help'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  mobile_device_detection_condition_plugin:
+    id: mobile_device_detection_condition_plugin
+    devices: {  }
+    negate: null
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
