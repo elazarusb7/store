@@ -40,15 +40,15 @@ $theme-utility-breakpoints: (
   // 480px:
   "mobile-lg": true,
   // 640px:
-  "tablet": true,
+  "tablet": false,
   // 800px:
   "tablet-lg": false,
   // 1024px:
-  "desktop": true,
+  "desktop": false,
   // 1200px:
-  "desktop-lg": true,
+  "desktop-lg": false,
   // 1400px:
-  "widescreen": true
+  "widescreen": false
 );
 
 /*

@@ -40,7 +40,7 @@
   border: 1px solid $light-gray;
   box-shadow: $drop-shadow;
   min-width: 320px;
-  @include breakpoint($max-width-mobile-portrait-smallest) {
+  @include breakpoint($max-width-mobile-portrait-small) {
     margin-right: $gutters;
   }
   &__inner {
