@@ -15,7 +15,7 @@
         content: "";
         border-right: 1px solid $light-gray;
         margin: 0 12px;
-        @include breakpoint($max-width-mobile-portrait-smallest) {
+        @include breakpoint($max-width-mobile-portrait-small) {
           margin: 0 16px;
         }
       }
