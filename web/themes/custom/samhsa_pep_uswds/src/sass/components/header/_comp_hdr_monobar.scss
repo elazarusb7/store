@@ -10,7 +10,7 @@
 //HHS ribbon on desktop 624px and up
 //---------------------------------------
 
-@include breakpoint ($max-width-tablet-portrait){
+@include breakpoint ($max-width-mobile-landscape){
 .region--header-top {
   background-color: $lighter-gray;
     .mono-bar{
