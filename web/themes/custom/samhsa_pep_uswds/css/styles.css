@@ -1776,7 +1776,7 @@ ul.tabs.primary li {
   background-color: #1E384B;
   position: relative;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .region-header {
     background-color: transparent;
   }
@@ -1788,7 +1788,7 @@ ul.tabs.primary li {
   padding: 8px 0 2px;
   text-align: center;
 }
-@media (min-width: 0) and (max-width: 1023px) {
+@media (min-width: 0) and (max-width: 863px) {
   .site-branding {
     height: 61px;
   }
@@ -1809,7 +1809,7 @@ ul.tabs.primary li {
   width: 118px;
   height: 46px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .site-branding {
     margin: 0;
     max-width: 100%;
@@ -1861,7 +1861,7 @@ ul.tabs.primary li {
   fill: #1F419A;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   #header-outer-wrapper #block-mainmenu {
     display: none;
   }
@@ -2020,9 +2020,7 @@ ul.tabs.primary li {
   float: none;
   min-height: 41px;
   display: flex;
-  display: -webkit-box !important;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
+  justify-content: center;
 }
 .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
   font-weight: 400;
@@ -2035,14 +2033,14 @@ ul.tabs.primary li {
   color: #FFFFFF;
   font-size: 16px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
     font-size: 12px;
   }
 }
 @media (min-width: 1366px) {
   .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 0.6em;
   }
 }
@@ -3251,7 +3249,7 @@ All this is done for any sub-level being entered.
   display: block;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .block--menu-menu-samhsa-menu, .block--system-main-menu {
     display: none;
   }
@@ -3259,7 +3257,7 @@ All this is done for any sub-level being entered.
 .block-superfishmain-menu {
   display: none;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .block-superfishmain-menu {
     display: block;
   }
@@ -3274,13 +3272,13 @@ All this is done for any sub-level being entered.
 #block-superfish-2 {
   display: block;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   #block-superfish-2 {
     display: none;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .mobile-only {
     display: none;
   }
@@ -3303,7 +3301,7 @@ All this is done for any sub-level being entered.
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .region--header-top {
     background-color: #EEEEEE;
   }
@@ -3363,7 +3361,7 @@ All this is done for any sub-level being entered.
     min-width: 110px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .search-form-wrapper {
     background-color: transparent;
   }
@@ -3382,7 +3380,7 @@ All this is done for any sub-level being entered.
   padding: 0 0.5em;
   box-sizing: border-box;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .search-form-wrapper .samhsasearchbox, .search-form-wrapper input#q.samhsasearchbox {
     max-width: 300px;
   }
@@ -3390,7 +3388,7 @@ All this is done for any sub-level being entered.
 .search-form-wrapper form.use-search-icon {
   padding-right: 65px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .search-form-wrapper form.use-search-icon {
     padding-right: 51px;
   }
@@ -3400,7 +3398,7 @@ All this is done for any sub-level being entered.
   height: 38px;
   right: 14px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .search-form-wrapper form.use-search-icon .samhsasearchbutton {
     right: 0;
     top: 0;
@@ -3497,7 +3495,7 @@ body:not(.path-frontpage) .program-title {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .utility-menu {
     padding: 10px 0 0;
   }
@@ -5362,6 +5360,9 @@ button.collapse-region.active .collaspse--label:before {
   border-color: white;
   border: 0;
 }
+#views-exposed-form-solr-search-content-block-1 .form--inline .form-item label {
+  display: none;
+}
 #views-exposed-form-solr-search-content-block-1 .form-actions {
   position: absolute;
   bottom: 0;
@@ -5921,7 +5922,7 @@ button.collapse-region.active .collaspse--label:before {
   display: block;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   #search-toggle {
     display: none;
   }
@@ -5960,7 +5961,7 @@ button.collapse-region.active .collaspse--label:before {
     padding-right: 0 !important;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   .region-header {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -5990,7 +5991,7 @@ button.collapse-region.active .collaspse--label:before {
     align-self: end;
   }
 }
-@media (min-width: 0) and (max-width: 1023px) {
+@media (min-width: 0) and (max-width: 863px) {
   #block-utilitymenu-2 {
     margin: -1px;
     padding: 0;
