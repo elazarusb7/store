@@ -4519,7 +4519,7 @@ ul.list--bulletless li {
 .tabs ul.tabs.primary li.is-active a.is-active:hover {
   color: black;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .tabs ul {
     display: flex;
     margin: 0 0 28px;
@@ -4853,7 +4853,7 @@ ul.list--bulletless li {
   display: flex;
   flex-wrap: wrap;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .region-content .checkout-progress {
     flex-wrap: nowrap;
     margin-left: 0;
@@ -4863,7 +4863,7 @@ ul.list--bulletless li {
   width: 100%;
   display: inline;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .region-content .checkout-progress--step {
     width: auto;
   }
@@ -4886,7 +4886,7 @@ ul.list--bulletless li {
 .order-summary .form-item-edit-quantity--max {
   white-space: nowrap;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .order-summary--details {
     display: flex;
   }
@@ -4916,7 +4916,7 @@ ul.list--bulletless li {
   margin-left: 14px;
   white-space: nowrap;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .checkout-pane .field--name-shipping-method strong {
     display: inline;
     margin-left: inherit;
@@ -5383,7 +5383,7 @@ button.collapse-region.active .collaspse--label:before {
   display: block;
   font-size: 1.4rem;
 }
-@media (min-width: 624px) and (max-width: 1023px) {
+@media (min-width: 640px) and (max-width: 1023px) {
   #views-exposed-form-solr-search-content-block-1 label[for=edit-search-api-fulltext] .form-item--sublabel {
     display: inline;
     font-size: inherit;
@@ -5543,7 +5543,7 @@ button.collapse-region.active .collaspse--label:before {
 .path-product .block-share-buttons-block {
   margin-bottom: 14px;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .path-product .block-share-buttons-block {
     float: right;
     margin-left: 28px;
@@ -5569,7 +5569,7 @@ button.collapse-region.active .collaspse--label:before {
 .product-page--main {
   margin-bottom: 28px;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .product-page--main {
     display: flex;
   }
@@ -5772,7 +5772,7 @@ button.collapse-region.active .collaspse--label:before {
 .block-jbs-commerce-back-to-browse-block .menu li.menu-item {
   font-size: 1.8rem;
 }
-@media (min-width: 0) and (max-width: 623px) {
+@media (min-width: 0) and (max-width: 639px) {
   .block-jbs-commerce-back-to-browse-block .menu li.menu-item {
     font-size: 1.6rem;
     display: inline;
@@ -6070,7 +6070,7 @@ button.collapse-region.active .collaspse--label:before {
 .region--preface-third #block-storenavigation-2 {
   margin-top: 14px;
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .region--preface-third #block-storenavigation-2 {
     margin-top: 7px;
   }
@@ -6080,7 +6080,7 @@ button.collapse-region.active .collaspse--label:before {
     margin-top: 3.5px;
   }
 }
-@media (min-width: 0) and (max-width: 623px) {
+@media (min-width: 0) and (max-width: 639px) {
   .region--preface-third {
     display: flex;
     flex-wrap: wrap;
@@ -6090,7 +6090,7 @@ button.collapse-region.active .collaspse--label:before {
     width: 100%;
   }
 }
-@media (min-width: 624px) {
+@media (min-width: 640px) {
   .region--preface-third {
     display: grid;
     grid-template-columns: 1fr 2fr auto;
