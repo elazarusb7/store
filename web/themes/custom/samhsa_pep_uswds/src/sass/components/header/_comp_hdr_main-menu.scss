@@ -735,7 +735,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   letter-spacing: 0.03em;
   padding-top: 25px;
 
-  @include breakpoint ($max-width-tablet-portrait){
+  @include breakpoint ($max-width-mobile-landscape){
     display: none;
   }
 }
