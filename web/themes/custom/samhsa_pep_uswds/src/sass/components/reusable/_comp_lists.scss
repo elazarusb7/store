@@ -26,14 +26,14 @@ ul.list--bulletless {
 
 
 .horizontal-list {
-  @include breakpoint($max-width-tablet-landscape) {
+  @include breakpoint($max-width-tablet-portrait) {
     display: flex;
   }
   &__item {
     width: 100%;
     border-bottom: 1px solid $light-gray;
     padding: $gutters 0 math.div($gutters, 2);
-    @include breakpoint($max-width-tablet-landscape) {
+    @include breakpoint($max-width-tablet-portrait) {
       border-bottom-width: 0px;
       border-right: 1px solid $light-gray;
       padding: 0 $gutters*1.5;

@@ -1650,7 +1650,7 @@ ul.tabs.primary li {
   padding: 0 10px;
   margin-bottom: 0.75em;
 }
-@media (min-width: 1366px) {
+@media (min-width: 1024px) {
   #block-newsletter-signup .footer-signup .signup-form .signup-email {
     width: 67%;
   }
@@ -1663,7 +1663,7 @@ ul.tabs.primary li {
   height: 38px;
   padding: 0 15px;
 }
-@media (min-width: 1366px) {
+@media (min-width: 1024px) {
   #block-newsletter-signup .footer-signup .signup-form .signup-btn {
     width: auto;
   }
@@ -4263,7 +4263,7 @@ ul.list--bulletless li {
   list-style: none;
 }
 
-@media (min-width: 1366px) {
+@media (min-width: 1024px) {
   .horizontal-list {
     display: flex;
   }
@@ -4273,7 +4273,7 @@ ul.list--bulletless li {
   border-bottom: 1px solid #CDCDCD;
   padding: 14px 0 7px;
 }
-@media (min-width: 1366px) {
+@media (min-width: 1024px) {
   .horizontal-list__item {
     border-bottom-width: 0px;
     border-right: 1px solid #CDCDCD;
@@ -5485,7 +5485,7 @@ button.collapse-region.active .collaspse--label:before {
 }
 @media (min-width: 1024px) and (max-width: 1919px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine label {
-    display: block;
+    display: inline;
     margin-bottom: 0;
   }
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine select {
@@ -5598,7 +5598,7 @@ button.collapse-region.active .collaspse--label:before {
     flex-basis: calc(50% - 14px);
   }
 }
-@media (min-width: 1366px) {
+@media (min-width: 864px) {
   .product-page {
     display: grid;
     width: 100%;
@@ -6167,6 +6167,12 @@ button.collapse-region.active .collaspse--label:before {
   .region--preface-third #block-storenavigation-2 {
     grid-column: 1/4;
     grid-row: 3/4;
+  }
+}
+@media (min-width: 0) {
+  .region--preface-third #block-cart-2 {
+    grid-column: 3/4;
+    grid-row: 1/2;
   }
 }
 @media (min-width: 1024px) {

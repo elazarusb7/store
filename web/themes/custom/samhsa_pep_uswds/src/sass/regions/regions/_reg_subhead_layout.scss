@@ -55,6 +55,16 @@
       -ms-grid-row-align: start;
       padding-top: 11px;
     }
+
+
+    
+
+
+
+
+
+
+
     #block-storenavigation-2 {
       grid-column: 1 / 4;
       grid-row: 3 / 4;
@@ -85,6 +95,10 @@
         grid-column: 1 / 4;
         grid-row: 3 / 4;
     }
+
+   
+
+
     }
   }
   @include breakpoint($max-width-mobile-landscape) {
@@ -107,6 +121,15 @@
       grid-row: 3 / 4;
     }
   }
+
+  @include breakpoint(0, $max-width-mobile-landscape){
+    #block-cart-2 {
+      grid-column: 3 / 4;
+      grid-row: 1 / 2;
+    }
+  }
+
+
   @include breakpoint($max-width-tablet-portrait) {
     grid-template-columns: 3fr 2fr auto;
     padding: $gutters $gutters math.div($gutters, 2);

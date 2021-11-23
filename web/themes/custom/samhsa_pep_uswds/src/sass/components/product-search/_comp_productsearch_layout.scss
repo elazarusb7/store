@@ -84,7 +84,7 @@
         }
         @include breakpoint($max-width-tablet-portrait $max-width-fullsize - 1) {
           label {
-            display: block;
+            display: inline;
             margin-bottom: 0;
           }
           select {
