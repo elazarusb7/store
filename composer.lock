@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "257b1188809a4e8d2ebf3db2004985c9",
+    "content-hash": "25b81f71c430c91d9e3d34ddfb415b67",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5019,17 +5019,17 @@
         },
         {
             "name": "drupal/commerce_stock",
-            "version": "1.0.0-alpha6",
+            "version": "1.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/commerce_stock.git",
-                "reference": "8.x-1.0-alpha6"
+                "reference": "8.x-1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_stock-8.x-1.0-alpha6.zip",
-                "reference": "8.x-1.0-alpha6",
-                "shasum": "27a84f3279bba93f1e683ccdd1db4b49b7293699"
+                "url": "https://ftp.drupal.org/files/projects/commerce_stock-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "022c48d8c0704587f80a0e4752072286145796e5"
             },
             "require": {
                 "drupal/commerce": "~2.0",
@@ -5044,11 +5044,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-alpha6",
-                    "datestamp": "1624900196",
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1636657392",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -26693,7 +26693,7 @@
         "drupal/commerce_fedex": 10,
         "drupal/commerce_paypal": 5,
         "drupal/commerce_reports": 10,
-        "drupal/commerce_stock": 15,
+        "drupal/commerce_stock": 10,
         "drupal/conditional_fields": 15,
         "drupal/content_access": 15,
         "drupal/context": 10,
