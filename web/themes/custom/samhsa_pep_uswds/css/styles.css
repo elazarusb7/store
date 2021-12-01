@@ -3441,11 +3441,6 @@ body:not(.path-frontpage) .program-title {
   color: #1E384B;
   margin-bottom: 15px;
 }
-@media only screen and (max-width: 1024px) {
-  body:not(.path-frontpage) .program-title {
-    font-size: 5.25vw;
-  }
-}
 
 .region--preface-third {
   background: white;
@@ -6034,11 +6029,6 @@ button.collapse-region.active .collaspse--label:before {
 @media (min-width: 1366px) {
   #page-wrapper {
     width: 1366px;
-  }
-}
-@media (min-width: 1920px) {
-  #page-wrapper {
-    width: 1920px;
   }
 }
 

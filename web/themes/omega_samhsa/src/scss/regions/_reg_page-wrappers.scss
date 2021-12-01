@@ -12,7 +12,7 @@
   @include breakpoint ($break-tablet-landscape){
     width: $max-width-tablet-landscape;
   }
-  @include breakpoint ($break-fullsize){
-    width: $max-width-fullsize;
-  }
+  // @include breakpoint ($break-fullsize){
+  //   width: $max-width-fullsize;
+  // }
 }
