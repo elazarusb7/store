@@ -1599,7 +1599,7 @@ ul.tabs.primary li {
   width: 100%;
   float: right;
 }
-@media (min-width: 864px) {
+@media (min-width: 640px) {
   #block-newsletter-signup {
     width: 68%;
   }
@@ -1623,7 +1623,7 @@ ul.tabs.primary li {
   width: 100%;
   float: left;
 }
-@media (min-width: 864px) {
+@media (min-width: 640px) {
   #block-newsletter-signup .footer-signup .signup-text {
     width: 45%;
   }
@@ -1632,7 +1632,7 @@ ul.tabs.primary li {
   width: 100%;
   float: right;
 }
-@media (min-width: 864px) {
+@media (min-width: 640px) {
   #block-newsletter-signup .footer-signup .signup-form {
     width: 55%;
   }
@@ -1650,7 +1650,7 @@ ul.tabs.primary li {
   padding: 0 10px;
   margin-bottom: 0.75em;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   #block-newsletter-signup .footer-signup .signup-form .signup-email {
     width: 67%;
   }
@@ -1663,7 +1663,7 @@ ul.tabs.primary li {
   height: 38px;
   padding: 0 15px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 864px) {
   #block-newsletter-signup .footer-signup .signup-form .signup-btn {
     width: auto;
   }
@@ -1690,7 +1690,7 @@ ul.tabs.primary li {
   display: inline-block;
   text-align: center;
 }
-@media (min-width: 864px) {
+@media (min-width: 640px) {
   #block-footersocial-2 {
     width: 26%;
     text-align: left;

@@ -2,7 +2,7 @@
 #block-newsletter-signup {
     width: 100%;
     float: right;
-    @include breakpoint ($max-width-mobile-landscape){
+    @include breakpoint ($max-width-mobile-portrait-large){
         width: 68%;
       }
       @include breakpoint ($max-width-tablet-landscape) {
@@ -21,14 +21,14 @@
         .signup-text {
             width: 100%;
             float: left;
-            @include breakpoint ($max-width-mobile-landscape){
+            @include breakpoint ($max-width-mobile-portrait-large){
                 width: 45%;
               } 
         }
         .signup-form {
             width: 100%;
             float: right;
-            @include breakpoint ($max-width-mobile-landscape){
+            @include breakpoint ($max-width-mobile-portrait-large){
                 width: 55%;
               } 
             form{
@@ -43,7 +43,7 @@
                 height: 38px;
                 padding: 0 10px;
                 margin-bottom: .75em;
-                @include breakpoint ($max-width-tablet-portrait) {
+                @include breakpoint ($max-width-mobile-landscape) {
                     width: 67%;
                 }
             }
@@ -56,7 +56,7 @@
                 height: 38px;
                 padding: 0 15px;
                
-                @include breakpoint ($max-width-tablet-portrait) {
+                @include breakpoint ($max-width-mobile-landscape) {
                     width: auto;
                 }
             }
