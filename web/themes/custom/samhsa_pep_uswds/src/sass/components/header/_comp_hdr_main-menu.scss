@@ -209,6 +209,12 @@ $tween-break-high: 54em;
       height: 120px;
       display: block;
     }
+    li a:focus {
+     /* remove default focus style */
+    outline: none;
+    /* custom focus styles */
+    border: 2px solid $blue;
+}
   }
 }
 .extra-width .block-superfishmain-menu {
