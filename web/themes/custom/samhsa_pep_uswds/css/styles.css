@@ -1976,6 +1976,12 @@ ul.tabs.primary li {
   height: 120px;
   display: block;
 }
+.block-superfishmain-menu ul.sf-style-none li a:focus {
+  /* remove default focus style */
+  outline: none;
+  /* custom focus styles */
+  border: 2px solid #1F419A;
+}
 
 .extra-width .block-superfishmain-menu ul.sf-menu.menu {
   display: flex;
