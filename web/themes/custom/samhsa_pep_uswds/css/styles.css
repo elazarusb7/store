@@ -2056,6 +2056,12 @@ ul.tabs.primary li {
     padding: 0 0.76em;
   }
 }
+.block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus {
+  /* remove default focus style */
+  outline: none;
+  /* custom focus styles */
+  border: 1px solid #FFFFFF;
+}
 .block-superfishmain-menu .sf-style-none.sf-navbar, #block-superfish-2 .sf-style-none.sf-navbar {
   width: 100%;
   background: #1E384B;
