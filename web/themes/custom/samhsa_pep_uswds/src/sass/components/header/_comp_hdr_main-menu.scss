@@ -289,6 +289,14 @@ $tween-break-high: 54em;
           padding:0 0.76em;
         }
       }
+      a.sf-depth-1:focus, a.sf-depth-1.sf-with-ul:focus{
+
+      /* remove default focus style */
+      outline: none;
+      /* custom focus styles */
+      border: 1px solid $white;
+   
+      }
     }
     &.sf-navbar {
       width: 100%;
