@@ -2,7 +2,9 @@
 //==========================================================================
 
 .utility-menu{ 
-  @include breakpoint ($max-width-mobile-landscape){
+  
+  @include breakpoint ($max-width-tablet-portrait){
+  // @include breakpoint ($max-width-mobile-landscape){
     padding: 10px 0 0;
     ul.menu{
       text-align: right;

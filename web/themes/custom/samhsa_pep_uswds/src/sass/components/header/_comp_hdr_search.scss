@@ -5,7 +5,9 @@
 .search-form-wrapper{
   background-color: $lighter-gray;
   padding: $gutters 0;
-  @include breakpoint($max-width-mobile-landscape) {
+
+  @include breakpoint($max-width-tablet-portrait) {
+  // @include breakpoint($max-width-mobile-landscape) {
     padding: 0;
   }
   form{
@@ -37,20 +39,26 @@
     line-height: 2.2;
     padding: 0 .5em;
     box-sizing: border-box;
-    @include breakpoint($max-width-mobile-landscape) {
+
+    @include breakpoint($max-width-tablet-portrait) {
+    // @include breakpoint($max-width-mobile-landscape) {
       max-width: 300px;
     }
   }
   form.use-search-icon {
     padding-right: $gutters + 51px;
-    @include breakpoint($max-width-mobile-landscape) {
+
+    @include breakpoint($max-width-tablet-portrait) {
+    // @include breakpoint($max-width-mobile-landscape) {
       padding-right: 51px;
     }
     .samhsasearchbutton {
     top: auto;
     height: 38px;
     right: $gutters;
-    @include breakpoint($max-width-mobile-landscape) {
+
+    @include breakpoint($max-width-tablet-portrait) {
+    // @include breakpoint($max-width-mobile-landscape) {
       right: 0;
       top: 0;
     }

@@ -4,7 +4,8 @@
 .region-header {
   background-color: $blue-gray;
   position: relative;
-  @include breakpoint ($max-width-mobile-landscape) {
+  @include breakpoint ($max-width-tablet-portrait) {
+  // @include breakpoint ($max-width-mobile-landscape) {
     background-color: transparent;
   }
 }
@@ -13,7 +14,8 @@
   margin: 0 auto;
   padding: 8px 0 2px; 
   text-align: center;
-  @include breakpoint(0 $max-width-mobile-landscape - 1) {
+  @include breakpoint(0 $max-width-tablet-portrait - 1) {
+  // @include breakpoint(0 $max-width-mobile-landscape - 1) {
     height: 61px;
     .site-logo {
       background-image: url("../assets/img/logo-white.png");
