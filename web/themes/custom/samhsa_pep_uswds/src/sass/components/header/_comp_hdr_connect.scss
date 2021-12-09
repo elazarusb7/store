@@ -19,14 +19,23 @@
 .block-samhsa-uswds-base-sharebuttons {
 
   ul.share-buttons {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
-    align-items: flex-start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+        display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     list-style-type: none;
+    width: 160px;
 
     li {
       margin-left: 5px;
+      width: 1.8em;
 
       a {
         svg {
