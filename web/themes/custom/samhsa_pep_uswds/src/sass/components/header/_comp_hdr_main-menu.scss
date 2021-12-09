@@ -7,7 +7,10 @@ $tween-break-high: 54em;
 
   #header-outer-wrapper {
     #block-mainmenu {
-      @include breakpoint($max-width-mobile-landscape) {
+
+       @include breakpoint($max-width-tablet-portrait) {
+      // @include breakpoint($max-width-mobile-landscape) {
+       
         display: none;
       }
     }
@@ -262,9 +265,14 @@ $tween-break-high: 54em;
     float: none;
     min-height: 41px;
     display: flex;
-    //display: -webkit-box!important;
-    //-webkit-box-pack: justify;
-    justify-content: center;
+
+    display: -webkit-box!important;
+    -webkit-box-pack: justify;
+    // justify-content: center;
+    justify-content: space-between;
+
+
+
     li.sf-depth-1 {
       a.sf-depth-1, a.sf-depth-1.sf-with-ul {
         font-weight: 400;
@@ -276,12 +284,17 @@ $tween-break-high: 54em;
         letter-spacing: 0.03em;
         color: $white;
         font-size: 16px;
-        @include breakpoint($max-width-mobile-landscape){
+
+        // @include breakpoint($max-width-mobile-landscape){
+        @include breakpoint($max-width-tablet-portrait){
           font-size: 12px;
           // white-space: no-wrap;
         }
         @include breakpoint($max-width-tablet-landscape){
-          font-size: 16px;
+
+          // font-size: 16px;
+          font-size: 14px;
+
           padding: 0 0.6em;
         }
         @include breakpoint($max-width-fullsize){
@@ -1602,14 +1615,17 @@ All this is done for any sub-level being entered.
   display: block;
 }
 
-@include breakpoint($max-width-mobile-landscape) {
+@include breakpoint($max-width-tablet-portrait) {
+// @include breakpoint($max-width-mobile-landscape) {
   .block--menu-menu-samhsa-menu, .block--system-main-menu {
     display: none;
   }
 }
 .block-superfishmain-menu {
   display: none;
-  @include breakpoint($max-width-mobile-landscape) {
+
+  @include breakpoint($max-width-tablet-portrait) {
+  // @include breakpoint($max-width-mobile-landscape) {
     display: block;
     ul#superfish-1.sf-style-none {
       margin-top: 20px;
@@ -1621,11 +1637,15 @@ All this is done for any sub-level being entered.
 }
 #block-superfish-2 {
   display: block;
-  @include breakpoint($max-width-mobile-landscape) {
+
+  @include breakpoint($max-width-tablet-portrait) {
+  // @include breakpoint($max-width-mobile-landscape) {
     display: none;
   }
 }
-@include breakpoint($max-width-mobile-landscape) {
+
+@include breakpoint($max-width-tablet-portrait) {
+// @include breakpoint($max-width-mobile-landscape) {
   .mobile-only {
     display: none;
   }

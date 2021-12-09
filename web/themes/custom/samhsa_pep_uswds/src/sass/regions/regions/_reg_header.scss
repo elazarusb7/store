@@ -26,7 +26,8 @@
 #search-toggle{
   display: block;
 }
-@include breakpoint($max-width-mobile-landscape){
+@include breakpoint($max-width-tablet-portrait){
+// @include breakpoint($max-width-mobile-landscape){
   #search-toggle{
     display: none;
   }  
@@ -69,7 +70,8 @@
     padding-right: 0 !important;
   }
 }
-@include breakpoint ($max-width-mobile-landscape){  
+@include breakpoint ($max-width-tablet-portrait){
+// @include breakpoint ($max-width-mobile-landscape){  
   .region-header {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -102,8 +104,8 @@
   }
 }
 
-
-@include breakpoint(0 $max-width-mobile-landscape - 1) {
+@include breakpoint(0 $max-width-tablet-portrait - 1) {
+// @include breakpoint(0 $max-width-mobile-landscape - 1) {
   #block-utilitymenu-2 {
     @include visuallyhidden;
   }
