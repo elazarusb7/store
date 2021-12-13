@@ -35,7 +35,8 @@
     width: 118px;
     height: 46px
   }
-  @include breakpoint ($max-width-mobile-landscape) {
+   @include breakpoint ($max-width-tablet-portrait) {
+  // @include breakpoint ($max-width-mobile-landscape) {
     margin: 0;
     max-width: 100%;
     padding: 20px 0 20px;

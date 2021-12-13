@@ -1809,7 +1809,7 @@ ul.tabs.primary li {
   width: 118px;
   height: 46px;
 }
-@media (min-width: 624px) {
+@media (min-width: 768px) {
   .site-branding {
     margin: 0;
     max-width: 100%;
@@ -1860,6 +1860,11 @@ ul.tabs.primary li {
   align-items: flex-start;
   list-style-type: none;
   width: 160px;
+}
+@media screen and (max-width: 524px) {
+  .block-samhsa-uswds-base-sharebuttons ul.share-buttons {
+    width: auto;
+  }
 }
 .block-samhsa-uswds-base-sharebuttons ul.share-buttons li {
   margin-left: 5px;
@@ -2451,7 +2456,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   letter-spacing: 0.03em;
   padding-top: 25px;
 }
-@media (min-width: 624px) {
+@media (min-width: 768px) {
   .dl-menuwrapper button.dl-trigger {
     display: none;
   }
@@ -4285,7 +4290,7 @@ ul.list--bulletless li {
   list-style: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 864px) {
   .horizontal-list {
     display: flex;
   }
@@ -4295,7 +4300,7 @@ ul.list--bulletless li {
   border-bottom: 1px solid #CDCDCD;
   padding: 14px 0 7px;
 }
-@media (min-width: 768px) {
+@media (min-width: 864px) {
   .horizontal-list__item {
     border-bottom-width: 0px;
     border-right: 1px solid #CDCDCD;
@@ -5471,7 +5476,7 @@ button.collapse-region.active .collaspse--label:before {
   order: 12;
   margin: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-items-per-page {
     flex-basis: 50%;
     margin-left: 28px;
@@ -5494,7 +5499,7 @@ button.collapse-region.active .collaspse--label:before {
 .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine {
   margin: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine {
     flex-basis: 50%;
   }
@@ -5617,7 +5622,7 @@ button.collapse-region.active .collaspse--label:before {
     flex-basis: calc(50% - 14px);
   }
 }
-@media (min-width: 624px) {
+@media (min-width: 864px) {
   .product-page {
     display: -ms-grid;
     display: grid;

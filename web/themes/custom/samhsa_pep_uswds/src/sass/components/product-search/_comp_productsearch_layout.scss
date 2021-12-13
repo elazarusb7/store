@@ -55,7 +55,9 @@
       .form-item-items-per-page {
         order: 12;
         margin: 0;
-        @include breakpoint($max-width-tablet-portrait) {
+        
+        @include breakpoint ($max-width-fullsize){
+        // @include breakpoint($max-width-tablet-portrait) {
           flex-basis: 50%;
           margin-left: $gutters*2;
         }
@@ -76,7 +78,9 @@
       }
       .form-item-sort-bef-combine { 
         margin: 0;
-        @include breakpoint($max-width-tablet-portrait) {
+
+        // @include breakpoint($max-width-tablet-portrait) {
+        @include breakpoint ($max-width-fullsize){
           flex-basis: 50%;
         }
         select {
