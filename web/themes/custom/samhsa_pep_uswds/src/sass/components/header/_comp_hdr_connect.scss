@@ -33,6 +33,10 @@
     list-style-type: none;
     width: 160px;
 
+    @media screen and (max-width:$max-width-mobile-portrait-large) {
+      width: auto;
+    }
+
     li {
       margin-left: 5px;
       width: 1.8em;
