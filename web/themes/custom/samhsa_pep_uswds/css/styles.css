@@ -1879,6 +1879,11 @@ ul.tabs.primary li {
   fill: #1F419A;
 }
 
+@media screen and (min-width: 624px) and (max-width: 864px) {
+  h1 {
+    font-size: 2.8rem;
+  }
+}
 @media (min-width: 768px) {
   #header-outer-wrapper #block-mainmenu {
     display: none;
@@ -6151,7 +6156,7 @@ button.collapse-region.active .collaspse--label:before {
     margin-top: 3.5px;
   }
 }
-@media (min-width: 0) and (max-width: 523px) {
+@media (min-width: 0) and (max-width: 623px) {
   .region--preface-third {
     display: flex;
     flex-wrap: wrap;
@@ -6161,7 +6166,7 @@ button.collapse-region.active .collaspse--label:before {
     width: 100%;
   }
 }
-@media (min-width: 524px) {
+@media (min-width: 624px) {
   .region--preface-third {
     display: -ms-grid;
     display: grid;

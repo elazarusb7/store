@@ -22,7 +22,8 @@
       margin-top: math.div($gutters, 4);
     }
   }
-  @include breakpoint(0 $max-width-mobile-portrait-large - 1) {
+  // @include breakpoint(0 $max-width-mobile-portrait-large - 1) {
+  @include breakpoint(0 $max-width-mobile-landscape - 1) {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -30,7 +31,8 @@
       width: 100%;
     }
   }
-  @include breakpoint($max-width-mobile-portrait-large) {
+  // @include breakpoint($max-width-mobile-portrait-large) {
+     @include breakpoint($max-width-mobile-landscape) {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 2fr auto;
