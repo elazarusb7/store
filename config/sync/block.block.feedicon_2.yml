@@ -12,7 +12,7 @@ dependencies:
 id: feedicon_2
 theme: samhsa_pep_uswds
 region: header
-weight: -3
+weight: -17
 provider: null
 plugin: 'block_content:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
 settings:
