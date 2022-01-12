@@ -621,6 +621,16 @@ body {
   display: none;
 }
 
+ul.sf-menu li.sf-depth-1.active-trail a.sf-depth-1:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  ul.sf-menu li.sf-depth-1.active-trail a.sf-depth-1:focus {
+    outline: thin dotted;
+  }
+}
+
 body {
   color: #4A4A4A;
   font-family: Tahoma, Segoe, sans-serif;
@@ -1886,6 +1896,15 @@ ul.tabs.primary li {
 }
 @media (min-width: 768px) {
   #header-outer-wrapper #block-mainmenu {
+    display: none;
+  }
+}
+
+.samhsa-mobile-menu {
+  display: block;
+}
+@media (min-width: 864px) {
+  .samhsa-mobile-menu {
     display: none;
   }
 }
