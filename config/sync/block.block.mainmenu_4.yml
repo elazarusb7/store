@@ -11,8 +11,8 @@ dependencies:
     - samhsa_pep_uswds
 id: mainmenu_4
 theme: samhsa_pep_uswds
-region: preface_first
-weight: 0
+region: header
+weight: -18
 provider: null
 plugin: 'superfish:main-menu'
 settings:

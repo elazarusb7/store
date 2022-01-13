@@ -16,7 +16,7 @@ third_party_settings:
 id: utilitymenu_2
 theme: samhsa_pep_uswds
 region: header
-weight: -6
+weight: -21
 provider: null
 plugin: 'menu_block:utility-menu'
 settings:
