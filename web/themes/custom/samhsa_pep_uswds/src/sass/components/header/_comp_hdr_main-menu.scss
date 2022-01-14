@@ -162,6 +162,9 @@ $tween-break-high: 54em;
 
 /* custom styles added for desktop */
 .block-superfishmain-menu {
+  -ms-grid-column-span: 3;
+  -ms-grid-row: 3;
+
   ul.sf-style-none {
     .mobile-only {
       display: none !important;
@@ -224,6 +227,7 @@ $tween-break-high: 54em;
     outline: none;
     /* custom focus styles */
     border: 2px solid $blue;
+    border-radius: 5px;
 }
   }
 }
@@ -287,7 +291,8 @@ $tween-break-high: 54em;
         height: 41px;
         line-height: 41px;
         text-align: center !important;
-        padding:0 0.76em;
+        //padding:0 0.76em;
+        padding:0 0.6em;
         letter-spacing: 0.03em;
         color: $white;
         font-size: 16px;
@@ -306,7 +311,8 @@ $tween-break-high: 54em;
         }
         @include breakpoint($max-width-fullsize){
           font-size: 16px;
-          padding:0 0.76em;
+          //padding:0 0.76em;
+          padding:0 0.6em;
         }
       }
       a.sf-depth-1:focus, a.sf-depth-1.sf-with-ul:focus{
@@ -442,7 +448,7 @@ $tween-break-high: 54em;
         }
       }
       &.sfHover {
-        background: $blue-gray;
+        //background: $blue-gray;
         outline: 0;
         > ul {
           top: 41px;
@@ -695,7 +701,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
       margin-bottom: 10px;
     }
     .locator-icon, .locator-icon:hover, .locator-icon:focus {
-      display: inline-block;
+      display: block;
       padding-left: 25px;
       background-image: url('../assets/img/locatorsm.png');
       background-position: 0px 14px;
