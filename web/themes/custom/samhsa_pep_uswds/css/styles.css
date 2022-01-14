@@ -1964,6 +1964,10 @@ ul.tabs.primary li {
  *
  */
 /* custom styles added for desktop */
+.block-superfishmain-menu {
+  -ms-grid-column-span: 3;
+  -ms-grid-row: 3;
+}
 .block-superfishmain-menu ul.sf-style-none .mobile-only {
   display: none !important;
 }
@@ -2023,6 +2027,7 @@ ul.tabs.primary li {
   outline: none;
   /* custom focus styles */
   border: 2px solid #1F419A;
+  border-radius: 5px;
 }
 
 .extra-width .block-superfishmain-menu ul.sf-menu.menu {
@@ -2078,7 +2083,7 @@ ul.tabs.primary li {
   height: 41px;
   line-height: 41px;
   text-align: center !important;
-  padding: 0 0.76em;
+  padding: 0 0.6em;
   letter-spacing: 0.03em;
   color: #FFFFFF;
   font-size: 16px;
@@ -2097,7 +2102,7 @@ ul.tabs.primary li {
 @media (min-width: 1000px) {
   .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
     font-size: 16px;
-    padding: 0 0.76em;
+    padding: 0 0.6em;
   }
 }
 .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus {
@@ -2223,7 +2228,6 @@ ul.tabs.primary li {
   top: 41px;
 }
 .block-superfishmain-menu .sf-style-none li.sfHover, #block-superfish-2 .sf-style-none li.sfHover {
-  background: #1E384B;
   outline: 0;
 }
 .block-superfishmain-menu .sf-style-none li.sfHover > ul, #block-superfish-2 .sf-style-none li.sfHover > ul {
@@ -2411,7 +2415,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   margin-bottom: 10px;
 }
 .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon, .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon:hover, .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon:focus {
-  display: inline-block;
+  display: block;
   padding-left: 25px;
   background-image: url("../assets/img/locatorsm.png");
   background-position: 0px 14px;
