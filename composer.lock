@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54ec21a2808c84c54d0203ec9838f23a",
+    "content-hash": "163fd58279f49a12d9260c100f8d0017",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -12759,17 +12759,17 @@
         },
         {
             "name": "drupal/search_api",
-            "version": "1.21.0",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api.git",
-                "reference": "8.x-1.21"
+                "reference": "8.x-1.22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.21.zip",
-                "reference": "8.x-1.21",
-                "shasum": "0f3b7187f4a04b98bacd046697699cd1e863188e"
+                "url": "https://ftp.drupal.org/files/projects/search_api-8.x-1.22.zip",
+                "reference": "8.x-1.22",
+                "shasum": "bac5923161436830eecdf115ef0333b3b931657e"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -12790,8 +12790,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.21",
-                    "datestamp": "1636024667",
+                    "version": "8.x-1.22",
+                    "datestamp": "1641998566",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12831,30 +12831,30 @@
         },
         {
             "name": "drupal/search_api_attachments",
-            "version": "1.0.0-beta18",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_attachments.git",
-                "reference": "8.x-1.0-beta18"
+                "reference": "9.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_attachments-8.x-1.0-beta18.zip",
-                "reference": "8.x-1.0-beta18",
-                "shasum": "e770ae27a7f5c2f9a7c3064d14a1f110ae98acf0"
+                "url": "https://ftp.drupal.org/files/projects/search_api_attachments-9.0.0.zip",
+                "reference": "9.0.0",
+                "shasum": "6f0071520ae1555a233473cdd6dffcb6498e6738"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^9 || ^10",
                 "drupal/search_api": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta18",
-                    "datestamp": "1632333998",
+                    "version": "9.0.0",
+                    "datestamp": "1641200225",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -12876,17 +12876,17 @@
         },
         {
             "name": "drupal/search_api_autocomplete",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_autocomplete.git",
-                "reference": "8.x-1.5"
+                "reference": "8.x-1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "b9ae7e69e95da0910a65b23f2810da4be579ecdd"
+                "url": "https://ftp.drupal.org/files/projects/search_api_autocomplete-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "4065946556cac1ccd9b19754a165fb32fc734b92"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -12898,8 +12898,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1626685059",
+                    "version": "8.x-1.6",
+                    "datestamp": "1641998786",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13032,30 +13032,30 @@
         },
         {
             "name": "drupal/search_api_spellcheck",
-            "version": "3.0.0-beta1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_spellcheck.git",
-                "reference": "8.x-3.0-beta1"
+                "reference": "4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_spellcheck-8.x-3.0-beta1.zip",
-                "reference": "8.x-3.0-beta1",
-                "shasum": "b5bd31765918170c55370a16defc0e6ec8374feb"
+                "url": "https://ftp.drupal.org/files/projects/search_api_spellcheck-4.0.0.zip",
+                "reference": "4.0.0",
+                "shasum": "a1dfd60994f9bbee407e3ca68f4ff9b797b103a7"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/search_api": "~1.17"
+                "drupal/core": "^9.2 || ^10.0",
+                "drupal/search_api": "~1.21"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-beta1",
-                    "datestamp": "1605436873",
+                    "version": "4.0.0",
+                    "datestamp": "1640512135",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -26796,8 +26796,6 @@
         "drupal/paranoia": 5,
         "drupal/password_policy": 15,
         "drupal/plupload": 10,
-        "drupal/search_api_attachments": 10,
-        "drupal/search_api_spellcheck": 15,
         "drupal/security_review": 20,
         "drupal/sharethis": 10,
         "drupal/smtp": 10,
