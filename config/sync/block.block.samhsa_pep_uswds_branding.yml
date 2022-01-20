@@ -16,7 +16,7 @@ _core:
 id: samhsa_pep_uswds_branding
 theme: samhsa_pep_uswds
 region: header
-weight: -7
+weight: -22
 provider: null
 plugin: system_branding_block
 settings:
