@@ -224,6 +224,8 @@ $tween-break-high: 54em;
     outline: none;
     /* custom focus styles */
     border: 2px solid $blue;
+    border-radius: 5px;
+    width: 100%;
 }
   }
 }
@@ -442,7 +444,7 @@ $tween-break-high: 54em;
         }
       }
       &.sfHover {
-        background: $blue-gray;
+        //background: $blue-gray;
         outline: 0;
         > ul {
           top: 41px;

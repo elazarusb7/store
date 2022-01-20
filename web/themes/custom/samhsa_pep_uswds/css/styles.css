@@ -2023,6 +2023,8 @@ ul.tabs.primary li {
   outline: none;
   /* custom focus styles */
   border: 2px solid #1F419A;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .extra-width .block-superfishmain-menu ul.sf-menu.menu {
@@ -2223,7 +2225,6 @@ ul.tabs.primary li {
   top: 41px;
 }
 .block-superfishmain-menu .sf-style-none li.sfHover, #block-superfish-2 .sf-style-none li.sfHover {
-  background: #1E384B;
   outline: 0;
 }
 .block-superfishmain-menu .sf-style-none li.sfHover > ul, #block-superfish-2 .sf-style-none li.sfHover > ul {
