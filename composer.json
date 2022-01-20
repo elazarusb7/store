@@ -205,7 +205,7 @@
         "drupal/workbench_moderation": "^1.2",
         "drupal/workflow": "^1.0@beta",
         "drupal/wysiwyg_linebreaks": "^1.11",
-        "drupal/xmlsitemap": "^1.1",
+        "drupal/xmlsitemap": "^1.2",
         "drush/drush": "^10",
         "gnikolovski/link_alter": "dev-master",
         "jquery/geocomplete": "1.7.0",
