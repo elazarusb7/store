@@ -25,7 +25,7 @@
         "drupal/allowed_formats": "^1.1",
         "drupal/autocomplete_deluxe": "^2.0",
         "drupal/autologout": "^1.0",
-        "drupal/better_exposed_filters": "^5.0@beta",
+        "drupal/better_exposed_filters": "^5.0",
         "drupal/block_class": "^1.0@alpha",
         "drupal/block_exclude_pages": "^2.0",
         "drupal/block_field": "^1.0@RC",
