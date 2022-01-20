@@ -26,7 +26,7 @@
 #search-toggle{
   display: block;
 }
-@include breakpoint($max-width-tablet-portrait){
+@include breakpoint($max-width-fullsize){
 // @include breakpoint($max-width-mobile-landscape){
   #search-toggle{
     display: none;
@@ -46,13 +46,28 @@
   display: none;
 }
 
+.search-form-wrapper {
+
+  form { margin: 0; }
+
+  .samhsasearchbox {
+    margin: 0;
+    height: 45px;
+    width: 80%;
+  }
+
+  .topsearchbutton {
+    height: 45px !important;
+    width: 20%;
+  }
+}
 //Show mobile search when magify icon has been clicked
 .search-form-wrapper.open{
-  display: block;
+  display: block
 }
 
 //Layout and display at screen sizes above mobile
-@include breakpoint ($max-width-mobile-landscape){ 
+@include breakpoint ($max-width-fullsize){ 
   .site-branding{
     // @include grid-span(5, 1);
     float: none; 
@@ -69,16 +84,31 @@
     margin-right: 0 !important;
     padding-right: 0 !important;
   }
+
+  .site-search {
+    .search-form-wrapper {
+      .samhsasearchbox {
+        margin: 0;
+        height: 40px;
+        width: 77%;
+      }
+
+      .topsearchbutton {
+        height: 40px !important;
+        width: 23%;
+      }
+    }
+  }
 }
-@include breakpoint ($max-width-tablet-portrait){
+@include breakpoint ($max-width-fullsize){
 // @include breakpoint ($max-width-mobile-landscape){  
   .region-header {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 250px 1fr;
-    grid-template-columns: 250px 1fr;
-    -ms-grid-rows: auto auto;
-    grid-template-rows: auto auto;
+    //display: -ms-grid;
+    display: block;
+    //-ms-grid-columns: 250px 1fr;
+    //grid-template-columns: 250px 1fr;
+    //-ms-grid-rows: auto auto;
+    //grid-template-rows: auto auto;
   }
   .site-branding,
   .site-search{
@@ -91,38 +121,49 @@
     // float: none;
   }
   .site-branding {
-     -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
-    grid-column: 1 / 2;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 2;
-    grid-row: 1 / 3;
+    width: 50%;
+    float: left;
+    //-ms-grid-column: 1;
+    //-ms-grid-column-span: 1;
+    //grid-column: 1 / 2;
+    //-ms-grid-row: 1;
+    //-ms-grid-row-span: 2;
+    //grid-row: 1 / 3;
   }
   .site-search {
-    -ms-grid-column: 2;
-   -ms-grid-column-span: 1;
-   grid-column: 2 / 3;
-    -ms-grid-row: 2;
-    -ms-grid-row-span: 1;
-    grid-row: 2 / 3;
-    // justify-self: end;
+    width: 33.4%;
+    clear: none;
+    position: absolute;
+    right: 0px;
+    bottom: 65px;
+    float: right;
+  //-ms-grid-column: 2;
+  //-ms-grid-column-span: 1;
+  //grid-column: 2 / 3;
+  //-ms-grid-row: 2;
+  //-ms-grid-row-span: 1;
+  //grid-row: 2 / 3;
+  // justify-self: end;
+    
   }
   .utility-menu {
-   -ms-grid-column: 2;
-  -ms-grid-column-span: 1;
-  grid-column: 2 / 3;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 1;
-    grid-row: 1 / 2;
+    float: right;
+    margin-top: 15px;
+  //-ms-grid-column: 2;
+  //-ms-grid-column-span: 1;
+  //grid-column: 2 / 3;
+  //-ms-grid-row: 1;
+  //-ms-grid-row-span: 1;
+  //grid-row: 1 / 2;
 
-    justify-self: end;
-    align-self: end;
-    -ms-grid-column-align: end;
-    -ms-grid-row-align: end;
+  //  justify-self: end;
+  //  align-self: end;
+  //  -ms-grid-column-align: end;
+  // -ms-grid-row-align: end;
   }
 }
 
-@include breakpoint(0 $max-width-tablet-portrait - 1) {
+@include breakpoint(0 $max-width-fullsize - 1) {
 // @include breakpoint(0 $max-width-mobile-landscape - 1) {
   #block-utilitymenu-2 {
     @include visuallyhidden;
