@@ -1786,7 +1786,7 @@ ul.tabs.primary li {
   background-color: #1E384B;
   position: relative;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .region-header {
     background-color: transparent;
   }
@@ -1798,7 +1798,7 @@ ul.tabs.primary li {
   padding: 8px 0 2px;
   text-align: center;
 }
-@media (min-width: 0) and (max-width: 767px) {
+@media (min-width: 0) and (max-width: 1023px) {
   .site-branding {
     height: 61px;
   }
@@ -1819,7 +1819,7 @@ ul.tabs.primary li {
   width: 118px;
   height: 46px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .site-branding {
     margin: 0;
     max-width: 100%;
@@ -1903,7 +1903,7 @@ ul.tabs.primary li {
 .samhsa-mobile-menu {
   display: block;
 }
-@media (min-width: 864px) {
+@media (min-width: 1024px) {
   .samhsa-mobile-menu {
     display: none;
   }
@@ -1964,10 +1964,6 @@ ul.tabs.primary li {
  *
  */
 /* custom styles added for desktop */
-.block-superfishmain-menu {
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 3;
-}
 .block-superfishmain-menu ul.sf-style-none .mobile-only {
   display: none !important;
 }
@@ -2028,6 +2024,7 @@ ul.tabs.primary li {
   /* custom focus styles */
   border: 2px solid #1F419A;
   border-radius: 5px;
+  width: 100%;
 }
 
 .extra-width .block-superfishmain-menu ul.sf-menu.menu {
@@ -2083,7 +2080,7 @@ ul.tabs.primary li {
   height: 41px;
   line-height: 41px;
   text-align: center !important;
-  padding: 0 0.6em;
+  padding: 0 0.76em;
   letter-spacing: 0.03em;
   color: #FFFFFF;
   font-size: 16px;
@@ -2099,10 +2096,10 @@ ul.tabs.primary li {
     padding: 0 0.6em;
   }
 }
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
   .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul {
     font-size: 16px;
-    padding: 0 0.6em;
+    padding: 0 0.76em;
   }
 }
 .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, .block-superfishmain-menu .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1:focus, #block-superfish-2 .sf-style-none li.sf-depth-1 a.sf-depth-1.sf-with-ul:focus {
@@ -2415,7 +2412,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   margin-bottom: 10px;
 }
 .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon, .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon:hover, .block-mobile-menu .dl-menuwrapper ul.dl-menu .locator-icon:focus {
-  display: block;
+  display: inline-block;
   padding-left: 25px;
   background-image: url("../assets/img/locatorsm.png");
   background-position: 0px 14px;
@@ -2484,7 +2481,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   letter-spacing: 0.03em;
   padding-top: 25px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .dl-menuwrapper button.dl-trigger {
     display: none;
   }
@@ -3317,7 +3314,7 @@ All this is done for any sub-level being entered.
 .block-superfishmain-menu {
   display: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .block-superfishmain-menu {
     display: block;
   }
@@ -3401,9 +3398,9 @@ All this is done for any sub-level being entered.
 }
 .search-form-wrapper {
   background-color: #EEEEEE;
-  padding: 14px 0;
+  padding: 14px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .search-form-wrapper {
     padding: 0;
   }
@@ -3421,7 +3418,7 @@ All this is done for any sub-level being entered.
     min-width: 110px;
   }
 }
-@media (min-width: 624px) {
+@media (min-width: 1024px) {
   .search-form-wrapper {
     background-color: transparent;
   }
@@ -3433,14 +3430,14 @@ All this is done for any sub-level being entered.
   width: inherit;
   flex-basis: 280px;
   appearance: none;
-  height: 38px;
+  height: 40px;
   flex-grow: 2;
   border: 1px solid #cdcdcd;
   line-height: 2.2;
   padding: 0 0.5em;
   box-sizing: border-box;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .search-form-wrapper .samhsasearchbox, .search-form-wrapper input#q.samhsasearchbox {
     max-width: 300px;
   }
@@ -3448,17 +3445,17 @@ All this is done for any sub-level being entered.
 .search-form-wrapper form.use-search-icon {
   padding-right: 65px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .search-form-wrapper form.use-search-icon {
     padding-right: 51px;
   }
 }
 .search-form-wrapper form.use-search-icon .samhsasearchbutton {
   top: auto;
-  height: 38px;
+  height: 40px;
   right: 14px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .search-form-wrapper form.use-search-icon .samhsasearchbutton {
     right: 0;
     top: 0;
@@ -3550,7 +3547,7 @@ body:not(.path-frontpage) .program-title {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .utility-menu {
     padding: 10px 0 0;
   }
@@ -4381,9 +4378,9 @@ ul.list--bulletless li {
   border-right: 1px solid #CDCDCD;
   margin: 0 12px;
 }
-@media (min-width: 374px) {
+@media (min-width: 1024px) {
   .text-menu .menu .menu-item:after {
-    margin: 0 16px;
+    margin: 0 8px;
   }
 }
 .text-menu .menu .menu-item:last-child:after {
@@ -5415,6 +5412,9 @@ button.collapse-region.active .collaspse--label:before {
   border-color: white;
   border: 0;
 }
+#views-exposed-form-solr-search-content-block-1 .form--inline .form-item label {
+  display: none;
+}
 #views-exposed-form-solr-search-content-block-1 .form-actions {
   position: absolute;
   bottom: 0;
@@ -5504,7 +5504,7 @@ button.collapse-region.active .collaspse--label:before {
   order: 12;
   margin: 0;
 }
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-items-per-page {
     flex-basis: 50%;
     margin-left: 28px;
@@ -5513,7 +5513,7 @@ button.collapse-region.active .collaspse--label:before {
 .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-items-per-page select {
   margin: 7px 3.5px;
 }
-@media (min-width: 768px) and (max-width: 999px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-items-per-page .form-select--items-per-page:before {
     display: block;
   }
@@ -5527,7 +5527,7 @@ button.collapse-region.active .collaspse--label:before {
 .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine {
   margin: 0;
 }
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine {
     flex-basis: 50%;
   }
@@ -5535,7 +5535,7 @@ button.collapse-region.active .collaspse--label:before {
 .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine select {
   margin: 7px 3.5px;
 }
-@media (min-width: 768px) and (max-width: 999px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .layout-facet-search #views-exposed-form-solr-search-content-page-1 .form--inline .form-item-sort-bef-combine label {
     display: inline;
     margin-bottom: 0;
@@ -5826,7 +5826,7 @@ button.collapse-region.active .collaspse--label:before {
 }
 
 .field--name-field-may-be-interested-manual .field__items {
-  max-width: 1000px;
+  max-width: 1024px;
 }
 .field--name-field-may-be-interested-manual .field__items .product-card {
   border-top: 1px solid #CDCDCD;
@@ -6004,7 +6004,7 @@ button.collapse-region.active .collaspse--label:before {
   display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   #search-toggle {
     display: none;
   }
@@ -6021,11 +6021,24 @@ button.collapse-region.active .collaspse--label:before {
   display: none;
 }
 
+.search-form-wrapper form {
+  margin: 0;
+}
+.search-form-wrapper .samhsasearchbox {
+  margin: 0;
+  height: 45px;
+  width: 80%;
+}
+.search-form-wrapper .topsearchbutton {
+  height: 45px !important;
+  width: 20%;
+}
+
 .search-form-wrapper.open {
   display: block;
 }
 
-@media (min-width: 624px) {
+@media (min-width: 1024px) {
   .site-branding {
     float: none;
   }
@@ -6042,15 +6055,20 @@ button.collapse-region.active .collaspse--label:before {
     margin-right: 0 !important;
     padding-right: 0 !important;
   }
+
+  .site-search .search-form-wrapper .samhsasearchbox {
+    margin: 0;
+    height: 40px;
+    width: 77%;
+  }
+  .site-search .search-form-wrapper .topsearchbutton {
+    height: 40px !important;
+    width: 23%;
+  }
 }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .region-header {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 250px 1fr;
-    grid-template-columns: 250px 1fr;
-    -ms-grid-rows: auto auto;
-    grid-template-rows: auto auto;
+    display: block;
   }
 
   .site-branding,
@@ -6060,37 +6078,25 @@ button.collapse-region.active .collaspse--label:before {
   }
 
   .site-branding {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
-    grid-column: 1/2;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 2;
-    grid-row: 1/3;
+    width: 50%;
+    float: left;
   }
 
   .site-search {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 1;
-    grid-column: 2/3;
-    -ms-grid-row: 2;
-    -ms-grid-row-span: 1;
-    grid-row: 2/3;
+    width: 33.4%;
+    clear: none;
+    position: absolute;
+    right: 0px;
+    bottom: 65px;
+    float: right;
   }
 
   .utility-menu {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 1;
-    grid-column: 2/3;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 1;
-    grid-row: 1/2;
-    justify-self: end;
-    align-self: end;
-    -ms-grid-column-align: end;
-    -ms-grid-row-align: end;
+    float: right;
+    margin-top: 15px;
   }
 }
-@media (min-width: 0) and (max-width: 767px) {
+@media (min-width: 0) and (max-width: 1023px) {
   #block-utilitymenu-2 {
     margin: -1px;
     padding: 0;
@@ -6135,9 +6141,9 @@ button.collapse-region.active .collaspse--label:before {
     width: 864px;
   }
 }
-@media (min-width: 1000px) {
+@media (min-width: 1024px) {
   #page-wrapper {
-    width: 1000px;
+    width: 1024px;
   }
 }
 

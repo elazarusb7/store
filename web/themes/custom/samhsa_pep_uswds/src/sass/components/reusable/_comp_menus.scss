@@ -15,8 +15,8 @@
         content: "";
         border-right: 1px solid $light-gray;
         margin: 0 12px;
-        @include breakpoint($max-width-mobile-portrait-small) {
-          margin: 0 16px;
+        @include breakpoint($max-width-fullsize) {
+          margin: 0 8px;
         }
       }
       &:last-child:after {
