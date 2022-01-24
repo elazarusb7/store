@@ -124,7 +124,6 @@ jQuery.fn.superfishA11yHelper = function (options) {
           $mainMenuHrefs = jQuery(this).attr('href');
           //Take href values and create a string with the last path of the path
           $hrefsToLabels = $mainMenuHrefs.substr($mainMenuHrefs.indexOf("/") + 1).replace('/www.samhsa.gov/', '').replace(/\//g, ' ').replace('-', ' ');
-          console.log($hrefsToLabels);
           //create aria-labelledby attribute and insert the string above at the value
           jQuery(this).attr('aria-labelledby', $hrefsToLabels);
         });
