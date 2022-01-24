@@ -3358,7 +3358,7 @@ All this is done for any sub-level being entered.
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .region--header-top {
     background-color: #EEEEEE;
   }
