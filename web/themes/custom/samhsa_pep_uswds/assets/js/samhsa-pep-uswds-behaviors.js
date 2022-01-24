@@ -106,3 +106,78 @@ for (i = 0; i < coll.length; i++) {
 }
 
 })(jQuery);
+
+jQuery.fn.superfishA11yHelper = function (options) {
+    return this.each(function () {
+        const samhsaMainMenu = jQuery(this);
+
+        // add aria attributes to declare state to assistive technologies
+        samhsaMainMenu.attr('aria-label', 'samhsa main menu');
+        $trigger = samhsaMainMenu.find('a.sf-depth-1.menuparent');
+        $trigger.attr('has-popup', 'true').attr('aria-expanded', 'false');
+
+        //find each link in the main menu
+        $mainMenuLinks = samhsaMainMenu.find('a');
+        //get each link
+        $mainMenuLinks.each(function () {
+          //get the href path for each link
+          $mainMenuHrefs = jQuery(this).attr('href');
+          //Take href values and create a string with the last path of the path
+          $hrefsToLabels = $mainMenuHrefs.substr($mainMenuHrefs.indexOf("/") + 1).replace('/www.samhsa.gov/', '').replace(/\//g, ' ').replace('-', ' ');
+          //create aria-labelledby attribute and insert the string above at the value
+          jQuery(this).attr('aria-labelledby', $hrefsToLabels);
+        });
+        
+        //console.log("My HREF is", $hrefsToLabels);
+        //$mainMenuLinks.attr('aria-labelledby', $hrefsToLabels);
+
+        // show hide subs
+        function showSub(dis) {
+            dis.next().removeClass('sf-hidden').show();
+            dis.attr('aria-expanded', 'true');
+        }
+
+        function hideSub(dis) {
+            dis.next().addClass('sf-hidden').hide();
+            dis.attr('aria-expanded', 'false');
+        }
+
+        // keep mouse hover synced
+        $trigger.parent().mouseenter(function (dis) {
+            showSub(jQuery(this).find('> a.sf-depth-1.menuparent'));
+        });
+        $trigger.parent().mouseleave(function (dis) {
+            hideSub(jQuery(this).find('> a.sf-depth-1.menuparent'));
+        });
+
+        // when a main menu item has focus...
+        $trigger.on('focus', function (e) {
+            // override superfish and keep the menu closed until keyboard user wants it open
+            e.preventDefault();
+
+            hideSub($trigger.parent().siblings().find('a.sf-depth-1.menuparent'));
+            // capture keydown events on top level nav items.
+            jQuery(this).keydown(function (e) {
+
+                if (e.keyCode === 40) {
+                    // down arrow hit - show menu
+                    showSub(jQuery(this));
+                    e.preventDefault();
+                }
+                if (e.keyCode === 38) {
+                    // up arrow hit - hide menu
+                    hideSub(jQuery(this));
+                    e.preventDefault();
+                }
+            });
+        });
+        // after last menu item in each main dropdown is blurred ensure all main menu attributes are reset.
+        $trigger.each(function (e) {
+            jQuery(this).parent().find('a').last().on('blur', function (e) {
+                jQuery('a.sf-depth-1.menuparent').attr('aria-expanded', 'false');
+            });
+        });
+    });
+
+}
+jQuery('#superfish-main-menu').superfishA11yHelper();
