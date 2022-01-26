@@ -23,6 +23,7 @@ $tween-break-high: 54em;
 
 .samhsa-mobile-menu {
   display: block;
+  position: relative;
 
    @include breakpoint($max-width-fullsize){
      display: none;
@@ -702,6 +703,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
       background-image: url('../assets/img/locatorsm.png');
       background-position: 0px 14px;
       background-repeat: no-repeat;
+      width: 100%;
     }
     .external-icon, .external-icon:hover, .external-icon:focus {
       display: inline-block;
@@ -732,11 +734,15 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
 /* Common styles of menus */
 
 .dl-menuwrapper {
-  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  width: 90%;
   max-width: 100%;
   /* max-width: 300px; */
   float: left;
-  position: absolute;
+  //position: absolute;
   -webkit-perspective: 1000px;
   perspective: 1000px;
   -webkit-perspective-origin: 50% 200%;
@@ -763,7 +769,8 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   position: absolute;
   cursor: pointer;
   outline: none;
-  top: -61px;
+  //top: -61px;
+  top: 0;
   left: 0px;
   // padding: 10px 10px;
   font-size: 11px;
@@ -810,6 +817,8 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   padding: 0;
   list-style-type: none;
   list-style-image: none;
+  min-width: 100%;
+  padding: 0 15px;
 }
 .dl-menuwrapper li {
   position: relative;
@@ -834,7 +843,16 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
 .no-touch .dl-menuwrapper li a:hover {
   background: rgba(255,248,213,0.1);
 }
-.dl-menuwrapper li.dl-back { background: rgba(0,0,0,0.1);  display: block; clear: both; float: none; overflow: hidden; border-bottom: 1px solid $medium-gray; margin: 0 -15px; }
+.dl-menuwrapper li.dl-back { 
+  background: rgba(0,0,0,0.1);  
+  display: block; 
+  clear: both; 
+  float: none; 
+  overflow: hidden;
+  border-bottom: 1px solid $medium-gray; 
+  //margin: 0 -15px;
+  min-width: 100%;
+}
 .dl-menuwrapper li.dl-back .dl-back-link {  }
 .dl-menuwrapper li.dl-back > a {
   padding-left: 30px;
@@ -942,9 +960,10 @@ a.dl-close-link:after {
   // transform: translateY(10px);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  padding: 0 15px;
+  //padding: 0 15px;
   left:-100%;
-  top: -61px;
+  //top: -61px;
+  top: 0;
 }
 .dl-menuwrapper .dl-menu--1.dl-menu.dl-subview {
   margin: -15px 0 0 0;
@@ -960,8 +979,13 @@ a.dl-close-link:after {
   // -webkit-transform: translateY(0px);
   // transform: translateY(0px);
   // left:-20px;
+  position: absolute;
+  top:0;
   left: 0;
-  transition: 0.25s;
+  bottom: 0;
+  transition: 0.5s;
+  overflow: scroll;
+  width: 90%;
 }
 
 /* Hide the inner submenus */
@@ -976,6 +1000,14 @@ We also hide the submenu link.
 The opened submenu will get the class "dl-subviewopen".
 All this is done for any sub-level being entered.
 */
+.dl-menu.dl-subview  {
+  padding: 0;
+
+  li.dl-subview {
+    padding: 0;
+  }
+}
+
 .dl-menu.dl-subview li,
 .dl-menu.dl-subview li.dl-subviewopen > a,
 .dl-menu.dl-subview li.dl-subview > a {
@@ -988,6 +1020,10 @@ All this is done for any sub-level being entered.
 .dl-menu.dl-subview li.dl-subviewopen > .dl-submenu,
 .dl-menu.dl-subview li.dl-subviewopen > .dl-submenu > li {
   display: block;
+}
+
+.dl-menu.dl-subview  li.dl-subviewopen {
+  padding: 0;
 }
 
 /* Dynamically added submenu outside of the menu context */
