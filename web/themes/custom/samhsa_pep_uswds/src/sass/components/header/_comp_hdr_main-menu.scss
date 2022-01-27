@@ -734,33 +734,61 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
 /* Common styles of menus */
 
 .dl-menuwrapper {
-  height: auto;
+  width: 90%;
+  max-width: 100%;
+  float: left;
+  perspective: 1000px;
+  perspective-origin: 50% 200%;
+  opacity: 0.97;
+  position: absolute;
+  top: -67px;
+  bottom: 0px;
+  height: 0px;
+  display: block !important;
+  z-index: 500;
+
+  &.dl-menu-active {
+    height: auto;
+    position: fixed;
+    top: 0px;
+  }
+
+  /*height: auto;
   position: fixed;
   top: 0px;
   bottom: 0;
   width: 90%;
   max-width: 100%;
-  /* max-width: 300px; */
   float: left;
-  //position: absolute;
   -webkit-perspective: 1000px;
   perspective: 1000px;
   -webkit-perspective-origin: 50% 200%;
   perspective-origin: 50% 200%;
   opacity: 0.97;
-  height: 0;
-}
-.dl-menuwrapper {
-  z-index: 500;
-}
+  height: 0;*/
 
+  &:first-child {
+    margin-right: 100px;
+  }
 
-.dl-menuwrapper:first-child {
-  margin-right: 100px;
-}
-
-.dl-menuwrapper button.dl-trigger {
+  button.dl-trigger {
   background: transparent;
+  border: none;
+  width: 48px;
+  height: 45px;
+  text-indent: -900em;
+  overflow: hidden;
+  position: absolute;
+  cursor: pointer;
+  outline: none;
+  top: 12px;
+  left: 5px;
+  padding-top: 33px;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  /*background: transparent;
   border: none;
   width: 61px;
   height: 61px;
@@ -776,13 +804,15 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   font-size: 11px;
   text-align: center;
   letter-spacing: 0.03em;
-  padding-top: 25px;
+  padding-top: 25px;*/
 
-  // @include breakpoint ($max-width-mobile-landscape){
-   @include breakpoint ($max-width-fullsize) {  
-    display: none;
+    // @include breakpoint ($max-width-mobile-landscape){
+    @include breakpoint ($max-width-fullsize) {  
+      display: none;
+    }
   }
 }
+
 .dl-menuwrapper button:hover {
   border: none;
 }
@@ -793,7 +823,17 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
 }
 
 .dl-menuwrapper button:after {
-  content: '';
+
+  content: "";
+  position: absolute;
+  width: 68%;
+  height: 5px;
+  background: #FFFFFF;
+  top: 10px;
+  left: 25%;
+  box-shadow: 0 10px 0 #ffffff, 0 20px 0 #ffffff;
+
+  /*content: '';
   position: absolute;
   width: 30px;
   height: 4px;
@@ -802,7 +842,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   left: 25%;
   box-shadow:
           0 7px 0 $white,
-          0 14px 0 $white;
+          0 14px 0 $white;*/
 }
 
 .dl-menuwrapper ul {
@@ -812,13 +852,18 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   transform-style: preserve-3d;
 }
 /* override menu css styles */
-.dl-menuwrapper .menu-item, .menu-item--collapsed, .menu-item--expanded {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  list-style-image: none;
-  min-width: 100%;
-  padding: 0 15px;
+.dl-menuwrapper {
+
+  .menu-item, 
+  .menu-item--collapsed, 
+  .menu-item--expanded {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    list-style-image: none;
+    min-width: 100%;
+    padding: 0 15px;
+  }
 }
 .dl-menuwrapper li {
   position: relative;
