@@ -199,7 +199,8 @@
 			this.$menu.removeClass( 'dl-menuopen' );
 			this.$menu.addClass( 'dl-menu-toggle' );
 			this.$trigger.removeClass( 'dl-active' );
-            this.$trigger.parent('.dl-menuwrapper').css('height', '0');
+			this.$trigger.parent('.dl-menuwrapper').removeClass('dl-menu-active');
+            //this.$trigger.parent('.dl-menuwrapper').css('height', '0');
             this.$trigger.parent().siblings('.overlay-container').hide();
 
 			if( this.supportTransitions ) {
@@ -226,7 +227,7 @@
 				self._closeMenu() ;
 			} );
             this.$trigger.parent().siblings('.overlay-container').show();
-            this.$trigger.parent('.dl-menuwrapper').css('height', 'auto');
+            this.$trigger.parent('.dl-menuwrapper').addClass('dl-menu-active');
 			this.$menu.addClass( 'dl-menuopen dl-menu-toggle' ).on( this.transEndEventName, function() {
 				$( this ).removeClass( 'dl-menu-toggle' );
 			} );
