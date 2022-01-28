@@ -155,7 +155,7 @@
         "drupal/redirect": "^1.4",
         "drupal/responsive_tables_filter": "^1.7",
         "drupal/robotstxt": "^1.2",
-        "drupal/search_api": "^1.22",
+        "drupal/search_api": "^1.23",
         "drupal/search_api_attachments": "^9.0",
         "drupal/search_api_autocomplete": "^1.6",
         "drupal/search_api_solr": "^4.2",
