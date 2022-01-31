@@ -9,22 +9,22 @@ dependencies:
     - samhsa_pep_order_states_workflow
 third_party_settings:
   commerce_cart:
-    cart_form_view: commerce_cart_form
     cart_block_view: commerce_cart_block
+    cart_form_view: commerce_cart_form
     cart_expiration:
-      unit: hour
       number: 24
+      unit: hour
   commerce_checkout:
     checkout_flow: shipping
   commerce_shipping:
     shipment_type: default
-label: 'SAMHSA Publication (Regular)'
 id: default
+label: 'SAMHSA Publication (Regular)'
+traits: {  }
+locked: false
 workflow: samhsa_pep_order_states_workflow_fulfillment_processing
 numberPattern: null
 refresh_mode: customer
 refresh_frequency: 300
 sendReceipt: false
 receiptBcc: ''
-traits: {  }
-locked: false

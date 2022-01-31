@@ -1,7 +1,27 @@
 uuid: bdf76023-4113-4318-83d1-a0224b880912
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - commerce
+    - commerce_order
+    - commerce_product
+    - commerce_reports
+    - commerce_shipping
+    - commerce_stock
+    - commerce_stock_ui
+    - commerce_store
+    - field_permissions
+    - filter
+    - profile
+    - samhsa_pep_order_states_workflow
+    - samhsa_pep_stock
+    - samhsa_pep_utility
+    - system
+    - tfa
+    - toolbar
 id: warehouse_manager
 label: 'Warehouse Manager'
 weight: 3
@@ -23,19 +43,13 @@ permissions:
   - 'complete order'
   - 'create default commerce_order'
   - 'create field_comments'
-  - 'create field_is_over_the_limit'
   - 'create field_order_source'
-  - 'create field_source_of_the_order'
   - 'create internal order'
   - 'create samhsa_publication commerce_product'
   - 'edit field_comments'
-  - 'edit field_is_over_the_limit'
   - 'edit field_order_source'
-  - 'edit field_source_of_the_order'
   - 'edit own field_comments'
-  - 'edit own field_is_over_the_limit'
   - 'edit own field_order_source'
-  - 'edit own field_source_of_the_order'
   - 'generate commerce order reports'
   - 'generate pick slips'
   - 'manage default commerce_order_item'
@@ -65,15 +79,9 @@ permissions:
   - 'view commerce_store'
   - 'view default commerce_order'
   - 'view field_comments'
-  - 'view field_is_over_the_limit'
   - 'view field_order_source'
-  - 'view field_requested_quantity'
-  - 'view field_source_of_the_order'
   - 'view own field_comments'
-  - 'view own field_is_over_the_limit'
   - 'view own field_order_source'
-  - 'view own field_requested_quantity'
-  - 'view own field_source_of_the_order'
   - 'view own profile'
   - 'view own unpublished commerce_product'
   - 'view samhsa_publication commerce_product'

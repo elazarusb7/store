@@ -2,11 +2,6 @@ uuid: 838e6eb5-6d45-46a2-8d35-a020efe5af0c
 langcode: en
 status: true
 dependencies:
-  module:
-    - search_api_solr
-    - commerce_product
-    - search_api
-    - search_api_attachments
   config:
     - field.storage.commerce_product.field_audience
     - field.storage.commerce_product.body
@@ -25,24 +20,26 @@ dependencies:
     - field.storage.commerce_product.field_substances
     - field.storage.commerce_product.field_treatment_prevention_and_r
     - search_api.server.default_solr_server
+  module:
+    - search_api_solr
+    - commerce_product
+    - search_api
+    - search_api_attachments
 third_party_settings:
   search_api_solr:
     finalize: false
     commit_before_finalize: false
     commit_after_finalize: false
-    multilingual:
-      limit_to_content_language: false
-      include_language_independent: true
     highlighter:
       maxAnalyzedChars: 51200
       fragmenter: regex
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
       regex:
         slop: 0.5
         pattern: blank
         maxAnalyzedChars: 10000
-      usePhraseHighlighter: true
-      highlightMultiTerm: true
-      preserveMulti: false
       highlight:
         mergeContiguous: false
         requireFieldMatch: false
@@ -59,13 +56,16 @@ third_party_settings:
       maxntp: 2000
       boost: false
       interestingTerms: none
+    term_modifiers:
+      slop: 10000000
+      fuzzy: 2
     advanced:
       index_prefix: ''
       collection: ''
       timezone: ''
-    term_modifiers:
-      slop: 10000000
-      fuzzy: 2
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
 _core:
   default_config_hash: lcYnKd7EBuLnAdRQR3jS8E4SqChn3zAaFqUx9DdoTqA
 id: default_solr_index
@@ -266,15 +266,15 @@ processor_settings:
     excluded_private: 1
     excluded_mimes: 'audio/x-aiff image/x-jg video/x-msvideo image/x-ms-bmp image/gif image/vnd.microsoft.icon video/quicktime audio/ogg video/ogg image/png image/x-photoshop audio/x-realaudio audio/x-pn-realaudio image/x-rgb video/x-flv'
   highlight:
-    highlight: always
-    highlight_partial: false
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
     excerpt: true
     excerpt_length: 256
     exclude_fields: {  }
-    prefix: '<strong>'
-    suffix: '</strong>'
-    weights:
-      postprocess_query: 0
+    highlight: always
+    highlight_partial: false
   language_with_fallback: {  }
   rendered_item:
     weights:
@@ -287,6 +287,6 @@ tracker_settings:
   default:
     indexing_order: fifo
 options:
-  index_directly: true
   cron_limit: 50
+  index_directly: true
 server: default_solr_server

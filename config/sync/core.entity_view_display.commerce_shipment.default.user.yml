@@ -16,17 +16,17 @@ mode: user
 content:
   shipping_method:
     type: commerce_shipping_method
-    weight: 0
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 0
     region: content
   tracking_code:
     type: commerce_tracking_link
-    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   amount: true

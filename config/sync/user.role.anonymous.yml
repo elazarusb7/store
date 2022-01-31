@@ -1,7 +1,20 @@
 uuid: 92c138b2-387b-4079-8549-bcad4fe6c79e
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - comment
+    - commerce_checkout
+    - commerce_product
+    - contact
+    - filter
+    - media
+    - profile
+    - samhsa_pep_order_states_workflow
+    - search_api_autocomplete
+    - system
 _core:
   default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
 id: anonymous
@@ -12,14 +25,11 @@ permissions:
   - 'access checkout'
   - 'access comments'
   - 'access content'
-  - 'access kint'
   - 'access site-wide contact form'
   - 'administer search_api_autocomplete'
   - 'create shipping_profile profile'
-  - 'search content'
   - 'use place transition in samhsa_pep_order_states_workflow_fulfillment_processing'
   - 'use placebulk transition in samhsa_pep_order_states_workflow_fulfillment_processing'
-  - 'use search_api_autocomplete for publication_search'
   - 'use text format restricted_html'
   - 'view commerce_product'
   - 'view media'

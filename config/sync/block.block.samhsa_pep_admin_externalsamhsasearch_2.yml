@@ -22,14 +22,14 @@ plugin: 'block_content:83883cd0-dcdc-47b8-b531-3411c16b3918'
 settings:
   id: 'block_content:83883cd0-dcdc-47b8-b531-3411c16b3918'
   label: 'External SAMHSA Search'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

@@ -8,11 +8,11 @@ dependencies:
     - field.field.commerce_order_item.default.field_is_over_the_limit
     - field.field.commerce_order_item.default.field_requested_quantity
     - field.field.commerce_order_item.default.field_was_over_the_limit
+  module:
+    - commerce_price
   enforced:
     module:
       - commerce_product
-  module:
-    - commerce_price
 _core:
   default_config_hash: a-MK2hTebnM3YwCg08ZKg7ItNkBUOsu3am_y0HIjTw8
 id: commerce_order_item.default.default
@@ -21,70 +21,70 @@ bundle: default
 mode: default
 content:
   created:
-    label: hidden
     type: timestamp
-    weight: 2
-    region: content
+    label: hidden
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_comments:
-    weight: 5
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 5
     region: content
   field_requested_quantity:
-    weight: 4
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 4
     region: content
   field_was_over_the_limit:
-    weight: 6
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 6
     region: content
   purchased_entity:
     type: entity_reference_entity_view
-    weight: 0
-    settings:
-      link: false
-      view_mode: default
-    third_party_settings: {  }
     label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
     region: content
   quantity:
     type: number_decimal
-    weight: 1
+    label: above
     settings:
       thousand_separator: ''
       decimal_separator: .
       scale: 0
       prefix_suffix: true
     third_party_settings: {  }
-    label: above
+    weight: 1
     region: content
   unit_price:
     type: commerce_price_default
-    weight: 3
-    region: content
     label: above
     settings:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
+    weight: 3
+    region: content
 hidden:
   adjustments: true
   field_is_over_the_limit: true

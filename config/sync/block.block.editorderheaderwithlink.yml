@@ -18,14 +18,14 @@ plugin: 'block_content:68213ac9-6ed6-4573-bb81-3f77fb34307b'
 settings:
   id: 'block_content:68213ac9-6ed6-4573-bb81-3f77fb34307b'
   label: 'Edit Order Header with link'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   request_path:
     id: request_path
-    pages: '/admin/commerce/orders/*/edit'
     negate: false
     context_mapping: {  }
+    pages: '/admin/commerce/orders/*/edit'

@@ -10,11 +10,8 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    basic_html: basic_html
-    raw_unfiltered_html: '0'
-    restricted_html: '0'
-    full_html: '0'
-    plain_text: '0'
+    allowed_formats:
+      - basic_html
 id: commerce_product.samhsa_publication.field_app_features
 field_name: field_app_features
 entity_type: commerce_product

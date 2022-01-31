@@ -17,16 +17,16 @@ plugin: jbs_commerce_back_to_browse_block
 settings:
   id: jbs_commerce_back_to_browse_block
   label: 'Store Navigation'
-  provider: jbs_commerce_back_to_browse_block
   label_display: '0'
+  provider: jbs_commerce_back_to_browse_block
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications\r\n/user/*\r\n/login\r\n/tfa/*\r\n/notification"
     negate: true
     context_mapping: {  }
+    pages: "<front>\r\n/publications\r\n/user/*\r\n/login\r\n/tfa/*\r\n/notification"

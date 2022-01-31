@@ -8,12 +8,12 @@ dependencies:
     - field.field.profile.customer.field_phone_number
     - field.field.profile.customer.tax_number
     - profile.type.customer
-  enforced:
-    module:
-      - commerce_order
   module:
     - address
     - commerce_tax
+  enforced:
+    module:
+      - commerce_order
 _core:
   default_config_hash: zA0MBGUGdWqnBBoC762uDcH92qRZHC8KllbkpOjNUcs
 id: profile.customer.default
@@ -23,34 +23,34 @@ mode: default
 content:
   address:
     type: address_default
-    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
     region: content
   field_phone_extension:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_phone_number:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   tax_number:
     type: commerce_tax_number_default
+    label: above
     settings:
       show_verification: false
-    weight: 3
-    label: above
     third_party_settings: {  }
+    weight: 3
     region: content
 hidden:
   search_api_excerpt: true

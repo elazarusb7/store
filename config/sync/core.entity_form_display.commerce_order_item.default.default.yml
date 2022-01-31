@@ -8,11 +8,11 @@ dependencies:
     - field.field.commerce_order_item.default.field_is_over_the_limit
     - field.field.commerce_order_item.default.field_requested_quantity
     - field.field.commerce_order_item.default.field_was_over_the_limit
+  module:
+    - commerce_order
   enforced:
     module:
       - commerce_product
-  module:
-    - commerce_order
 _core:
   default_config_hash: AI9120ApX7uexCUMTuO3RgE5bWu8175i_bNlPMRXe7M
 id: commerce_order_item.default.default
@@ -21,23 +21,23 @@ bundle: default
 mode: default
 content:
   field_comments:
+    type: string_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
   purchased_entity:
     type: entity_reference_autocomplete
     weight: 0
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    region: content
   quantity:
     type: commerce_quantity
     weight: 1

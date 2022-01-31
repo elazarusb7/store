@@ -8,9 +8,9 @@ id: medium
 label: 'Medium (220×220)'
 image_style_mappings:
   -
-    breakpoint_id: responsive_image.viewport_sizing
-    multiplier: 1x
     image_mapping_type: image_style
     image_mapping: medium
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
 breakpoint_group: responsive_image
 fallback_image_style: medium

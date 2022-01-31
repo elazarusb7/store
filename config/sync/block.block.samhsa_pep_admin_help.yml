@@ -16,11 +16,11 @@ plugin: help_block
 settings:
   id: help_block
   label: Help
-  provider: help
   label_display: '0'
+  provider: help
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

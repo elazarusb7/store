@@ -66,20 +66,20 @@ mode: default
 content:
   body:
     type: text_default
-    weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 3
     region: content
   field_app_features:
-    weight: 36
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 36
     region: content
   field_apple_app_store:
-    weight: 34
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -88,52 +88,52 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 34
     region: content
   field_audience:
-    weight: 25
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 25
     region: content
   field_campaign:
-    weight: 15
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 15
     region: content
   field_external_video:
     type: entity_reference_entity_view
-    weight: 32
     label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
+    weight: 32
     region: content
   field_featured:
-    weight: 37
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 37
     region: content
   field_format:
-    weight: 28
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 28
     region: content
   field_google_play:
-    weight: 33
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -142,58 +142,58 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 33
     region: content
   field_issues_conditions_and_diso:
-    weight: 18
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 18
     region: content
   field_last_reviewed:
     type: datetime_custom
-    weight: 0
-    region: content
     label: inline
     settings:
       timezone_override: ''
       date_format: 'F Y'
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_location:
-    weight: 27
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 27
     region: content
   field_may_be_interested_files:
-    weight: 9
+    type: file_default
     label: hidden
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 9
     region: content
   field_may_be_interested_manual:
-    weight: 22
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 22
     region: content
   field_metatags:
-    weight: 38
+    type: metatag_empty_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: metatag_empty_formatter
+    weight: 38
     region: content
   field_microsoft_store:
-    weight: 35
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -202,97 +202,97 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 35
     region: content
   field_pep_product_type:
     type: list_key
-    weight: 29
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 29
+    region: content
   field_population_group:
-    weight: 26
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 26
     region: content
   field_product_owner_email:
-    weight: 13
+    type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 13
     region: content
   field_product_owner_name:
-    weight: 12
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 12
     region: content
   field_product_owner_phone:
-    weight: 14
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 14
     region: content
   field_professional_and_research_:
-    weight: 20
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 20
     region: content
   field_pub_lang:
-    weight: 23
+    type: list_default
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 23
     region: content
   field_pub_target_audience:
-    weight: 30
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 30
     region: content
   field_publication_category:
-    weight: 21
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 21
     region: content
   field_publication_date:
     type: datetime_custom
-    weight: 6
-    region: content
     label: inline
     settings:
       timezone_override: ''
       date_format: 'F Y'
     third_party_settings: {  }
+    weight: 6
+    region: content
   field_qty_max_order:
-    weight: 8
+    type: number_integer
     label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 8
     region: content
   field_related_products:
-    weight: 10
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -301,26 +301,26 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 10
     region: content
   field_related_resource_files:
-    weight: 11
+    type: file_default
     label: hidden
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 11
     region: content
   field_samhsa_digital_download:
-    weight: 4
+    type: file_default
     label: hidden
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 4
     region: content
   field_samhsa_promo_link:
-    weight: 5
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -329,72 +329,72 @@ content:
       rel: '0'
       target: '0'
     third_party_settings: {  }
-    type: link
+    weight: 5
     region: content
   field_series:
-    weight: 24
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 24
     region: content
   field_substances:
-    weight: 17
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 17
     region: content
   field_subtitle:
-    weight: 2
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_tags:
-    weight: 31
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 31
     region: content
   field_thumbnail:
-    weight: 16
+    type: responsive_image
     label: hidden
     settings:
       responsive_image_style: product_page_image
       image_link: file
     third_party_settings: {  }
-    type: responsive_image
+    weight: 16
     region: content
   field_treatment_prevention_and_r:
-    weight: 19
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 19
     region: content
   title:
-    label: hidden
     type: string
-    weight: 1
-    region: content
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
   variations:
     type: commerce_add_to_cart
-    weight: 7
     label: hidden
     settings:
       combine: true
     third_party_settings: {  }
+    weight: 7
     region: content
 hidden:
   created: true

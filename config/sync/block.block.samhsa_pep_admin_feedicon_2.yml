@@ -18,14 +18,14 @@ plugin: 'block_content:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
 settings:
   id: 'block_content:63e52d64-80ac-48a6-aba0-d40e2a64ed4b'
   label: 'Feed Icon'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

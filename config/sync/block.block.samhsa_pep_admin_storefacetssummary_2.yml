@@ -23,16 +23,16 @@ plugin: 'facets_summary_block:store_facets_summary'
 settings:
   id: 'facets_summary_block:store_facets_summary'
   label: 'Store Facets Summary'
-  provider: facets_summary
   label_display: '0'
+  provider: facets_summary
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications"
     negate: false
     context_mapping: {  }
+    pages: "<front>\r\n/publications"

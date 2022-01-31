@@ -1,6 +1,7 @@
 crazyegg_enabled: 1
 crazyegg_account_id: '00836179'
 crazyegg_js_scope: header
+crazyegg_paths: ''
 crazyegg_roles_excluded:
   anonymous: 0
   authenticated: 0
@@ -8,4 +9,3 @@ crazyegg_roles_excluded:
   warehouse_manager: 0
   warehouse_clerk: 0
   site_manager: 0
-crazyegg_paths: ''

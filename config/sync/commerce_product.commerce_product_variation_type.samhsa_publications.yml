@@ -4,7 +4,7 @@ status: true
 dependencies: {  }
 id: samhsa_publications
 label: 'SAMHSA Publications'
-orderItemType: default
-generateTitle: false
 traits: {  }
 locked: false
+orderItemType: default
+generateTitle: false

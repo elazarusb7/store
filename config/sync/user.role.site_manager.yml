@@ -1,7 +1,22 @@
 uuid: 95687eab-92c6-4fb2-87ce-40e5647a4e51
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - commerce
+    - commerce_order
+    - commerce_product
+    - commerce_reports
+    - commerce_store
+    - field_permissions
+    - filter
+    - profile
+    - samhsa_pep_stock
+    - system
+    - tfa
+    - toolbar
 id: site_manager
 label: 'Site Manager'
 weight: 5
@@ -12,7 +27,6 @@ permissions:
   - 'access commerce_order overview'
   - 'access commerce_order_report overview'
   - 'access commerce_product overview'
-  - 'access kint'
   - 'access profile overview'
   - 'access toolbar'
   - 'access user profiles'
@@ -30,13 +44,9 @@ permissions:
   - 'view commerce_store'
   - 'view default commerce_order'
   - 'view field_comments'
-  - 'view field_is_over_the_limit'
   - 'view field_order_source'
-  - 'view field_requested_quantity'
   - 'view own field_comments'
-  - 'view own field_is_over_the_limit'
   - 'view own field_order_source'
-  - 'view own field_requested_quantity'
   - 'view own profile'
   - 'view own unpublished commerce_product'
   - 'view samhsa_publication commerce_product'

@@ -18,14 +18,14 @@ plugin: 'block_content:99223e64-4029-4e47-beb8-56a6e5d951ed'
 settings:
   id: 'block_content:99223e64-4029-4e47-beb8-56a6e5d951ed'
   label: 'Required Fields Text  '
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   request_path:
     id: request_path
-    pages: /user/register
     negate: false
     context_mapping: {  }
+    pages: /user/register

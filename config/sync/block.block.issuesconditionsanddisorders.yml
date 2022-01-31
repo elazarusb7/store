@@ -17,7 +17,7 @@ plugin: 'facet_block:issues_conditions_and_disorders'
 settings:
   id: 'facet_block:issues_conditions_and_disorders'
   label: 'Issues, Conditions and Disorders'
-  provider: facets
   label_display: '0'
+  provider: facets
   block_id: issuesconditionsanddisorders
 visibility: {  }

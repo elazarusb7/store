@@ -20,6 +20,12 @@ name: 'Solr Server'
 description: 'Default Solr server created by the Solr Search Defaults module'
 backend: search_api_solr
 backend_config:
+  retrieve_data: true
+  highlight_data: true
+  site_hash: true
+  server_prefix: ''
+  domain: generic
+  environment: default
   connector: standard
   connector_config:
     scheme: http
@@ -31,23 +37,17 @@ backend_config:
     index_timeout: 10
     optimize_timeout: 15
     finalize_timeout: 30
-    commit_within: 10
+    skip_schema_check: false
     solr_version: ''
     http_method: AUTO
-    skip_schema_check: false
+    commit_within: 10
     jmx: false
     solr_install_dir: ''
+  optimize: false
+  fallback_multiple: true
   disabled_field_types: {  }
   disabled_caches: {  }
   disabled_request_handlers: {  }
   disabled_request_dispatchers: {  }
   rows: 10
   index_single_documents_fallback_count: 10
-  retrieve_data: true
-  highlight_data: true
-  fallback_multiple: true
-  server_prefix: ''
-  domain: generic
-  environment: default
-  optimize: false
-  site_hash: true

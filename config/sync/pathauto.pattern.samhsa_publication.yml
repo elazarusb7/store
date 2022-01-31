@@ -12,12 +12,12 @@ pattern: 'product/[commerce_product:title]/[commerce_product:field_sku]'
 selection_criteria:
   ab9502e7-0b2a-4882-8d6d-bca6fae81b7e:
     id: 'entity_bundle:commerce_product'
-    bundles:
-      samhsa_publication: samhsa_publication
     negate: false
+    uuid: ab9502e7-0b2a-4882-8d6d-bca6fae81b7e
     context_mapping:
       commerce_product: commerce_product
-    uuid: ab9502e7-0b2a-4882-8d6d-bca6fae81b7e
+    bundles:
+      samhsa_publication: samhsa_publication
 selection_logic: and
 weight: -5
 relationships: {  }

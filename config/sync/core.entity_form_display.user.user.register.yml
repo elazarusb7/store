@@ -27,10 +27,10 @@ content:
   customer_profiles:
     type: profile_form
     weight: 2
+    region: content
     settings:
       form_mode: default
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 1

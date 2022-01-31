@@ -18,14 +18,14 @@ plugin: 'block_content:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
 settings:
   id: 'block_content:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
   label: 'Subsite Title'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

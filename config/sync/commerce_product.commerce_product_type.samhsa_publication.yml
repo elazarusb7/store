@@ -6,9 +6,9 @@ _core:
   default_config_hash: 5TqAuVTl1_arKIBeD1qDfJM-pKmaFnqyYSQNdwEK_DQ
 id: samhsa_publication
 label: 'SAMHSA Publication'
+traits: {  }
+locked: false
 description: ''
 variationType: default
 multipleVariations: true
 injectVariationFields: true
-traits: {  }
-locked: false

@@ -10,11 +10,7 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    basic_html: '0'
-    raw_unfiltered_html: '0'
-    restricted_html: '0'
-    full_html: '0'
-    plain_text: '0'
+    allowed_formats: {  }
 _core:
   default_config_hash: ObNdu_OSuSmozy8UUi9cKY41dPs7s1ZOuWhG6Q5KdR8
 id: commerce_product.default.body

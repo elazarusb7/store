@@ -16,12 +16,12 @@ plugin: commerce_cart
 settings:
   id: commerce_cart
   label: Cart
-  provider: commerce_cart
   label_display: '0'
+  provider: commerce_cart
   dropdown: true
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

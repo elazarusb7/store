@@ -17,7 +17,7 @@ plugin: 'facet_block:substances'
 settings:
   id: 'facet_block:substances'
   label: Substances
-  provider: facets
   label_display: '0'
+  provider: facets
   block_id: substances
 visibility: {  }

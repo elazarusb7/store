@@ -1,42 +1,42 @@
 login:
   authenticated:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   administrator:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   warehouse_manager:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   warehouse_clerk:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   site_manager:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
 logout:
   authenticated:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   administrator:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   warehouse_manager:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   warehouse_clerk:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0
   site_manager:
     redirect_url: ''
-    weight: 0
     allow_destination: false
+    weight: 0

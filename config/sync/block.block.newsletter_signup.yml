@@ -16,12 +16,12 @@ plugin: newsletter_signup_block
 settings:
   id: newsletter_signup_block
   label: 'Newsletter Signup'
-  provider: samhsa_theme_block_pep8
   label_display: '0'
+  provider: samhsa_theme_block_pep8
   my_block_settings: null
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

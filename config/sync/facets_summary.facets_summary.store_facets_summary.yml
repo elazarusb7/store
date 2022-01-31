@@ -9,79 +9,6 @@ dependencies:
     - search_api
 id: store_facets_summary
 name: 'Store Facets Summary'
-facets:
-  publication_category:
-    checked: true
-    label: 'Publication category'
-    separator: ', '
-    weight: -10
-    show_count: false
-  publication_target_audience:
-    checked: true
-    label: 'Publication Target Audience'
-    separator: ', '
-    weight: -9
-    show_count: false
-  issues_conditions_and_disorders:
-    checked: true
-    label: 'Issues, Conditions and Disorders'
-    separator: ', '
-    weight: -8
-    show_count: false
-  treatment_prevention_and_recovery:
-    checked: true
-    label: 'Treatment, Prevention and Recovery'
-    separator: ', '
-    weight: -7
-    show_count: false
-  professional_and_research_topics:
-    checked: true
-    label: 'Professional and Research Topics'
-    separator: ', '
-    weight: -6
-    show_count: false
-  substances:
-    checked: true
-    label: Substances
-    separator: ', '
-    weight: -5
-    show_count: false
-  format:
-    checked: true
-    label: Format
-    separator: ', '
-    weight: -4
-    show_count: false
-  audience:
-    checked: true
-    label: Audience
-    separator: ', '
-    weight: -3
-    show_count: false
-  population_group:
-    checked: true
-    label: 'Population Group'
-    separator: ', '
-    weight: -2
-    show_count: false
-  language:
-    checked: true
-    label: Language
-    separator: ', '
-    weight: -1
-    show_count: false
-  location:
-    checked: true
-    label: Location
-    separator: ', '
-    weight: 0
-    show_count: false
-  series:
-    checked: true
-    label: Series
-    separator: ', '
-    weight: 1
-    show_count: false
 facet_source_id: 'search_api:views_page__solr_search_content__page_1'
 processor_configs:
   hide_when_not_rendered:
@@ -103,3 +30,76 @@ processor_configs:
       text:
         value: 'No results found.'
         format: plain_text
+facets:
+  publication_category:
+    checked: true
+    label: 'Publication category'
+    separator: ', '
+    show_count: false
+    weight: -10
+  publication_target_audience:
+    checked: true
+    label: 'Publication Target Audience'
+    separator: ', '
+    show_count: false
+    weight: -9
+  issues_conditions_and_disorders:
+    checked: true
+    label: 'Issues, Conditions and Disorders'
+    separator: ', '
+    show_count: false
+    weight: -8
+  treatment_prevention_and_recovery:
+    checked: true
+    label: 'Treatment, Prevention and Recovery'
+    separator: ', '
+    show_count: false
+    weight: -7
+  professional_and_research_topics:
+    checked: true
+    label: 'Professional and Research Topics'
+    separator: ', '
+    show_count: false
+    weight: -6
+  substances:
+    checked: true
+    label: Substances
+    separator: ', '
+    show_count: false
+    weight: -5
+  format:
+    checked: true
+    label: Format
+    separator: ', '
+    show_count: false
+    weight: -4
+  audience:
+    checked: true
+    label: Audience
+    separator: ', '
+    show_count: false
+    weight: -3
+  population_group:
+    checked: true
+    label: 'Population Group'
+    separator: ', '
+    show_count: false
+    weight: -2
+  language:
+    checked: true
+    label: Language
+    separator: ', '
+    show_count: false
+    weight: -1
+  location:
+    checked: true
+    label: Location
+    separator: ', '
+    show_count: false
+    weight: 0
+  series:
+    checked: true
+    label: Series
+    separator: ', '
+    show_count: false
+    weight: 1

@@ -19,17 +19,17 @@ plugin: 'facet_block:issues_conditions_and_disorders'
 settings:
   id: 'facet_block:issues_conditions_and_disorders'
   label: 'Issues, Conditions and Disorders'
-  provider: facets
   label_display: visible
+  provider: facets
   block_id: issuesconditionsanddisorders_2
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications"
     negate: false
     context_mapping: {  }
+    pages: "<front>\r\n/publications"

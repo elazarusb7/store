@@ -19,17 +19,17 @@ plugin: 'facet_block:publication_target_audience'
 settings:
   id: 'facet_block:publication_target_audience'
   label: 'Publication Target Audience'
-  provider: facets
   label_display: visible
+  provider: facets
   block_id: publication_target_audience
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications"
     negate: false
     context_mapping: {  }
+    pages: "<front>\r\n/publications"

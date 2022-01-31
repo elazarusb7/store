@@ -18,14 +18,14 @@ plugin: 'block_content:296a20c8-0ceb-4302-a8e7-5d1b2e54a028'
 settings:
   id: 'block_content:296a20c8-0ceb-4302-a8e7-5d1b2e54a028'
   label: 'View Order Header with link'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   request_path:
     id: request_path
-    pages: "/admin/commerce/orders/*\r\n!/admin/commerce/orders/*/*\r\n!/admin/commerce/orders/status-*\r\n!/admin/commerce/orders/bulk\r\n!/admin/commerce/orders/carts\r\n!/admin/commerce/orders/add"
     negate: false
     context_mapping: {  }
+    pages: "/admin/commerce/orders/*\r\n!/admin/commerce/orders/*/*\r\n!/admin/commerce/orders/status-*\r\n!/admin/commerce/orders/bulk\r\n!/admin/commerce/orders/carts\r\n!/admin/commerce/orders/add"

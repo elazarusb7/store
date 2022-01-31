@@ -20,12 +20,12 @@ bundle: default
 mode: summary
 content:
   title:
-    label: hidden
     type: string
-    weight: 0
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   field_available_quantity: true

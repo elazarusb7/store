@@ -19,17 +19,17 @@ plugin: 'facet_block:substances'
 settings:
   id: 'facet_block:substances'
   label: Substances
-  provider: facets
   label_display: '0'
+  provider: facets
   block_id: substances_2
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications"
     negate: false
     context_mapping: {  }
+    pages: "<front>\r\n/publications"
