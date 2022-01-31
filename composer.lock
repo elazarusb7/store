@@ -2865,20 +2865,20 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "3.0.3",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/admin_toolbar.git",
-                "reference": "3.0.3"
+                "reference": "3.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.0.3.zip",
-                "reference": "3.0.3",
-                "shasum": "ce735c931c0bd6da79bd8e45ca459d61015bbe44"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.1.0.zip",
+                "reference": "3.1.0",
+                "shasum": "7b596d7de04faca747ba3e5216c2e819aae71f40"
             },
             "require": {
-                "drupal/core": "^8.8.0 || ^9.0"
+                "drupal/core": "^8.8.0 || ^9.0 || ^10.0"
             },
             "require-dev": {
                 "drupal/admin_toolbar_tools": "*"
@@ -2886,8 +2886,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.3",
-                    "datestamp": "1632322497",
+                    "version": "3.1.0",
+                    "datestamp": "1643097060",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3004,26 +3004,26 @@
         },
         {
             "name": "drupal/allowed_formats",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/allowed_formats.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "4c3c036d7b41428d6e22b61f1219de0ab012feec"
+                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "6c73fd69781e8a7c3ebc394ce74f981b6da50eae"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": "^8.8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1592909219",
+                    "version": "8.x-1.4",
+                    "datestamp": "1643490593",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3036,18 +3036,31 @@
             ],
             "authors": [
                 {
-                    "name": "floretan",
-                    "homepage": "https://www.drupal.org/user/66163"
+                    "name": "Northern Commerce (formerly Digital Echidna)",
+                    "homepage": "https://www.drupal.org/northern-commerce-formerly-digital-echidna",
+                    "role": "Supporting organization"
                 },
                 {
-                    "name": "nord102",
-                    "homepage": "https://www.drupal.org/user/3471419"
+                    "name": "Jordan Thompson (nord102)",
+                    "homepage": "https://www.drupal.org/u/nord102",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Wunder",
+                    "homepage": "https://www.drupal.org/wunder",
+                    "role": "Supporting organization"
+                },
+                {
+                    "name": "Florian Loretan (floretan)",
+                    "homepage": "https://www.drupal.org/u/floretan",
+                    "role": "Maintainer"
                 }
             ],
             "description": "Limit which text formats are available for each field instance.",
             "homepage": "https://www.drupal.org/project/allowed_formats",
             "support": {
-                "source": "https://git.drupalcode.org/project/allowed_formats"
+                "source": "http://cgit.drupalcode.org/allowed_formats",
+                "issues": "https://www.drupal.org/project/issues/allowed_formats"
             }
         },
         {
@@ -10909,21 +10922,22 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "1.16.0",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.16"
+                "reference": "8.x-1.19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.16.zip",
-                "reference": "8.x-1.16",
-                "shasum": "1c0028f4ff4583dc6601035657dd631c351b290c"
+                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.19.zip",
+                "reference": "8.x-1.19",
+                "shasum": "d70f59c034e971885ed4969a11bb392f6ab447ee"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/token": "^1.0"
+                "drupal/core": "^9",
+                "drupal/token": "^1.0",
+                "php": ">=7.0"
             },
             "require-dev": {
                 "drupal/devel": "^4.0",
@@ -10931,13 +10945,14 @@
                 "drupal/metatag_open_graph": "*",
                 "drupal/page_manager": "4.x-dev",
                 "drupal/panelizer": "4.x-dev",
-                "drupal/redirect": "1.x-dev"
+                "drupal/redirect": "1.x-dev",
+                "mpyw/phpunit-patch-serializable-comparison": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.16",
-                    "datestamp": "1615820867",
+                    "version": "8.x-1.19",
+                    "datestamp": "1641496014",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12937,33 +12952,34 @@
         },
         {
             "name": "drupal/search_api_solr",
-            "version": "4.2.6",
+            "version": "4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/search_api_solr.git",
-                "reference": "4.2.6"
+                "reference": "4.2.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.2.6.zip",
-                "reference": "4.2.6",
-                "shasum": "6ea4a66fe2736e0e0ea6f5952f1a30fc10391994"
+                "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.2.7.zip",
+                "reference": "4.2.7",
+                "shasum": "a88ffc04e24224c61658675a8832f6939916614b"
             },
             "require": {
                 "composer/semver": "^1.0|^3.0",
                 "consolidation/annotated-command": "^2.12|^4.1",
                 "drupal/core": "^9.2 || ^10.0",
-                "drupal/search_api": "~1.21",
+                "drupal/search_api": "~1.23",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-simplexml": "*",
                 "laminas/laminas-stdlib": "^3.2",
                 "maennchen/zipstream-php": "^1.2|^2.0",
                 "php": "^7.3|^8.0",
-                "solarium/solarium": "^6.2.1"
+                "solarium/solarium": "^6.2.3"
             },
             "conflict": {
                 "drupal/acquia_search_solr": "<1.0.0-beta8",
+                "drupal/search_api_autocomplete": "<1.6.0",
                 "drupal/search_api_solr_multilingual": "<3.0.0"
             },
             "require-dev": {
@@ -12986,8 +13002,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.2.6",
-                    "datestamp": "1641799949",
+                    "version": "4.2.7",
+                    "datestamp": "1643655324",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
