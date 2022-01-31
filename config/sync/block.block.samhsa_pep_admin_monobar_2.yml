@@ -20,12 +20,12 @@ plugin: mono_bar_block
 settings:
   id: mono_bar_block
   label: 'Mono Bar'
-  provider: samhsa_theme_block_pep8
   label_display: '0'
+  provider: samhsa_theme_block_pep8
   my_block_settings: null
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

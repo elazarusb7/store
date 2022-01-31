@@ -17,17 +17,17 @@ plugin: views_exposed_filter_blocks_block
 settings:
   id: views_exposed_filter_blocks_block
   label: 'Views exposed filter block'
-  provider: views_exposed_filter_blocks
   label_display: '0'
+  provider: views_exposed_filter_blocks
   view_display: 'solr_search_content:block_1'
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: "<front>\r\n/publications"
     negate: false
     context_mapping: {  }
+    pages: "<front>\r\n/publications"

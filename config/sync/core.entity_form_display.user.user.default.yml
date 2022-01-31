@@ -26,16 +26,16 @@ content:
   field_last_password_reset:
     type: datetime_default
     weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_password_expiration:
     type: boolean_checkbox
     weight: 2
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 1

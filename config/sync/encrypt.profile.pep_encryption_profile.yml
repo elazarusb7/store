@@ -9,5 +9,5 @@ dependencies:
 id: pep_encryption_profile
 label: 'PEP Encryption Profile'
 encryption_method: real_aes
-encryption_key: pep_encryption_key
 encryption_method_configuration: {  }
+encryption_key: pep_encryption_key

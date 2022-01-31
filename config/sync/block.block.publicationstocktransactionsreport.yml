@@ -19,19 +19,19 @@ plugin: 'block_content:01856660-d057-4308-9d90-f4e75adf8303'
 settings:
   id: 'block_content:01856660-d057-4308-9d90-f4e75adf8303'
   label: 'Publication Stock Transactions Report'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   request_path:
     id: request_path
-    pages: /admin/commerce/config/stock/transactions2
     negate: false
     context_mapping: {  }
+    pages: /admin/commerce/config/stock/transactions2
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }

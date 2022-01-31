@@ -2,12 +2,12 @@ uuid: 2c8e709a-fbbf-4f9b-920c-8f80c8a56e7d
 langcode: en
 status: true
 dependencies:
+  module:
+    - commerce_product
   enforced:
     module:
       - commerce_cart
       - commerce_product
-  module:
-    - commerce_product
 _core:
   default_config_hash: xtrHHgI_SwA-1npf3GB0ntU65fMvm4mxImBtkbmZWSk
 id: commerce_product_variation.cart

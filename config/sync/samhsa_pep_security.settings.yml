@@ -1,14 +1,14 @@
+_core:
+  default_config_hash: DuixCYFfz_DPy9ppfYSY3JGetUj6KzQf0S7I-FuvwKQ
 track_time: 900
 user_wrong_count: 5
+restore_blocked_user: 1
 disable_core_login_error: 1
 notice_attempts_available: 1
 last_login_timestamp: 1
 last_access_timestamp: 0
 notice_attempts_message: 'You have used @user_current_count out of @user_block_attempts login attempts. After all @user_block_attempts have been used, your account will be temporarily disabled.'
 user_blocked: 'Your account is locked due to 5 unsuccessful login attempts. Please wait 20 minutes before trying again.'
-restore_blocked_user: 1
-_core:
-  default_config_hash: DuixCYFfz_DPy9ppfYSY3JGetUj6KzQf0S7I-FuvwKQ
-activity_threshold: null
 clear_flood: 1
 log_level: 1
+activity_threshold: null

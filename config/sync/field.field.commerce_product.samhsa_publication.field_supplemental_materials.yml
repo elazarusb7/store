@@ -18,10 +18,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
+  handler: 'default:file'
+  handler_settings: {  }
   file_directory: Supplemental_Materials
   file_extensions: 'txt pdf ppt xml doc docx epub mobi pptx zip'
   max_filesize: ''
   description_field: true
-  handler: 'default:file'
-  handler_settings: {  }
 field_type: file

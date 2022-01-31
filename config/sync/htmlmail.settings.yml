@@ -1,10 +1,10 @@
-hmtlmail_theme: ''
 _core:
   default_config_hash: Wu3IKMk26-vsOrYw0-gdQelLF90-LJG4ce9mvT9zooE
 debug: false
 theme: bartik
 html_with_plain: false
 postfilter: '0'
+use_mail_mime: false
 test:
   to: vlyalko1972@gmail.com
   subject: 'subject test'
@@ -12,4 +12,4 @@ test:
     value: "<p>body test</p>\r\n"
     format: basic_html
   class: swiftmailer
-use_mail_mime: false
+hmtlmail_theme: ''

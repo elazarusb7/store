@@ -15,17 +15,17 @@ bundle: shipping_profile
 mode: default
 content:
   field_phone_number:
+    type: telephone_default
     weight: 27
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: content
   field_shipping_address:
+    type: address_default
     weight: 26
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: address_default
-    region: content
 hidden:
   is_default: true

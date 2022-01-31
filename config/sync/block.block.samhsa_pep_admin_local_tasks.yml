@@ -17,12 +17,12 @@ plugin: local_tasks_block
 settings:
   id: local_tasks_block
   label: 'Primary Tabs'
-  provider: core
   label_display: '0'
+  provider: core
   primary: true
   secondary: false
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
+    devices: {  }

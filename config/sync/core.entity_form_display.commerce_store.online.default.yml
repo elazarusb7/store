@@ -18,9 +18,9 @@ mode: default
 content:
   address:
     type: address_default
-    settings: {  }
     weight: 3
     region: content
+    settings: {  }
     third_party_settings: {  }
   billing_countries:
     type: options_select
@@ -35,31 +35,31 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_available_stock_locations:
+    type: entity_reference_autocomplete
     weight: 91
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_stock_allocation_location:
+    type: entity_reference_autocomplete
     weight: 92
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   is_default:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 90
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   langcode:
     type: language_select
@@ -73,8 +73,8 @@ content:
     weight: 1
     region: content
     settings:
-      size: 60
       placeholder: ''
+      size: 60
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -92,10 +92,10 @@ content:
     third_party_settings: {  }
   prices_include_tax:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 3
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   shipping_countries:
     type: options_select

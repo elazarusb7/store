@@ -1,27 +1,27 @@
+_core:
+  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ
 definitions:
   contact__site_page:
-    weight: -36
     menu_name: footer
     parent: ''
+    weight: -36
     expanded: false
     enabled: false
   user__page:
+    menu_name: account
+    parent: ''
     weight: -49
-    menu_name: account
-    parent: ''
-    enabled: true
     expanded: false
+    enabled: true
   user__logout:
-    weight: -50
     menu_name: account
     parent: ''
+    weight: -50
     expanded: false
     enabled: true
   'commerce_reports:sales_report':
-    weight: 4
     menu_name: admin
     parent: commerce_reports.overview
+    weight: 4
     expanded: false
     enabled: true
-_core:
-  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ

@@ -27,106 +27,106 @@ content:
   balance:
     type: commerce_price_default
     label: inline
-    weight: 12
     settings:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
+    weight: 12
     region: content
   completed:
-    label: above
     type: timestamp
-    weight: 8
-    region: content
+    label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 8
+    region: content
   field_date_completed:
-    weight: 9
+    type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    type: datetime_default
+    weight: 9
     region: content
   field_log:
-    weight: 10
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 10
     region: content
   field_order_weight:
-    weight: 11
+    type: physical_measurement_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: physical_measurement_default
+    weight: 11
     region: content
   ip_address:
-    label: above
     type: string
-    weight: 4
-    region: content
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 4
+    region: content
   mail:
-    label: above
     type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 3
     region: content
-    settings: {  }
-    third_party_settings: {  }
   order_items:
     type: commerce_order_item_table
-    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 5
     region: content
   order_number:
     type: string
-    weight: 0
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  placed:
-    label: above
-    type: timestamp
-    weight: 7
+    weight: 0
     region: content
+  placed:
+    type: timestamp
+    label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 7
+    region: content
   state:
-    label: above
     type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
+  total_price:
+    type: commerce_order_total_summary
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-  total_price:
-    label: hidden
-    type: commerce_order_total_summary
     weight: 6
     region: content
+  uid:
+    type: author
+    label: above
     settings: {  }
     third_party_settings: {  }
-  uid:
-    label: above
-    type: author
     weight: 2
     region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   billing_profile: true
   changed: true

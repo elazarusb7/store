@@ -19,19 +19,19 @@ plugin: 'block_content:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
 settings:
   id: 'block_content:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
   label: 'Subsite Title (inner)'
-  provider: block_content
   label_display: '0'
+  provider: block_content
   status: true
   info: ''
   view_mode: full
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: '<front>'
     negate: false
     context_mapping: {  }
+    pages: '<front>'

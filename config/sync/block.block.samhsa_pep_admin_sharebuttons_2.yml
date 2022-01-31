@@ -17,17 +17,17 @@ plugin: share_buttons_block
 settings:
   id: share_buttons_block
   label: 'Share Buttons'
-  provider: samhsa_theme_block_pep8
   label_display: '0'
+  provider: samhsa_theme_block_pep8
   my_block_settings: null
 visibility:
   mobile_device_detection_condition_plugin:
     id: mobile_device_detection_condition_plugin
-    devices: {  }
     negate: null
     context_mapping: {  }
+    devices: {  }
   request_path:
     id: request_path
-    pages: '/product/*'
     negate: false
     context_mapping: {  }
+    pages: '/product/*'

@@ -1,7 +1,22 @@
 uuid: d5aacd68-e5c4-4656-ab04-b3976c860b5d
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.basic_html
+  module:
+    - comment
+    - commerce_checkout
+    - commerce_order
+    - commerce_product
+    - contact
+    - filter
+    - media
+    - profile
+    - samhsa_pep_order_states_workflow
+    - search_api_autocomplete
+    - shortcut
+    - system
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
 id: authenticated
@@ -20,13 +35,11 @@ permissions:
   - 'delete own customer profile'
   - 'delete own shipping_profile profile'
   - 'post comments'
-  - 'search content'
   - 'skip comment approval'
   - 'update own customer profile'
   - 'update own shipping_profile profile'
   - 'use place transition in samhsa_pep_order_states_workflow_fulfillment_processing'
   - 'use placebulk transition in samhsa_pep_order_states_workflow_fulfillment_processing'
-  - 'use search_api_autocomplete for publication_search'
   - 'use text format basic_html'
   - 'view commerce_product'
   - 'view media'

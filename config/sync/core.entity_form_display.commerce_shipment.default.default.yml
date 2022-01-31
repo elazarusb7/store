@@ -20,8 +20,8 @@ content:
   shipping_profile:
     type: commerce_shipping_profile
     weight: 1
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield

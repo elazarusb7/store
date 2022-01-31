@@ -17,7 +17,7 @@ plugin: 'facet_block:publication_category'
 settings:
   id: 'facet_block:publication_category'
   label: 'Publication category'
-  provider: facets
   label_display: visible
+  provider: facets
   block_id: publicationcategory
 visibility: {  }

@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: dp50LLB10ui-pYgDqHSZdREslQ7DqY71aF20tyaas6I
 determine_menu: true
 disable_admin_page: false
 append_current_page: true
@@ -22,24 +24,22 @@ menu_breadcrumb_menus:
     taxattach: 0
     langhandle: 0
   devel:
-    weight: 0
     enabled: 0
+    weight: 0
     taxattach: 0
     langhandle: 0
   footer:
-    weight: 0
     enabled: 0
+    weight: 0
     taxattach: 0
     langhandle: 0
   tools:
-    weight: 0
     enabled: 0
+    weight: 0
     taxattach: 0
     langhandle: 0
   account:
-    weight: 0
     enabled: 0
+    weight: 0
     taxattach: 0
     langhandle: 0
-_core:
-  default_config_hash: dp50LLB10ui-pYgDqHSZdREslQ7DqY71aF20tyaas6I

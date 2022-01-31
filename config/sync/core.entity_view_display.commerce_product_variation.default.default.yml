@@ -16,36 +16,36 @@ bundle: default
 mode: default
 content:
   field_available_quantity:
-    weight: 2
+    type: commerce_stock_level_simple
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: commerce_stock_level_simple
+    weight: 2
     region: content
   field_pallet_location:
-    weight: 3
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 3
     region: content
   product_id:
     type: entity_reference_label
-    weight: 0
-    region: content
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
+    weight: 0
+    region: content
   sku:
     type: string
-    weight: 1
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   field_location_pallet: true
   langcode: true
