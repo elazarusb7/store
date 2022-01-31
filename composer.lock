@@ -16565,25 +16565,25 @@
         },
         {
             "name": "gabrielbull/ups-api",
-            "version": "0.8.0",
+            "version": "0.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gabrielbull/php-ups-api.git",
-                "reference": "cb633b84d5437683e286c7df34dc8e4ae254a297"
+                "reference": "89cb664ed8d3f4336f1ff780d2f104143f391267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gabrielbull/php-ups-api/zipball/cb633b84d5437683e286c7df34dc8e4ae254a297",
-                "reference": "cb633b84d5437683e286c7df34dc8e4ae254a297",
+                "url": "https://api.github.com/repos/gabrielbull/php-ups-api/zipball/89cb664ed8d3f4336f1ff780d2f104143f391267",
+                "reference": "89cb664ed8d3f4336f1ff780d2f104143f391267",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.0",
-                "php": "^5.5 || ^7.0",
-                "psr/log": "^1.0"
+                "guzzlehttp/guzzle": "~6.0@dev|>=6",
+                "php": ">=5.5",
+                "psr/log": "~1|~1.0|1.0.0|dev-master"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.0"
+                "phpunit/phpunit": "~4"
             },
             "suggest": {
                 "ext-soap": "Required if you need the Tradeability API of UPS"
@@ -16642,7 +16642,7 @@
                 "issues": "https://github.com/gabrielbull/php-ups-api/issues",
                 "source": "https://github.com/gabrielbull/php-ups-api/tree/master"
             },
-            "time": "2017-11-11T10:51:51+00:00"
+            "time": "2016-03-04T15:23:57+00:00"
         },
         {
             "name": "gnikolovski/link_alter",
