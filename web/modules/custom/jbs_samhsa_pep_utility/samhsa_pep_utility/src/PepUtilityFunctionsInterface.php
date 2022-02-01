@@ -90,7 +90,7 @@ interface PepUtilityFunctionsInterface {
      * @return boolean
      *   The TRUE/FALSE.
      */
-    public function allCharactersSameAsChar($string = NULL, $char);
+    public function allCharactersSameAsChar(string $string = NULL, $char);
 
     /**
      *
@@ -103,7 +103,7 @@ interface PepUtilityFunctionsInterface {
      * @return boolean
      *   The TRUE/FALSE.
      */
-    public function hasLeadingChar($string = NULL, $char, $pos);
+    public function hasLeadingChar(string $string = NULL, $char, $pos);
 
     /**
      *
@@ -114,7 +114,7 @@ interface PepUtilityFunctionsInterface {
      * @return string with highlighted char
      *   The String
      */
-    public function highlightChar($string = NULL, $pos);
+    public function highlightChar(string $string = NULL, $pos);
 
     /**
      * Gets all terms for a vocabulary.

@@ -21,7 +21,7 @@ class PrintInvoices {
       $nameGenerator = new Random();
       $file_name = $nameGenerator->string();
       $file_name ='pickslip_' . date('m-d-Y_hia').'.pdf';
-      \Drupal::service('samhsa_pep_pdf_printing.invoice')->generateInvoices($data['orders'], $data['is_returned_order'], $file_name);
+      \Drupal::service('samhsa_pep_pdf_printing.invoice')->generateInvoices($data['orders'], $file_name, $data['is_returned_order']);
       $context['message'] = t('Printing Pick Slips');
       $context['results'] = [
         'orders' => count($data['orders']),
