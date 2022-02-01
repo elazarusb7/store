@@ -27,13 +27,14 @@ class PdfInvoice
 
   /**
    * Generates a PDF with the Invoice.
-   *
-   * @param array $orders
-   *   Orders contained in the invoice.
-   * @param bool  $is_returned_order
-   *   Whether the Order ia a returned one.
+   * @param $orders
+   * Orders contained in the invoice.
+   * @param $file_name
+   * @param false $is_returned_order
+   * Whether the Order ia a returned one.
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function generateInvoices($orders, $is_returned_order = FALSE, $file_name)
+  public function generateInvoices($orders, $file_name, $is_returned_order = FALSE)
   {
     $pdf = new PepFPDF();
     $pdf->AliasNbPages();

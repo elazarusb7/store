@@ -122,8 +122,8 @@ function samhsa_pep_stock_form_alter(&$form, FormStateInterface $form_state, $fo
     $markup_pallets .= "</ul>";
 
     $weight = isset($form['transaction_type']['#weight']) ? $form['transaction_type']['#weight'] : 0;
-    $view = samhsa_pep_helper_embed_view('publication_transaction_report', $display_id = 'block_1', $variation_id);
-    $view_result = samhsa_pep_helper_view_result('publication_transaction_report', $display_id = 'block_1', $variation_id);
+    $view = samhsa_pep_helper_embed_view('publication_transaction_report', $variation_id, $display_id = 'block_1');
+    $view_result = samhsa_pep_helper_view_result('publication_transaction_report', $variation_id, $display_id = 'block_1');
     $allocated = 0;
     if (strpos($view, '<div class="view-content">') !== false) {
       $markup = $view;
@@ -417,7 +417,8 @@ function transaction_qty_form_validate(&$form, FormStateInterface $form_state) {
 /**
  * custom samhsa_pep_helper_embed_view function()
  */
-function samhsa_pep_helper_embed_view($name, $display_id = 'default', $variation_id) {
+function samhsa_pep_helper_embed_view($name, $variation_id, $display_id = 'default') {
+
   $result = false;
   $view = Views::getView($name);
 
@@ -436,7 +437,7 @@ function samhsa_pep_helper_embed_view($name, $display_id = 'default', $variation
 /**
  * custom samhsa_pep_helper_view_result function()
  */
-function samhsa_pep_helper_view_result($name, $display_id = 'default', $variation_id) {
+function samhsa_pep_helper_view_result($name, $variation_id, $display_id = 'default') {
   $result = false;
 
   $view = Views::getView($name);
