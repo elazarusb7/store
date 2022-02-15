@@ -14,7 +14,7 @@ use Drupal\Core\Render\Markup;
   function samhsa_pep_uswds_preprocess_facets_item_list(&$variables) {
     // "v=issues_conditions_and_disorders"
     $qs = \Drupal::request()->getQueryString();
-    if (strpos($qs,'v=') !== FALSE) {
+    if (strpos((string) $qs,'v=') !== FALSE) {
       $pair = explode('=', $qs);
       if (isset($pair[1]) && $pair[1] != '') {
         $variables['expand_vocab'] = $pair[1];
