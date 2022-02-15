@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a2adfd08bed83b42bde9697ce0f3c5d",
+    "content-hash": "21094792f28e4b42e176a286f7085d06",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3382,17 +3382,17 @@
         },
         {
             "name": "drupal/block_exclude_pages",
-            "version": "2.0.0",
+            "version": "2.0.1-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/block_exclude_pages.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/block_exclude_pages-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "b9eecc6b37507212f249e472a57308d26dcd468a"
+                "url": "https://ftp.drupal.org/files/projects/block_exclude_pages-2.0.1-beta1.zip",
+                "reference": "2.0.1-beta1",
+                "shasum": "764e24798e40cb87a6f0e92ec3dcf4e7b2d41dee"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -3400,11 +3400,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1594830387",
+                    "version": "2.0.1-beta1",
+                    "datestamp": "1642712535",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
