@@ -69,7 +69,7 @@
         "drupal/contextual_range_filter": "^1.0",
         "drupal/core-recommended": "^9",
         "drupal/crazyegg": "^1.1",
-        "drupal/csv_serialization": "^1.5",
+        "drupal/csv_serialization": "^2.0",
         "drupal/ctools": "^3.7",
         "drupal/ctools_block": "^3.6",
         "drupal/datalayer": "^1.0@beta",
