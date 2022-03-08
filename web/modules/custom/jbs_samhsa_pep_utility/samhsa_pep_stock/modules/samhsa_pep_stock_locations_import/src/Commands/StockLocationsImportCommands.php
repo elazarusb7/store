@@ -217,7 +217,7 @@ class StockLocationsImportCommands extends DrushCommands {
         }
     }
 
-    function csvtoarray_locations($filename='', $delimiter){
+    function csvtoarray_locations($filename, $delimiter){
         $locations = array();
         if (($handle = fopen($filename, "r")) !== FALSE) {
             //Loop through the CSV rows.
