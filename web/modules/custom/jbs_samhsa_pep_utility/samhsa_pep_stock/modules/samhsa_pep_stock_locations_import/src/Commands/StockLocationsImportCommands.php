@@ -236,7 +236,7 @@ class StockLocationsImportCommands extends DrushCommands {
         return array_filter($unique_locations);
     }
 
-    function csvtoarray_all($filename='', $delimiter){
+    function csvtoarray_all($filename, $delimiter){
         $locations = array();
         if (($handle = fopen($filename, "r")) !== FALSE) {
             //Loop through the CSV rows.
