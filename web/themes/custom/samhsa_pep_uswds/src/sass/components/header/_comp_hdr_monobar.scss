@@ -10,7 +10,7 @@
 //HHS ribbon on desktop 624px and up
 //---------------------------------------
 
-@include breakpoint ($max-width-fullsize){
+@include breakpoint ($desktop){
 // @include breakpoint ($max-width-mobile-landscape){
 .region--header-top {
   background-color: $lighter-gray;
@@ -20,10 +20,10 @@
       text-align: left;
       padding: 0;
       .hhs-ribbon {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;  
-        height: 36px;  
+        //width: 100%;
+        //max-width: 1000px;
+        //margin: 0 auto;  
+        //height: 36px;  
         .hhs-icon {
           width: 30px;
           margin-right: 5px;

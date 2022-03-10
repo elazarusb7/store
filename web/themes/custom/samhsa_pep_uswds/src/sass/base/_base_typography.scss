@@ -25,7 +25,7 @@ h6 {
 h1 {
   font-size: 2.2rem;
   margin-top: 0;
-  @include breakpoint($max-width-mobile-portrait-small) {
+  @include breakpoint($mobile-lg) {
     font-size: 2.4rem;
   }
 }

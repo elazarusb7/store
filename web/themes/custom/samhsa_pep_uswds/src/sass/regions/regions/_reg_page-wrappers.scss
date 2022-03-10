@@ -3,16 +3,22 @@
 
 #page-wrapper{
   margin: 0 auto;  
-  @include breakpoint ($break-mobile-landscape){
+  @include breakpoint ($mobile-lg){
+    width: $max-width-mobile-portrait-plus;
+  }
+  @include breakpoint ($tablet){
+    width: $max-width-mobile-portrait-large;
+  }
+  @include breakpoint ($tablet-lg){
     width: $max-width-mobile-landscape;
   }
-  @include breakpoint ($break-tablet-portrait){
+  @include breakpoint ($desktop){
     width: $max-width-tablet-portrait;
   }
-  @include breakpoint ($break-tablet-landscape){
+  @include breakpoint ($desktop-lg){
     width: $max-width-tablet-landscape;
   }
-  @include breakpoint ($break-fullsize){
+  @include breakpoint ($widescreen){
     width: $max-width-fullsize;
   }
 }

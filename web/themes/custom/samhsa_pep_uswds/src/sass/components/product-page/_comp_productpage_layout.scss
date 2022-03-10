@@ -50,7 +50,7 @@
   $thumb-width: 219px;
   $overview-width: $thumb-width+($gutters * 2);
 
-  @include breakpoint($max-width-mobile-portrait-large) {
+  @include breakpoint($tablet-lg) {
     &--main {
       display: flex;
       .product-page--thumb-and-stock {

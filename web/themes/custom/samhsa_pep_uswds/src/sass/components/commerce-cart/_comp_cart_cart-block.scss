@@ -27,7 +27,7 @@
     margin-top: -45px;
     margin-left: -15px;
     &__big-order {
-      @include breakpoint(0 $max-width-mobile-portrait-small) {
+      @include breakpoint(0 $mobile-lg) {
         margin-left: -40px;
       }
     }
@@ -40,7 +40,7 @@
   border: 1px solid $light-gray;
   box-shadow: $drop-shadow;
   min-width: 320px;
-  @include breakpoint($max-width-mobile-portrait-small) {
+  @include breakpoint($mobile-lg) {
     margin-right: $gutters;
   }
   &__inner {

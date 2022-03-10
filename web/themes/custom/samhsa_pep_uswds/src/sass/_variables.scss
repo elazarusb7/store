@@ -5,3 +5,34 @@
 
 $color-sapphite: #1F419A;
 $color-midnight-60: #617381;
+
+//Creating our Singularity grid
+$max-col: 12;
+$gutters: 14px;
+
+//SAMHSA USWDS breakpoint system
+//$all-breakpoints: 0px;
+$mobile-lg: 480px;
+$tablet: 640px;
+$tablet-lg: 880px;
+$desktop: 1024px;
+$desktop-lg: 1200px;
+$widescreen: 1400px;
+
+
+//Updated old breakpoints variables with USWDS classes to have new break points
+//$all: $all-breakpoints; //0px
+$max-width-mobile-portrait-plus: $mobile-lg; //480px
+$max-width-mobile-portrait-large: $tablet; //640px
+$max-width-mobile-landscape: $tablet-lg; //880px
+$max-width-tablet-portrait: $desktop; //1024px
+$max-width-tablet-landscape: $desktop-lg; //1200px
+$max-width-fullsize: $widescreen; //1400px
+
+
+//Old Breakpoints from Omega
+$break-mobile-only: 1px $max-width-mobile-landscape - 1;
+$break-mobile-landscape: $max-width-mobile-landscape $max-width-tablet-portrait - 1;
+$break-tablet-portrait: $max-width-tablet-portrait $max-width-tablet-landscape - 1;
+$break-tablet-landscape: $max-width-tablet-landscape;
+$break-fullsize: $max-width-fullsize;

@@ -1,53 +1,12 @@
 // Grids
 //=====================================================================
+//old omega breakpoints
 
-//Creating our Singularity grid
-$max-col: 12;
-$gutters: 14px;
-// @include add-grid($max-col);
-// @include add-gutter($gutters);
-
-$all-breakpoints: 0px;
-
-//our new breakpoint system
-
-//$max-width-mobile-portrait-smallest: 0px;
-// $max-width-mobile-portrait-small: 320px;
-// $max-width-mobile-portrait-plus: 480px;
-// $max-width-mobile-portrait-large: 640px;
-// $max-width-mobile-landscape: 864px;
-// $max-width-tablet-portrait: 1024px;
-// $max-width-tablet-landscape: 1366px;
-// $max-width-fullsize: 1920px;
-
-
-//old breakpoints
-
-$max-width-mobile-portrait-smallest: 345px;
-$max-width-mobile-portrait-small: 374px;
-$max-width-mobile-portrait-plus: 414px;
-$max-width-mobile-portrait-large: 524px;
-$max-width-mobile-landscape: 624px;
-$max-width-tablet-portrait: 768px;
-$max-width-tablet-landscape: 864px;
-$max-width-fullsize: 1024px;
-
-
-
-
-
-//Old Breakpoints from Omega
-$break-mobile-only: 1px $max-width-mobile-landscape - 1;
-$break-mobile-landscape: $max-width-mobile-landscape $max-width-tablet-portrait - 1;
-$break-tablet-portrait: $max-width-tablet-portrait $max-width-tablet-landscape - 1;
-$break-tablet-landscape: $max-width-tablet-landscape;
-$break-fullsize: $max-width-fullsize;
-
-//Updated breakpoints with USWDS classes to have new break points
-$all: $all-breakpoints; //0px
-$mobile: $max-width-mobile-portrait-plus; //480px
-$tablet: $max-width-mobile-portrait-large; //624px
-$tablet-lg: $max-width-mobile-landscape; //864px
-$desktop: $max-width-tablet-portrait; //1024px
-$desktop-lg: $max-width-tablet-landscape; //1366px
-$widescreen: $max-width-fullsize; //1920px
+//$max-width-mobile-portrait-smallest: 345px;
+//$max-width-mobile-portrait-small: 374px;
+//$max-width-mobile-portrait-plus: 414px;
+//$max-width-mobile-portrait-large: 524px;
+//$max-width-mobile-landscape: 624px;
+//$max-width-tablet-portrait: 768px;
+//$max-width-tablet-landscape: 864px;
+//$max-width-fullsize: 1024px;

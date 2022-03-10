@@ -6,7 +6,7 @@
   background-color: $lighter-gray;
   padding: $gutters;
 
-  @include breakpoint($max-width-fullsize) {
+  @include breakpoint($desktop) {
   // @include breakpoint($max-width-mobile-landscape) {
     padding: 0;
   }
@@ -18,12 +18,12 @@
     //padding: 0 $gutters;
     label {
       padding-right: 0.5em;
-      @include breakpoint($max-width-mobile-portrait-small) {
+      @include breakpoint($mobile-lg) {
         min-width: 110px;
       }
     }
   }
-  @include breakpoint($max-width-fullsize) {
+  @include breakpoint($desktop) {
     background-color: transparent;
     form {
       margin-bottom: 0;
@@ -40,7 +40,7 @@
     padding: 0 .5em;
     box-sizing: border-box;
 
-    @include breakpoint($max-width-fullsize) {
+    @include breakpoint($desktop) {
     // @include breakpoint($max-width-mobile-landscape) {
       max-width: 300px;
     }
@@ -48,7 +48,7 @@
   form.use-search-icon {
     padding-right: $gutters + 51px;
 
-    @include breakpoint($max-width-fullsize) {
+    @include breakpoint($desktop) {
     // @include breakpoint($max-width-mobile-landscape) {
       padding-right: 51px;
     }
@@ -57,7 +57,7 @@
     height: 40px;
     right: $gutters;
 
-    @include breakpoint($max-width-fullsize) {
+    @include breakpoint($desktop) {
     // @include breakpoint($max-width-mobile-landscape) {
       right: 0;
       top: 0;
