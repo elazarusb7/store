@@ -24,6 +24,9 @@
     },
     "drupal/mobile_device_detection": {
       "Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
+    },
+    "drupal/commerce_reports": {
+      "Drupal 9 Commerce Sales Report pages not loading": "https://www.drupal.org/files/issues/2021-12-18/3254973-4.patch"
     }
   }
 } 

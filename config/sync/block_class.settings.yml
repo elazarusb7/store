@@ -1,0 +1,4 @@
+maxlength_block_class_field: 255
+field_type: textfield
+default_case: standard
+allow_only_letters_and_numbers: 0
