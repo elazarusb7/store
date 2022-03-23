@@ -107,6 +107,9 @@ function samhsa_pep_stock_form_alter(&$form, FormStateInterface $form_state, $fo
     //$form['#submit'] = array_merge( array('_commerce_stock_transaction_form_submit'), $form['#submit']);
 
     $pallets_used = lookupPublicationPallets($variation_id);
+    if (is_null($pallets_used)) {
+      $pallets_used = array();
+    }
     $markup_pallets = count($pallets_used) > 0 ? "<br /><strong>Pallets:</strong><br /><ul>" : "";
     $options = array();
     $pallets_count = getPalletsCountPerProd($pallets_used);
