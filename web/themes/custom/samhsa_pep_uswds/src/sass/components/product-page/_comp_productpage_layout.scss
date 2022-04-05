@@ -71,12 +71,23 @@
       }
     }
     &--related {
-      display: flex;
+      //display: flex;
+      background: #eee;
       justify-content: space-between;
       align-items: flex-start;
+      margin-top: ($gutters * 2);
       > * {
-        flex-basis: calc(50% - #{$gutters});
+        //flex-basis: calc(50% - #{$gutters});
       }
+    }
+  }
+
+  @include breakpoint($mobile-lg) {
+    &--related {
+      background: #eee;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: ($gutters * 2);
     }
   }
 
@@ -126,19 +137,33 @@
       margin-left: $gutters*2;
     }
     &--related {
-     -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
-    grid-column: 1 / 2;
+      background: $lighter-gray;
+      -ms-grid-column: 1;
+      -ms-grid-column-span: 1;
+      grid-column: 1 / 4;
       -ms-grid-row: 3;
       -ms-grid-row-span: 1;
       grid-row: 3 / 4;
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        border-right: 1px solid #ddd;
+        margin-right: 18px;
+        width: 33%;
+
+        &:last-of-type {
+          border-right: none;
+        }
+      }
     }
     &--related-resources {
       flex-basis: 303px;
       margin-right: $gutters;
     }
     &--related-info {
-      flex-basis: 385px;
+      //flex-basis: 385px;
       margin-left: $gutters;
       &:first-child {
         margin-left: 0;
@@ -153,20 +178,11 @@
       grid-row: 4 / 5;
     }
   }
-
-
-
-
-
-
-
-
-
-  
 }
+
 .field--name-field-may-be-interested-manual {
   .field__items {
-    @include breakpoint($max-width-mobile-landscape) {
+    @include breakpoint($tablet) {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -180,6 +196,23 @@
               align-items: flex-start;
       .field__item.product-card {
         width: calc(50% - 14px);
+        margin-bottom: $gutters*2;
+      }
+    }
+    @include breakpoint($desktop) {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start;
+      .field__item.product-card {
+        width: calc(33% - 14px);
         margin-bottom: $gutters*2;
       }
     }
