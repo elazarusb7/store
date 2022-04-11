@@ -5699,7 +5699,6 @@ button.collapse-region.active .collaspse--label:before {
     flex-basis: calc(50% - 14px);
   }
   .product-page--related {
-    background: #eee;
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 28px;
@@ -5707,7 +5706,6 @@ button.collapse-region.active .collaspse--label:before {
 }
 @media (min-width: 480px) {
   .product-page--related {
-    background: #eee;
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 28px;
@@ -5750,7 +5748,6 @@ button.collapse-region.active .collaspse--label:before {
     margin-left: 28px;
   }
   .product-page--related {
-    background: #EEEEEE;
     -ms-grid-column: 1;
     -ms-grid-column-span: 1;
     grid-column: 1/4;
@@ -5789,6 +5786,25 @@ button.collapse-region.active .collaspse--label:before {
   }
 }
 
+.field--name-field-may-be-interested-manual .field__items {
+  /*@include breakpoint($desktop) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    .field__item.product-card {
+      width: calc(33% - 14px);
+      margin-bottom: $gutters*2;
+    }
+  }*/
+}
 @media (min-width: 640px) {
   .field--name-field-may-be-interested-manual .field__items {
     display: -webkit-box;
@@ -5805,25 +5821,6 @@ button.collapse-region.active .collaspse--label:before {
   }
   .field--name-field-may-be-interested-manual .field__items .field__item.product-card {
     width: calc(50% - 14px);
-    margin-bottom: 28px;
-  }
-}
-@media (min-width: 1024px) {
-  .field--name-field-may-be-interested-manual .field__items {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-  }
-  .field--name-field-may-be-interested-manual .field__items .field__item.product-card {
-    width: calc(33% - 14px);
     margin-bottom: 28px;
   }
 }
