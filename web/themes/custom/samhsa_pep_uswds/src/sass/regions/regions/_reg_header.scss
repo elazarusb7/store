@@ -5,7 +5,7 @@
 //-------------------------------------------
 .header-layout{
   position: relative;  
-  @include breakpoint ($max-width-mobile-landscape){
+  @include breakpoint ($tablet-lg){
     .region--header:before{
       display: none;
     }
@@ -26,7 +26,7 @@
 #search-toggle{
   display: block;
 }
-@include breakpoint($max-width-fullsize){
+@include breakpoint($desktop){
 // @include breakpoint($max-width-mobile-landscape){
   #search-toggle{
     display: none;
@@ -67,7 +67,7 @@
 }
 
 //Layout and display at screen sizes above mobile
-@include breakpoint ($max-width-fullsize){ 
+@include breakpoint ($desktop){ 
   .site-branding{
     // @include grid-span(5, 1);
     float: none; 
@@ -100,7 +100,7 @@
     }
   }
 }
-@include breakpoint ($max-width-fullsize){
+@include breakpoint ($desktop){
 // @include breakpoint ($max-width-mobile-landscape){  
   .region-header {
     //display: -ms-grid;
@@ -163,7 +163,7 @@
   }
 }
 
-@include breakpoint(0 $max-width-fullsize - 1) {
+@include breakpoint(0 $desktop - 1) {
 // @include breakpoint(0 $max-width-mobile-landscape - 1) {
   #block-utilitymenu-2 {
     @include visuallyhidden;
@@ -171,9 +171,7 @@
   .site-search {
     position: static;
   }
-  .site-branding {
 
-  }
   .block-mobile-hamburger-block {
     top: 0;
   }
@@ -182,12 +180,6 @@
     right: 0;
     top: 10px;
     z-index: 490;
-  }
-}
-@include breakpoint($max-width-mobile-landscape) {
-  .site-branding {
-    // width: inherit;
-    // float: none;
   }
 }
 

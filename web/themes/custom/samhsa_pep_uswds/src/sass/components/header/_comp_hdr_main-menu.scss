@@ -25,7 +25,7 @@ $tween-break-high: 54em;
   display: block;
   position: relative;
 
-   @include breakpoint($max-width-fullsize){
+   @include breakpoint($desktop){
      display: none;
    }
 }
@@ -307,7 +307,7 @@ $tween-break-high: 54em;
 
           padding: 0 0.6em;
         }
-        @include breakpoint($max-width-fullsize){
+        @include breakpoint($desktop){
           font-size: 16px;
           padding:0 0.76em;
         }
@@ -751,6 +751,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
     height: auto;
     position: fixed;
     top: 0px;
+    left: 0;
   }
 
   /*height: auto;
@@ -807,7 +808,7 @@ ul.sf-menu li.sf-depth-1 a.sf-depth-1.active, ul.sf-menu li.sf-depth-1:hover > a
   padding-top: 25px;*/
 
     // @include breakpoint ($max-width-mobile-landscape){
-    @include breakpoint ($max-width-fullsize) {  
+    @include breakpoint ($desktop) {  
       display: none;
     }
   }
@@ -1715,7 +1716,7 @@ All this is done for any sub-level being entered.
 .block-superfishmain-menu {
   display: none;
 
-  @include breakpoint($max-width-fullsize) {
+  @include breakpoint($desktop) {
   // @include breakpoint($max-width-mobile-landscape) {
     display: block;
     ul#superfish-1.sf-style-none {

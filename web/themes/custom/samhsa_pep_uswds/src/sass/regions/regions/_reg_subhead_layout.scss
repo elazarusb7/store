@@ -198,7 +198,7 @@ grid-column: 1 / 2;
 }
 
 // making sure on really small screens there's enough room for a very full cart (100+ items)
-@include breakpoint(0 $max-width-mobile-portrait-small - 1) {
+@include breakpoint(0 $mobile-lg - 1) {
  #block-useraccountmenu {
     .menu-item:after {
       margin: 0 math.div($gutters, 2);

@@ -14,7 +14,7 @@
 
   &--block {
     border: 1px solid $lighter-gray;
-    margin-bottom: $gutters*2;
+    //margin-bottom: $gutters*2;
     &.product-page--download &--heading {
         background-image: url("../assets/img/icon-download.svg");
         padding-left: $gutters + 20 + $gutters;
@@ -33,7 +33,18 @@
       background-size: 20px 20px;
     }
     &--inner {
-      padding: $gutters; 
+
+        padding: $gutters;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap; 
+
+      @include breakpoint ($desktop){
+        padding: $gutters;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap; 
+      }
     }
   }
   &--order--disclaimer {
