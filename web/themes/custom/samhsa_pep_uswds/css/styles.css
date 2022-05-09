@@ -3558,10 +3558,8 @@ body:not(.path-frontpage) .program-title {
 
 .region--preface-third {
   background: white;
-  background: linear-gradient(0deg, white 0%, rgba(255, 255, 255, 0) 100%);
 }
 .region--preface-third--wrapper {
-  background-image: url(../assets/img/PEP-header-graphic.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
