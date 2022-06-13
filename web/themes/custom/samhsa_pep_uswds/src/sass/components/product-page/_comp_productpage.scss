@@ -19,22 +19,18 @@
         background-image: url("../assets/img/icon-download.svg");
         padding-left: $gutters + 20 + $gutters;
     }
-    &.product-page--order {
-      &--heading {
-          background-image: url("../assets/img/icon-shopping-cart.svg");
-          padding-left: $gutters + 20 + $gutters;
-      }
-      
-      &--inner {
+    &--inner {
 
+      padding: $gutters;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap; 
+
+      @include breakpoint ($desktop){
         padding: $gutters;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         flex-wrap: nowrap; 
-
-        @include breakpoint ($desktop){
-          flex-direction: column;
-        }
       }
     }
 
@@ -47,24 +43,29 @@
       background-position: $gutters 10px;
       background-size: 20px 20px;
     }
-    &--inner {
+
+    &.product-page--order {
+      &--heading {
+          background-image: url("../assets/img/icon-shopping-cart.svg");
+          padding-left: $gutters + 20 + $gutters;
+      }
+      
+      .product-page--block--inner {
 
         padding: $gutters;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap; 
 
-      @include breakpoint ($desktop){
-        padding: $gutters;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap; 
+        @include breakpoint ($desktop){
+          flex-direction: column;
+        }
       }
     }
   }
   &--order--disclaimer {
-     font-size: $font-small;
-     margin-top: math.div($gutters, 2);
+    font-size: $font-small;
+    margin-top: math.div($gutters, 2);
   }
   &--related-info {
     .field--taxonomy-terms {
