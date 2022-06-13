@@ -5842,9 +5842,20 @@ button.collapse-region.active .collaspse--label:before {
   background-image: url("../assets/img/icon-download.svg");
   padding-left: 48px;
 }
-.product-page--block.product-page--order .product-page--block--heading {
+.product-page--block.product-page--order--heading {
   background-image: url("../assets/img/icon-shopping-cart.svg");
   padding-left: 48px;
+}
+.product-page--block.product-page--order--inner {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+@media (min-width: 1024px) {
+  .product-page--block.product-page--order--inner {
+    flex-direction: column;
+  }
 }
 .product-page--block--heading {
   background-color: #EEEEEE;
