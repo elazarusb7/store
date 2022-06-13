@@ -19,10 +19,25 @@
         background-image: url("../assets/img/icon-download.svg");
         padding-left: $gutters + 20 + $gutters;
     }
-    &.product-page--order &--heading {
-        background-image: url("../assets/img/icon-shopping-cart.svg");
-        padding-left: $gutters + 20 + $gutters;
+    &.product-page--order {
+      &--heading {
+          background-image: url("../assets/img/icon-shopping-cart.svg");
+          padding-left: $gutters + 20 + $gutters;
+      }
+      
+      &--inner {
+
+        padding: $gutters;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap; 
+
+        @include breakpoint ($desktop){
+          flex-direction: column;
+        }
+      }
     }
+
     &--heading {
       background-color: $lighter-gray;
       font-size: 1.6rem;
