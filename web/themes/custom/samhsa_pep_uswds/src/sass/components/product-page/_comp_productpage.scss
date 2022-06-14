@@ -14,26 +14,15 @@
 
   &--block {
     border: 1px solid $lighter-gray;
-    //margin-bottom: $gutters*2;
+    margin-bottom: $gutters*2;
     &.product-page--download &--heading {
-        background-image: url("../assets/img/icon-download.svg");
+        background-image: url("../../images/icons/icon-download.svg");
         padding-left: $gutters + 20 + $gutters;
     }
-    &--inner {
-
-      padding: $gutters;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap; 
-
-      @include breakpoint ($desktop){
-        padding: $gutters;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap; 
-      }
+    &.product-page--order &--heading {
+        background-image: url("../assets/img/icon-shopping-cart.svg");
+        padding-left: $gutters + 20 + $gutters;
     }
-
     &--heading {
       background-color: $lighter-gray;
       font-size: 1.6rem;
@@ -43,29 +32,13 @@
       background-position: $gutters 10px;
       background-size: 20px 20px;
     }
-
-    &.product-page--order {
-      &--heading {
-          background-image: url("../assets/img/icon-shopping-cart.svg");
-          padding-left: $gutters + 20 + $gutters;
-      }
-      
-      .product-page--block--inner {
-
-        padding: $gutters;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap; 
-
-        @include breakpoint ($desktop){
-          flex-direction: column;
-        }
-      }
+    &--inner {
+      padding: $gutters; 
     }
   }
   &--order--disclaimer {
-    font-size: $font-small;
-    margin-top: math.div($gutters, 2);
+     font-size: $font-small;
+     margin-top: math.div($gutters, 2);
   }
   &--related-info {
     .field--taxonomy-terms {
@@ -76,7 +49,7 @@
     .field--type-link {
       @extend %pep8-file-icon;
       background-repeat: no-repeat;
-      background-image: url(../assets/img/icon-paperclip.svg);
+      background-image: url(../../images/icons/icon-paperclip.svg);
       background-position: left 3px;
     }
   }
