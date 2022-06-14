@@ -50,7 +50,7 @@
   $thumb-width: 219px;
   $overview-width: $thumb-width+($gutters * 2);
 
-  @include breakpoint($tablet-lg) {
+  @include breakpoint($max-width-mobile-portrait-large) {
     &--main {
       display: flex;
       .product-page--thumb-and-stock {
@@ -71,53 +71,24 @@
       }
     }
     &--related {
-      //display: flex;
-      //background: #eee;
+      display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-top: ($gutters * 2);
       > * {
-        //flex-basis: calc(50% - #{$gutters});
+        flex-basis: calc(50% - #{$gutters});
       }
     }
   }
-
-  @include breakpoint($mobile-lg) {
-    &--related {
-      //background: #eee;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-top: ($gutters * 2);
-    }
-  }
-
-
-
-
-@include breakpoint($max-width-tablet-landscape) {
-  // @include breakpoint($max-width-mobile-landscape) {
-    display: -ms-grid;
+  @include breakpoint($max-width-tablet-landscape) {
     display: grid;
-    width: 100%;
-    -ms-grid-columns: 1fr 276px;
     grid-template-columns: 1fr 276px;
-    -ms-grid-rows: min-content min-content 1fr min-content;
     grid-template-rows: min-content min-content 1fr min-content;
-
     .field--name-field-subtitle {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
-    grid-column: 1 / 3;
-      -ms-grid-row: 1;
-      -ms-grid-row-span: 1;
+      grid-column: 1 / 3;
       grid-row: 1 / 2;
     }
     &--main {
-        -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
-    grid-column: 1 / 2;
-      -ms-grid-row: 2;
-      -ms-grid-row-span: 1;
+      grid-column: 1 / 2;
       grid-row: 2 / 3;
       .product-page--thumb-and-stock {
 
@@ -127,94 +98,43 @@
       }
     }
     &--procurement {
-      -ms-grid-column: 2;
-    -ms-grid-column-span: 1;
-    grid-column: 2 / 3;
-      -ms-grid-row: 2;
-      -ms-grid-row-span: 2;
+      grid-column: 2 / 3;
       grid-row: 2 / 4;
       display: block;
       margin-left: $gutters*2;
     }
     &--related {
-      //background: $lighter-gray;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 1;
-      grid-column: 1 / 4;
-      -ms-grid-row: 3;
-      -ms-grid-row-span: 1;
+      grid-column: 1 / 2;
       grid-row: 3 / 4;
-
-      .field {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        border-right: 1px solid #ddd;
-        margin-right: 18px;
-        width: 33%;
-
-        &:last-of-type {
-          border-right: none;
-        }
-      }
     }
     &--related-resources {
       flex-basis: 303px;
       margin-right: $gutters;
     }
     &--related-info {
-      //flex-basis: 385px;
+      flex-basis: 385px;
       margin-left: $gutters;
       &:first-child {
         margin-left: 0;
       }
     }
     &--may-be-interested {
-     -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 1 / 3;
-      -ms-grid-row: 4;
-      -ms-grid-row-span: 1;
+      grid-column: 1 / 3;
       grid-row: 4 / 5;
     }
   }
 }
-
 .field--name-field-may-be-interested-manual {
   .field__items {
-    @include breakpoint($tablet) {
-      display: -webkit-box;
-      display: -ms-flexbox;
+    @include breakpoint($max-width-mobile-landscape) {
       display: flex;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-between;
-      -webkit-box-align: start;
-          -ms-flex-align: start;
-              align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
       .field__item.product-card {
         width: calc(50% - 14px);
         margin-bottom: $gutters*2;
       }
     }
-    /*@include breakpoint($desktop) {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-between;
-      -webkit-box-align: start;
-          -ms-flex-align: start;
-              align-items: flex-start;
-      .field__item.product-card {
-        width: calc(33% - 14px);
-        margin-bottom: $gutters*2;
-      }
-    }*/
   }
 }
