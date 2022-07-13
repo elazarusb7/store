@@ -3,18 +3,30 @@
 namespace Drupal\jbs_commerce_over_the_max_limit\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\commerce\Context;
+use Drupal\commerce_cart\Event\CartEvents;
+use Drupal\commerce_cart\OrderItemMatcherInterface;
 use Drupal\commerce_cart\CartProviderInterface;
 use Drupal\commerce_cart\Event\CartEntityAddEvent;
 use Drupal\commerce_cart\Event\CartOrderItemUpdateEvent;
 use Drupal\commerce_order\Event\OrderEvents;
 use Drupal\commerce_order\Event\OrderItemEvent;
-use Drupal\commerce_cart\Event\CartEvents;
+use Drupal\commerce_order\AvailabilityCheckerInterface;
+use Drupal\commerce_order\AvailabilityResult;
+use Drupal\commerce_order\Entity\OrderItemInterface;
+use Drupal\commerce_price\Calculator;
+use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\commerce_product\Entity\Product;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
-use Drupal\Core\Link;
+
+
+
+
+
 
 
 /**
@@ -137,8 +149,12 @@ class AddToCartEventSubscriber implements EventSubscriberInterface
     if ($total_qty_in_cart > $max) {
       if ($type_class != 'OrderItemEvent') {
         // show message
-        $msg = "<strong>Quantity ordered for \"$title\" exceeds the maximum limit. Your order will require authorization.</strong>";
+        $msg = "The max order limit for this product is \"$max\".";
+//        $msg = t('The max order limit for this product is %max.', [
+//          '%max' => $max,
+//        ]);
         $this->messenger->addMessage(t($msg));
+        return AvailabilityResult::unavailable($msg);
       }
     }
   }
