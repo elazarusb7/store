@@ -227,13 +227,13 @@ function jbs_commerce_over_the_max_limit_form_alter(
       // Check if item is over the limit.
       $overlimit = jbs_commerce_over_the_max_limit_item_over_limit($selected_variation, 1, $context);
       if ($overlimit) {
-        $form['actions']['submit']['#value'] = t('Over the limit');
+//        $form['actions']['submit']['#value'] = t('Over the limit');
 //        $form['actions']['submit']['#value'] = t($maxlimit);
 //        $form['actions']['submit']['#disabled'] = TRUE;
         // If quantity is visible.
-//        if (isset($form['quantity'])) {
-//          $form['quantity']['#disabled'] = TRUE;
-//        }
+        if (isset($form['quantity'])) {
+          $form['quantity']['#disabled'] = TRUE;
+        }
       }
     }
   }
@@ -324,12 +324,12 @@ function jbs_commerce_over_the_max_limit_item_over_limit(
   PurchasableEntityInterface $purchased_entity,
   $quantity,
   Context $context
-) {
+): bool {
   if (empty($quantity)) {
     $quantity = 1;
   }
   $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
-  return ($maxlimit >= $quantity);
+  return ($quantity >= $maxlimit);
 }
 
 /**
@@ -371,10 +371,14 @@ function jbs_commerce_over_the_max_limit_order_over_limit(
     $name = $purchased_entity->getTitle();
     $qty = $order_item->getQuantity();
     $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
+    // TODO - create public variable for this message
     if ($qty > $maxlimit) {
       if ($show_warnings) {
-        $message_text = Xss::filter($maxlimit-getValue());
-        //        $message_text = Xss::filter('The max order limit for this product is $maxlimit');
+        $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+          '%name' => $name,
+          '%maxlimit'   => $maxlimit,
+        ]);
+        $message_text = Xss::filter($msg);
         \Drupal::messenger()->addError(t($message_text));
       }
       $order_over_limit = TRUE;
@@ -502,7 +506,7 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
   // ** @var \Drupal\commerce\PurchasableEntityInterface $purchased_entity */
   // $purchased_entity = $order_item->getPurchasedEntity();
   $context = jbs_commerce_over_the_max_limit_get_context($purchased_entity);
-
+  $name = $purchased_entity->getTitle();
   // Get the available stock level.
   $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
   // Get the already ordered quantity.
@@ -513,7 +517,11 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
   }
 
   //  if ($already_ordered === 0) {
-  $message_text = Xss::filter($maxlimit);
+  $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+    '%name' => $name,
+    '%maxlimit'   => $maxlimit
+  ]);
+  $message_text = Xss::filter($msg);
   //    $message_text = Xss::filter('The max order limit for this product is $maxlimit');
   $message = t($message_text);
   //  }
@@ -572,6 +580,7 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
       continue;
     }
     $name = $purchased_entity->getTitle();
+    $label = $order_item->getTitle();
     if (isset($quantities) && isset($quantities[$id])) {
       $qty = $quantities[$id];
     }
@@ -581,10 +590,15 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
     $context = jbs_commerce_over_the_max_limit_get_context($purchased_entity);
     $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
     // Get the already ordered quantity.
-    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
+    // KEEP EVERYTHING ABOUT ALREADY ORDERED FOR LATER
+//    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
 
     if ($qty > $maxlimit) {
-      $message_text = Xss::filter($maxlimit);
+      $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+        '%name' => $name,
+        '%maxlimit'   => $maxlimit
+      ]);
+      $message_text = Xss::filter($msg);
       $form_state->setError(
         $form['edit_quantity'][$id],
         t($message_text)
