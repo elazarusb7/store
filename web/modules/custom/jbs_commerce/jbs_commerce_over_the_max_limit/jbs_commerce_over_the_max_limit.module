@@ -230,6 +230,7 @@ function jbs_commerce_over_the_max_limit_form_alter(
 //        $form['actions']['submit']['#value'] = t('Over the limit');
 //        $form['actions']['submit']['#value'] = t($maxlimit);
 //        $form['actions']['submit']['#disabled'] = TRUE;
+
         // If quantity is visible.
         if (isset($form['quantity'])) {
           $form['quantity']['#disabled'] = TRUE;
@@ -374,7 +375,7 @@ function jbs_commerce_over_the_max_limit_order_over_limit(
     // TODO - create public variable for this message
     if ($qty > $maxlimit) {
       if ($show_warnings) {
-        $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+        $msg = t('You have exceeded the limit. Please revise your order..', [
           '%name' => $name,
           '%maxlimit'   => $maxlimit,
         ]);
@@ -517,7 +518,7 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
   }
 
   //  if ($already_ordered === 0) {
-  $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+  $msg = t('You have exceeded the limit. Please revise your order.', [
     '%name' => $name,
     '%maxlimit'   => $maxlimit
   ]);
@@ -594,7 +595,7 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
 //    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
 
     if ($qty > $maxlimit) {
-      $msg = t('The max order limit for "%name" is %maxlimit. Please revise your order.', [
+      $msg = t('You have exceeded the limit. Please revise your order.', [
         '%name' => $name,
         '%maxlimit'   => $maxlimit
       ]);

@@ -73,13 +73,13 @@
       <div class="product-page--block--inner">
         {{ product.variations }}
         {{ product.field_qty_max_order }}
-        <p class="product-page--order--disclaimer">Orders exceeding the maximum quantity limit require authorization.</p>
+        {#        <p class="product-page--order--disclaimer">Orders exceeding the maximum quantity limit require authorization.</p>#}
       </div>
     </div>
     {% endif %}
     {% endif %}
   </div>
-  
+
   <div class="product-page--related">
     {% if product.field_related_resource_files['#items'] or product.field_related_products['#items'] %}
     <div class="product-page--block product-page--related-resources">
