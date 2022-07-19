@@ -223,18 +223,19 @@ function jbs_commerce_over_the_max_limit_form_alter(
       $maxlimit_field = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
         ->get('maxlimit_element', 'field_qty_max_order');
       $maxlimit = $product->get($maxlimit_field)->getValue()[0]['value'];
-//      $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
+      $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
       // Check if item is over the limit.
       $overlimit = jbs_commerce_over_the_max_limit_item_over_limit($selected_variation, 1, $context);
       if ($overlimit) {
+//        $form['quantity']['widget'][0]['value']['#attributes']['class'][] = 'errortest';
 //        $form['actions']['submit']['#value'] = t('Over the limit');
 //        $form['actions']['submit']['#value'] = t($maxlimit);
 //        $form['actions']['submit']['#disabled'] = TRUE;
 
         // If quantity is visible.
-        if (isset($form['quantity'])) {
-          $form['quantity']['#disabled'] = TRUE;
-        }
+//        if (isset($form['quantity'])) {
+//          $form['quantity']['#disabled'] = TRUE;
+//        }
       }
     }
   }
@@ -375,10 +376,7 @@ function jbs_commerce_over_the_max_limit_order_over_limit(
     // TODO - create public variable for this message
     if ($qty > $maxlimit) {
       if ($show_warnings) {
-        $msg = t('You have exceeded the limit. Please revise your order..', [
-          '%name' => $name,
-          '%maxlimit'   => $maxlimit,
-        ]);
+        $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
         $message_text = Xss::filter($msg);
         \Drupal::messenger()->addError(t($message_text));
       }
@@ -518,20 +516,14 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
   }
 
   //  if ($already_ordered === 0) {
-  $msg = t('You have exceeded the limit. Please revise your order.', [
-    '%name' => $name,
-    '%maxlimit'   => $maxlimit
-  ]);
+  // https://jira.icfwebservices.com/browse/PEP-527 - 20200719 - CDH
+  $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
   $message_text = Xss::filter($msg);
-  //    $message_text = Xss::filter('The max order limit for this product is $maxlimit');
   $message = t($message_text);
-  //  }
-  //  else {
-  //    $message_text = Xss::filter($maxlimit);
-  //    //    $message_text = Xss::filter('The max order limit for this product is $maxlimit');
-  //    $message = t($message_text);
-  //  }
-  $form_state->setError($form, $message);
+  $form_state->setError(
+    $form['quantity']['widget'][0]['value'],
+    $message
+  );
 }
 
 
@@ -595,10 +587,7 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
 //    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
 
     if ($qty > $maxlimit) {
-      $msg = t('You have exceeded the limit. Please revise your order.', [
-        '%name' => $name,
-        '%maxlimit'   => $maxlimit
-      ]);
+      $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
       $message_text = Xss::filter($msg);
       $form_state->setError(
         $form['edit_quantity'][$id],
