@@ -223,10 +223,11 @@ function jbs_commerce_over_the_max_limit_form_alter(
       $maxlimit_field = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
         ->get('maxlimit_element', 'field_qty_max_order');
       $maxlimit = $product->get($maxlimit_field)->getValue()[0]['value'];
-      $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
+//      $maxlimit = $product->get($maxlimit_field);
+//      $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
       // Check if item is over the limit.
-      $overlimit = jbs_commerce_over_the_max_limit_item_over_limit($selected_variation, 1, $context);
-      if ($overlimit) {
+//      $overlimit = jbs_commerce_over_the_max_limit_item_over_limit($selected_variation, 1, $context);
+//      if ($overlimit) {
 //        $form['quantity']['widget'][0]['value']['#attributes']['class'][] = 'errortest';
 //        $form['actions']['submit']['#value'] = t('Over the limit');
 //        $form['actions']['submit']['#value'] = t($maxlimit);
@@ -236,7 +237,7 @@ function jbs_commerce_over_the_max_limit_form_alter(
 //        if (isset($form['quantity'])) {
 //          $form['quantity']['#disabled'] = TRUE;
 //        }
-      }
+//      }
     }
   }
 
