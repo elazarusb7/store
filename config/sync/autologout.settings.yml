@@ -4,7 +4,7 @@ timeout: 900
 max_timeout: 172800
 padding: 20
 no_individual_logout_threshold: false
-role_logout: false
+role_logout: true
 role_logout_max: false
 redirect_url: /
 no_dialog: false
