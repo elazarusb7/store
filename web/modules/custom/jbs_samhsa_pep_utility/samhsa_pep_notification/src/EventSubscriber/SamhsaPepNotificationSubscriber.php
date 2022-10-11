@@ -91,7 +91,11 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
     $config   = \Drupal::config('samhsa_pep_notification.settings');
     $referer  = $request->server->get('HTTP_REFERER');
     $host     = $request->getSchemeAndHttpHost();
-    $referer_uri = substr($referer, strlen($host));
+//    if (strlen($host) != NULL) {
+      $referer_uri = substr($referer ?? '', strlen($host));
+//    } else {
+//      $referer_uri = $referer;
+//    }
 
     $ignore_routes = [
       'entity.user.edit_form',
