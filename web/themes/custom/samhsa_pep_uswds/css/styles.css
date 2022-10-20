@@ -1003,7 +1003,7 @@ textarea:disabled:hover {
   border: 1px solid #CDCDCD;
 }
 
-/*input[type="text"], input[type="password"], input[type="search"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"] 
+/*input[type="text"], input[type="password"], input[type="search"], input[type="email"], input[type="tel"], input[type="url"], input[type="number"]
   {
   line-height: $form-line-height; //line height is used to make the submit button the same height as inputs
   padding: 0 $form-padding;
@@ -1322,8 +1322,8 @@ picture {
   }
   &.right-col{
     @include grid-span(6, 7);
-  } 
- } 
+  }
+ }
 }*/
 .cr-landing-block {
   width: 100%;
@@ -1869,6 +1869,7 @@ ul.tabs.primary li {
   -ms-flex-align: start;
   align-items: flex-start;
   list-style-type: none;
+  margin-bottom: 0;
   width: 160px;
 }
 @media screen and (max-width: 640px) {
