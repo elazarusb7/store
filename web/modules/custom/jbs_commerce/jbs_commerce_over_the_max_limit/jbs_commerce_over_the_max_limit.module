@@ -141,6 +141,17 @@ function jbs_commerce_over_the_max_limit_commerce_order_presave(\Drupal\Core\Ent
         $state = $isbulk ? 'onhold' : 'pending';
         $entity->set('state',$state);
     }
+//  if ($isbulk=TRUE) {
+//    $response = new RedirectResponse('/cart');
+//    $response->send();
+//          if ($show_warnings) {
+//            $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
+//            $message_text = Xss::filter($msg);
+//            \Drupal::messenger()->addError(t($message_text));
+//          }
+    //      $order_over_limit = TRUE;
+//  }
+//  return $order_over_limit;
 }
 
 /**
@@ -152,35 +163,37 @@ function jbs_commerce_over_the_max_limit_commerce_order_item_presave(\Drupal\Cor
    * check if at order item is over the max limit
    * mark commerce order item as over the limit
    */
-//  $item  = $entity;
-//  $order = $entity->getOrder();
-//  //only set over the limit when order first gets created
-//  if ($order) {
-//    $state = $order->getState()->getValue()['value'];
+  $item  = $entity;
+  $order = $entity->getOrder();
+//  $show_warnings = TRUE;
+//  $order_over_limit = FALSE;
+  //only set over the limit when order first gets created
+  if ($order) {
+    $state = $order->getState()->getValue()['value'];
 //    if ($state == 'draft') {
-//      //set requested qty field
-//      $entity->set('field_requested_quantity', $item->getQuantity());
+      //set requested qty field
+      $entity->set('field_requested_quantity', $item->getQuantity());
 //    }
-//    $over_the_limit = $entity->get('field_is_over_the_limit')->value;
-//    $isItemOverTheLimit = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isItemOverTheMaxLimit($item);
-//    if (isset($over_the_limit)) {
-//      if ($over_the_limit != '1') {
-//        $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
-//      }
-//      else {
-//        if (\Drupal::currentUser()->hasPermission('overwite order item over the limit flag')) {
-//          $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
-//        }
-//      }
-//    }
-//    else {
-//      $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
-//    }
-//    if ($isItemOverTheLimit) {
-//      // SPO-201 - set permanent flag that this was at any time over the max limit
-//      $entity->set('field_was_over_the_limit', $isItemOverTheLimit);
-//    }
-//  }
+    $over_the_limit = $entity->get('field_is_over_the_limit')->value;
+    $isItemOverTheLimit = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isItemOverTheMaxLimit($item);
+    if (isset($over_the_limit)) {
+      if ($over_the_limit != '1') {
+        $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+      }
+      else {
+        if (\Drupal::currentUser()->hasPermission('overwite order item over the limit flag')) {
+          $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+        }
+      }
+    }
+    else {
+      $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
+    }
+    if ($isItemOverTheLimit) {
+      // SPO-201 - set permanent flag that this was at any time over the max limit
+      $entity->set('field_was_over_the_limit', $isItemOverTheLimit);
+    }
+  }
 }
 
 ///////////
@@ -273,11 +286,11 @@ function jbs_commerce_over_the_max_limit_form_alter(
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
     $order = $form_object->getOrder();
-//    if ($form['#step_id'] != 'complete' && !jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
+    if ($form['#step_id'] != 'complete' && jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
 //      // Redirect back to cart.
-//      $response = new RedirectResponse('/cart');
-//      $response->send();
-//    }
+      $response = new RedirectResponse('/cart');
+      $response->send();
+    }
     // Add a submit validate.
     $form['#validate'] = array_merge($form['#validate'], ['jbs_commerce_over_the_max_limit_checkout_form_validate']);
   }
@@ -622,10 +635,11 @@ function jbs_commerce_over_the_max_limit_checkout_form_validate(
   /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
   $order = $form_object->getOrder();
 
-//  if ($form['#step_id'] != 'complete' && !jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
-//    $cart_page = Url::fromRoute('commerce_cart.page', [], ['absolute' => TRUE]);
-//    \Drupal::messenger()
-//      ->addError('One or more Items are over the max limit. Checkout canceled!');
-//    throw new NeedsRedirectException($cart_page->toString());
-//  }
+
+  if (jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
+    $cart_page = Url::fromRoute('commerce_cart.page', [], ['absolute' => TRUE]);
+    \Drupal::messenger()
+      ->addError('One or more Items are over the max limit. Checkout canceled!');
+    throw new NeedsRedirectException($cart_page->toString());
+  }
 }
