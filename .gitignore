@@ -25,6 +25,15 @@
 # Ignore private files
 /web/sites/*/private/
 
+
+# Ignore scaffolding files
+web/.gitignore
+web/modules/.gitignore
+web/profiles/.gitignore
+web/sites/.gitignore
+web/sites/default/.gitignore
+web/themes/.gitignore
+
 # Ignore SimpleTest multi-site environment.
 /web/sites/simpletest
 
@@ -70,3 +79,15 @@ solr/
 node_modules
 private
 private/*
+/.csslintrc
+/.eslintignore
+/.eslintrc.json
+/.ht.router.php
+/.htaccess
+/INSTALL.txt
+/autoload.php
+/example.gitignore
+/index.php
+/robots.txt
+/update.php
+/web.config

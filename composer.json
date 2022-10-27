@@ -67,6 +67,7 @@
         "drupal/context": "^4.0@beta",
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
+        "drupal/core-composer-scaffold": "^9.4",
         "drupal/core-recommended": "^9",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^2.1",
@@ -446,7 +447,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "composer/installers": true,
             "cweagans/composer-patches": true,
-            "drupal/console-extend-plugin": true
+            "drupal/console-extend-plugin": true,
+            "drupal/core-composer-scaffold": true
         }
     },
     "autoload": {
@@ -462,6 +464,18 @@
         "post-update-cmd": "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     },
     "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "initial": {
+                ".editorconfig": "../.editorconfig",
+                ".gitattributes": "../.gitattributes"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": false
+            }
+        },
         "installer-paths": {
             "web/core": [
                 "type:drupal-core"
