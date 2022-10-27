@@ -21,7 +21,7 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.6",
         "dompdf/dompdf": "^1.1",
-        "drupal/admin_toolbar": "^3.0",
+        "drupal/admin_toolbar": "^3.2",
         "drupal/admin_toolbar_links_access_filter": "^3.0",
         "drupal/allowed_formats": "^1.1",
         "drupal/autocomplete_deluxe": "^2.0",
