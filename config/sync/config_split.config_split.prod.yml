@@ -1,0 +1,15 @@
+uuid: 102dc1ac-3edc-4ce3-a089-5b4a22304ef2
+langcode: en
+status: true
+dependencies: {  }
+id: prod
+label: Production
+description: 'Enables modules that are typically only functional or needed in a production environment. While you can enable this split in any environment, these modules may not work outside of production.'
+weight: 0
+folder: ../config/prod
+module: {  }
+theme: {  }
+blacklist: {  }
+graylist: {  }
+graylist_dependents: true
+graylist_skip_equal: true
