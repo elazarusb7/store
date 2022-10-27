@@ -10,15 +10,14 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 
+# Ignore local only information.
+/web/sites/*/settings.local.php
+/web/sites/*/services.local.yml
+/.lando.yml
+/.lando.local.yml
+
 # Ignore libraries directory. All libraries have to be installed using composer.
 #/web/libraries/
-
-# Ignore sensitive information
-/web/sites/*/settings.php
-/web/sites/*/settings.local.php
-
-# Ignore twig debug files
-/web/sites/local.services.yml
 
 # Ignore Drupal's file directory
 /web/sites/*/files/
