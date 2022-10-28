@@ -151,7 +151,7 @@ gulp.task("clean-sprite", function (cb) {
   return del.sync(`${IMG_DEST}/symbol`);
 });
 
-gulp.task("init", gulp.series("copy-uswds-setup", "copy-uswds-fonts", "copy-uswds-images", "copy-uswds-js", "build-sass"));
+gulp.task("build", gulp.series("copy-uswds-setup", "copy-uswds-fonts", "copy-uswds-images", "copy-uswds-js", "build-sass"));
 
 gulp.task("watch-sass", function () {
   gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass"));
@@ -159,6 +159,6 @@ gulp.task("watch-sass", function () {
 
 gulp.task("watch", gulp.series("build-sass", "watch-sass"));
 
-gulp.task("default", gulp.series("watch"));
+gulp.task("default", gulp.series("build"));
 
 gulp.task("svg-sprite", gulp.series("build-sprite", "rename-sprite", "clean-sprite"));
