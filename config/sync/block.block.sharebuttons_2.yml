@@ -1,36 +1,69 @@
-uuid: 782f437c-7077-4b36-92ca-7a73a1268177
-langcode: en
-status: true
-dependencies:
-  module:
-    - mobile_device_detection
-    - samhsa_theme_block_pep8
-    - system
-  theme:
-    - samhsa_pep_uswds
-third_party_settings:
-  block_class:
-    classes: null
-id: sharebuttons_2
-theme: samhsa_pep_uswds
-region: content
-weight: -11
-provider: null
-plugin: share_buttons_block
-settings:
-  id: share_buttons_block
-  label: 'Share Buttons'
-  label_display: '0'
-  provider: samhsa_theme_block_pep8
-  my_block_settings: null
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
-  request_path:
-    id: request_path
-    negate: false
-    context_mapping: {  }
-    pages: '/product/*'
+  Skip to main content
+    Toolbar items
+    Home
+    Manage
+    Shortcuts
+    carey.hartmann@icfnext.com
+    Search
+    Single export
+    Primary tabs
+    Synchronize
+    Import
+    Export(active tab)
+    Key Overrides
+    Secondary tabs
+    Full archive
+    Single item(active tab)
+    Multiple items
+    Breadcrumb
+    Home  Administration  Configuration  Development  Synchronize  Single export
+    Error message
+    There is a security update available for your version of Drupal. To ensure the security of your server, you should update immediately! See the available updates page for more information and to install your missing updates.
+    There are security updates available for one or more of your modules or themes. To ensure the security of your server, you should update immediately! See the available updates page for more information and to install your missing updates.
+    Choose a configuration item to display its YAML structure.
+
+    Configuration type
+
+    Block
+    Configuration name
+
+    Share Buttons (sharebuttons_2)
+  Here is your configuration:
+  uuid: 782f437c-7077-4b36-92ca-7a73a1268177
+  langcode: en
+  status: true
+  dependencies:
+    module:
+      - mobile_device_detection
+      - samhsa_theme_block_pep8
+      - system
+    theme:
+      - samhsa_pep_uswds
+  third_party_settings:
+    block_class:
+      classes: null
+  id: sharebuttons_2
+  theme: samhsa_pep_uswds
+  region: content
+  weight: -11
+  provider: null
+  plugin: share_buttons_block
+  settings:
+    id: share_buttons_block
+    label: 'Share Buttons'
+    label_display: '0'
+    provider: samhsa_theme_block_pep8
+    my_block_settings: null
+  visibility:
+    mobile_device_detection_condition_plugin:
+      id: mobile_device_detection_condition_plugin
+      negate: null
+      context_mapping: {  }
+      devices: {  }
+    request_path:
+      id: request_path
+      negate: false
+      context_mapping: {  }
+      pages: '/product/*'
+
+  Filename: block.block.sharebuttons_2.yml
