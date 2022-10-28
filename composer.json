@@ -61,6 +61,7 @@
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/config_devel": "^1.8",
         "drupal/config_partial_export": "^1.4",
+        "drupal/config_split": "^1.9",
         "drupal/config_update": "^1.4",
         "drupal/console": "^1.9",
         "drupal/content_access": "^1.0@alpha",
