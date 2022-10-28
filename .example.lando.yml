@@ -117,9 +117,9 @@ tooling:
     service: appserver
     description: Generate an admin login link
     cmd:
-      - drush -y user:unblock dev
-      - drush -y user:password dev dev
-      - drush -y uli --name=dev
+      - drush -y user:unblock admin
+      - drush -y user:password admin admin
+      - drush -y uli --name=admin
 
   refresh:
     service: appserver
@@ -141,6 +141,16 @@ tooling:
 
   # @todo - finish this
 
+#  gulp-build:
+#    service: node
+#    description: Rebuild node packages and CSS
+#    cmd:
+#      - "cd /app/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build"
+#  gulp-watch:
+#    service: node
+#    description: Rebuild node packages and CSS
+#    cmd:
+#      - "cd /app/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build && gulp watch"
 #  lint-code:
 #    service: appserver
 #    description: Run phpcs on custom SAMHSA modules
@@ -163,13 +173,3 @@ tooling:
 #    description: Performs "safe" Eslinting fixes on js code. Review all changes before comitting.
 #    cmd:
 #      - npx eslint --fix --config .eslintrc.yml --ext .js web/themes/custom/samhsa_uswds_base/src/js
-#  gulp-build:
-#    service: node
-#    description: Rebuild node packages and CSS
-#    cmd:
-#      - "cd /app/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build"
-#  gulp-watch:
-#    service: node
-#    description: Rebuild node packages and CSS
-#    cmd:
-#      - "cd /app/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build && gulp watch"
