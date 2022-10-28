@@ -7,7 +7,7 @@ label: Production
 description: 'Enables modules that are typically only functional or needed in a production environment. While you can enable this split in any environment, these modules may not work outside of production.'
 weight: 0
 folder: ../config/prod
-module: {  }
+module: null
 theme: {  }
 blacklist: {  }
 graylist: {  }

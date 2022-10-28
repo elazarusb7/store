@@ -8,9 +8,10 @@ description: 'Enables modules intended for development use only. You probably do
 weight: 0
 folder: ../config/dev
 module:
+  dblog: 0
   devel: 0
-  stage_file_proxy: 0
   devel_generate: 0
+  stage_file_proxy: 0
 theme: {  }
 blacklist:
   - dblog.settings
