@@ -31,12 +31,17 @@ services:
         - apt update
         - apt install libzip-dev nodejs npm python
         - apt install libldb-dev libldap2-dev
+        - docker-php-ext-install zip opcache
+        # Store specific
+        - pecl install ext-soap ext-bcmath
+
         ## Following 4 lines needed for webp to work
 #        - apt install imagemagick
 #        - apt-get install -y libmagickwand-dev --no-install-recommends
 #        - pecl install imagick
 #        - docker-php-ext-enable imagick
-        - docker-php-ext-install zip opcache ldap
+
+        # a2enmod for adding headers
         - a2enmod headers rewrite
         - npm install -g gulp-cli
 
