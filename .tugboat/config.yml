@@ -30,10 +30,10 @@ services:
       init:
         - apt update
         - apt install libzip-dev nodejs npm python
-        - apt install libldb-dev libldap2-dev
+        - apt install libldb-dev libldap2-dev libxml2-dev
         - docker-php-ext-install zip opcache
         # Store specific
-        - pecl install ext-soap ext-bcmath
+        - docker-php-ext-install soap bcmath xml
 
         ## Following 4 lines needed for webp to work
 #        - apt install imagemagick
