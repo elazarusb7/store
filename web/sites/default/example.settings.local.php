@@ -38,6 +38,41 @@ $databases['default']['default'] = [
   'collation' => 'utf8mb4_general_ci',
 ];
 
+// Solr configuration
+$config['search_api.server.common'] = [
+  'name' => 'Store Common (dev/local/tugboat overridden)',
+  'backend_config' => [
+    'connector' => 'basic_auth',
+    'connector_config' => [
+      'scheme' => 'http',
+      'username' => 'ocwebteam',
+      'password' => 'ramap',
+      'host' => 'solr.ocweb-team.com',
+      'path' => '/',
+      'core' => 'common',
+      'port' => '80',
+    ],
+  ],
+];
+
+$config['search_api.server.default_solr_server'] = [
+  'name' => 'Store Solr Server (dev/local/tugboat overridden)',
+  'backend_config' => [
+    'connector' => 'basic_auth',
+    'connector_config' => [
+      'scheme' => 'http',
+      'username' => 'ocwebteam',
+      'password' => 'ramap',
+      'host' => 'solr.ocweb-team.com',
+      'path' => '/',
+      'core' => 'drupal',
+      'port' => '80',
+    ],
+  ],
+];
+
+
+
 $settings["config_sync_directory"] = '../config/sync';
 
 // Setting this properly will fix a warning on the status report, but it may
