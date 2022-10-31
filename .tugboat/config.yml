@@ -29,12 +29,12 @@ services:
       # Building a "base preview" starts here and completes subsequent phases
       init:
         - apt update
-        - apt install libzip-dev nodejs npm python libldb-dev libldap2-dev
+#        - apt install libzip-dev nodejs npm python libldb-dev libldap2-dev
         ## Following 4 lines needed for webp to work
-        - apt install imagemagick
-        - apt-get install -y libmagickwand-dev --no-install-recommends
-        - pecl install imagick
-        - docker-php-ext-enable imagick
+#        - apt install imagemagick
+#        - apt-get install -y libmagickwand-dev --no-install-recommends
+#        - pecl install imagick
+#        - docker-php-ext-enable imagick
         - docker-php-ext-install zip opcache ldap
         - a2enmod headers rewrite
         - npm install -g gulp-cli
@@ -95,8 +95,9 @@ services:
 
         # Build theme
         # HACK: remove node_modules before creating it to avoid Tugboat errors
-        - rm -rf $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/node_modules
-        - cd $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build
+# @todo Resolve issues with theme transpiling before enabling here
+#        - rm -rf $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/node_modules
+#        - cd $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build
 
         # Drupal DB updates in case any modules were updated
         - drush -y -r $TUGBOAT_ROOT updb
