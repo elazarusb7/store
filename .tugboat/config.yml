@@ -29,7 +29,8 @@ services:
       # Building a "base preview" starts here and completes subsequent phases
       init:
         - apt update
-#        - apt install libzip-dev nodejs npm python libldb-dev libldap2-dev
+        - apt install libzip-dev nodejs npm python
+        - apt install libldb-dev libldap2-dev
         ## Following 4 lines needed for webp to work
 #        - apt install imagemagick
 #        - apt-get install -y libmagickwand-dev --no-install-recommends
