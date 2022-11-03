@@ -2,8 +2,7 @@
 -- Custom cache clear stored procedure for store.samhsa.gov (Updated 27OCT2022)
 --
 
-DELIMITER
-$$
+DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `delcache` $$
 
