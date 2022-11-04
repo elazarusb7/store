@@ -1,0 +1,17 @@
+uuid: 5a3a43e5-b9ad-4dda-9a39-dafb6382401a
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'GPO XML Upload'
+type: gpo_xml_upload
+description: 'Custom Content Type used to upload GPO XMLs'
+help: 'Add the date that this XML covers (MM/DD/YYYY)'
+new_revision: false
+preview_mode: 0
+display_submitted: false
