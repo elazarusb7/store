@@ -1,0 +1,11 @@
+uuid: c7218889-9274-48c5-ba9a-b1b0a96b92e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.gpo_xml_upload
+id: node.gpo_xml_upload
+target_entity_type_id: node
+target_bundle: gpo_xml_upload
+default_langcode: site_default
+language_alterable: false

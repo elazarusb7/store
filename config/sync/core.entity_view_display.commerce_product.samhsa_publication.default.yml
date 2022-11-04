@@ -14,6 +14,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
     - field.field.commerce_product.samhsa_publication.field_google_play
+    - field.field.commerce_product.samhsa_publication.field_gpo_pubcode
     - field.field.commerce_product.samhsa_publication.field_issues_conditions_and_diso
     - field.field.commerce_product.samhsa_publication.field_last_reviewed
     - field.field.commerce_product.samhsa_publication.field_location
@@ -143,6 +144,15 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 33
+    region: content
+  field_gpo_pubcode:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 39
     region: content
   field_issues_conditions_and_diso:
     type: entity_reference_label
