@@ -201,6 +201,7 @@
         "drupal/views_fieldsets": "^3.4",
         "drupal/views_flipped_table": "^1.0",
         "drupal/views_jump_menu": "^1.0@beta",
+        "drupal/views_simple_math_field": "^3.0",
         "drupal/views_slideshow": "^4.5",
         "drupal/webform": "^6.0",
         "drupal/workbench": "^1.0",

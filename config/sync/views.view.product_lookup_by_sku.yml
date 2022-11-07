@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.storage.commerce_product.field_gpo_pubcode
     - field.storage.commerce_product_variation.field_available_quantity
+    - user.role.administrator
+    - user.role.site_manager
   module:
     - commerce_product
     - commerce_stock_field
@@ -12,8 +14,10 @@ dependencies:
     - csv_serialization
     - rest
     - serialization
+    - user
     - views_autocomplete_filters
     - views_data_export
+    - views_simple_math_field
 id: product_lookup_by_sku
 label: 'Product Lookup by SKU'
 module: views
@@ -964,6 +968,74 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
+        field_views_simple_math_field:
+          id: field_views_simple_math_field
+          table: views_simple_math_field
+          field: field_views_simple_math_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field_views_simple_math_field
+          label: 'Simple Math Field'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          fieldset_one:
+            data_field:
+              product_id: product_id
+              sku_1: 0
+              field_gpo_pubcode: 0
+              edit_commerce_product: 0
+              variation_id: 0
+              field_available_quantity: 0
+              nothing: 0
+            formula: '@product_id +8100000'
+          mute_logs: false
+          set_precision: 0
+          precision: '0'
+          decimal: .
+          separator: ''
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
       pager:
         type: full
         options:
@@ -985,6 +1057,12 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      access:
+        type: role
+        options:
+          role:
+            administrator: administrator
+            site_manager: site_manager
       sorts: {  }
       filters:
         status:
@@ -1236,6 +1314,7 @@ display:
           separator: ''
           hide_empty: false
       defaults:
+        access: false
         pager: false
         style: false
         row: false
@@ -1279,6 +1358,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.field_gpo_pubcode'
         - 'config:field.storage.commerce_product_variation.field_available_quantity'
