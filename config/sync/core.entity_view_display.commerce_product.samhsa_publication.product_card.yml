@@ -15,6 +15,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
     - field.field.commerce_product.samhsa_publication.field_google_play
+    - field.field.commerce_product.samhsa_publication.field_gpo_pubcode
     - field.field.commerce_product.samhsa_publication.field_issues_conditions_and_diso
     - field.field.commerce_product.samhsa_publication.field_last_reviewed
     - field.field.commerce_product.samhsa_publication.field_location
@@ -101,6 +102,7 @@ hidden:
   field_featured: true
   field_format: true
   field_google_play: true
+  field_gpo_pubcode: true
   field_issues_conditions_and_diso: true
   field_last_reviewed: true
   field_location: true

@@ -1,0 +1,24 @@
+uuid: ed8a20c8-d820-4e2f-8b36-855f55decb34
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.gpo_xml_upload.field_xml_upload
+    - node.type.gpo_xml_upload
+  module:
+    - user
+id: node.gpo_xml_upload.teaser
+targetEntityType: node
+bundle: gpo_xml_upload
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_xml_upload: true
+  langcode: true
+  search_api_excerpt: true

@@ -2237,4 +2237,3 @@ display:
         - 'config:field.storage.commerce_product.field_thumbnail'
         - 'config:search_api.index.default_solr_index'
       cacheable: false
-      

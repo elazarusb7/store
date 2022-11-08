@@ -1,0 +1,23 @@
+uuid: 94bb8204-91b7-46bf-a58f-e0c8bf17b4fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_gpo_pubcode
+id: commerce_product.samhsa_publication.field_gpo_pubcode
+field_name: field_gpo_pubcode
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'GPO Pubcode'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
