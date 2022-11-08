@@ -4,6 +4,9 @@ status: true
 dependencies:
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 _core:
   default_config_hash: Ja8hHSpY1oTpUepdMm7K9BarYiG0is5gdIcAJDSgJj4
 id: samhsa_pep_uswds_page_title

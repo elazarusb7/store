@@ -1,0 +1,27 @@
+uuid: 672eca6b-c90d-4599-97dd-cc60424b5802
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.gpo_xml_upload.field_xml_upload
+    - node.type.gpo_xml_upload
+  module:
+    - file
+    - user
+id: node.gpo_xml_upload.default
+targetEntityType: node
+bundle: gpo_xml_upload
+mode: default
+content:
+  field_xml_upload:
+    type: file_default
+    label: inline
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true

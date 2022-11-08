@@ -1,0 +1,18 @@
+uuid: 5e971bdf-1293-48e6-b4b2-8352874f23cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.gpo_xml_upload
+id: node.gpo_xml_upload.title
+field_name: title
+entity_type: node
+bundle: gpo_xml_upload
+label: 'XML Date'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad3e3919619d609f03efb250551bca03",
+    "content-hash": "dbad8f7eb0577aee04ea8c7c579108e2",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -73,6 +73,52 @@
                 "source": "https://github.com/alchemy-fr/Zippy/tree/master"
             },
             "time": "2018-02-22T13:58:36+00:00"
+        },
+        {
+            "name": "andileco/eval-math",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andileco/eval-math.git",
+                "reference": "52ff5728ad51961a630cc957328764cb02ab5c51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andileco/eval-math/zipball/52ff5728ad51961a630cc957328764cb02ab5c51",
+                "reference": "52ff5728ad51961a630cc957328764cb02ab5c51",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7 || ^8.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2",
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Andileco\\Util\\EvalMath\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "EvalMath",
+            "keywords": [
+                "EvalMath"
+            ],
+            "support": {
+                "issues": "https://github.com/andileco/eval-math/issues",
+                "source": "https://github.com/andileco/eval-math/tree/3.0.1"
+            },
+            "time": "2022-07-21T21:04:26+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -15807,6 +15853,56 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/views_jump_menu",
                 "issues": "https://www.drupal.org/project/issues/views_jump_menu"
+            }
+        },
+        {
+            "name": "drupal/views_simple_math_field",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_simple_math_field.git",
+                "reference": "3.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_simple_math_field-3.0.1.zip",
+                "reference": "3.0.1",
+                "shasum": "50c5207f303b863408821c1d3a8b1997ebda2759"
+            },
+            "require": {
+                "andileco/eval-math": "^3.0.1",
+                "drupal/core": "^8.7|^9.0 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.1",
+                    "datestamp": "1661281207",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "andileco",
+                    "homepage": "https://www.drupal.org/user/2054544"
+                },
+                {
+                    "name": "Beakerboy",
+                    "homepage": "https://www.drupal.org/user/1700098"
+                }
+            ],
+            "description": "Math operations over selected fields",
+            "homepage": "https://www.drupal.org/project/views_simple_math_field",
+            "support": {
+                "source": "http://cgit.drupalcode.org/views_simple_math_field",
+                "issues": "https://www.drupal.org/project/issues/views_simple_math_field"
             }
         },
         {
