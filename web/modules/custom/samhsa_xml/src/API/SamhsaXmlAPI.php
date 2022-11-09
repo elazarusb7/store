@@ -214,7 +214,7 @@ class SamhsaXmlAPI {
         $child = $dom->createElement('SOURCE', '');
         $item_node->appendChild($child);
 
-        $child = $dom->createElement('SEQ', '1');
+        $child = $dom->createElement('SEQ', '1');git
         $item_node->appendChild($child);
 
         $child = $dom->createElement('PUBCODE', $GpoPubNumber);
