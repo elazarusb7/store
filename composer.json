@@ -21,7 +21,7 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.6",
         "dompdf/dompdf": "^1.1",
-        "drupal/admin_toolbar": "^3.0",
+        "drupal/admin_toolbar": "^3.2",
         "drupal/admin_toolbar_links_access_filter": "^3.0",
         "drupal/allowed_formats": "^1.1",
         "drupal/autocomplete_deluxe": "^2.0",
@@ -61,12 +61,14 @@
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/config_devel": "^1.8",
         "drupal/config_partial_export": "^1.4",
+        "drupal/config_split": "^1.9",
         "drupal/config_update": "^1.4",
         "drupal/console": "^1.9",
         "drupal/content_access": "^1.0@alpha",
         "drupal/context": "^4.0@beta",
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
+        "drupal/core-composer-scaffold": "^9.4",
         "drupal/core-recommended": "^9",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^2.1",
@@ -447,7 +449,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "composer/installers": true,
             "cweagans/composer-patches": true,
-            "drupal/console-extend-plugin": true
+            "drupal/console-extend-plugin": true,
+            "drupal/core-composer-scaffold": true
         }
     },
     "autoload": {
@@ -463,6 +466,18 @@
         "post-update-cmd": "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     },
     "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "initial": {
+                ".editorconfig": "../.editorconfig",
+                ".gitattributes": "../.gitattributes"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": false
+            }
+        },
         "installer-paths": {
             "web/core": [
                 "type:drupal-core"

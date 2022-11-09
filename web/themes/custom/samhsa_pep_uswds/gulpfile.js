@@ -10,12 +10,13 @@
 USWDS SASS GULPFILE
 ----------------------------------------
 */
+/* jshint esversion: 6, node: true */
 
 const autoprefixer = require("autoprefixer");
 const csso = require("postcss-csso");
 const gulp = require("gulp");
 const pkg = require("./node_modules/uswds/package.json");
-const postcss = require("gulp-postcss");
+//const postcss = require("gulp-postcss");
 const replace = require("gulp-replace");
 const sass = require("gulp-sass");
 const sourcemaps = require("gulp-sourcemaps");
@@ -63,120 +64,83 @@ TASKS
 ----------------------------------------
 */
 
-gulp.task("copy-uswds-setup", () => {
-  return gulp
-    .src(`${uswds}/scss/theme/**/**`)
-    .pipe(gulp.dest(`${PROJECT_SASS_SRC}`));
-});
-
-gulp.task("copy-uswds-fonts", () => {
-  return gulp.src(`${uswds}/fonts/**/**`).pipe(gulp.dest(`${FONTS_DEST}`));
-});
-
-gulp.task("copy-uswds-images", () => {
-  return gulp.src(`${uswds}/img/**/**`).pipe(gulp.dest(`${IMG_DEST}`));
-});
-
-gulp.task("copy-uswds-js", () => {
-  return gulp.src(`${uswds}/js/**/**`).pipe(gulp.dest(`${JS_DEST}`));
-});
-
-gulp.task("build-sass", function(done) {
+gulp.task("build-sass", function (done) {
   var plugins = [
     // Autoprefix
     autoprefixer({
-      cascade: false,
-      grid: true
-    }),
-    // Minify
-    csso({ forceMediaMerge: false }),
+      cascade: false, grid: true
+    }), // Minify
+    csso({forceMediaMerge: false}),
   ];
-  return (
-    gulp
+  return (gulp
       .src([`${PROJECT_SASS_SRC}/*.scss`])
-      .pipe(sourcemaps.init({ largeFile: true }))
-      .pipe(
-        sass.sync({
-          includePaths: [
-            `${PROJECT_SASS_SRC}`,
-            `${uswds}/scss`,
-            `${uswds}/scss/packages`
-          ]
-        })
-      )
+      .pipe(sourcemaps.init({largeFile: true}))
+      .pipe(sass.sync({
+        includePaths: [
+          `${PROJECT_SASS_SRC}`, `${uswds}/scss`, `${uswds}/scss/packages`
+        ]
+      }))
       .pipe(replace(/\buswds @version\b/g, "based on uswds v" + pkg.version))
       //.pipe(postcss(plugins))
       .pipe(sourcemaps.write("."))
       // uncomment the next line if necessary for Jekyll to build properly
       .pipe(gulp.dest(`${SITE_CSS_DEST}`))
-      .pipe(gulp.dest(`${CSS_DEST}`))
-  );
+      .pipe(gulp.dest(`${CSS_DEST}`)));
 });
 
 // SVG sprite configuration
 config = {
   shape: {
     dimension: { // Set maximum dimensions
-      maxWidth: 24,
-      maxHeight: 24
-    },
-    id: {
+      maxWidth: 24, maxHeight: 24
+    }, id: {
       separator: "-"
-    },
-    spacing: { // Add padding
+    }, spacing: { // Add padding
       padding: 0
     }
-  },
-  mode: {
+  }, mode: {
     symbol: true // Activate the «symbol» mode
   }
 };
 
 gulp.task("build-sprite", function (done) {
-  gulp.src(`${IMG_DEST}/usa-icons/**/*.svg`,
-  {
+  gulp.src(`${IMG_DEST}/usa-icons/**/*.svg`, {
     allowEmpty: true
   })
     .pipe(svgSprite(config))
-    .on('error', function(error) {
+    .on('error', function (error) {
       console.log("There was an error");
     })
     .pipe(gulp.dest(`${IMG_DEST}`))
-    .on('end', function () { done(); });
- });
+    .on('end', function () {
+      done();
+    });
+});
 
- gulp.task("rename-sprite", function (done) {
-  gulp.src(`${IMG_DEST}/symbol/svg/sprite.symbol.svg`,
-  {
+gulp.task("rename-sprite", function (done) {
+  gulp.src(`${IMG_DEST}/symbol/svg/sprite.symbol.svg`, {
     allowEmpty: true
   })
     .pipe(rename(`${IMG_DEST}/sprite.svg`))
     .pipe(gulp.dest(`./`))
-    .on('end', function () { done(); });
- });
+    .on('end', function () {
+      done();
+    });
+});
 
- gulp.task("clean-sprite", function(cb) {
+gulp.task("clean-sprite", function (cb) {
   cb();
   return del.sync(`${IMG_DEST}/symbol`);
 });
 
-gulp.task(
-  "init",
-  gulp.series(
-    "copy-uswds-setup",
-    "copy-uswds-fonts",
-    "copy-uswds-images",
-    "copy-uswds-js",
-    "build-sass"
-  )
-);
+gulp.task("build", gulp.series("build-sass"));
 
-gulp.task("watch-sass", function() {
+gulp.task("watch-sass", function () {
   gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass"));
 });
 
 gulp.task("watch", gulp.series("build-sass", "watch-sass"));
 
-gulp.task("default", gulp.series("watch"));
+gulp.task("default", gulp.series("build"));
 
 gulp.task("svg-sprite", gulp.series("build-sprite", "rename-sprite", "clean-sprite"));
