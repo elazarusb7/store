@@ -1,0 +1,7 @@
+name: SAMHSA Testbed
+type: module
+description: A tool for running test code.
+package: 'SAMHSA'
+version: 1.0
+core: 8.x
+core_version_requirement: ^8 || ^9

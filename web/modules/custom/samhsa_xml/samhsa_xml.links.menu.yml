@@ -1,0 +1,8 @@
+samhsa_xml.generate_xml:
+  title: 'Orders: Generate XML'
+  description: '.'
+  parent: system.admin_config
+  route_name: samhsa_xml.orders_xml
+  weight: 10
+  menu_name: admin
+
