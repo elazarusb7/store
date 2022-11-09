@@ -16,8 +16,7 @@
 /.lando.my.cnf
 
 # Ignore transpiled theme files
-# WARNING: This dir contains static, non-generated CSS. 
-#/web/themes/custom/samhsa_pep_uswds/css
+/web/themes/custom/samhsa_pep_uswds/css
 
 # Ignore libraries directory. All libraries have to be installed using composer.
 #/web/libraries/
