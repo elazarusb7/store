@@ -30,20 +30,24 @@ class SamhsaTestbedController extends ControllerBase {
 
     $order_id = 62193;
     $order = Order::load($order_id);
-    $orderDateTime = date('c', $order->getPlacedTime());
-    $orderNumber = $order->getOrderNumber();
-    dsm($orderNumber);
-    $customer = $order->getCustomer();
-    $customerEmail = $customer->getEmail();
+//    $orderDateTime = date('c', $order->getPlacedTime());
+//    $orderNumber = $order->getOrderNumber();
+//    dsm($orderNumber);
+//    $customer = $order->getCustomer();
+//    $customerEmail = $customer->getEmail();
 //    dsm($customerEmail);
-    $profile = $order->getBillingProfile();
+//    $profile = $order->getBillingProfile();
 //    $address = $profile->get('address')->getValue()[0];
 //    dsm($address);
-    $phone = $profile->get('field_phone_number')->getValue()[0]['value'];
+//    $phone = $profile->get('field_phone_number')->getValue()[0]['value'];
 //    dsm($phone);
     $items = $order->getItems();
     foreach($items as $item) {
+
       $itemTitle = $item->getTitle();
+      $quantity = $item->getQuantity();
+//      $GpoPubNumber = $item->get('field_pep_product_type')->getValue()[0]['value'];
+      dsm($item->bundle());
     }
 //    dsm(get_class_methods($order));
 

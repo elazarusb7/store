@@ -204,38 +204,40 @@ class SamhsaXmlAPI {
 
       $root->appendChild($order_node);
 
-//      foreach ($order['items'] as $item) {
-//        $GpoPubNumber = 600000 + (int)$addend;
-//        $quantity = '1';
+      $items = $order->getItems();
+      foreach ($items as $item) {
+
+        $GpoPubNumber = 'pending'; //$item->get('field_gpo_pubcode')->getValue()[0]['value'];
+        $quantity = $item->getQuantity();
 //
-//        $item_node = $dom->createElement('Cpl');
-//
-//        $child = $dom->createElement('ORDERCODE', $orderCode);
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('SOURCE', '');
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('SEQ', '1');
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('PUBCODE', $GpoPubNumber);
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('QUANTITY', $quantity);
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('PRICEA', '0.00');
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('DISCOUNT', '0');
-//        $item_node->appendChild($child);
-//
-//        $child = $dom->createElement('TOTPRICE', '0.00');
-//        $item_node->appendChild($child);
-//
-//        $root->appendChild($item_node);
-//      }
+        $item_node = $dom->createElement('Cpl');
+
+        $child = $dom->createElement('ORDERCODE', $orderCode);
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('SOURCE', '');
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('SEQ', '1');
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('PUBCODE', $GpoPubNumber);
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('QUANTITY', $quantity);
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('PRICEA', '0.00');
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('DISCOUNT', '0');
+        $item_node->appendChild($child);
+
+        $child = $dom->createElement('TOTPRICE', '0.00');
+        $item_node->appendChild($child);
+
+        $root->appendChild($item_node);
+      }
     }
     $dom->appendChild($root);
     $dom->save($xml_file_name);
