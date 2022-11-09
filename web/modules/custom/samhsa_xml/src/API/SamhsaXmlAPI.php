@@ -42,11 +42,6 @@ class SamhsaXmlAPI {
 
     $root = $dom->createElement('CpCpl');
 
-//    $orders = [
-//      ['order1', 'items' => ['item1a', 'item1b']],
-//      ['order2', 'items' => ['item2a', 'item2b']]
-//    ];
-
     $orders = [62193];
 
     foreach($orders as $order_id) {
@@ -207,7 +202,8 @@ class SamhsaXmlAPI {
       $items = $order->getItems();
       foreach ($items as $item) {
 
-        $GpoPubNumber = 'pending'; //$item->get('field_gpo_pubcode')->getValue()[0]['value'];
+        $GpoPubNumber = '--pending--';
+//        $GpoPubNumber = isset($item->get('field_gpo_pubcode')->getValue()[0]['value']) ? $item->get('field_gpo_pubcode')->getValue()[0]['value'] : '';
         $quantity = $item->getQuantity();
 //
         $item_node = $dom->createElement('Cpl');
@@ -244,7 +240,7 @@ class SamhsaXmlAPI {
 
     // Create file object from remote URL.
     $data = file_get_contents('/tmp/orders_temp.xml');
-    $file = \Drupal::service('file.repository')->writeData($data, 'public://orders--' . $date . '.xml');
+    $file = \Drupal::service('file.repository')->writeData($data, 'private://gpo-xml/orders--' . $date . '.xml');
 
     // Create node object with attached file.
     $node = Node::create([
@@ -257,15 +253,5 @@ class SamhsaXmlAPI {
       ],
     ]);
     $node->save();
-  }
-
-  public static function testForValue($class, $field) {
-    return $class->get($field)->getValue()[0];
-//    if (isset($class->get($field)->getValue()[0])) {
-//      return $class->get($field)->getValue()[0]['value'];
-//    }
-//    else {
-//      return '';
-//    }
   }
 }
