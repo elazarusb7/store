@@ -29,7 +29,8 @@ class SamhsaXmlAPI {
     $query->condition('ca.created', $startTime, '>');
     $query->condition('ca.created', $endTime, '<');
     $query->condition('ca.uid', 1, '>');
-    //    $query->condition('ca.checkout_step', 'completed');
+    //$query->condition('ca.checkout_step', 'completed');
+    $query->range(0,1);
     $query->fields('ca', ['order_id']);
 
     $orders = $query->execute()->fetchAllAssoc('order_id');
@@ -209,8 +210,12 @@ class SamhsaXmlAPI {
 
       $items = $order->getItems();
       foreach ($items as $item) {
-
-        $GpoPubNumber = '--pending--';
+//        dsm($item);
+        $GpoPubNumber = '-- NOT AVAILABLE --';
+        if ($item->hasField('field_gpo_pubcode') && isset($item->get('field_gpo_pubcode')
+              ->getValue()[0]['value'])) {
+          $GpoPubNumber = $item->get('field_gpo_pubcode')->getValue()[0]['value'];
+        }
         // $GpoPubNumber = isset($item->get('field_gpo_pubcode')->getValue()[0]['value']) ? $item->get('field_gpo_pubcode')->getValue()[0]['value'] : '';
         $quantity = $item->getQuantity();
 

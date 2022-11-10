@@ -50,10 +50,10 @@ class SamhsaOrdersXmlFormController extends FormBase
     if ($submittedDateTS < strtotime($cutoffDate)) {
       $form_state->setErrorByName('date', $this->t('Dates prior to @cutoffDate cannot be exported.', ['@cutoffDate' => $cutoffDate]));
     }
-    $exportExists = SamhsaXmlAPI::testForExport($form_state->getValue('date'));
-    if ($exportExists) {
-      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
-    }
+//    $exportExists = SamhsaXmlAPI::testForExport($form_state->getValue('date'));
+//    if ($exportExists) {
+//      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
+//    }
     $todayTS = strtotime(date('Y-m-d', time()));
     if ($submittedDateTS >= $todayTS) {
       $form_state->setErrorByName('date', $this->t('You can\'t export orders from today on. Only from yesterday or before are allowed.', ['@cutoffDate' => $cutoffDate]));
