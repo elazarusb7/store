@@ -27,12 +27,12 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#type' => 'textfield',
       '#title' => t('Date (YYYY-MM-DD)'),
 //      '#default_value' => date("Y-m-d", strtotime("yesterday")),
-      '#default_value' => '2022-05-15',
+      '#default_value' => '2022-11-07',
       '#required' => true,
     );
     $form['addend'] = array(
       '#type' => 'textfield',
-      '#title' => t('Addend (Integer to be added to the Order ID'),
+      '#title' => t('Addend (Integer to be added to the Order ID)'),
       '#required' => true,
       '#default_value' => '8037808'
     );
@@ -42,6 +42,22 @@ class SamhsaOrdersXmlFormController extends FormBase
     ];
 
     return $form;
+  }
+
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $cutoffDate = '2022-11-01';
+    $submittedDateTS = strtotime($form_state->getValue('date'));
+    if ($submittedDateTS < strtotime($cutoffDate)) {
+      $form_state->setErrorByName('date', $this->t('Dates prior to @cutoffDate cannot be exported.', ['@cutoffDate' => $cutoffDate]));
+    }
+//    $exportExists = SamhsaXmlAPI::testForExport($form_state->getValue('date'));
+//    if ($exportExists) {
+//      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
+//    }
+    $todayTS = strtotime(date('Y-m-d', time()));
+    if ($submittedDateTS >= $todayTS) {
+      $form_state->setErrorByName('date', $this->t('You can\'t export orders from today on. Only from yesterday or before are allowed.', ['@cutoffDate' => $cutoffDate]));
+    }
   }
 
   //https://stackoverflow.com/questions/486757/how-to-generate-xml-file-dynamically-using-php

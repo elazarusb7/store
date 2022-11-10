@@ -16,41 +16,21 @@ class SamhsaTestbedController extends ControllerBase {
   public function testbed() {
     // Test code here
 
-//    $dateParts = explode('-', '2022-05-15');
+    $date = '2022-05-16';
+//    $dateParts = explode('-', $date);
 //    $startTime = mktime('00', '00', '00', $dateParts[1], $dateParts[2], $dateParts[0]);
 //    $endTime = mktime('23', '59', '59', $dateParts[1], $dateParts[2], $dateParts[0]);
 //    $connection = \Drupal::database();
 //    $query = $connection->select('commerce_order', 'ca');
 //    $query->condition('ca.created', $startTime, '>');
 //    $query->condition('ca.created', $endTime, '<');
+//    $query->condition('ca.uid', 1, '>');
 //    $query->fields('ca', ['order_id']);
-//
-//    $orders = $query->execute()->fetchAllAssoc('order_id');
-//    dpm($orders);
 
-    $order_id = 62193;
-    $order = Order::load($order_id);
-//    $orderDateTime = date('c', $order->getPlacedTime());
-//    $orderNumber = $order->getOrderNumber();
-//    dsm($orderNumber);
-//    $customer = $order->getCustomer();
-//    $customerEmail = $customer->getEmail();
-//    dsm($customerEmail);
-//    $profile = $order->getBillingProfile();
-//    $address = $profile->get('address')->getValue()[0];
-//    dsm($address);
-//    $phone = $profile->get('field_phone_number')->getValue()[0]['value'];
-//    dsm($phone);
-    $items = $order->getItems();
-    foreach($items as $item) {
-
-      $itemTitle = $item->getTitle();
-      $quantity = $item->getQuantity();
-//      $GpoPubNumber = $item->get('field_pep_product_type')->getValue()[0]['value'];
-      dsm($item->bundle());
+    $orders = SamhsaXmlAPI::loadOrderIds($date);
+    foreach($orders as $order) {
+      dsm($order->order_id);
     }
-//    dsm(get_class_methods($order));
-
 
     $output = 'DEFAULT TEST OUTPUT';
     return array(
