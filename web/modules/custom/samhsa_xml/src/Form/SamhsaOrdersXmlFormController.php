@@ -30,12 +30,6 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#default_value' => '2022-11-07',
       '#required' => true,
     );
-    $form['addend'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Addend (Integer to be added to the Order ID)'),
-      '#required' => true,
-      '#default_value' => '8037808'
-    );
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => t('Generate XML'),
@@ -64,6 +58,6 @@ class SamhsaOrdersXmlFormController extends FormBase
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $date = $form_state->getValue('date');
     $addend = $form_state->getValue('addend');
-    SamhsaXmlAPI::generateXML($date, $addend);
+    SamhsaXmlAPI::generateXML($date);
   }
 }
