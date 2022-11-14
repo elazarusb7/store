@@ -28,9 +28,9 @@ class SamhsaXmlAPI {
     $query = $connection->select('commerce_order', 'ca');
     $query->condition('ca.created', $startTime, '>');
     $query->condition('ca.created', $endTime, '<');
-    $query->condition('ca.uid', 1, '>');
+//    $query->condition('ca.uid', 1, '>');
     //$query->condition('ca.checkout_step', 'completed');
-    $query->range(0,1);
+//    $query->range(0,1);
     $query->fields('ca', ['order_id']);
 
     $orders = $query->execute()->fetchAllAssoc('order_id');
@@ -216,7 +216,7 @@ class SamhsaXmlAPI {
               ->getValue()[0]['value'])) {
           $GpoPubNumber = $item->get('field_gpo_pubcode')->getValue()[0]['value'];
         }
-        // $GpoPubNumber = isset($item->get('field_gpo_pubcode')->getValue()[0]['value']) ? $item->get('field_gpo_pubcode')->getValue()[0]['value'] : '';
+        $GpoPubNumber = SamhsaXmlAPI::getGpoNumber($item);
         $quantity = $item->getQuantity();
 
         $item_node = $dom->createElement('Cpl');
@@ -272,6 +272,35 @@ class SamhsaXmlAPI {
     $messenger = \Drupal::messenger();
     $messenger->addStatus(t('@count Orders exported to XML', ['@count' => $ordersExported]));
 
+  }
+
+  public static function getGpoNumber($item) {
+    if ($item->hasPurchasedEntity()) {
+      $purchasedItemId = $item->getPurchasedEntityId();
+      $connection = \Drupal::database();
+
+      // Strategy 1: accessing data from a new field added to the Variant
+      //      $query = $connection->select('commerce_product_variation__field_gpo_pubcode', 'code');
+      //      $query->condition('code.entity_id', $purchasedItemId);
+      //      $query->fields('code', ['field_gpo_pubcode_value']);
+      //
+      //      $gpoPubcode = $query->execute()->fetchAll();
+      //      return $gpoPubcode[0]->field_gpo_pubcode_value;
+
+      // Strategy 2: Accessing data from the field in the main product Entity
+      // Sub-query: return Product entity ID from Variation ID
+      $subQuery = $connection->select('commerce_product__variations', 'variations');
+      $subQuery->condition('variations.variations_target_id', $purchasedItemId);
+      $subQuery->fields('variations', ['entity_id']);
+
+      // Main query: return GPO number from Entity ID retrieved in sub-query.
+      $query = $connection->select('commerce_product__field_gpo_pubcode', 'product_field');
+      $query->condition('product_field.entity_id', $subQuery);
+      $query->fields('product_field', ['field_gpo_pubcode_value']);
+
+      $result = $query->execute()->fetchAll();
+      return $result[0]->field_gpo_pubcode_value;
+    }
   }
 
   public static function testForExport($date) {

@@ -3,6 +3,6 @@ samhsa_xml.generate_xml:
   description: '.'
   parent: system.admin_config
   route_name: samhsa_xml.orders_xml
-  weight: 10
+  weight: 0
   menu_name: admin
 

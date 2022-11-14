@@ -16,21 +16,40 @@ class SamhsaTestbedController extends ControllerBase {
   public function testbed() {
     // Test code here
 
-    $date = '2022-05-16';
-//    $dateParts = explode('-', $date);
-//    $startTime = mktime('00', '00', '00', $dateParts[1], $dateParts[2], $dateParts[0]);
-//    $endTime = mktime('23', '59', '59', $dateParts[1], $dateParts[2], $dateParts[0]);
-//    $connection = \Drupal::database();
-//    $query = $connection->select('commerce_order', 'ca');
-//    $query->condition('ca.created', $startTime, '>');
-//    $query->condition('ca.created', $endTime, '<');
-//    $query->condition('ca.uid', 1, '>');
-//    $query->fields('ca', ['order_id']);
+    $orderId = '106205';
 
-    $orders = SamhsaXmlAPI::loadOrderIds($date);
-    foreach($orders as $order) {
-      dsm($order->order_id);
+    $order = Order::load($orderId);
+    $items = $order->getItems();
+
+    // A working example
+    foreach ($items as $item) {
+      if ($item->hasPurchasedEntity()) {
+        $purchasedItemId = $item->getPurchasedEntityId();
+
+        $connection = \Drupal::database();
+        // Sub query return Product entity ID from Variation ID
+        $subQuery = $connection->select('commerce_product__variations', 'variations');
+        $subQuery->condition('variations.variations_target_id', $purchasedItemId);
+        $subQuery->fields('variations', ['entity_id']);
+
+        // Main query, return GPO number from Entity ID.
+        $query = $connection->select('commerce_product__field_gpo_pubcode', 'product_field');
+        $query->condition('product_field.entity_id', $subQuery);
+        $query->fields('product_field', ['field_gpo_pubcode_value']);
+
+        $result = $query->execute()->fetchAll();
+        dsm($result[0]->field_gpo_pubcode_value);
+      }
+
     }
+
+
+
+
+//    $orders = SamhsaXmlAPI::loadOrderIds($date);
+//    foreach($orders as $order) {
+//      dsm($order->order_id);
+//    }
 
     $output = 'DEFAULT TEST OUTPUT';
     return array(
