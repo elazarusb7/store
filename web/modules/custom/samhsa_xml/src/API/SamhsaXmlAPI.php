@@ -284,9 +284,9 @@ class SamhsaXmlAPI {
 //    if ($newXmlNode) {
 //      foreach ($orders as $order_id) {
 //        $order = Order::load($order_id->order_id);
+//        $order->getState()->applyTransitionById('process');
 //        $order->getState()->applyTransitionById('complete');
 //        $order->save();
-//        dsm($orderState->getSettableValues());
 //      }
 //    }
 

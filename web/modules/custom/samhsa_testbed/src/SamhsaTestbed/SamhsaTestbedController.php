@@ -16,32 +16,46 @@ class SamhsaTestbedController extends ControllerBase {
   public function testbed() {
     // Test code here
 
-    $orderId = '106205';
-
+    $orderId = '106206';
     $order = Order::load($orderId);
-    $items = $order->getItems();
+//    $transAllowed = $order->getState()->isTransitionAllowed('process');
+//    $trans = $order->getState()->getTransitions();
+//    dsm($transAllowed);
+//    dsm($trans);
+//    dsm($trans['process']->getId());
+//    $order->getState()->applyTransitionById('process');
+    $order->getState()->applyTransitionById('process');
+    $order->getState()->applyTransitionById('complete');
+    $order->save();
+
+
+
+
+
+//    $order = Order::load($orderId);
+//    $items = $order->getItems();
 
     // A working example
-    foreach ($items as $item) {
-      if ($item->hasPurchasedEntity()) {
-        $purchasedItemId = $item->getPurchasedEntityId();
-
-        $connection = \Drupal::database();
-        // Sub query return Product entity ID from Variation ID
-        $subQuery = $connection->select('commerce_product__variations', 'variations');
-        $subQuery->condition('variations.variations_target_id', $purchasedItemId);
-        $subQuery->fields('variations', ['entity_id']);
-
-        // Main query, return GPO number from Entity ID.
-        $query = $connection->select('commerce_product__field_gpo_pubcode', 'product_field');
-        $query->condition('product_field.entity_id', $subQuery);
-        $query->fields('product_field', ['field_gpo_pubcode_value']);
-
-        $result = $query->execute()->fetchAll();
-        dsm($result[0]->field_gpo_pubcode_value);
-      }
-
-    }
+//    foreach ($items as $item) {
+//      if ($item->hasPurchasedEntity()) {
+//        $purchasedItemId = $item->getPurchasedEntityId();
+//
+//        $connection = \Drupal::database();
+//        // Sub query return Product entity ID from Variation ID
+//        $subQuery = $connection->select('commerce_product__variations', 'variations');
+//        $subQuery->condition('variations.variations_target_id', $purchasedItemId);
+//        $subQuery->fields('variations', ['entity_id']);
+//
+//        // Main query, return GPO number from Entity ID.
+//        $query = $connection->select('commerce_product__field_gpo_pubcode', 'product_field');
+//        $query->condition('product_field.entity_id', $subQuery);
+//        $query->fields('product_field', ['field_gpo_pubcode_value']);
+//
+//        $result = $query->execute()->fetchAll();
+//        dsm($result[0]->field_gpo_pubcode_value);
+//      }
+//
+//    }
 
 
 
