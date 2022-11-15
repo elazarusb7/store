@@ -38,7 +38,7 @@ class SamhsaXmlAPI {
   }
 
   public static function generateXML($date) {
-    $addend = 8037808;
+    $addend = 8017265; // This get's added to the Drupal order ID to generate the GPO order ID.
     $ordersExported = 0;
     $orders = SamhsaXmlAPI::loadOrderIds($date);
     $dom = new DOMDocument();

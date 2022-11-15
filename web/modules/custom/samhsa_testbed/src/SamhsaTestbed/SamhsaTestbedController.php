@@ -17,16 +17,16 @@ class SamhsaTestbedController extends ControllerBase {
     // Test code here
 
     $orderId = '106206';
-    $order = Order::load($orderId);
+//    $order = Order::load($orderId);
 //    $transAllowed = $order->getState()->isTransitionAllowed('process');
 //    $trans = $order->getState()->getTransitions();
 //    dsm($transAllowed);
 //    dsm($trans);
 //    dsm($trans['process']->getId());
 //    $order->getState()->applyTransitionById('process');
-    $order->getState()->applyTransitionById('process');
-    $order->getState()->applyTransitionById('complete');
-    $order->save();
+//    $order->getState()->applyTransitionById('process');
+//    $order->getState()->applyTransitionById('complete');
+//    $order->save();
 
 
 
