@@ -119,7 +119,7 @@ class SamhsaXmlAPI {
 
         $phone = '';
         $ext = '';
-        $email = '';
+        $email = SamhsaXmlAPI::getOrderEmail($order_id->order_id);
         if ($profile && $profile->hasField('field_phone_number') && isset($profile->get('field_phone_number')
               ->getValue()[0]['value'])) {
           $phone = $profile->get('field_phone_number')->getValue()[0]['value'];
@@ -129,9 +129,6 @@ class SamhsaXmlAPI {
           $ext = ' ext:' . $profile->get('field_phone_extension')->getValue()[0]['value'];
         }
         $fullPhone = $phone . $ext;
-        if ($customer) {
-          $email = $customer->getEmail();
-        }
 
         $orderDateTime = date('c', $order->getPlacedTime());
 
@@ -399,6 +396,14 @@ class SamhsaXmlAPI {
     $query = $connection->select('node__field_date', 'date');
     $query->condition('date.field_date_value', $date);
     return $query->countQuery()->execute()->fetchField();
+  }
+
+  public static function getOrderEmail($order_id) {
+    $connection = \Drupal::database();
+    $query = $connection->select('commerce_order', 'order');
+    $query->condition('order.order_id', $order_id);
+    $query->fields('order', ['mail']);
+    return $query->execute()->fetchField();
   }
 
 }
