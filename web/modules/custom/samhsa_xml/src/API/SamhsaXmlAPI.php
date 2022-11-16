@@ -28,9 +28,7 @@ class SamhsaXmlAPI {
     $query = $connection->select('commerce_order', 'ca');
     $query->condition('ca.created', $startTime, '>');
     $query->condition('ca.created', $endTime, '<');
-//    $query->condition('ca.uid', 1, '>');
-    //$query->condition('ca.checkout_step', 'completed');
-    $query->range(0,1);
+//    $query->range(0,1);
     $query->fields('ca', ['order_id']);
 
     $orders = $query->execute()->fetchAllAssoc('order_id');
@@ -56,13 +54,14 @@ class SamhsaXmlAPI {
 
       // If the order has been canceled, do not process the order.
       $currentState = $order->getState()->getId();
-      if ($currentState === 'cancel') {
+      if ($currentState === 'cancel' || $currentState === 'draft') {
         $skip = TRUE;
         $unprocessedOrders = $unprocessedOrders + 1;
         // Log this skipped order
-        \Drupal::logger('samhsa_xml')->alert('The Order @order_id was not processed into the XML because it has been canceled.',
+        \Drupal::logger('samhsa_xml')->alert('The Order @order_id was not processed into the XML because it has a status of @status.',
           [
             '@order_id' => $order_id->order_id,
+            '@status' => $currentState,
           ]
         );
       }
@@ -128,7 +127,7 @@ class SamhsaXmlAPI {
         $child = $dom->createElement('ORDERCODE', $orderCode);
         $order_node->appendChild($child);
 
-        $child = $dom->createElement('LOGINID', '');
+        $child = $dom->createElement('LOGINID', $email);
         $order_node->appendChild($child);
 
         $child = $dom->createElement('CUSTOMERNAME', 'SAMHSA');
@@ -227,7 +226,7 @@ class SamhsaXmlAPI {
         $child = $dom->createElement('INTLFEE', '0');
         $order_node->appendChild($child);
 
-        $child = $dom->createElement('ORDERTYPE', '');
+        $child = $dom->createElement('ORDERTYPE', 'X');
         $order_node->appendChild($child);
 
         $child = $dom->createElement('CALLDATETIME', $orderDateTime);
@@ -239,20 +238,22 @@ class SamhsaXmlAPI {
         $root->appendChild($order_node);
 
         // Now build the XML nodes for the ordered items.
+        $itemSeq = 1;
+        $item_node = $dom->createElement('Cpl');
         $items = $order->getItems();
         foreach ($items as $item) {
           $GpoPubNumber = SamhsaXmlAPI::getGpoNumber($item);
           $quantity = $item->getQuantity();
 
-          $item_node = $dom->createElement('Cpl');
+          if ($itemSeq == 1) {
+            $child = $dom->createElement('ORDERCODE', $orderCode);
+            $item_node->appendChild($child);
+          }
 
-          $child = $dom->createElement('ORDERCODE', $orderCode);
+          $child = $dom->createElement('SEQ', $itemSeq);
           $item_node->appendChild($child);
 
           $child = $dom->createElement('SOURCE', '');
-          $item_node->appendChild($child);
-
-          $child = $dom->createElement('SEQ', '1');
           $item_node->appendChild($child);
 
           $child = $dom->createElement('PUBCODE', $GpoPubNumber);
@@ -270,8 +271,9 @@ class SamhsaXmlAPI {
           $child = $dom->createElement('TOTPRICE', '0.00');
           $item_node->appendChild($child);
 
-          $root->appendChild($item_node);
+          $itemSeq++;
         }
+        $root->appendChild($item_node);
         $ordersExported = $ordersExported + 1;
       }
 
@@ -297,24 +299,35 @@ class SamhsaXmlAPI {
     $newXmlNode = $node->save();
     if ($newXmlNode) {
       foreach ($orders as $order_id) {
-//        $order = Order::load($order_id->order_id);
-//        $currentState = $order->getState()->getId();
-//        $transitions = $order->getState()->getTransitions();
-//        if ($currentState === 'pending') {
-//                  $order->getState()->applyTransitionById('process');
-        //        $order->getState()->applyTransitionById('complete');
-//        }
-//        else if ($currentState === 'process') {
-          //        $order->getState()->applyTransitionById('complete');
-//        }
-//        $order->save();
+        $order = Order::load($order_id->order_id);
+        $currentState = $order->getState()->getId();
+        if ($currentState === 'pending') {
+          $order->getState()->applyTransitionById('process');
+          $order->getState()->applyTransitionById('complete');
+        }
+        else if ($currentState === 'process') {
+          $order->getState()->applyTransitionById('complete');
+        }
+        $order->save();
       }
     }
 
     $messenger = \Drupal::messenger();
-    $messenger->addStatus(t('@count Orders exported to XML', ['@count' => $ordersExported]));
+    $messenger->addStatus(t('@count Orders for @date exported to XML', ['@count' => $ordersExported, '@date' => $date]));
+    \Drupal::logger('samhsa_xml')->info('@count Orders for @date exported to XML.',
+      [
+        '@count' => $ordersExported,
+        '@date' => $date
+      ]
+    );
     if ($unprocessedOrders) {
-      $messenger->addStatus(t('@count Orders were not processed because they lack a mailing address.', ['@count' => $unprocessedOrders]));
+      $messenger->addStatus(t('@count Orders for @date were not processed because they were not compliant with the export requirements.', ['@count' => $unprocessedOrders]));
+      \Drupal::logger('samhsa_xml')->alert('@count Orders were not processed because they were not compliant with the export requirements.',
+        [
+          '@count' => $unprocessedOrders,
+          '@date' => $date
+        ]
+      );
     }
 
   }
