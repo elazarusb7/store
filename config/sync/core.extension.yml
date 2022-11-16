@@ -168,6 +168,7 @@ module:
   samhsa_pep_utility: 0
   samhsa_term_elevation: 0
   samhsa_theme_block_pep8: 0
+  samhsa_xml: 0
   search_api: 0
   search_api_attachments: 0
   search_api_autocomplete: 0
@@ -196,6 +197,7 @@ module:
   tour: 0
   twig_tweak: 0
   typed_data: 0
+  ultimate_cron: 0
   update: 0
   user: 0
   views_aggregator: 0

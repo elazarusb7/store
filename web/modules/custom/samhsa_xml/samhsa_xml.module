@@ -2,12 +2,10 @@
 
 use Drupal\samhsa_xml\API\SamhsaXmlAPI;
 
-function samhsa_xml_cron() {
-  \Drupal::logger('samhsa_xml')->alert('cron run from samhsa_xml');
-
-//  $date = '2022-11-07'; //date("Y-m-d", strtotime("yesterday"));
-//  $exportExists = SamhsaXmlAPI::testForExport($form_state->getValue('date'));
+//function samhsa_xml_cron() {
+//  $date = date("Y-m-d", strtotime("yesterday"));
+//  $exportExists = SamhsaXmlAPI::testForExport($date);
 //  if (!$exportExists) {
 //    SamhsaXmlAPI::generateXML($date);
 //  }
-}
+//}

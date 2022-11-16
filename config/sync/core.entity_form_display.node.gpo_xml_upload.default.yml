@@ -3,15 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.gpo_xml_upload.field_date
     - field.field.node.gpo_xml_upload.field_xml_upload
     - node.type.gpo_xml_upload
   module:
+    - datetime
     - file
 id: node.gpo_xml_upload.default
 targetEntityType: node
 bundle: gpo_xml_upload
 mode: default
 content:
+  field_date:
+    type: datetime_default
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_xml_upload:
     type: file_generic
     weight: 2

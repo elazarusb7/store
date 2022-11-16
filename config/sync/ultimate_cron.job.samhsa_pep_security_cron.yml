@@ -1,0 +1,17 @@
+uuid: 1a875a63-4b11-4ebc-ba7d-6c09be17253e
+langcode: en
+status: true
+dependencies:
+  module:
+    - samhsa_pep_security
+title: 'Default cron handler'
+id: samhsa_pep_security_cron
+weight: 0
+module: samhsa_pep_security
+callback: samhsa_pep_security_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
