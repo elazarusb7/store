@@ -30,7 +30,7 @@ class SamhsaXmlAPI {
     $query->condition('ca.created', $endTime, '<');
 //    $query->condition('ca.uid', 1, '>');
     //$query->condition('ca.checkout_step', 'completed');
-//    $query->range(0,1);
+    $query->range(0,1);
     $query->fields('ca', ['order_id']);
 
     $orders = $query->execute()->fetchAllAssoc('order_id');
@@ -38,14 +38,14 @@ class SamhsaXmlAPI {
   }
 
   public static function generateXML($date) {
-    $addend = 8017265; // This get's added to the Drupal order ID to generate the GPO order ID.
+    $addend = 8017265; // This is added to the Drupal order ID to generate the GPO order ID.
     $ordersExported = 0;
     $orders = SamhsaXmlAPI::loadOrderIds($date);
     $dom = new DOMDocument();
     $dom->encoding = 'utf-8';
     $dom->xmlVersion = '1.0';
     $dom->formatOutput = TRUE;
-    $xml_file_name = '/tmp/orders_temp.xml'; //You can give your path to save file.
+    $xml_file_name = '/tmp/orders_temp.xml'; // You can give your path to save file.
     $unprocessedOrders = 0;
 
     $root = $dom->createElement('CpCpl');
@@ -53,25 +53,43 @@ class SamhsaXmlAPI {
       $skip = FALSE;
       // Gather the data for the order.
       $order = Order::load($order_id->order_id);
-      $customer = $order->getCustomer();
-      $profile = $order->getBillingProfile();
-      if ($profile && $profile->hasField('address') && isset($profile->get('address')
-            ->getValue()[0])) {
-        $address = $profile->get('address')->getValue()[0];
-      }
-      else {
+
+      // If the order has been canceled, do not process the order.
+      $currentState = $order->getState()->getId();
+      if ($currentState === 'cancel') {
         $skip = TRUE;
         $unprocessedOrders = $unprocessedOrders + 1;
-        // Log this order
-        \Drupal::logger('samhsa_xml')->alert('The Order @order_id was not processed into the XML because it has no mailing address.',
+        // Log this skipped order
+        \Drupal::logger('samhsa_xml')->alert('The Order @order_id was not processed into the XML because it has been canceled.',
           [
             '@order_id' => $order_id->order_id,
           ]
         );
       }
+      else {
+        $customer = $order->getCustomer();
+        $profile = $order->getBillingProfile();
 
+        // If the order does not have an address, do not process the order.
+        if ($profile && $profile->hasField('address') && isset($profile->get('address')
+              ->getValue()[0])) {
+          $address = $profile->get('address')->getValue()[0];
+        }
+        else {
+          $skip = TRUE;
+          $unprocessedOrders = $unprocessedOrders + 1;
+          // Log this skipped order
+          \Drupal::logger('samhsa_xml')->alert('The Order @order_id was not processed into the XML because it has no mailing address.',
+            [
+              '@order_id' => $order_id->order_id,
+            ]
+          );
+        }
+      }
+
+      // Build the XML inside the XML root created above.
       if (!$skip) {
-//        dsm($order_id);
+        // First, gather all the required data
         $orderCode = (int) $order->id() + (int) $addend;
 
         $fName = $address['given_name'];
@@ -104,6 +122,7 @@ class SamhsaXmlAPI {
         $orderDateTime = date('c', $order->getPlacedTime());
 
         // Build the XML for the order.
+        // This first part is the information about the order.
         $order_node = $dom->createElement('Cp');
 
         $child = $dom->createElement('ORDERCODE', $orderCode);
@@ -219,14 +238,9 @@ class SamhsaXmlAPI {
 
         $root->appendChild($order_node);
 
+        // Now build the XML nodes for the ordered items.
         $items = $order->getItems();
         foreach ($items as $item) {
-          //        dsm($item);
-          $GpoPubNumber = '-- NOT AVAILABLE --';
-          if ($item->hasField('field_gpo_pubcode') && isset($item->get('field_gpo_pubcode')
-                ->getValue()[0]['value'])) {
-            $GpoPubNumber = $item->get('field_gpo_pubcode')->getValue()[0]['value'];
-          }
           $GpoPubNumber = SamhsaXmlAPI::getGpoNumber($item);
           $quantity = $item->getQuantity();
 
@@ -281,14 +295,21 @@ class SamhsaXmlAPI {
       ],
     ]);
     $newXmlNode = $node->save();
-//    if ($newXmlNode) {
-//      foreach ($orders as $order_id) {
+    if ($newXmlNode) {
+      foreach ($orders as $order_id) {
 //        $order = Order::load($order_id->order_id);
-//        $order->getState()->applyTransitionById('process');
-//        $order->getState()->applyTransitionById('complete');
+//        $currentState = $order->getState()->getId();
+//        $transitions = $order->getState()->getTransitions();
+//        if ($currentState === 'pending') {
+//                  $order->getState()->applyTransitionById('process');
+        //        $order->getState()->applyTransitionById('complete');
+//        }
+//        else if ($currentState === 'process') {
+          //        $order->getState()->applyTransitionById('complete');
+//        }
 //        $order->save();
-//      }
-//    }
+      }
+    }
 
     $messenger = \Drupal::messenger();
     $messenger->addStatus(t('@count Orders exported to XML', ['@count' => $ordersExported]));
