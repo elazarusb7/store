@@ -26,6 +26,8 @@
 
 # Ignore private files
 /web/sites/*/private/
+private/*
+/web.config
 
 # Ignore scaffolding files
 web/.gitignore
@@ -57,25 +59,12 @@ mutagen.yml.lock
 
 # Ignore the node_modules folder in all theme directories.
 /web/themes/custom/*/node_modules
+# For lando purposes, there may be a symlink in the root folder
+node_modules
 
 # Ignore local configurations
 docker-compose.override.yml
 .env.local
 
-# Solr configuration files.
-solr/
-node_modules
-private
-private/*
-/.csslintrc
-/.eslintignore
-/.eslintrc.json
-/.ht.router.php
-/.htaccess
-/INSTALL.txt
-/autoload.php
-/example.gitignore
-/index.php
-/robots.txt
-/update.php
-/web.config
+# Solr - not sure what this is for
+web/libraries/codemirror/mode/solr/*
