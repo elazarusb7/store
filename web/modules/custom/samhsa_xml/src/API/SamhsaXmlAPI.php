@@ -130,7 +130,8 @@ class SamhsaXmlAPI {
         }
         $fullPhone = $phone . $ext;
 
-        $orderDateTime = date('c', $order->getPlacedTime());
+//        $orderDateTime = date('c', $order->getPlacedTime());
+        $orderDateTime = date('Y-m-dT00:00:00+00:00', $order->getPlacedTime());
 
         // Build the XML for the order.
         // This first part is the information about the order.
@@ -205,7 +206,7 @@ class SamhsaXmlAPI {
         $child = $dom->createElement('CCAPPROVALCODE', '');
         $order_node->appendChild($child);
 
-        $child = $dom->createElement('CCPROCDATE', $orderDateTime);
+        $child = $dom->createElement('CCPROCDATE', '');
         $order_node->appendChild($child);
 
         $child = $dom->createElement('CCTOTAL', '0.00');
