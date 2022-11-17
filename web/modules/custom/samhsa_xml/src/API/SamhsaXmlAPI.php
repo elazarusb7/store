@@ -131,7 +131,7 @@ class SamhsaXmlAPI {
         $fullPhone = $phone . $ext;
 
 //        $orderDateTime = date('c', $order->getPlacedTime());
-        $orderDateTime = date('Y-m-dT00:00:00+00:00', $order->getPlacedTime());
+        $orderDateTime = date('Y-m-d', $order->getPlacedTime()) . 'T00:00:00+00:00';
 
         // Build the XML for the order.
         // This first part is the information about the order.
