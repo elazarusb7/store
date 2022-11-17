@@ -54,7 +54,7 @@ class SamhsaXmlAPI {
     $ordersExported = 0;
     $orders = SamhsaXmlAPI::loadOrderIds($date);
     $dom = new DOMDocument();
-    $dom->encoding = 'utf-8';
+    $dom->encoding = 'iso-8859-1';
     $dom->xmlVersion = '1.0';
     $dom->formatOutput = TRUE;
     $xml_file_name = '/tmp/orders_temp.xml'; // You can give your path to save file.
