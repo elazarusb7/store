@@ -1,0 +1,41 @@
+uuid: f3858bb3-af80-4b89-a184-52648e895361
+langcode: en
+status: true
+dependencies: {  }
+id: custom_product_variation
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: custom
+label: 'PEP Commerce product variation'
+source:
+  plugin: pep_product_variation
+process:
+  variation_id: product_id
+  revision_id: revision_id
+  sku: sku
+  title: title
+  type:
+    plugin: default_value
+    default_value: default
+  language: language
+  uid: uid
+  status: product_status
+  created: created
+  changed: changed
+  data: data
+  price:
+    plugin: commerce1_migrate_commerce_price
+    source: commerce_price
+destination:
+  plugin: 'entity:commerce_product_variation'
+  destination_module: commerce_product
+migration_dependencies:
+  required:
+    - custom_product_variation_type
+  optional:
+    - d7_field_instance

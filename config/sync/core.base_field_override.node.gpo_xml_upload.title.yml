@@ -8,7 +8,7 @@ id: node.gpo_xml_upload.title
 field_name: title
 entity_type: node
 bundle: gpo_xml_upload
-label: 'XML Date'
+label: Title
 description: ''
 required: true
 translatable: true

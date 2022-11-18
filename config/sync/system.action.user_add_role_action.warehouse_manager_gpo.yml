@@ -1,0 +1,14 @@
+uuid: 970242e2-9be0-4f7f-9c9e-41d3937490f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.warehouse_manager_gpo
+  module:
+    - user
+id: user_add_role_action.warehouse_manager_gpo
+label: 'Add the Warehouse Manager GPO role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: warehouse_manager_gpo

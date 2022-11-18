@@ -32,6 +32,8 @@ module:
   commerce_combine_carts: 0
   commerce_fedex: 0
   commerce_log: 0
+  commerce_migrate: 0
+  commerce_migrate_commerce: 0
   commerce_number_pattern: 0
   commerce_order: 0
   commerce_payment: 0
@@ -49,9 +51,7 @@ module:
   commerce_ups: 0
   config: 0
   config_devel: 0
-  config_filter: 0
   config_partial_export: 0
-  config_split: 0
   contact: 0
   contextual: 0
   contextual_range_filter: 0
@@ -59,6 +59,7 @@ module:
   csv_serialization: 0
   ctools: 0
   datetime: 0
+  dblog: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
   dynamic_page_cache: 0
@@ -117,7 +118,12 @@ module:
   metatag_twitter_cards: 0
   metatag_verification: 0
   metatag_views: 0
+  migrate: 0
+  migrate_drupal: 0
+  migrate_drupal_ui: 0
   migrate_files_and_images: 0
+  migrate_plus: 0
+  migrate_tools: 0
   mimemail: 0
   mobile_device_detection: 0
   module_filter: 0
@@ -146,8 +152,10 @@ module:
   samhsa_pep_customer_profile: 0
   samhsa_pep_daily_prod_report_download: 0
   samhsa_pep_disallow_order_deletion: 0
+  samhsa_pep_drush_migrate_stock: 0
   samhsa_pep_justification_pane: 0
   samhsa_pep_mail: 0
+  samhsa_pep_migrate_custom: 0
   samhsa_pep_my_account_page: 0
   samhsa_pep_no_copy_paste: 0
   samhsa_pep_notification: 0
