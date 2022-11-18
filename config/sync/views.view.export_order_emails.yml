@@ -141,7 +141,7 @@ display:
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
-          hide_empty: false
+          hide_empty: true
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
@@ -223,7 +223,7 @@ display:
           value:
             min: ''
             max: ''
-            value: '2022-08-23 00:00:00'
+            value: '2022-08-23 12:49:00'
             type: date
           group: 1
           exposed: false
