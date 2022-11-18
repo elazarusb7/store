@@ -256,7 +256,7 @@ class SamhsaXmlAPI {
         $items = $order->getItems();
         foreach ($items as $item) {
           $GpoPubNumber = SamhsaXmlAPI::getGpoNumber($item);
-          $quantity = $item->getQuantity();
+          $quantity = floor($item->getQuantity());
 
           if ($itemSeq == 1) {
             $child = $dom->createElement('ORDERCODE', $orderCode);
