@@ -1,0 +1,37 @@
+uuid: 2a21255d-8b4b-4d9b-8bbc-929843bc88bb
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - samhsa_pep_migrate_custom
+_core:
+  default_config_hash: MeYjkp_-GVT5cvZWdttVxvU_DdyIH9-uZIm1GaTmF-M
+id: custom_taxonomy_vocabulary_d7
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: custom
+label: 'Drupal 7 taxonomy vocabularies'
+source:
+  plugin: custom_taxonomy_vocabulary_d7
+process:
+  vid:
+    -
+      plugin: machine_name
+      source: machine_name
+    -
+      plugin: dedupe_entity
+      entity_type: taxonomy_vocabulary
+      field: vid
+      length: 32
+  label: name
+  name: name
+  description: description
+  hierarchy: hierarchy
+  module: module
+  weight: weight
+destination:
+  plugin: 'entity:taxonomy_vocabulary'
+migration_dependencies: null

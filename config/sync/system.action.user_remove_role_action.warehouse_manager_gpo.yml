@@ -1,0 +1,14 @@
+uuid: faf04bb3-231e-40da-955b-9cb6cb826f2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.warehouse_manager_gpo
+  module:
+    - user
+id: user_remove_role_action.warehouse_manager_gpo
+label: 'Remove the Warehouse Manager GPO role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: warehouse_manager_gpo

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.gpo_xml_upload.field_date_of_orders_in_upload
     - field.field.node.gpo_xml_upload.field_xml_upload
     - node.type.gpo_xml_upload
   module:
@@ -19,6 +20,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_date_of_orders_in_upload: true
   field_xml_upload: true
   langcode: true
   search_api_excerpt: true
