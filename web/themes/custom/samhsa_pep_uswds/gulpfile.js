@@ -3,18 +3,13 @@
 
 const gulp = require("gulp");
 const sass = require('gulp-sass')(require('sass'));
-const sourcemaps = require("gulp-sourcemaps"); // Inline source maps are embedded in the source file
-// const autoprefixer = require("autoprefixer"); // Parse CSS and add vendor prefixes to CSS rules. Example "-webkit-min-device-pixel-ratio"
-// const csso = require("postcss-csso"); // Minify CSS using CSSO
-// const pkg = require("./node_modules/uswds/package.json");
-// const postcss = require("gulp-postcss"); // Pipe CSS through several plugins, but parse CSS only once
-// const replace = require("gulp-replace"); tring replace plugin
-// const uswds = require("./node_modules/uswds-gulp/config/uswds");
-// const del = require('del');
-// const svgSprite = require('gulp-svg-sprite');
-// const rename = require('gulp-rename');
-
-// sass.compiler = require("sass");
+// Inline source maps are embedded in the source file
+const sourcemaps = require("gulp-sourcemaps");
+// Parse CSS and add vendor prefixes to CSS rules. Example "-webkit-min-device-pixel-ratio"
+const autoprefixer = require("autoprefixer");
+// Pipe CSS through several plugins, but parse CSS only once
+const postcss = require("gulp-postcss");
+const minify = require("gulp-clean-css");
 
 /*
 ----------------------------------------
@@ -28,16 +23,16 @@ PATHS
 */
 
 // Project Sass source directory
-const PROJECT_SASS_SRC = "./src/sass";
+const PROJECT_SASS_SRC = "./src/sass/styles.scss";
 
 // Images destination
-const IMG_DEST = "./assets/img";
+// const IMG_DEST = "./assets/img";
 
 // Fonts destination
-const FONTS_DEST = "./assets/fonts";
+// const FONTS_DEST = "./assets/fonts";
 
 // Javascript destination
-const JS_DEST = "./assets/js";
+// const JS_DEST = "./assets/js";
 
 // Compiled CSS destination
 const CSS_DEST = "./css";
@@ -54,92 +49,29 @@ TASKS
 */
 
 gulp.task("build-sass", function (done) {
-  return gulp.src("./src/sass/styles.scss")
-    .pipe(sourcemaps.init())
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest("./css"));
+  let plugins = [
+    autoprefixer({
+      cascade: false, grid: true
+    })
+  ];
+  return (
+    gulp.src(`${PROJECT_SASS_SRC}`)
+      .pipe(sourcemaps.init({largeFile: true}))
+      .pipe(sass.sync().on('error', sass.logError))
+      .pipe(postcss(plugins))
+      .pipe(minify())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(`${SITE_CSS_DEST}`))
+    );
 });
 
 gulp.task("build", gulp.series("build-sass"));
 
-/*gulp.task("build-sass", function (done) {
-  var plugins = [
-    // Autoprefix
-    autoprefixer({
-      cascade: false, grid: true
-    }), // Minify
-    csso({forceMediaMerge: false}),
-  ];
-  return (gulp
-      .src([`${PROJECT_SASS_SRC}/!*.scss`])
-      .pipe(sourcemaps.init({largeFile: true}))
-      .pipe(sass.sync({
-        includePaths: [
-          `${PROJECT_SASS_SRC}`, `${uswds}/scss`, `${uswds}/scss/packages`
-        ]
-      }))
-      // .pipe(replace(/\buswds @version\b/g, "based on uswds v" + pkg.version))
-      //.pipe(postcss(plugins))
-      .pipe(sourcemaps.write("."))
-      // uncomment the next line if necessary for Jekyll to build properly
-      .pipe(gulp.dest(`${SITE_CSS_DEST}`))
-      .pipe(gulp.dest(`${CSS_DEST}`)));
-});*/
-
-// SVG sprite configuration
-/*config = {
-  shape: {
-    dimension: { // Set maximum dimensions
-      maxWidth: 24, maxHeight: 24
-    }, id: {
-      separator: "-"
-    }, spacing: { // Add padding
-      padding: 0
-    }
-  }, mode: {
-    symbol: true // Activate the «symbol» mode
-  }
-};*/
-
-/*gulp.task("build-sprite", function (done) {
-  gulp.src(`${IMG_DEST}/usa-icons/!**!/!*.svg`, {
-    allowEmpty: true
-  })
-    .pipe(svgSprite(config))
-    .on('error', function (error) {
-      console.log("There was an error");
-    })
-    .pipe(gulp.dest(`${IMG_DEST}`))
-    .on('end', function () {
-      done();
-    });
-});*/
-
-/*gulp.task("rename-sprite", function (done) {
-  gulp.src(`${IMG_DEST}/symbol/svg/sprite.symbol.svg`, {
-    allowEmpty: true
-  })
-    .pipe(rename(`${IMG_DEST}/sprite.svg`))
-    .pipe(gulp.dest(`./`))
-    .on('end', function () {
-      done();
-    });
-});*/
-
-/*gulp.task("clean-sprite", function (cb) {
-  cb();
-  return del.sync(`${IMG_DEST}/symbol`);
-});*/
+gulp.task("watch-sass", function () {
+  gulp.watch("./src/sass/**/*.scss", gulp.series("build-sass"));
+});
 
 gulp.task("build", gulp.series("build-sass"));
+gulp.task("watch", gulp.series("watch-sass"));
+gulp.task("default", gulp.series("build"));
 
-/*gulp.task("watch-sass", function () {
-  gulp.watch(`${PROJECT_SASS_SRC}/!**!/!*.scss`, gulp.series("build-sass"));
-});*/
-
-/*gulp.task("watch", gulp.series("build-sass", "watch-sass"));*/
-
-/*gulp.task("default", gulp.series("build"));*/
-
-/*gulp.task("svg-sprite", gulp.series("build-sprite", "rename-sprite", "clean-sprite"));*/
