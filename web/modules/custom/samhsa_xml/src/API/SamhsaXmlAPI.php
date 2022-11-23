@@ -303,7 +303,7 @@ class SamhsaXmlAPI {
     $node = Node::create([
       'type' => 'gpo_xml_upload',
       'title' => 'Orders Export: ' . $date,
-      'field_date' => $date,
+      'field_date_of_orders_in_upload' => $date,
       'field_xml_upload' => [
         'target_id' => $file->id(),
         'display' => TRUE,
@@ -394,8 +394,8 @@ class SamhsaXmlAPI {
    */
   public static function testForExport($date) {
     $connection = \Drupal::database();
-    $query = $connection->select('node__field_date', 'date');
-    $query->condition('date.field_date_value', $date);
+    $query = $connection->select('node__field_date_of_orders_in_upload', 'date');
+    $query->condition('date.field_date_of_orders_in_upload_value', $date);
     return $query->countQuery()->execute()->fetchField();
   }
 
