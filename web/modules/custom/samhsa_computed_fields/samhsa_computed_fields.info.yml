@@ -1,0 +1,8 @@
+name: SAMHSA Computed Fields
+type: module
+description: Provides callback handlers for auto generated fields.
+package: SAMHSA
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - computed_field:computed_field
