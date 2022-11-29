@@ -460,6 +460,11 @@ function jbs_commerce_over_the_max_limit_get_ordered_quantity(PurchasableEntityI
  *   The form state.
  */
 function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(array $form, FormStateInterface $form_state) {
+  // OCWT-3522 - ignore order limit with proper perms
+  if (\Drupal::currentUser()->hasPermission('bypass max number products order')) {
+    return;
+  }
+
   // Get add to cart quantity.
   $values = $form_state->getValues();
   if (isset($values['quantity'])) {
