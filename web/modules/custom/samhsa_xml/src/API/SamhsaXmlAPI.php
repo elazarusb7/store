@@ -252,16 +252,15 @@ class SamhsaXmlAPI {
 
         // Now build the XML nodes for the ordered items.
         $itemSeq = 1;
-        $item_node = $dom->createElement('Cpl');
         $items = $order->getItems();
         foreach ($items as $item) {
           $GpoPubNumber = SamhsaXmlAPI::getGpoNumber($item);
           $quantity = floor($item->getQuantity());
 
-          if ($itemSeq == 1) {
-            $child = $dom->createElement('ORDERCODE', $orderCode);
-            $item_node->appendChild($child);
-          }
+          $item_node = $dom->createElement('Cpl');
+
+          $child = $dom->createElement('ORDERCODE', $orderCode);
+          $item_node->appendChild($child);
 
           $child = $dom->createElement('SEQ', $itemSeq);
           $item_node->appendChild($child);
@@ -284,9 +283,10 @@ class SamhsaXmlAPI {
           $child = $dom->createElement('TOTPRICE', '0.00');
           $item_node->appendChild($child);
 
+          $root->appendChild($item_node);
+
           $itemSeq++;
         }
-        $root->appendChild($item_node);
         $ordersExported = $ordersExported + 1;
       }
 
