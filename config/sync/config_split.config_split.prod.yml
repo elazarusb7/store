@@ -8,6 +8,7 @@ description: 'Enables modules that are typically only functional or needed in a 
 weight: 0
 folder: ../config/prod
 module:
+  samhsa_pep_password: 0
   samhsa_pep_notification: 0
 theme: {  }
 blacklist: {  }
