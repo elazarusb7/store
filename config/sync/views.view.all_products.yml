@@ -15,7 +15,7 @@ dependencies:
     - user
     - views_data_export
 id: all_products
-label: 'All Products'
+label: 'All Products (admin only)'
 module: views
 description: ''
 tag: ''
