@@ -106,3 +106,4 @@ $settings['file_scan_ignore_directories'] = [
 
 $settings['entity_update_batch_size'] = 50;
 $settings['entity_update_backup'] = TRUE;
+$settings['file_private_path'] = '/app/private';
