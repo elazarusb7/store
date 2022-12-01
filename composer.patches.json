@@ -21,6 +21,9 @@
     },
     "drupal/mobile_device_detection": {
       "Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
+    },
+    "drupal/search_api_solr": {
+      "Patch to fix uninstall of search_api_solr_defaults": "_patches/search_api_uninstall.patch"
     }
   }
 } 
