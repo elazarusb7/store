@@ -97,6 +97,9 @@ module:
   jbs_commerce_over_the_max_limit: 0
   jbs_commerce_product_recommendation: 0
   jquery_ui: 0
+  jquery_ui_datepicker: 0
+  jquery_ui_slider: 0
+  jquery_ui_touch_punch: 0
   key: 0
   language: 0
   link: 0
