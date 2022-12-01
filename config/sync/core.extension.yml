@@ -121,6 +121,7 @@ module:
   mimemail: 0
   mobile_device_detection: 0
   module_filter: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
