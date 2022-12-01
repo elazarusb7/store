@@ -1,0 +1,22 @@
+uuid: fe4f8227-282b-4349-9294-0c8f2019a7aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.gpo_xml_upload
+id: node.gpo_xml_upload.status
+field_name: status
+entity_type: node
+bundle: gpo_xml_upload
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
