@@ -81,10 +81,9 @@ services:
       ## Questionable entry:
       gulp-cli: "latest"
     run:
-# @todo Disable theme build until it actuall works
-#      - echo "Running npm install and gulp build"
-#        # Of course we need to modify this if we switch themes
-#      - "cd web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
+      - echo "Running npm install and gulp build"
+        # Of course we need to modify this if we switch themes
+      - "cd web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
   mailhog:
     type: mailhog
     hogfrom:
@@ -138,17 +137,16 @@ tooling:
       - drush -y updb
       - drush -y cr
       - echo "If you have changed branches, you probably want to rebuild the theme now"
-# @todo Disable theme build until it actuall works
-#    gulp-build:
-#      service: node
-#      description: Rebuild node packages and CSS
-#      cmd:
-#        - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
-#    gulp-watch:
-#      service: node
-#      description: Rebuild node packages and CSS
-#      cmd:
-#        - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
+  gulp-build:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
+  gulp-watch:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
 
 ## Linting is not set up for Store yet
 #  lint-code:
