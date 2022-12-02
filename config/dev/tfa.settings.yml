@@ -1,6 +1,6 @@
 _core:
   default_config_hash: S8pRw5FMtyYKYMI194P1QIxO6MRM9ZWaJGgHY4m2Hwg
-enabled: 0
+enabled: false
 required_roles:
   administrator: administrator
   warehouse_manager: warehouse_manager
@@ -15,22 +15,20 @@ allowed_validation_plugins:
   tfa_recovery_code: tfa_recovery_code
 default_validation_plugin: ga_login_totp
 validation_plugin_settings:
-  ga_login_hotp:
-    counter_window: 10
-    site_name_prefix: 1
-    name_prefix: TFA
-    issuer: Drupal
   ga_login_totp:
     time_skew: 2
     site_name_prefix: 1
     name_prefix: TFA
     issuer: Drupal
+  ga_login_hotp:
+    counter_window: 10
+    site_name_prefix: 1
+    name_prefix: TFA
+    issuer: Drupal
   tfa_recovery_code:
     recovery_codes_amount: 9
-validation_skip: 3
+validation_skip: 300
 encryption: pep_encryption_profile
-trust_cookie_expiration: 2592000
-cookie_name: TFA
 tfa_flood_uid_only: 1
 tfa_flood_window: 300
 tfa_flood_threshold: 6
@@ -42,3 +40,5 @@ mail:
   tfa_disabled_configuration:
     subject: 'Your [site:name] account no longer has two-factor authentication'
     body: "[user:display-name],\r\n\r\nTwo-factor authentication has been disabled on your [site:name] account.\r\n\r\nIf you did not take this action, please contact a site administrator immediately.\r\n\r\n--\r\n[site:name] team"
+trust_cookie_expiration: 2592000
+cookie_name: TFA

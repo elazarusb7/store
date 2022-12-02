@@ -11,6 +11,8 @@ id: professional_and_research_topics
 name: 'Professional and Research Topics'
 weight: 0
 min_count: 1
+missing: false
+missing_label: others
 url_alias: professional_and_research_topics
 facet_source_id: 'search_api:views_page__solr_search_content__page_1'
 field_identifier: field_professional_and_research_
