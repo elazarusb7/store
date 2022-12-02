@@ -162,7 +162,7 @@
         "drupal/search_api": "^1.23",
         "drupal/search_api_attachments": "^9.0",
         "drupal/search_api_autocomplete": "^1.6",
-        "drupal/search_api_solr": "^4.2",
+        "drupal/search_api_solr": "4.2.7",
         "drupal/search_api_spellcheck": "^4.0",
         "drupal/seckit": "^2.0",
         "drupal/security_review": "1.x-dev",
