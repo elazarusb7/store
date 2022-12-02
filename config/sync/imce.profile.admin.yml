@@ -13,8 +13,10 @@ conf:
   quota: !!float 0
   maxwidth: 0
   maxheight: 0
-  replace: 0
+  replace: 1
   thumbnail_style: ''
+  thumbnail_grid_style: false
+  ignore_usage: true
   folders:
     -
       path: .
