@@ -64,14 +64,14 @@ services:
       - composer install
       - echo "Please run 'lando refresh' to update your database and configuration"
 
-    database:
-      ## Set this for a static port for external (non lando) db connections
-      #portforward: 33350
-      ## MySQL version hard coded to same as the prod version
-      type: mysql:5.7.34
-      ## If you would like a custom 'my.cnf' file, uncomment and create
-      #config:
-      #  database: .lando.my.cnf
+  database:
+    ## Set this for a static port for external (non lando) db connections
+    #portforward: 33350
+    ## MySQL version hard coded to same as the prod version
+    type: mysql:5.7.34
+    ## If you would like a custom 'my.cnf' file, uncomment and create
+    #config:
+    #  database: .lando.my.cnf
 
   node:
     ## Our project is supposed to use v8, but that causes problems in Lando
