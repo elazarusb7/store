@@ -19,5 +19,6 @@ blacklist:
 graylist:
   - search_api.server.common
   - system.performance
+  - tfa.settings
 graylist_dependents: true
 graylist_skip_equal: true

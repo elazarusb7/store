@@ -54,6 +54,7 @@ dependencies:
     - datetime
     - file
     - image
+    - imce
     - link
     - metatag
     - path
@@ -169,7 +170,9 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   field_may_be_interested_in:
     type: options_select
     weight: 18
@@ -302,14 +305,18 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   field_samhsa_digital_download:
     type: file_generic
     weight: 7
     region: content
     settings:
       progress_indicator: throbber
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   field_samhsa_promo_link:
     type: link_default
     weight: 15
@@ -344,7 +351,9 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   field_tags:
     type: options_select
     weight: 38
@@ -358,7 +367,9 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   field_treatment_prevention_and_r:
     type: options_select
     weight: 34
@@ -372,7 +383,9 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
+    third_party_settings:
+      imce:
+        enabled: true
   path:
     type: path
     weight: 21

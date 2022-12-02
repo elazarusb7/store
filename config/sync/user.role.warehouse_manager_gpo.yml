@@ -4,9 +4,12 @@ status: true
 dependencies:
   module:
     - commerce
+    - field_permissions
 id: warehouse_manager_gpo
 label: 'Warehouse Manager GPO'
 weight: 6
 is_admin: null
 permissions:
   - 'access commerce administration pages'
+  - 'view field_xml_upload'
+  - 'view own field_xml_upload'
