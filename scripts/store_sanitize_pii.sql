@@ -106,3 +106,5 @@ TRUNCATE `views_data_export_object_cache`;
 TRUNCATE `semaphore`;
 TRUNCATE `sessions`;
 TRUNCATE `watchdog`;
+-- This table can be large and has no value in dev environment
+TRUNCATE `product_recommendation__product_events`;
