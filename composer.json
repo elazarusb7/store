@@ -179,7 +179,7 @@
         "drupal/swiftmailer": "^2.2",
         "drupal/taxonomy_manager": "^2.0",
         "drupal/term_condition": "^2.0",
-        "drupal/tfa": "^1.0@alpha",
+        "drupal/tfa": "^1.0",
         "drupal/themable_forms": "^1.0@beta",
         "drupal/token": "^1.10",
         "drupal/token_filter": "^1.3",

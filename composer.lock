@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55f489d969aa83cd6bb78a9b1918f28b",
+    "content-hash": "9d33c9cf7bbcc849158472078342b2b3",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -14523,17 +14523,17 @@
         },
         {
             "name": "drupal/tfa",
-            "version": "1.0.0-rc1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tfa.git",
-                "reference": "8.x-1.0-rc1"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0-rc1.zip",
-                "reference": "8.x-1.0-rc1",
-                "shasum": "458ef973f479e0af7f0184ebf69873236253a6ec"
+                "url": "https://ftp.drupal.org/files/projects/tfa-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "5f13121e04ba25cf07be27261269ecf1a1f07a89"
             },
             "require": {
                 "chillerlan/php-qrcode": "^1.0.9 || ^2.0 || ^3.2 || ^4.0",
@@ -14550,11 +14550,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-rc1",
-                    "datestamp": "1667222801",
+                    "version": "8.x-1.0",
+                    "datestamp": "1669940340",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -27857,7 +27857,6 @@
         "drupal/sharethis": 10,
         "drupal/smtp": 10,
         "drupal/stage_file_proxy": 15,
-        "drupal/tfa": 15,
         "drupal/themable_forms": 10,
         "drupal/total_control": 15,
         "drupal/typed_data": 15,
