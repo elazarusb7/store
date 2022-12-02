@@ -103,9 +103,8 @@ services:
 
         # Build theme
         # HACK: remove node_modules before creating it to avoid Tugboat errors
-# @todo Resolve issues with theme transpiling before enabling here
-#        - rm -rf $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/node_modules
-#        - cd $TUGBOAT_ROOT/web/themes/custom/samhsa_uswds_base/ && npm install && gulp build
+        - rm -rf $TUGBOAT_ROOT/web/themes/custom/samhsa_pep_uswds/node_modules
+        - cd $TUGBOAT_ROOT/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build
 
         # Drupal DB updates in case any modules were updated
         - drush -y -r $TUGBOAT_ROOT updb
