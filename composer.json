@@ -69,13 +69,14 @@
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
         "drupal/core-composer-scaffold": "^9.4",
+        "drupal/core-dev": "^9.4",
         "drupal/core-recommended": "^9",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^2.1",
         "drupal/ctools": "^3.7",
         "drupal/ctools_block": "^3.6",
         "drupal/datalayer": "^1.0@beta",
-        "drupal/devel": "^4.1",
+        "drupal/devel": "^5.0",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/diff": "^1.0@RC",
         "drupal/draggableviews": "^2.0",
@@ -508,6 +509,6 @@
         "patches-file": "composer.patches.json"
     },
     "require-dev": {
-        "drupal/core-dev": "^9"
+        "drupal/coder": "^8.3"
     }
 }
