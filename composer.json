@@ -1,13 +1,13 @@
 {
     "name": "drupal-composer/drupal-project",
-    "description": "Project template for Drupal 8 projects with composer",
+    "description": "SAMHSA Store Drupal projects",
     "type": "project",
     "license": "GPL-2.0+",
     "authors": [
         {
-            "name": "SAMHSA D8 Web Dev Team",
+            "name": "SAMHSA Web Dev Team",
             "email": "webmaster@samhsa.hhs.gov",
-            "homepage": "https://www.samhsa.gov",
+            "homepage": "https://store.samhsa.gov",
             "role": "Developers"
         }
     ],
