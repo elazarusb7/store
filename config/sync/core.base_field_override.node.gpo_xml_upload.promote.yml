@@ -1,0 +1,22 @@
+uuid: 88d2b64b-b46b-455a-9547-40b0e1164630
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.gpo_xml_upload
+id: node.gpo_xml_upload.promote
+field_name: promote
+entity_type: node
+bundle: gpo_xml_upload
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

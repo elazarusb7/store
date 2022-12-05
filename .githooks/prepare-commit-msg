@@ -1,0 +1,17 @@
+#!/bin/bash
+## This pre-commit hook automatically prepends the ticket number (based on the
+## branch name) to the commit message.
+
+FILE=$1
+MESSAGE=$(cat $FILE)
+BRANCH=[$(git rev-parse --abbrev-ref HEAD)]
+
+## Hard code our ticket previx OCWT to make more precies, but won't work if Jira code changes
+TICKET=[$(git rev-parse --abbrev-ref HEAD | grep -Eo '^(\w*/)?(OCWT)-[0-9]+' | grep -Eo '(\w+[-])?[0-9]+' | tr "[:lower:]" "[:upper:]")]
+
+## If we cannot extract a ticket number, then just use the branch name
+if [[ $TICKET == "[]" || "$MESSAGE" == "$TICKET"* ]]; then
+  TICKET=$BRANCH
+fi
+
+echo "$TICKET $MESSAGE" > $FILE

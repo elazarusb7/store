@@ -1,0 +1,173 @@
+## This is an up to date baseline Lando configuration for SAMHSA Store. Please copy
+## it to .lando.yml and make changes there.
+##
+## NOTE: You cannot have two lando instances with the same name on your host.
+## If setting up more than one intance, globally replace in this file 'store'
+## with a different name.
+##
+
+name: store
+recipe: drupal9
+## 'exclude' indicates directories that will be copied into the Docker container and
+## so will not need to be accessed over the network.
+## By 'excluding' large dirs, we can improve lando performance. The downside is that
+## these dirs cannot be modified by the lando host. Rebuilding your lando env will
+## cause the directories to be copied in again, including any files added by the
+## host.
+#excludes:
+#  - modules/contrib/
+#  - themes/contrib/
+#  - vendor
+#  - web/sites/default/files
+config:
+  webroot: web
+  ## Not sure if this is needed
+  framework: drupal9
+  ## This value needs quotes for unknown reasons
+  php: '8.0'
+  ## Enabling xdebug does work, but it causes warning messages because lando
+  ## inserts outdated xdebug configuration.
+  ## IMPORTANT: If you enable Xdebug here, YOU MUST use Composer 2 below. Xdebug
+  ## will not work with composer 1. Using composer 2 may cause other problems.
+  xdebug: false
+  ## While our codebase includes Composer 2, this can cause problems because
+  ## not everything in our codebase (vendor) likes it. So we install a custom
+  ## version and set up an 'override' for composer down in the tooling section.
+  ## Also, Xdebug will not work with Composer 1
+  composer_version: 2
+proxy:
+  mailhog:
+    - mail.store.lndo.site
+  appserver:
+    - store.lndo.site
+
+services:
+  appserver:
+    ## If you want to customize PHP (or Xdebug), create a new .ini file and point to it here
+    #    config:
+    #      php: .lando.php.ini
+    overrides:
+      environment:
+        ## SEE: https://docs.lando.dev/config/php.html#configuration
+        ## This doesn't seem to work in php.ini, so set it this way.
+        ## We want profiling to be available.
+        XDEBUG_MODE: debug,develop,profile
+    environment:
+      ## This tells drush your base url
+      DRUSH_OPTIONS_URI: "http://store.lndo.site/"
+      PHP_IDE_CONFIG: "serverName=appserver"
+    run_as_root:
+      - a2enmod headers
+      - service apache2 reload
+    run:
+      - echo "Running composer install"
+      - composer install
+      - echo "Please run 'lando refresh' to update your database and configuration"
+
+  database:
+    ## Set this for a static port for external (non lando) db connections
+    #portforward: 33350
+    ## MySQL version hard coded to same as the prod version
+    type: mysql:5.7.34
+    ## If you would like a custom 'my.cnf' file, uncomment and create
+    #config:
+    #  database: .lando.my.cnf
+
+  node:
+    ## Our project is supposed to use v8, but that causes problems in Lando
+    ## as does anything higher than 10.
+    type: node:12
+    globals:
+      ## Questionable entry:
+      gulp-cli: "latest"
+    run:
+      - echo "Running npm install and gulp build"
+        # Of course we need to modify this if we switch themes
+      - "cd web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+tooling:
+  npm:
+    service: node
+    description: Run commands to manage Node packages
+  npx:
+    service: node
+    description: Run node npx tool
+  gulp:
+    service: node
+    description: Run Gulp commands
+  node:
+    service: node
+    description: Run Node server commands
+  ## This forces lando to use the version of composer that we have specified
+  ## above rather than the version installed in our /vendor/composer dir. We
+  ## will eventually remove this and use Compser 2 in /vendor. But that
+  ## doesn't work right now.
+  composer:
+    service: appserver
+    description: Use lando configured version of composer
+    cmd: /usr/local/bin/composer
+  drupal:
+    service: appserver
+    description: Drupal console
+  login:
+    service: appserver
+    description: Generate an admin login link
+    cmd:
+      - drush -y user:unblock admin
+      - drush -y user:password admin admin
+      - drush -y uli --name=admin
+
+  refresh:
+    service: appserver
+    description: Rebuild Drupal requirements and import config
+    cmd:
+      - echo "Clearing all cache tables"
+      - ./scripts/cache-nuke.sh
+      - echo "Running composer install"
+      - composer install
+      - echo "Running configuration import"
+      ## We run it twice to account for config-splits
+      - drush -y cim
+      - echo "Running configuration import a second time"
+      - drush -y cim
+      - echo "Running db updates and cache rebuild"
+      - drush -y updb
+      - drush -y cr
+      - echo "If you have changed branches, you probably want to rebuild the theme now"
+  gulp-build:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
+  gulp-watch:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
+
+## Linting is not set up for Store yet
+#  lint-code:
+#    service: appserver
+#    description: Run phpcs on custom SAMHSA modules
+#    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal --extensions=\
+#      'php,module,inc,install,test,info,yml' web/modules/custom/
+#  lint-theme:
+#    service: appserver
+#    description: Run phpcs on SAMHSA theme
+#    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal  --ignore=node_modules --extensions=\
+#      'php,module,inc,install,test,profile,theme,scss,info,yml' /app/web/themes/custom/samhsa_uswds_base/
+#  lint-js:
+#    service: node
+#    description: Eslinting of custom theme and modules
+#    cmd:
+#      ## ESLint documentation: https://eslint.org/docs/user-guide/
+#      - echo "Results will be saved to js_lint_results.html. Open it in your browser."
+#      - npx eslint --config .eslintrc.yml --ext .js -f html web/themes/custom/samhsa_uswds_base/src/js > js_lint_results.html
+#  fix-js:
+#    service: node
+#    description: Performs "safe" Eslinting fixes on js code. Review all changes before comitting.
+#    cmd:
+#      - npx eslint --fix --config .eslintrc.yml --ext .js web/themes/custom/samhsa_uswds_base/src/js

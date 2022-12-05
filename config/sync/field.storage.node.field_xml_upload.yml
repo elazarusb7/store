@@ -1,0 +1,27 @@
+uuid: 62866298-714a-4dc3-8544-04501a4a9223
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - file
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: custom
+id: node.field_xml_upload
+field_name: field_xml_upload
+entity_type: node
+type: file
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: private
+module: file
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
