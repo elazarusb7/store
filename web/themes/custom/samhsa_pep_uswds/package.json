@@ -1,17 +1,26 @@
 {
   "name": "samhsa_pep_uswds",
   "version": "1.0.0",
-  "description": "This sub-theme requires trans-compiling of the USWDS CSS and also the assets folder  for javascript.",
+  "description": "This sub-theme requires transpiling of the CSS and also the assets folder for javascript.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "dependencies": {
     "autoprefixer": "^10.4.13",
     "breakpoint-sass": "^3.0.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jquery": "^1.5.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "eslint-plugin-yml": "^0.10.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
@@ -22,6 +31,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "postcss": "^8.4.19",
     "postcss-csso": "^6.0.1",
+    "prettier": "^2.8.0",
     "sass": "^1.56.1"
   }
 }
