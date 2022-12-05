@@ -27,17 +27,6 @@ $settings['skip_permissions_hardening'] = TRUE;
 // on your needs.
 $databases = [];
 
-$databases['default']['default'] = [
-  'database' => 'drupal9',
-  'username' => 'drupal9',
-  'password' => 'drupal9',
-  'host' => 'database',
-  'port' => '3306',
-  'driver' => 'mysql',
-  'prefix' => '',
-  'collation' => 'utf8mb4_general_ci',
-];
-
 // Solr configuration
 $config['search_api.server.common'] = [
   'name' => 'Store Common (dev/local/tugboat overridden)',
