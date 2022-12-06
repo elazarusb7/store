@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\FilesCrossReferenceAccessControlHandler.
- */
-
 namespace Drupal\migrate_files_and_images;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
@@ -18,6 +13,7 @@ use Drupal\Core\Access\AccessResult;
  * @see \Drupal\migrate_files_and_images\Entity\FilesCrossReference.
  */
 class FilesCrossReferenceAccessControlHandler extends EntityAccessControlHandler {
+
   /**
    * {@inheritdoc}
    */

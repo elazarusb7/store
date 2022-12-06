@@ -23,7 +23,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
-   * settings
+   * Settings.
    */
   protected ImmutableConfig $settings;
 
@@ -55,15 +55,18 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
     $this->settings = \Drupal::config('samhsa_pep_anonlogout.settings');
   }
 
+  /**
+   *
+   */
   public function onRequest(RequestEvent $event): void {
-    // only run for anonymous sessions
+    // Only run for anonymous sessions.
     if (\Drupal::currentUser()->id() > 0) {
       return;
     }
     $request = \Drupal::request();
     $now = \Drupal::time()->getRequestTime();
 
-    /* @var \Symfony\Component\HttpFoundation\Session\Session $request */
+    /** @var \Symfony\Component\HttpFoundation\Session\Session $request */
     $session = $request->getSession();
     $last = $session->get('last', 2);
     if ($last === '') {
@@ -82,12 +85,12 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
     }
     $clear_cart = FALSE;
     if ($lag > $timeout) {
-      // over the limit so check for a cart
+      // Over the limit so check for a cart.
       if ($session->has('commerce_cart_orders')) {
         $commerce_cart_orders = $session->get('commerce_cart_orders');
         $cart_id = (int) $commerce_cart_orders[0];
         if ($cart_id) {
-          // we have a cart so clear it
+          // We have a cart so clear it.
           $clear_cart = TRUE;
         }
       }
@@ -102,16 +105,16 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
     }
     else {
       if ($lag > 1) {
-        // record the hit
+        // Record the hit.
         $session->set('last', $now);
         $path = $event->getRequest()->getPathInfo();
 
-        //checking if url isRouted. Without checking,
+        // Checking if url isRouted. Without checking,
         // it was throwing an error for anon user for invalid path.
         $url = Url::fromUserInput($path);
         $route_name = ($url->isRouted() ? $url->getRouteName() : 'not routed');
         $route_chunks = explode('.', $route_name);
-        //\Drupal::messenger()->addStatus("name: $route_name, chunks: " . print_r($route_chunks,true));
+        // \Drupal::messenger()->addStatus("name: $route_name, chunks: " . print_r($route_chunks,true));
         if (isset($route_chunks[0])) {
           if ($route_chunks[0] === 'commerce_checkout' || $route_chunks[0] === 'commerce_cart') {
             $this->appendMessage();
@@ -128,7 +131,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
    *   The add to cart event.
    */
   public function appendAddToCartMessage(CartEntityAddEvent $event): void {
-    // only run for anonymous sessions
+    // Only run for anonymous sessions.
     if (\Drupal::currentUser()->id() > 0) {
       return;
     }

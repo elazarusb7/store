@@ -72,7 +72,7 @@ class AddNewFieldSwitchForm extends FormBase {
     $weight = 0;
     $servers = [];
     foreach (search_api_solr_get_servers() as $server) {
-      $this->buildFieldsForm($form, $weight,$servers, $server);
+      $this->buildFieldsForm($form, $weight, $servers, $server);
     }
 
     $form['servers_fields']['server'] = [

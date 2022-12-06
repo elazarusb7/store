@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\FilesCrossReferenceListBuilder.
- */
-
 namespace Drupal\migrate_files_and_images;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-//use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 
 /**
@@ -18,7 +12,8 @@ use Drupal\Core\Url;
  * @ingroup migrate_files_and_images
  */
 class FilesCrossReferenceListBuilder extends EntityListBuilder {
-  //use LinkGeneratorTrait;
+  // Use LinkGeneratorTrait;.
+
   /**
    * {@inheritdoc}
    */
@@ -32,14 +27,14 @@ class FilesCrossReferenceListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\migrate_files_and_images\Entity\FilesCrossReference */
+    /** @var \Drupal\migrate_files_and_images\Entity\FilesCrossReference $entity */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.files_cross_reference.edit_form', array(
+        'entity.files_cross_reference.edit_form', [
           'files_cross_reference' => $entity->id(),
-        )
+        ]
       )
     );
     return $row + parent::buildRow($entity);

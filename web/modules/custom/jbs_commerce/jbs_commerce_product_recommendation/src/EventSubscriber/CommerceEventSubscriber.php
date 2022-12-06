@@ -2,6 +2,7 @@
 
 namespace Drupal\jbs_commerce_product_recommendation\EventSubscriber;
 
+use Drupal\Component\Utility\Crypt;
 use Drupal\commerce_cart\Event\CartEntityAddEvent;
 use Drupal\commerce_cart\Event\CartOrderItemRemoveEvent;
 use Drupal\state_machine\Event\WorkflowTransitionEvent;
@@ -9,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\commerce_cart\Event\CartEvents;
 
 /**
- * Class CommerceEventSubscriber
+ * Class CommerceEventSubscriber.
  *
  * @package Drupal\jbs_commerce_product_recommendation\EventSubscriber
  */
@@ -21,6 +22,9 @@ class CommerceEventSubscriber implements EventSubscriberInterface {
     'commerce_order.place.post_transition' => 'order_placed',
   ];
 
+  /**
+   *
+   */
   public function __construct() {}
 
   /**
@@ -38,7 +42,7 @@ class CommerceEventSubscriber implements EventSubscriberInterface {
    * Logs add-to-cart event to the database.
    *
    * @param \Drupal\commerce_cart\Event\CartEntityAddEvent $event
-   *  The add to cart event.
+   *   The add to cart event.
    *
    * @throws \Exception
    */
@@ -54,7 +58,7 @@ class CommerceEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Exception
    */
-  public function onCartOrderItemRemoveEvent(CartOrderItemRemoveEvent $event){
+  public function onCartOrderItemRemoveEvent(CartOrderItemRemoveEvent $event) {
     $item = $event->getOrderItem();
     $this->addEventToDatabase($item->get('purchased_entity')->getValue()[0]['target_id'], $this->eventNames[CartEvents::CART_ORDER_ITEM_REMOVE]);
   }
@@ -74,7 +78,7 @@ class CommerceEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * addEventToDatabase() adds an event to the event table specified in the configurations
+   * AddEventToDatabase() adds an event to the event table specified in the configurations.
    *
    * @param $id
    * @param $eventName
@@ -84,12 +88,16 @@ class CommerceEventSubscriber implements EventSubscriberInterface {
   private function addEventToDatabase($id, $eventName) {
     \Drupal::database()->insert(\Drupal::config('jbs_commerce_product_recommendation.settings')->get('eventsTableName'))
       ->fields([
-        'content_type' => 'commerce_product', // placeholder type
-        'content_id' => $id, // event item id
+    // Placeholder type.
+        'content_type' => 'commerce_product',
+    // Event item id.
+        'content_id' => $id,
         'timestamp' => time(),
-        'session_id' => \Drupal\Component\Utility\Crypt::hashBase64(session_id()),
-        'event' => $eventName, // type of event
+        'session_id' => Crypt::hashBase64(session_id()),
+    // Type of event.
+        'event' => $eventName,
       ])
       ->execute();
   }
+
 }
