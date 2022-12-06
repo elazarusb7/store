@@ -55,7 +55,8 @@ interface PepUtilityFunctionsInterface {
    *   Commerce Order.
    *
    * @return boolean true/false
-   * check if order is bulk. At least one item in the order should be over the max limit
+   * check if order is bulk. At least one item in the order should be over the
+   *   max limit
    */
   // Public function isOrderBulk(EntityInterface $order);.
 
@@ -84,6 +85,7 @@ interface PepUtilityFunctionsInterface {
    *   String to check.
    * @param %char
    *   Character whole string contains of
+   *
    * @return bool
    *   The TRUE/FALSE.
    */
@@ -97,6 +99,7 @@ interface PepUtilityFunctionsInterface {
    *   Character which string startes with
    * @param %pos
    *   Character position to be checked
+   *
    * @return bool
    *   The TRUE/FALSE.
    */
@@ -108,6 +111,7 @@ interface PepUtilityFunctionsInterface {
    *   String to check.
    * @param %pos
    *   Character position to be checked
+   *
    * @return string with highlighted char
    *   The String
    */

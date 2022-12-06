@@ -1,114 +1,46 @@
 <?php
 
-use Drupal\field\Entity\FieldStorageConfig;
-
-/*function samhsa_pep_product_display_update_8200() {
-    $database = \Drupal::database();
-
-    // Resize the Columns
-    $database->query("ALTER TABLE commerce_product__field_subtitle MODIFY field_subtitle_value VARCHAR(512)");
-    //$database->query("ALTER TABLE commerce_product_revision__subtitle MODIFY field_subtitle_value VARCHAR(512)");
-
-    // Update Storage Schema
-    $storage_key = 'field.field.commerce_product.samhsa_publication.field_subtitle';
-    $storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
-    $field_schema = $storage_schema->get($storage_key);
-    $field_schema['commerce_product__field_subtitle']['fields']['field_subtitle_value']['length'] = 512;
-    //$field_schema['commerce_product_revision__subtitle']['fields']['field_subtitle_value']['length'] = 512;
-    $storage_schema->set($storage_key, $field_schema);
-
-    // Update field configuration.
-    $config = \Drupal::configFactory()
-        ->getEditable('field.storage.commerce_product.field_subtitle');
-    $config->set('settings.max_length', 512);
-    $config->save(TRUE);
-
-    // Update field storage configuration.
-    FieldStorageConfig::loadByName('commerce_product', 'field_subtitle')->save();
-}*/
+/**
+ * @file
+ */
 
 /**
  * Increase SUBTITLE FIELD size to 512.
  */
-
 function samhsa_pep_product_display_update_8200() {
-    // Collect all existing story run data.
-    $database = \Drupal::database();
+  // Collect all existing story run data.
+  $database = \Drupal::database();
 
-    // Gather all the existing story run data.
-    $tables = [
-        'commerce_product__field_subtitle',
-        //'commerce_product_revision__field_subtitle',
-    ];
-    $existing_data = [];
-    foreach ($tables as $table) {
-        $existing_data[$table] = $database->select($table)
-            ->fields($table)
-            ->execute()
-            ->fetchAll(PDO::FETCH_ASSOC);
-        $database->truncate($table)->execute();
+  // Gather all the existing story run data.
+  $tables = [
+    'commerce_product__field_subtitle',
+  ];
+  $existing_data = [];
+  foreach ($tables as $table) {
+    $existing_data[$table] = $database->select($table)
+      ->fields($table)
+      ->execute()
+      ->fetchAll(PDO::FETCH_ASSOC);
+    $database->truncate($table)->execute();
+  }
+
+  $result = $database->query('ALTER TABLE commerce_product__field_subtitle MODIFY COLUMN field_subtitle_value VARCHAR(512);');
+  \Drupal::logger('samhsa_pep_product_display')
+    ->notice('changed subtitle column type from varchar(255) to varchar(512) for commerce_product table');
+
+  // Update the "field_subtitle" base field definition to a new max length.
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $name_field = $update_manager->getFieldStorageDefinition('field_subtitle', 'commerce_product');
+  $name_field->setSetting('max_length', 512);
+  $update_manager->updateFieldStorageDefinition($name_field);
+
+  // Restore the data.
+  foreach ($tables as $table) {
+    $insert_query = $database->insert($table)
+      ->fields(array_keys(end($existing_data[$table])));
+    foreach ($existing_data[$table] as $row) {
+      $insert_query->values(array_values($row));
     }
-
-    $result = $database->query('ALTER TABLE commerce_product__field_subtitle MODIFY COLUMN field_subtitle_value VARCHAR(512);');
-    \Drupal::logger('samhsa_pep_product_display')->notice('changed subtitle column type from varchar(255) to varchar(512) for commerce_product table');
-
-
-    // Update the "field_subtitle" base field definition to a new max length
-    $update_manager = \Drupal::entityDefinitionUpdateManager();
-    $name_field = $update_manager->getFieldStorageDefinition('field_subtitle', 'commerce_product');
-    $name_field->setSetting('max_length', 512);
-    $update_manager->updateFieldStorageDefinition($name_field);
-
-    // Restore the data.
-    foreach ($tables as $table) {
-        $insert_query = $database
-            ->insert($table)
-            ->fields(array_keys(end($existing_data[$table])));
-        foreach ($existing_data[$table] as $row) {
-            $insert_query->values(array_values($row));
-        }
-        $insert_query->execute();
-    }
-
-
-
-
-
-    /*$getConnectionOptions = $database->getConnectionOptions();
-    $pep = $getConnectionOptions['database'];
-    $pep_prefix = $getConnectionOptions['prefix']['default'];
-    // Retrieve existing field data.
-    $entity_type = 'commerce_product';
-    $table_name = 'commerce_product__field_subtitle';
-    $field = 'field_subtitle';
-    $tables = [
-        "{'commerce_product__field_subtitle'}",
-    ];
-
-    $existing_data = [];
-    foreach ($tables as $table) {
-        // Get the old data.
-        $existing_data[$table] = $database->select($table)
-            ->fields($table)
-            ->execute()
-            ->fetchAll(PDO::FETCH_ASSOC);
-
-        // Wipe it.
-        $database->truncate($table)->execute();
-    }
-
-    $result = $database->query('ALTER TABLE commerce_product__field_subtitle MODIFY COLUMN field_subtitle_value VARCHAR(512);');
-    \Drupal::logger('samhsa_pep_product_display')->notice('changed subtitle column type from varchar(255) to varchar(512) for commerce_product table');
-
-    // Restore the data.
-    foreach ($tables as $table) {
-        $insert_query = $database
-            ->insert($table)
-            ->fields(array_keys(end($existing_data[$table])));
-        foreach ($existing_data[$table] as $row) {
-            $insert_query->values(array_values($row));
-        }
-        $insert_query->execute();
-    }*/
+    $insert_query->execute();
+  }
 }
-

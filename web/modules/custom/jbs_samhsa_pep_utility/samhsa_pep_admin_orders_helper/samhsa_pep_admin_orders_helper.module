@@ -45,7 +45,6 @@ function samhsa_pep_admin_orders_helper_preprocess_page_title(&$variables) {
 
   $pieces = explode("/", $current_path);
 
-
   // Order Checkout Complete Page Title.
   if (isset($pieces[3], $pieces[2]) && $pieces[1] == "checkout" && $pieces[3] == "complete" && is_numeric($pieces[2]) && count($pieces) === 4) {
     $variables['title'] = 'Checkout Complete';
@@ -59,8 +58,7 @@ function samhsa_pep_admin_orders_helper_preprocess_page_title(&$variables) {
 
   // Edit Order Page Title.
   if (isset($pieces[3], $pieces[4]) && $pieces[1] == "admin" && $pieces[2] == "commerce" && $pieces[3] == "orders" && is_numeric($pieces[4]) && isset($pieces[5]) && $pieces[5] == 'edit' && count($pieces) == 6) {
-    $title = new FormattableMarkup('Edit Order %label',
-      ['%label' => $pieces[4]]);
+    $title = new FormattableMarkup('Edit Order %label', ['%label' => $pieces[4]]);
     $variables['title'] = $title;
   }
 }
@@ -69,7 +67,8 @@ function samhsa_pep_admin_orders_helper_preprocess_page_title(&$variables) {
  * Implements custom form submit handler().
  */
 function _commerce_order_form_submit($form, FormStateInterface $form_state) {
-  $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_admin_orders_helper');
+  $tempstore = \Drupal::service('tempstore.private')
+    ->get('samhsa_pep_admin_orders_helper');
 
   $is_internal = $tempstore->get('is_order_internal');
   // If ordeer internal, add primary shipment with shipping address same as mailing.
@@ -77,7 +76,8 @@ function _commerce_order_form_submit($form, FormStateInterface $form_state) {
     $order = $form_state->getFormObject()->getEntity();
     $order_line_items = $order->getItems();
 
-    $proposed_shipment = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProposedShipment($order, $order_line_items, "Primary Shipment");
+    $proposed_shipment = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+      ->getProposedShipment($order, $order_line_items, "Primary Shipment");
     $shipment = Shipment::create([
       'type' => 'default',
       'state' => 'shipped',
@@ -88,7 +88,8 @@ function _commerce_order_form_submit($form, FormStateInterface $form_state) {
     $shipment->save();
     $order->get('shipments')->appendItem($shipment);
     $order->save();
-    \Drupal::messenger()->addMessage(t('Shipment same as mailing was added for the internal order.'), 'status');
+    \Drupal::messenger()
+      ->addMessage(t('Shipment same as mailing was added for the internal order.'), 'status');
 
   }
 }
@@ -136,7 +137,8 @@ function getProposedShipment($order, $order_line_items, $title = "") {
  */
 function _commerce_shipping_form_submit($form, FormStateInterface $form_state) {
   $entity = $form_state->getFormObject()->getEntity();
-  $weight = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->recalculateShipmentWeight($entity);
+  $weight = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+    ->recalculateShipmentWeight($entity);
 }
 
 /**
@@ -151,19 +153,20 @@ function _custom_exposed_admin_order_validate(&$form, FormStateInterface $form_s
     if (!empty($values['placed']['max']) && !empty($values['placed']['min'])) {
       if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-        $min_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['placed']['min']);
+        $min_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+          ->isRealDate($values['placed']['min']);
         if (!$min_isvalid) {
           $form_state->setErrorByName('placed', 'Invalid Start Date.');
         }
 
-        $max_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['placed']['max']);
+        $max_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+          ->isRealDate($values['placed']['max']);
         if (!$max_isvalid) {
           $form_state->setErrorByName('placed', 'Invalid End Date.');
         }
       }
     }
-    elseif ((!empty($values['placed']['max']) && empty($values['placed']['min'])) ||
-      (empty($values['placed']['max']) && !empty($values['placed']['min']))) {
+    elseif ((!empty($values['placed']['max']) && empty($values['placed']['min'])) || (empty($values['placed']['max']) && !empty($values['placed']['min']))) {
       $form_state->setErrorByName('placed', 'Both Start date and End date must be selected.');
     }
 
@@ -178,19 +181,20 @@ function _custom_exposed_admin_order_validate(&$form, FormStateInterface $form_s
       if (!empty($values['changed']['max']) && !empty($values['changed']['min'])) {
         if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-          $min_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['changed']['min']);
+          $min_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+            ->isRealDate($values['changed']['min']);
           if (!$min_isvalid) {
             $form_state->setErrorByName('changed', 'Invalid Start Date.');
           }
 
-          $max_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isRealDate($values['changed']['max']);
+          $max_isvalid = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+            ->isRealDate($values['changed']['max']);
           if (!$max_isvalid) {
             $form_state->setErrorByName('changed', 'Invalid End Date.');
           }
         }
       }
-      elseif ((!empty($values['changed']['max']) && empty($values['changed']['min'])) ||
-        (empty($values['changed']['max']) && !empty($values['changed']['min']))) {
+      elseif ((!empty($values['changed']['max']) && empty($values['changed']['min'])) || (empty($values['changed']['max']) && !empty($values['changed']['min']))) {
         $form_state->setErrorByName('changed', 'Both Start date and End date must be selected.');
       }
 
@@ -218,7 +222,6 @@ function _commerce_order_form_validate(&$form, FormStateInterface $form_state) {
   $order_id = $form_state->getformObject()->getEntity()->id();
   $order = $form_state->getformObject()->getEntity();
 
-
   // field_log.
   $log = array_shift($values['field_log']);
   if (empty($log['value'])) {
@@ -233,8 +236,7 @@ function _commerce_order_form_validate(&$form, FormStateInterface $form_state) {
   }
 
   if ($errors = $form_state->getErrors()) {
-    if (isset($errors['order_items][form][inline_entity_form][actions][ief_add_save']) ||
-      isset($errors['order_items][form][inline_entity_form][quantity][0][value'])) {
+    if (isset($errors['order_items][form][inline_entity_form][actions][ief_add_save']) || isset($errors['order_items][form][inline_entity_form][quantity][0][value'])) {
       // Clear the form errors.
       $form_state->clearErrors();
       // Remove the quantity order item form error.
@@ -307,7 +309,8 @@ function samhsa_pep_admin_orders_helper_commerce_order_presave(EntityInterface $
   // Check if order is bulk and if justification in not null.
   $moduleHandler = \Drupal::service('module_handler');
   if ($moduleHandler->moduleExists('jbs_commerce_over_the_max_limit')) {
-    $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isOrderBulk($entity);
+    $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')
+      ->isOrderBulk($entity);
     $referer = \Drupal::request()->server->get('HTTP_REFERER');
     if (isset($referer)) {
       $justification = $entity->get('field_justification')->value;
@@ -317,17 +320,18 @@ function samhsa_pep_admin_orders_helper_commerce_order_presave(EntityInterface $
 
       if ($isbulk && is_null($justification)) {
 
-        if ($uri && strpos($uri, "/admin/commerce/orders/") !== FALSE &&
-          strpos($uri, "/edit") !== FALSE) {
+        if ($uri && strpos($uri, "/admin/commerce/orders/") !== FALSE && strpos($uri, "/edit") !== FALSE) {
           $url = Url::fromUri($uri);
           $response = new RedirectResponse($url->toString());
           $response->send();
-          \Drupal::messenger()->addMessage(t('Some of the Order items in the order exceeding maximum allowed limit. Please provide Order Justification.'), 'error');
+          \Drupal::messenger()
+            ->addMessage(t('Some of the Order items in the order exceeding maximum allowed limit. Please provide Order Justification.'), 'error');
         }
       }
       else {
         // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_admin_orders_helper');
-        $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_admin_orders_helper');
+        $tempstore = \Drupal::service('tempstore.private')
+          ->get('samhsa_pep_admin_orders_helper');
 
         $is_internal = $tempstore->get('is_order_internal');
         if ($count_shippments == 0) {
@@ -335,8 +339,7 @@ function samhsa_pep_admin_orders_helper_commerce_order_presave(EntityInterface $
           // Get comments and save in the comment field.
           // internal order only redirect to shiping tab.
           if ($is_internal) {
-            if ($uri && strpos($uri, "/admin/commerce/orders/") !== FALSE &&
-              strpos($uri, "/edit") !== FALSE) {
+            if ($uri && strpos($uri, "/admin/commerce/orders/") !== FALSE && strpos($uri, "/edit") !== FALSE) {
               $url = Url::fromUri($shippment_uri);
               $response = new RedirectResponse($url->toString());
               $response->send();
@@ -404,7 +407,8 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
             $moduleHandler = \Drupal::service('module_handler');
 
             if ($moduleHandler->moduleExists('jbs_commerce_over_the_max_limit')) {
-              $add_to_cart_msg = \Drupal::config('samhsa_pep_anonlogout.settings')->get('add_to_cart_message');
+              $add_to_cart_msg = \Drupal::config('samhsa_pep_anonlogout.settings')
+                ->get('add_to_cart_message');
 
               if ($string != $add_to_cart_msg) {
                 \Drupal::messenger()->addMessage($string, 'status');
@@ -437,13 +441,11 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
 
     // $form['package_type']['#attributes']['class'][] = 'visually-hidden';
     $default_country = \Drupal::config('system.date')->get('country.default');
-    $form['shipping_profile']['widget'][0]['profile']['address']['widget'][0]['address']['#default_value']['country_code'] =
-      $default_country ?? 'US';
+    $form['shipping_profile']['widget'][0]['profile']['address']['widget'][0]['address']['#default_value']['country_code'] = $default_country ?? 'US';
     $shipping_method = $form['shipping_method']['widget'][0]['#options']['1--default'];
     $shipping_method = strstr($shipping_method, ':', TRUE);
     if ($shipping_method) {
-      $form['shipping_method']['widget'][0]['#options']['1--default'] =
-        t($shipping_method . Markup::create(': <strong>3-4 weeks shipping time</strong>'));
+      $form['shipping_method']['widget'][0]['#options']['1--default'] = t($shipping_method . Markup::create(': <strong>3-4 weeks shipping time</strong>'));
     }
 
     $form['title']['widget'][0]['value']['#default_value'] = t('Primary Shipment');
@@ -459,14 +461,11 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
     $shipping_method = $form['shipping_method']['widget'][0]['#options']['1--default'];
     $shipping_method = strstr($shipping_method, ':', TRUE);
     if ($shipping_method) {
-      $form['shipping_method']['widget'][0]['#options']['1--default'] =
-        t($shipping_method . Markup::create(': <strong>3-4 weeks shipping time</strong>'));
+      $form['shipping_method']['widget'][0]['#options']['1--default'] = t($shipping_method . Markup::create(': <strong>3-4 weeks shipping time</strong>'));
     }
   }
 
-  if ($form['#theme'] == "commerce_order_edit_form" &&
-    strpos($form_id, "commerce_order_") !== FALSE &&
-    strpos($form_id, "_edit_form") !== FALSE) {
+  if ($form['#theme'] == "commerce_order_edit_form" && strpos($form_id, "commerce_order_") !== FALSE && strpos($form_id, "_edit_form") !== FALSE) {
 
     $order = $form_state->getFormObject()->getEntity();
     $shipments = $order->get('shipments');
@@ -485,7 +484,8 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
     $route_match = \Drupal::routeMatch();
     // Get route of the form and if this is user orders view page, hide view fields
     // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_admin_orders_helper');.
-    $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_admin_orders_helper');
+    $tempstore = \Drupal::service('tempstore.private')
+      ->get('samhsa_pep_admin_orders_helper');
 
     $referer = \Drupal::request()->server->get('HTTP_REFERER');
     $from_add_order_page = FALSE;
@@ -493,8 +493,7 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
       $from_add_order_page = TRUE;
     }
 
-    if (empty($form['order_number']['widget'][0]['value']['#default_value']) ||
-      $from_add_order_page == TRUE) {
+    if (empty($form['order_number']['widget'][0]['value']['#default_value']) || $from_add_order_page == TRUE) {
       // Order is internal.
       $tempstore->set('is_order_internal', TRUE);
       $current_path = \Drupal::service('path.current')->getPath();
@@ -541,7 +540,8 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
       if ($form_state->getFormObject() instanceof EntityFormInterface) {
         $entity = $form_state->getFormObject()->getEntity();
 
-        $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isOrderBulk($entity);
+        $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')
+          ->isOrderBulk($entity);
 
         if ($isbulk) {
           $form['field_justification']['widget'][0]['value']['#title'] = $form['field_justification']['widget'][0]['#title'] . "<span class=\"form-required\" title=\"This field is required.\"></span>";
@@ -636,8 +636,11 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
 
         $count = $args['%count'];
         $action = $args['%action'];
-        $title = new FormattableMarkup('Are you sure you wish to perform  "%action" action on %count %entity_type?',
-          ['%action' => $action, '%count' => $count, '%entity_type' => $count > 1 ? 'orders' : 'order']);
+        $title = new FormattableMarkup('Are you sure you wish to perform  "%action" action on %count %entity_type?', [
+            '%action' => $action,
+            '%count' => $count,
+            '%entity_type' => $count > 1 ? 'orders' : 'order',
+          ]);
         $form['#title'] = $title;
 
         $form['actions']['submit']['#value'] = 'Yes';
@@ -645,29 +648,29 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
         $msg = "";
         switch ($action) {
           case 'Complete Order':
-            $msg = new FormattableMarkup('Are you sure you have fulfilled %count %entity_type? Click <strong>Yes</strong> to Continue or <strong>No</strong> to go back.',
-              ['%count' => $count, '%entity_type' => $count > 1 ? 'orders' : 'order']);
+            $msg = new FormattableMarkup('Are you sure you have fulfilled %count %entity_type? Click <strong>Yes</strong> to Continue or <strong>No</strong> to go back.', [
+                '%count' => $count,
+                '%entity_type' => $count > 1 ? 'orders' : 'order',
+              ]);
             break;
 
           case 'Cancel Order':
-            $msg = new FormattableMarkup('When you cancel the %entity_type, emails will be sent to the user indicating that the order has been cancelled. Are you sure you want to cancel %count %entity_type? Click <strong>Yes</strong> to Continue or <strong>No</strong> to go back.',
-              ['%count' => $count, '%entity_type' => $count > 1 ? 'orders' : 'order']);
+            $msg = new FormattableMarkup('When you cancel the %entity_type, emails will be sent to the user indicating that the order has been cancelled. Are you sure you want to cancel %count %entity_type? Click <strong>Yes</strong> to Continue or <strong>No</strong> to go back.', [
+                '%count' => $count,
+                '%entity_type' => $count > 1 ? 'orders' : 'order',
+              ]);
             break;
         }
         $form['description'] = [
           '#type' => 'markup',
-          '#markup' => $msg . "<br /><strong>" . new FormattableMarkup('You selected the following %entity_type:',
-              ['%entity_type' => $count > 1 ? 'orders' : 'order']) . "</strong>",
+          '#markup' => $msg . "<br /><strong>" . new FormattableMarkup('You selected the following %entity_type:', ['%entity_type' => $count > 1 ? 'orders' : 'order']) . "</strong>",
           '#weight' => -10,
         ];
       }
     }
   }
 
-  if ($form_id == "views_exposed_form" &&
-    (strpos($form['#id'], "views-exposed-form-admin-orders-page-") !== FALSE ||
-      strpos($form['#id'], "views-exposed-form-commerce-orders-page-") !== FALSE ||
-      $form['#id'] == 'views-exposed-form-commerce-orders-page-1')) {
+  if ($form_id == "views_exposed_form" && (strpos($form['#id'], "views-exposed-form-admin-orders-page-") !== FALSE || strpos($form['#id'], "views-exposed-form-commerce-orders-page-") !== FALSE || $form['#id'] == 'views-exposed-form-commerce-orders-page-1')) {
 
     $form['#validate'][] = "_custom_exposed_admin_order_validate";
     if (isset($form['placed_wrapper']['placed'])) {
@@ -682,8 +685,7 @@ function samhsa_pep_admin_orders_helper_form_alter(&$form, FormStateInterface $f
 
   }
 
-  if ($form_id == "views_exposed_form" &&
-    $form['#id'] == 'views-exposed-form-order-information-report-page-1') {
+  if ($form_id == "views_exposed_form" && $form['#id'] == 'views-exposed-form-order-information-report-page-1') {
     if (isset($form['placed_wrapper']['placed'])) {
       $form['placed_wrapper']['placed']['min']['#title'] = t('Placed Start Date');
       $form['placed_wrapper']['placed']['max']['#title'] = t('Placed End Date');
@@ -833,8 +835,7 @@ function samhsa_pep_admin_orders_helper_preprocess_table(array &$variables) {
 
     foreach ($rows as $key => $row) {
       unset($variables['rows'][$key]['cells'][2]);
-      $variables['rows'][$key]['cells'][1]['content']['#markup'] =
-        round($variables['rows'][$key]['cells'][1]['content']['#markup'], 0);
+      $variables['rows'][$key]['cells'][1]['content']['#markup'] = round($variables['rows'][$key]['cells'][1]['content']['#markup'], 0);
     }
   }
 }
@@ -854,10 +855,12 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_order(array &$variab
   $order = $variables['elements']['#commerce_order'];
   if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-    $customer_information = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getCustomerDefaultProfileAddress($order);
+    $customer_information = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+      ->getCustomerDefaultProfileAddress($order);
     $variables['order']['customer_information'] = $customer_information;
 
-    $order_source = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getOrderSource($order);
+    $order_source = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+      ->getOrderSource($order);
     $variables['order']['order_source'] = $order_source;
   }
   $moduleHandler = \Drupal::service('module_handler');
@@ -868,7 +871,8 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_order(array &$variab
 
     // Only show "clone order" button for order in specified order states saved in the config page.
     if (in_array($state, $order_states_clone) && $order_states_clone[$state]) {
-      $form = \Drupal::formBuilder()->getForm('Drupal\samhsa_pep_clone_order\Form\CloneOrderForm');
+      $form = \Drupal::formBuilder()
+        ->getForm('Drupal\samhsa_pep_clone_order\Form\CloneOrderForm');
       if ($form) {
         $variables['order']['clone_order_form'] = $form;
       }
@@ -894,8 +898,7 @@ function samhsa_pep_admin_orders_helper_preprocess_views_view_table(&$vars) {
   $fields = $view->field;
   $options = $view->style_plugin->options;
   $handler = $view->style_plugin;
-  $columns = $handler
-    ->sanitizeColumns($options['columns'], $fields);
+  $columns = $handler->sanitizeColumns($options['columns'], $fields);
   foreach ($columns as $field => $column) {
     if ($column == 'views_bulk_operations_bulk_form') {
       if (empty($vars['header'][$field])) {
@@ -918,12 +921,14 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_checkout_completion_
   // if(isset($variables['elements'])) {
   // $view_mode = $variables['elements']['#view_mode'];.
   if ($billing_profile = $order->getBillingProfile()) {
-    $profile_view_bulder = \Drupal::entityTypeManager()->getViewBuilder('profile');
+    $profile_view_bulder = \Drupal::entityTypeManager()
+      ->getViewBuilder('profile');
     $variables['billing_information'] = $profile_view_bulder->view($billing_profile);
   }
   // }
   // $variables['billing_information']  = $order->getBillingProfile();
-  $summary = \Drupal::service('commerce_shipping.order_shipment_summary')->build($order);
+  $summary = \Drupal::service('commerce_shipping.order_shipment_summary')
+    ->build($order);
   if (!empty($summary)) {
     $variables['shipping_information'] = $summary;
   }
@@ -932,7 +937,8 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_checkout_completion_
   $variables['is_anonymous'] = $is_anonymous;
   if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-    $customer_information = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getCustomerDefaultProfileAddress($order);
+    $customer_information = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+      ->getCustomerDefaultProfileAddress($order);
     $variables['customer_information'] = $customer_information;
   }
 
@@ -941,13 +947,15 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_checkout_completion_
   $total_items_count = 0;
   foreach ($order->getItems() as $order_item) {
     $total_items_count = $total_items_count + round($order_item->getQuantity());
-    $product_variation_id = $order_item->get('purchased_entity')->getValue()[0]['target_id'];
+    $product_variation_id = $order_item->get('purchased_entity')
+      ->getValue()[0]['target_id'];
     $product_variation = ProductVariation::load($product_variation_id);
     $product = Product::load($product_variation->getProductId());
     $items[] = [
       'title' => $order_item->getTitle(),
       'quantity' => $order_item->getQuantity(),
-      'qty_max_order' => $product->get('field_qty_max_order')->getValue()[0]['value'],
+      'qty_max_order' => $product->get('field_qty_max_order')
+        ->getValue()[0]['value'],
       'thumbnail' => $product->get('field_thumbnail')->getValue()[0],
     ];
   }

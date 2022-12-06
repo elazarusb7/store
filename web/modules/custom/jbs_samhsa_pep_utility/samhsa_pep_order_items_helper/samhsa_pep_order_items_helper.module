@@ -164,9 +164,9 @@ function _rewrite_errors($form, FormStateInterface &$form_state) {
         foreach ($errors as $key2 => $error_message) {
           if ($key2 == $err_key) {
             $form_state->setError($form, t('The available quantity for "%label" is %qty. Please revise your order.', [
-                '%label' => $name,
-                '%qty' => $qty,
-              ]));
+              '%label' => $name,
+              '%qty' => $qty,
+            ]));
           }
           else {
             $form_state->setErrorByName($name, $error_message);
@@ -206,9 +206,9 @@ function _validate_cart($form, FormStateInterface &$form_state) {
         // Add or custom message for the quantity field
         // Original msg: 'Sorry we only have %qty in stock and you already added %qty_o to your cart.'.
         $form_state->setError($form, t('The available quantity for "%label" is %qty. Please revise your order.', [
-            '%label' => $label,
-            '%qty' => $arg['%qty'],
-          ]));
+          '%label' => $label,
+          '%qty' => $arg['%qty'],
+        ]));
       }
 
     }
