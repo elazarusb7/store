@@ -2,8 +2,6 @@
 
 namespace Drupal\field_qty_max_limit\Plugin\Field\FieldType;
 
-use Drupal\commerce_stock\StockTransactionsInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
@@ -98,4 +96,5 @@ class MaxLimit extends FieldItemBase {
     $values = $entity->{$this->getFieldDefinition()->getName()}->getValue();
     $values = reset($values);
   }
+
 }

@@ -1,16 +1,17 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\jbs_commerce_import_product_data\ImportProductDataFunctions
- */
-
 namespace Drupal\jbs_commerce_import_product_data;
 
 use Drupal\commerce_product\Entity\Product;
 
+/**
+ *
+ */
 class ImportProductDataFunctions implements ImportProductDataFunctionsInterface {
 
+  /**
+   *
+   */
   public function importData() {
     $map_tn = 'commerce_product_variation_field_data';
     $db = \Drupal::database();
@@ -21,10 +22,10 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
       $map_titles = [];
 
       $table_values = $db->select($map_tn, 'fd')->fields('fd', [
-          'sku',
-          'title',
-          'product_id',
-        ])->execute()->fetchAll();
+        'sku',
+        'title',
+        'product_id',
+      ])->execute()->fetchAll();
 
       foreach ($table_values as $p => $product) {
         $map[$product->sku] = $product->product_id;
@@ -44,7 +45,8 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
             $data[5],
             $data[6],
             $data[7],
-          ]; // SKU, Title, Substance Abuse, Mental Health, Practitioner/Professional, General Public
+          // SKU, Title, Substance Abuse, Mental Health, Practitioner/Professional, General Public.
+          ];
           if (empty($columns)) {
             $columns = $row;
           }
@@ -56,16 +58,20 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
               $checked_pub_target_audience = [];
 
               if (!empty($row[2])) {
-                $checked_pub_category[] = ['target_id' => '5620']; // Substance Abuse
+                // Substance Abuse.
+                $checked_pub_category[] = ['target_id' => '5620'];
               }
               if (!empty($row[3])) {
-                $checked_pub_category[] = ['target_id' => '5621']; // Mental Health
+                // Mental Health.
+                $checked_pub_category[] = ['target_id' => '5621'];
               }
               if (!empty($row[4])) {
-                $checked_pub_target_audience[] = ['target_id' => '6037']; // Practitioner/Professional
+                // Practitioner/Professional.
+                $checked_pub_target_audience[] = ['target_id' => '6037'];
               }
               if (!empty($row[5])) {
-                $checked_pub_target_audience[] = ['target_id' => '6038']; // General Public
+                // General Public.
+                $checked_pub_target_audience[] = ['target_id' => '6038'];
               }
 
               if (!empty($checked_pub_category) || !empty($checked_pub_target_audience)) {
@@ -75,7 +81,7 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
                 if (!empty($checked_pub_target_audience)) {
                   $product->set('field_pub_target_audience', $checked_pub_target_audience);
                 }
-                //$rows[] = $row;
+                // $rows[] = $row;
                 $product->save();
               }
             }
@@ -88,7 +94,8 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
       fclose($handle);
       \Drupal::messenger()
         ->addMessage('Data was imported, check the corresponding tables.');
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::messenger()->addWarning('Import failed.');
     }
   }

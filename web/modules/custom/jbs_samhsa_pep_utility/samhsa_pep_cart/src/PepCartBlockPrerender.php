@@ -2,20 +2,21 @@
 
 namespace Drupal\samhsa_pep_cart;
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Render\Element\RenderCallbackInterface;
 use Drupal\Core\Url;
 
 /**
- * Class PepCartBlockPrerender
+ * Class PepCartBlockPrerender.
  */
 class PepCartBlockPrerender implements RenderCallbackInterface {
 
+  /**
+   *
+   */
   public static function _pep_cart_block_cart_prerender($build) {
     $all_carts = \Drupal::service('commerce_cart.cart_provider')
       ->getCarts();
-    if(is_array($all_carts) && count($all_carts) == 1 ) {
+    if (is_array($all_carts) && count($all_carts) == 1) {
       $all_carts = array_shift($all_carts);
       $order_id = $all_carts->id();
 
@@ -40,7 +41,5 @@ class PepCartBlockPrerender implements RenderCallbackInterface {
     }
     return $build;
   }
+
 }
-
-
-

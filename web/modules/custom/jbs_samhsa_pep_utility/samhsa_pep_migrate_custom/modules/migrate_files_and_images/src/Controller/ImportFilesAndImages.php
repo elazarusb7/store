@@ -1,17 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Controller\ImportFilesAndImages.
- */
-
 namespace Drupal\migrate_files_and_images\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\migrate_files_and_images\Entity\FilesCrossReference;
 use Masterminds\HTML5\Exception;
-use DOMDocument;
 
 /**
  * Class ImportFilesAndImages.
@@ -22,11 +16,10 @@ class ImportFilesAndImages extends ControllerBase {
 
   private $folderPattern = '/\/sites\/default\/files\//';
   private $protocolPattern = ['http' => '/http:\/\//', 'https' => '/https:/'];
-  //private $d7PublicFolder = '/sites/default/files/d7/';
-  //private $d7PrivateFolder = '/sites/default/files/d7/priv/';
 
-//  private $d7PublicFolder = 'https:/niadev.jbsinternational.com/sites/default/files/';
-//  private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
+  /**
+   * Private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
+   */
   private $excludedEnxtensions = [
     'com',
     'edu',
@@ -45,117 +38,117 @@ class ImportFilesAndImages extends ControllerBase {
   public $blockCsvFileName = 'public://block_files_and_images.csv';
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   private function getd7PublicFolder() {
-     $image_path = $this->config('migrate_files_and_images.settings')
-        ->get('images_path');
-     return $image_path;
+    $image_path = $this->config('migrate_files_and_images.settings')
+      ->get('images_path');
+    return $image_path;
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   private function getd7PrivateFolder() {
-     $documents_path = $this->config('migrate_files_and_images.settings')
-        ->get('documents_path');
-     return $documents_path;
+    $documents_path = $this->config('migrate_files_and_images.settings')
+      ->get('documents_path');
+    return $documents_path;
   }
 
-   /**
+  /**
    * Call the importing process for non CLI triggered execution.
    *
    * @return array
-   *    Render array with messages about the execution.
+   *   Render array with messages about the execution.
    */
   public function prepareExecuteImport($limit = 0) {
-    $output = array();
+    $output = [];
     if ($this->truncateCrossReference()) {
 
       $result = $this->executeManagedFilesImport($limit);
       if ($result['managed_error_message']) {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<p>' . $result['managed_error_message'] . '</p>',
-        );
+        ];
       }
       else {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<h3>Migrating Managed Files</h3>',
-        );
-        $output[] = array(
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files imported.', array('%counter' => $result['managed_processed'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files imported.', ['%counter' => $result['managed_processed']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', array('%counter' => $result['managed_not_found'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', ['%counter' => $result['managed_not_found']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . file_create_url($this->managedCsvFileName) . '">CSV inline images</a>',
-        );
+        ];
       }
 
       $result = $this->executeInlineImagesImport($limit);
       if ($result['inline_error_message']) {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<p>' . $result['inline_error_message'] . '</p>',
-        );
+        ];
       }
       else {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<br/><br/><br/><h3>Migrating Inline Files in Nodes</h3>',
-        );
-        $output[] = array(
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files imported.', array('%counter' => $result['inline_processed'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files imported.', ['%counter' => $result['inline_processed']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', array('%counter' => $result['inline_not_found'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', ['%counter' => $result['inline_not_found']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . file_create_url($this->inlineCsvFileName) . '">CSV inline images</a>',
-        );
+        ];
       }
 
       $result = $this->executeBlockImagesImport($limit);
       if ($result['block_error_message']) {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<p>' . $result['block_error_message'] . '</p>',
-        );
+        ];
       }
       else {
-        $output[] = array(
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<br/><br/><br/><h3>Migrating Inline Files In Blocks</h3>',
-        );
-        $output[] = array(
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files imported.', array('%counter' => $result['block_processed'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files imported.', ['%counter' => $result['block_processed']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
-          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', array('%counter' => $result['block_not_found'])) . '</p>',
-        );
-        $output[] = array(
+          '#markup' => '<p>' . $this->t('%counter files not found in public:// directory .', ['%counter' => $result['block_not_found']]) . '</p>',
+        ];
+        $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . file_create_url($this->blockCsvFileName) . '">CSV block images</a>',
-        );
+        ];
       }
 
     }
     else {
-      $output[] = array(
+      $output[] = [
         '#type' => 'markup',
         '#markup' => '<p>' . $this->t('Could not truncate files_cross_reference table!') . '</p>',
-      );
+      ];
     }
     return $output;
   }
@@ -163,8 +156,8 @@ class ImportFilesAndImages extends ControllerBase {
   /**
    * Delete all records in files_cross_reference table.
    *
-   * @return boolean $result
-   *    Result of the query.
+   * @return bool
+   *   Result of the query.
    */
   public function truncateCrossReference() {
     $db = Database::getConnection();
@@ -188,42 +181,43 @@ class ImportFilesAndImages extends ControllerBase {
     $counter_false = 0;
     $error_message = NULL;
     $csv_file = fopen($this->managedCsvFileName, 'w');
-    $csv_line = array(
+    $csv_line = [
       'D7 FID',
       'File name',
       'Status',
       'D8 FID',
-    );
+    ];
     fputcsv($csv_file, $csv_line);
     try {
       Database::setActiveConnection('migrate');
       $db = Database::getConnection();
       $data = $db->select('file_managed', 'f')->fields('f')->execute();
       foreach ($data as $file_managed) {
-        $csv_line = array(
+        $csv_line = [
           $file_managed->fid,
           $file_managed->filename,
-        );
-          if(!strstr($file_managed->uri, 'publication_transactions_rpt') &&
+        ];
+        if (!strstr($file_managed->uri, 'publication_transactions_rpt') &&
               !strstr($file_managed->uri, 'doc/bulkorders') &&
-              !strstr($file_managed->uri, 'doc/otherorders')){
-              if ($fid = $this->copyTheFile($file_managed)) {
-                  $values = [
-                      'id' => $file_managed->fid,
-                      'name' => $file_managed->filename,
-                      'd8fid' => $fid,
-                  ];
-                  $entity = FilesCrossReference::create($values);
-                  $entity->save();
-                  $counter_true++;
-                  $csv_line[] = 'OK';
-                  $csv_line[] = $fid;
-              } else {
-                  $counter_false++;
-                  $csv_line[] = 'Error';
-                  $csv_line[] = 0;
-              }
+              !strstr($file_managed->uri, 'doc/otherorders')) {
+          if ($fid = $this->copyTheFile($file_managed)) {
+            $values = [
+              'id' => $file_managed->fid,
+              'name' => $file_managed->filename,
+              'd8fid' => $fid,
+            ];
+            $entity = FilesCrossReference::create($values);
+            $entity->save();
+            $counter_true++;
+            $csv_line[] = 'OK';
+            $csv_line[] = $fid;
           }
+          else {
+            $counter_false++;
+            $csv_line[] = 'Error';
+            $csv_line[] = 0;
+          }
+        }
         fputcsv($csv_file, $csv_line);
         if ($limit && ($counter_true >= $limit || $counter_false >= $limit)) {
           break;
@@ -256,13 +250,13 @@ class ImportFilesAndImages extends ControllerBase {
     $error_message = NULL;
     $inline_fid = 1000000;
     $csv_file = fopen($this->inlineCsvFileName, 'w');
-    $csv_line = array(
+    $csv_line = [
       'Content type',
       'NID',
       'File name',
       'Status',
       'D8 FID',
-    );
+    ];
     fputcsv($csv_file, $csv_line);
     try {
       Database::setActiveConnection('migrate');
@@ -271,11 +265,11 @@ class ImportFilesAndImages extends ControllerBase {
       foreach ($data as $body_text) {
         if ($images_references = $this->extractImagesAndFiles($body_text->body_value)) {
           foreach ($images_references as $images_reference) {
-            $csv_line = array(
+            $csv_line = [
               $body_text->bundle,
               $body_text->entity_id,
               $images_reference,
-            );
+            ];
             if ($fid = $this->copyTheFile($images_reference)) {
               $values = [
                 'id' => $inline_fid++,
@@ -327,12 +321,12 @@ class ImportFilesAndImages extends ControllerBase {
     $error_message = NULL;
     $inline_fid = 2000000;
     $csv_file = fopen($this->blockCsvFileName, 'w');
-    $csv_line = array(
+    $csv_line = [
       'BID',
       'File name',
       'Status',
       'D8 FID',
-    );
+    ];
     fputcsv($csv_file, $csv_line);
     try {
       Database::setActiveConnection('migrate');
@@ -341,10 +335,10 @@ class ImportFilesAndImages extends ControllerBase {
       foreach ($data as $body_text) {
         if ($images_references = $this->extractImagesAndFiles($body_text->body)) {
           foreach ($images_references as $images_reference) {
-            $csv_line = array(
+            $csv_line = [
               $body_text->bid,
               $images_reference,
-            );
+            ];
             if ($fid = $this->copyTheFile($images_reference)) {
               $values = [
                 'id' => $inline_fid++,
@@ -388,7 +382,7 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function extractImagesAndFiles($text = NULL) {
@@ -408,13 +402,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function getImagesReferences($text = NULL) {
-    $result = array();
+    $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $images_tags = $doc->getElementsByTagName('img');
       foreach ($images_tags as $images_tag) {
@@ -431,13 +425,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function getFilesReferences($text = NULL) {
-    $result = array();
+    $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $a_tags = $doc->getElementsByTagName('a');
       foreach ($a_tags as $a_tag) {
@@ -470,30 +464,32 @@ class ImportFilesAndImages extends ControllerBase {
    *   file ID if copy was successful.
    */
   private function copyTheFile($file_managed) {
-        $result = FALSE;
-        $uri = is_object($file_managed) ? $file_managed->uri : $file_managed;
-        $file_name = str_replace('public://', '', $uri);
-        $file_name = str_replace('private://', '', $file_name);
-        $uri = 'public://d7/';
-        //********* This is the substitute code:
-        if(strstr($file_managed->uri, 'public://images')){
-            $file = getcwd() . $this->getd7PublicFolder() . $file_name;
+    $result = FALSE;
+    $uri = is_object($file_managed) ? $file_managed->uri : $file_managed;
+    $file_name = str_replace('public://', '', $uri);
+    $file_name = str_replace('private://', '', $file_name);
+    $uri = 'public://d7/';
+    // ********* This is the substitute code:
+    if (strstr($file_managed->uri, 'public://images')) {
+      $file = getcwd() . $this->getd7PublicFolder() . $file_name;
 
-        } else {
-            $file = getcwd() . $this->getd7PrivateFolder() . $file_name;
-            $uri = $uri . "priv/";
-        }
-        $this->output()->writeln("file: " . $file);
-        $this->output()->writeln("uri: " . $uri . $file_name);
-        $data = @file_get_contents($file);
+    }
+    else {
+      $file = getcwd() . $this->getd7PrivateFolder() . $file_name;
+      $uri = $uri . "priv/";
+    }
+    $this->output()->writeln("file: " . $file);
+    $this->output()->writeln("uri: " . $uri . $file_name);
+    $data = @file_get_contents($file);
 
-        if ($data && $file = file_save_data($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
-            $result = $file->id();
-        } else {
-            $a = 1;
-        }
-        unset($data);
-        return $result;
+    if ($data && $file = file_save_data($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
+      $result = $file->id();
+    }
+    else {
+      $a = 1;
+    }
+    unset($data);
+    return $result;
   }
 
   /**

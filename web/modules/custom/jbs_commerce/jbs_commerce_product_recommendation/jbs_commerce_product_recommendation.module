@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -59,7 +63,7 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, EntityIn
     if (!empty($fieldMayBeInterestedIn)) {
       $recommendations = [];
 
-      // Add manual recommendations
+      // Add manual recommendations.
       if (!empty($entity->get('field_may_be_interested_manual'))) {
         for ($i = 0, $iMax = count($entity->get('field_may_be_interested_manual')); $i < $iMax; $i++) {
           $manualRecommendations[get_value_from_entity($entity->get('field_may_be_interested_manual'), $i, 'target_id')] = 1.0;
@@ -72,10 +76,10 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, EntityIn
         }
       }
 
-      // Get product pair data from database
+      // Get product pair data from database.
       $pairs = get_products_from_pairs($pairsTableName, $pid, $numberOfRecommendations, $manualRecommendations);
 
-      // If there is no pair data, default to taxonomy search
+      // If there is no pair data, default to taxonomy search.
       if (empty($pairs)) {
         $taxonomyPairs = get_products_from_related_taxonomy($pid, $numberOfRecommendations, $manualRecommendations);
         foreach ($taxonomyPairs as $p => $product) {
@@ -143,28 +147,36 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, EntityIn
 
 /**
  * @return bool
- *  TRUE if path matches /product/%'
+ *   TRUE if path matches /product/%'
  */
 function is_product_view(): bool {
   return \Drupal::routeMatch()
-      ->getRouteName() === 'entity.commerce_product.canonical';
+    ->getRouteName() === 'entity.commerce_product.canonical';
 }
 
+/**
+ *
+ */
 function get_value_from_entity($entity_val, $index = 0, $value = 'value') {
   return !empty($entity_val->getValue()) ? $entity_val->getValue()[$index][$value] : NULL;
 }
 
+/**
+ *
+ */
 function track_product($session, $eventTableName, $pid): void {
   if (!empty($eventTableName) && (!$session->get('previous_product') || $session->get('previous_product') !== $pid)) {
     try {
       \Drupal::database()->insert($eventTableName)->fields([
-          'content_type' => 'commerce_product', // placeholder type
-          'content_id' => $pid,
-          'timestamp' => time(),
-          'session_id' => Crypt::hashBase64(session_id()),
-          'event' => 'click',
-        ])->execute();
-    } catch (Exception $e) {
+        // Placeholder type.
+        'content_type' => 'commerce_product',
+        'content_id' => $pid,
+        'timestamp' => time(),
+        'session_id' => Crypt::hashBase64(session_id()),
+        'event' => 'click',
+      ])->execute();
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: could not log event in track_product() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -172,6 +184,9 @@ function track_product($session, $eventTableName, $pid): void {
   $session->set('previous_product', $pid);
 }
 
+/**
+ *
+ */
 function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $manualRecommendations): array {
   $pairs = [];
 
@@ -182,7 +197,7 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       $query->condition($query->orConditionGroup()
         ->condition('p1', $pid)
         ->condition('p2', $pid));
-      // Join and condition below add a filter for only published products
+      // Join and condition below add a filter for only published products.
       $query->innerJoin('commerce_product_field_data', 'pdata1', 'pdata1.product_id = t.p1');
       $query->innerJoin('commerce_product_field_data', 'pdata2', 'pdata2.product_id = t.p2');
       $query->condition('pdata1.status', 1);
@@ -199,7 +214,8 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       foreach ($result as $p => $product) {
         $pairs[($product->p1 == $pid ? $product->p2 : $product->p1)] = (float) $product->score;
       }
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: queries failed in get_products_from_pairs() product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -207,6 +223,9 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
   return $pairs;
 }
 
+/**
+ *
+ */
 function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $manualRecommendations): array {
   $related = [];
   if (!empty($numberOfRecommendations)) {
@@ -229,7 +248,7 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
       $prefix = 'commerce_product__';
       $queryString = '';
       for ($i = 0, $iMax = count($commerceTables); $i < $iMax; $i++) {
-        // Testing each product for published status is performed by the JOIN and associated WHERE condition
+        // Testing each product for published status is performed by the JOIN and associated WHERE condition.
         $queryString .= '(SELECT t' . $i . '.* FROM {' . $prefix . $commerceTables[$i] . '} AS t' . $i . ' LEFT JOIN commerce_product_field_data AS pdata' . $i . ' ON pdata' . $i . '.product_id = t' . $i . '.entity_id ' . 'WHERE pdata' . $i . '.status = 1) ' . ($i < count($commerceTables) - 1 ? 'UNION ALL ' : '');
       }
       return '(' . $queryString . ') ';
@@ -255,18 +274,19 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
       })($queryLanguage);
 
       $queryRanking = $db->queryRange('SELECT entity_id, COUNT(*) AS count FROM ' . '(SELECT entity_id, field_tags_target_id, field_pub_lang_value FROM ' . '(SELECT category.*, (SELECT lang.field_pub_lang_value FROM {commerce_product__field_pub_lang} AS lang ' . 'WHERE lang.entity_id=category.entity_id) AS field_pub_lang_value FROM ' . '(' . t($union) . ') AS category) AS combined_result WHERE field_pub_lang_value=:lang OR field_pub_lang_value IS NULL) AS taxonomies ' . 'WHERE field_tags_target_id IN (:taxonomies[]) AND entity_id<>:id ' . (!empty($ignoreProducts) ? t('AND entity_id NOT IN (:ignore[])') : t('')) . ' GROUP BY entity_id ORDER BY count DESC', 0, $numberOfRecommendations, [
-          ':lang' => $language,
-          ':id' => $pid,
-          ':taxonomies[]' => $taxonomies,
-          ':ignore[]' => $ignoreProducts,
-        ]);
+        ':lang' => $language,
+        ':id' => $pid,
+        ':taxonomies[]' => $taxonomies,
+        ':ignore[]' => $ignoreProducts,
+      ]);
       $result = $queryRanking->fetchAll();
 
       foreach ($result as $p => $product) {
         $related[$product->entity_id] = $product->count;
       }
 
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: queries failed in get_products_from_related_taxonomy() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -274,6 +294,9 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
   return $related;
 }
 
+/**
+ *
+ */
 function get_product_titles_from_id($pairs): array {
   $recommendationTitles = \Drupal::database()
     ->select('commerce_product_field_data', 'cd')
@@ -291,6 +314,9 @@ function get_product_titles_from_id($pairs): array {
   return $titles;
 }
 
+/**
+ *
+ */
 function get_products_from_solr_search($entity, $numberOfRecommendations, $manualRecommendations): array {
   if (!empty($numberOfRecommendations)) {
     $ignoreProducts = [];
@@ -312,7 +338,8 @@ function get_products_from_solr_search($entity, $numberOfRecommendations, $manua
       $query->keys(array_merge($keyword, ['#conjunction' => 'OR']));
       $query->sort('search_api_relevance', 'DESC');
       return $query->execute()->getResultItems();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('The Solr server is experiencing issues, recommendations may not be displayed');
     }

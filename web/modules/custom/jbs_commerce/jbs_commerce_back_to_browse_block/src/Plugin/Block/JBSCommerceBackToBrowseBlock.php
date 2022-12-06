@@ -22,7 +22,8 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
   public function build() {
     $front_alias = Url::fromRoute('<front>')->toString();
     $base_path = \Drupal::request()
-      ->getSchemeAndHttpHost();                     // ex. http://pep-b.pep
+      // ex. http://pep-b.pep
+      ->getSchemeAndHttpHost();
     $check_referer = "";
     if (isset(\Drupal::request()->query)) {
       $check_referer = \Drupal::request()->query->get('referer');
@@ -31,23 +32,23 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
     // ex. http://pep-b.pep/?search_api_fulltext=meth&sort_bef_combine=search_api_relevance%20DESC
     $referer = \Drupal::request()->server->get('HTTP_REFERER');
     /*if (
-        $referer == $base_path ||
-        strpos($referer, $base_path . "/?f[0]=") !== FALSE ||
-        $check_referer == "from_search_result") {
-        $results_link = '<li class="menu-item"><a href="' . $referer . '">Return to search&nbsp;results</a></li>';
+    $referer == $base_path ||
+    strpos($referer, $base_path . "/?f[0]=") !== FALSE ||
+    $check_referer == "from_search_result") {
+    $results_link = '<li class="menu-item"><a href="' . $referer . '">Return to search&nbsp;results</a></li>';
     } else {
-        $results_link = '';
+    $results_link = '';
     }*/
 
     /*BK 3/2/20 - not sure why we need to include the base path?
     if (strpos($referer, $base_path . "/?f[0]=") !== FALSE ||
-        strpos($referer, $base_path . "/?search_api_fulltext=") !== FALSE ||
-        strpos($referer, $base_path . "?f%5B0%5D") !== FALSE ) {
-    */
-    if (strpos($referer, "f[0]=") !== FALSE ||  // faceted search
-      strpos($referer, "search_api_fulltext=") !== FALSE ||  // search text
-      strpos($referer, "f%5B0%5D") !== FALSE)   // ???
-    {
+    strpos($referer, $base_path . "/?search_api_fulltext=") !== FALSE ||
+    strpos($referer, $base_path . "?f%5B0%5D") !== FALSE ) {
+     */
+    // Faceted search.
+    if (strpos($referer, "f[0]=") !== FALSE ||
+      strpos($referer, "search_api_fulltext=") !== FALSE ||
+      strpos($referer, "f%5B0%5D") !== FALSE) {
       $results_link = '
     <li class="menu-item return-btn">
       <a href="' . $referer . '">Return to Search Results</a>

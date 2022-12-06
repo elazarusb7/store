@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_clone_order\PepCloneOrderFunctions.
- */
-
 namespace Drupal\samhsa_pep_clone_order;
 
 use Drupal\commerce_order\Entity\Order;
@@ -41,7 +36,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     $billing_profile = $entity->getBillingProfile();
     $items = $entity->getItems();
 
-    //line items
+    // Line items.
     $line_items = [];
 
     foreach ($items as $item) {
@@ -60,7 +55,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
 
     }
 
-    //create order
+    // Create order.
     $order = Order::create([
       'type' => $entity->bundle(),
       'store_id' => 1,
@@ -74,7 +69,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
       'order_items' => $line_items,
       'state' => 'draft',
       'mail' => $mail,
-      //'completed' => time(),
+      // 'completed' => time(),
     ]);
 
     $order->save();
@@ -88,7 +83,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     $logStorage->generate($order, 'order_comment', ['comment' => $comment])
       ->save();
 
-    //add shipments
+    // Add shipments.
     $shipments = $entity->get('shipments');
     if (is_array($shipments->getValue())) {
       $ship_ids = $shipments->getValue();
@@ -96,9 +91,9 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     }
     /*TODO: update foreach loop for shipments*/
     /*foreach ($order_shipments->getValue() as $order_shipment) {
-        if ($order_shipment['target_id']) {
-            ksm($order_shipment['target_id']);
-        }
+    if ($order_shipment['target_id']) {
+    ksm($order_shipment['target_id']);
+    }
     }*/
     if (is_array($shipment_ids)) {
       foreach ($shipment_ids as $shipment_id) {
@@ -112,7 +107,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
 
         $shipment_profile = $shipment->getShippingProfile();
 
-        // Loop through order items and add them to shipment
+        // Loop through order items and add them to shipment.
         foreach ($order->getItems() as $order_item) {
           $quantity = $order_item->getQuantity();
           $purchased_entity = $order_item->getPurchasedEntity();

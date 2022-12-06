@@ -1,41 +1,33 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_pdf_printing\PdfInvoice.
- */
-
 namespace Drupal\samhsa_pep_pdf_printing;
-
-use Drupal\Core\Form\ConfigFormBase;
 
 /**
  * Class PdfInvoice.
  *
  * @package Drupal\samhsa_pep_pdf_printing
  */
-class PdfInvoice
-{
+class PdfInvoice {
 
   /**
    * Constructor.
    */
-  public function __construct()
-  {
+  public function __construct() {
 
   }
 
   /**
    * Generates a PDF with the Invoice.
+   *
    * @param $orders
-   * Orders contained in the invoice.
+   *   Orders contained in the invoice.
    * @param $file_name
    * @param false $is_returned_order
-   * Whether the Order ia a returned one.
+   *   Whether the Order ia a returned one.
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function generateInvoices($orders, $file_name, $is_returned_order = FALSE)
-  {
+  public function generateInvoices($orders, $file_name, $is_returned_order = FALSE) {
     $pdf = new PepFPDF();
     $pdf->AliasNbPages();
     $pdf->setIsReturnedOrder($is_returned_order);
@@ -43,17 +35,12 @@ class PdfInvoice
 
     $this->invoicesPages($pdf, $orders);
     $pdf_output = $pdf->Output('S');
-    //$pdf_output = $pdf->Output('F'); //NOT WORKING
-
-    //$pdf_directory = \Drupal::service('file_system')->realpath("public://pdf");
+    // $pdf_output = $pdf->Output('F'); //NOT WORKING
+    // $pdf_directory = \Drupal::service('file_system')->realpath("public://pdf");
     $pdf_directory = \Drupal::config('samhsa_pep_pdf_printing.settings')->get('directory');
 
     /*will create file and create record infile_managed table*/
     $file = file_save_data($pdf_output, $pdf_directory . '/' . $file_name);
-    //$file = \Drupal::service('file_system')->saveData($pdf_output, $pdf_directory . '/' . $file_name, \Drupal\Core\File\FileSystemInterface::EXISTS_REPLACE);
-
-    /*will save file without creating a record in file_managed table*/
-    //file_unmanaged_save_data($pdf_output, $pdf_directory . '/' . $file_name, FILE_EXISTS_RENAME);
   }
 
   /**
@@ -64,8 +51,7 @@ class PdfInvoice
    * @param array $orders
    *   Orders contained in the invoice.
    */
-  private function coverPageForAllOrders(\FPDF $pdf, $orders)
-  {
+  private function coverPageForAllOrders(\FPDF $pdf, $orders) {
     $pdf->StartPageGroup();
     $pdf->SetFont('Arial', '', 12);
     $pdf->setContentSection('summarypage');
@@ -81,7 +67,7 @@ class PdfInvoice
     $pdf->SetY($pdf->GetY() + 15);
 
     $page_width = $pdf->GetPageWidth();
-    //$margin = ($page_width - 150) / 2;
+    // $margin = ($page_width - 150) / 2;
     $pdf->SetFillColor(230);
     $pdf->setX($margin);
     $full_page_width = $pdf->GetPageWidth();
@@ -125,23 +111,21 @@ class PdfInvoice
   /**
    * Builds the order cover page for internal use only.
    *
-   * @param \FPDF  $pdf
+   * @param \FPDF $pdf
    *   PDF object.
    * @param entity $order
    *   Orders contained in the invoice.
    */
-  private function coverPage(\FPDF $pdf, $order)
-  {
+  private function coverPage(\FPDF $pdf, $order) {
     $pdf->StartPageGroup();
     $pdf->AddPage();
     $pdf->setContentSection('cover');
-
 
     $page_width = $pdf->GetPageWidth();
     $margin = ($page_width - 150) / 2;
     $pdf->SetFillColor(230);
 
-    // Customer Email starts //
+    // Customer Email starts //.
     $pdf->SetFont('Arial', 'B', 12);
 
     $pdf->SetX($margin);
@@ -162,26 +146,24 @@ class PdfInvoice
    * @param array $orders
    *   Orders contained in the invoice.
    */
-  private function invoicesPages(\FPDF $pdf, $orders)
-  {
+  private function invoicesPages(\FPDF $pdf, $orders) {
     $margin = 10;
     $pdf->SetLeftMargin($margin);
     $pdf->SetRightMargin($margin);
     $full_page_width = $pdf->GetPageWidth();
     $page_width = $full_page_width - ($margin * 2);
-    //$y_top = $pdf->getYTopItems();
-    //$pdf->SetY($y_top);
-
+    // $y_top = $pdf->getYTopItems();
+    // $pdf->SetY($y_top);
     foreach ($orders as $order) {
       $pdf->setOrder($order);
 
       $created = date("m/d/Y", $order->getPlacedTime());
-      //$received = date("l jS \of F Y h:i:s A", $order->getPlacedTime());
+      // $received = date("l jS \of F Y h:i:s A", $order->getPlacedTime());
       $received = date("m/d/Y H:i:s A", $order->getPlacedTime());
 
       if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-        $GLOBALS["order_info"] = [$order->id(), \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getOrderSource($order), $created, '',];
+        $GLOBALS["order_info"] = [$order->id(), \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getOrderSource($order), $created, ''];
       }
 
       $this->coverPage($pdf, $order);
@@ -190,13 +172,13 @@ class PdfInvoice
       $pdf->AddPage();
       $pdf->setContentSection('invoice');
 
-      // Header starts //
+      // Header starts //.
       $pdf->SetFont('Arial', 'B', 12);
       $pdf->SetY($pdf->GetY() + 5);
       $margin = 10;
       $pdf->SetLeftMargin($margin);
       $pdf->SetRightMargin($margin);
-      //$this->SetTopMargin(50);
+      // $this->SetTopMargin(50);
       $x = $pdf->GetX();
       $y = $pdf->GetY();
       $packingsliptitle = "PACKING SLIP";
@@ -229,7 +211,7 @@ class PdfInvoice
           ];
         }
         else {
-          // there was some issue in getting the variant
+          // There was some issue in getting the variant.
           $data[] = [
             'sku'   => 'not found: ' . $item->id(),
             'title' => $item->getTitle(),
@@ -244,7 +226,7 @@ class PdfInvoice
         $cleanedTitle = $item['title'];
 
         $title_w = $page_width - 60;
-        //$bg = ($number % 2) ? TRUE : FALSE;
+        // $bg = ($number % 2) ? TRUE : FALSE;
         $bg = FALSE;
 
         $x_axis = $pdf->getx();
@@ -274,7 +256,7 @@ class PdfInvoice
         $returned_address_text .= $address_line . chr(10);
       }
 
-      //$pdf->AddPage();
+      // $pdf->AddPage();
       // Returned Address starts //
       $pdf->SetFont('Arial', 'B', 12);
 
@@ -287,12 +269,12 @@ class PdfInvoice
       $margin = 25;
       $pdf->SetLeftMargin($margin - 15);
       $pdf->SetRightMargin($margin - 15);
-      //$pdf->SetTopMargin(50);
+      // $pdf->SetTopMargin(50);
       $x = $pdf->GetX();
       $y = $pdf->GetY();
       $pdf->MultiCell(120, 5, $returned_address_text, 0, 'l', FALSE);
 
-      //Footer text starts
+      // Footer text starts.
       $pdf->SetY($pdf->GetY() + 10);
       $pdf->SetFont('Arial', '', 12);
       $pdf->WriteHTML(utf8_decode($footerText));
