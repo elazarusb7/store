@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldFilteredMarkup;
-
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
@@ -22,7 +25,7 @@ function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter
       $form['contact_information']['#title'] = t('Contact Email');
     }
 
-    // BK SPD-681
+    // BK SPD-681.
     $text = FieldFilteredMarkup::create('Format: 1234567890');
     $form['shipping_information']['shipping_profile']['field_phone_number']['widget'][0]['value']['#description'] = $text;
     $form['payment_information']['billing_information']['field_phone_number']['widget'][0]['value']['#description'] = $text;
@@ -37,11 +40,11 @@ function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter
         $form['review']['contact_information']['#title'] = t('Contact Email');
       }
       $form['actions']['next']['#value'] = t('Place order');
-      // unset($form['actions']['next']['#suffix']);
+      // unset($form['actions']['next']['#suffix']);.
     }
     else {
       if ($form['#step_id'] == 'complete') {
-        // BK SPD-681
+        // BK SPD-681.
         $text = FieldFilteredMarkup::create('Format: 1234567890');
         $form['completion_register']['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
       }

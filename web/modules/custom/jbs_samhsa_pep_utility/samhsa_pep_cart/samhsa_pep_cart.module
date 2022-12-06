@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\samhsa_pep_cart\PepCartBlockPrerender;
 use Drupal\Core\Block\BlockPluginInterface;
+
 /**
  * Implements hook_form_alter().
  */
 function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
-  //ksm($form_id);//commerce_order_item_add_to_cart_form_commerce_product_
   if ($form_id == 'commerce_add_to_cart' || strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
     $pep_order_combine = \Drupal::config('samhsa_pep_cart.settings')
       ->get('combine_pep_cart');
@@ -25,18 +29,7 @@ function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $for
     }
   }
   if (strpos($form_id, "views_form_commerce_cart_form_default") !== FALSE) {
-    //add return to browsing button
-    /*$form['actions']['return_to_browsing'] = array(
-        '#type' => 'submit',
-        //'#weight' => 999,
-        '#limit_validation_errors' => array() ,
-        '#button_type' => 'primary',
-        '#submit' => array(
-            '_cart_return_to_browsing'
-        ) ,
-        '#value' => t('Return to browsing') ,
-    );*/
-    //add return to browsing link
+    // Add return to browsing link.
     $links = [];
     $links[] = [
       '#prefix' => "<span class = \"link--front\">",
@@ -47,17 +40,20 @@ function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $for
     ];
     $form['actions']['return_to_browsing_button'] = $links;
 
-    //change weight of the checkout action button
+    // Change weight of the checkout action button.
     $form['actions']['return_to_browsing_button']['#weight'] = -10;
     $form['actions']['return_to_browsing_button']['#prefix'] = '<div class="cart--buttons">';
     $form['actions']['checkout']['#weight'] = -1;
     $form['actions']['submit']['#weight'] = -5;
 
     $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p>';
-    //      $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p><p  class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p>';
+    // $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p><p  class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p>';
   }
 }
 
+/**
+ *
+ */
 function _cart_return_to_browsing(&$form, FormStateInterface $form_state) {
   $url = Url::fromRoute('<front>');
   $response = new RedirectResponse($url->toString());
@@ -69,7 +65,7 @@ function _cart_return_to_browsing(&$form, FormStateInterface $form_state) {
  */
 function samhsa_pep_cart_block_view_alter(array &$build, BlockPluginInterface $block): void {
   if ($block->getBaseId() === 'commerce_cart') {
-    //$build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
+    // $build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
     $build['#pre_render'][] = [
       PepCartBlockPrerender::class,
       '_pep_cart_block_cart_prerender',

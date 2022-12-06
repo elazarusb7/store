@@ -4,4 +4,3 @@ samhsa_pep_pdf_printing.pep_pdf_config:
   description: 'Configure printing parameters for labels and invoices.'
   parent: system.admin_config_system
   weight: 99
-

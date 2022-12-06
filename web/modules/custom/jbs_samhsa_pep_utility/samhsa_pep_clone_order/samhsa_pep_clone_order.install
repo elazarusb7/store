@@ -2,25 +2,19 @@
 
 /**
  * @file
- * samhsa_pep_clone_order.install.
+ * Samhsa_pep_clone_order.install.
  */
-
-use Drupal\Core\Database\Database;
-use Drupal\Core\Site\Settings;
 
 /**
  * Implements hook_install().
  */
 function samhsa_pep_clone_order_install() {
-    //nothing to install
+  // Nothing to install.
 }
 
 /**
  * Implements hook_uninstall().
  */
 function samhsa_pep_clone_order_uninstall() {
-    Drupal::configFactory()->getEditable('samhsa_pep_clone_order.settings')->delete();
+  Drupal::configFactory()->getEditable('samhsa_pep_clone_order.settings')->delete();
 }
-
-
-

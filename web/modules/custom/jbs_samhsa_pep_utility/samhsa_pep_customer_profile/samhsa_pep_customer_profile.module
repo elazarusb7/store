@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
@@ -8,7 +12,6 @@ use Drupal\Core\Url;
 /**
  * Implements hook_entity_bundle_field_info_alter().
  */
-
 function samhsa_pep_customer_profile_entity_bundle_field_info_alter(array &$fields, EntityTypeInterface $entity_type, $bundle): void {
   if ($bundle === 'customer') {
     $moduleHandler = \Drupal::service('module_handler');
@@ -32,7 +35,7 @@ function samhsa_pep_customer_profile_entity_bundle_field_info_alter(array &$fiel
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id): void {
+function samhsa_pep_customer_profile_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
   if ($form_id === 'user_form' || $form_id === 'user_register_form') {
     $form['#validate'][] = '_user_form_email_validate';
   }
@@ -52,7 +55,7 @@ function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormSt
   if ($form_id === 'commerce_checkout_flow_multistep_default') {
     switch ($form['#step_id']) {
       case 'review':
-        //add return to browsing link
+        // Add return to browsing link.
         $links = [];
         $links[] = [
           '#prefix' => "<span class = \"link--front\">",
@@ -61,7 +64,7 @@ function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormSt
           '#title' => t('Return to browsing'),
           '#url' => Url::fromRoute('<front>'),
         ];
-        //change weight of the action buttons
+        // Change weight of the action buttons.
         $form['actions']['return_to_browsing_button'] = $links;
 
         $form['actions']['return_to_browsing_button']['#weight'] = 10;
@@ -72,15 +75,14 @@ function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormSt
           $form['actions']['return_to_browsing_button']['#suffix'] = '</div>';
         }
         break;
+
       case 'order_information':
         $shipping_method = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'];
         if ($shipping_method && !is_string($shipping_method)) {
           $arg = $shipping_method->__toString();
           $arg_explode = explode(':', $arg);
-          //$arg = $shipping_method->getArguments();
           $options = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options'];
           if (count($options) == 1) {
-            //ksm($form['shipping_information']['shipping_profile']['rendered']['#profile']);
             $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#required'] = FALSE;
             $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#default_value'] = '1--default';
             $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'] = t('%service, %shipping_time', [
@@ -90,21 +92,22 @@ function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormSt
           }
         }
 
-        //add return to browsing link
+        // Add return to browsing link.
         $links = [];
         $links[] = [
           '#prefix' => "<span class = \"link--front\">",
           '#suffix' => "</span>",
           '#type' => 'link',
           '#title' => t('Return to browsing'),
-          //'#attributes' => array('onclick' => 'if(!confirm("If you leave this page, any information you entered on this page will not be stored. Please click on OK if you still want to continue.")){return false;}'),
+          // '#attributes' => array('onclick' => 'if(!confirm("If you leave this page, any information you entered on this page will not be stored. Please click on OK if you still want to continue.")){return false;}'),
           '#url' => Url::fromRoute('<front>'),
         ];
-        //change weight of the action buttons
+        // Change weight of the action buttons.
         $form['actions']['return_to_browsing_button'] = $links;
         $form['#validate'][] = '_profile_form_validate';
 
         break;
+
       case 'complete':
         $form['#validate'][] = '_profile_form_validate';
         break;
@@ -116,9 +119,10 @@ function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormSt
   }
 }
 
-//_user_form_email_validate
-/*
- * validate completion_register form
+/**
+ * _user_form_email_validate.
+ *
+ * Validate completion_register form.
  */
 function _user_form_email_validate(&$form, FormStateInterface $form_state): void {
   $mail = $form_state->getValue('mail');
@@ -128,8 +132,8 @@ function _user_form_email_validate(&$form, FormStateInterface $form_state): void
   }
 }
 
-/*
- * validate order_information checkout form
+/**
+ * Validate order_information checkout form.
  */
 function _order_information_form_validate(&$form, FormStateInterface $form_state): void {
   $contact_information = $form_state->getValue('contact_information');
@@ -145,8 +149,8 @@ function _order_information_form_validate(&$form, FormStateInterface $form_state
   }
 }
 
-/*
- * validate completion_register form
+/**
+ * Validate completion_register form.
  */
 function _order_information_form_complete_validate(&$form, FormStateInterface $form_state): void {
   $completion_register = $form_state->getValue('completion_register');
@@ -156,8 +160,8 @@ function _order_information_form_complete_validate(&$form, FormStateInterface $f
   }
 }
 
-/*
- * validate profile form validation
+/**
+ * Validate profile form validation.
  */
 function _profile_form_validate(&$form, FormStateInterface $form_state): void {
   $errors_to_unset = [];
@@ -184,7 +188,7 @@ function _profile_form_validate(&$form, FormStateInterface $form_state): void {
       $form_state->setErrorByName($name, $error_message);
     }
     foreach ($errors_to_unset as $name) {
-      // Add or custom message for the zip field
+      // Add or custom message for the zip field.
       $form_state->setErrorByName($name, t('Zip code is not valid for the selected State/Territory.'));
 
     }

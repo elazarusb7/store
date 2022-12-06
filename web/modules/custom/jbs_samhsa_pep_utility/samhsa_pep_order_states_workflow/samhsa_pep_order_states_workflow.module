@@ -5,6 +5,11 @@
  * Contains samhsa_pep_order_states_workflow.module.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\state_machine\Plugin\Field\FieldType\StateItemInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -26,53 +31,50 @@ function samhsa_pep_order_states_workflow_help($route_name, RouteMatchInterface 
 /**
  * Implements hook_entity_access().
  */
-function samhsa_pep_order_states_workflow_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
-  //order edit/view tabs
+function samhsa_pep_order_states_workflow_entity_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  // Order edit/view tabs.
   $user = \Drupal::currentUser();
   if ($user->hasPermission("update default commerce_order")) {
     if ($entity->getEntityType()->id() == 'commerce_order'
       && $operation == 'update') {
       $state = $entity->getState();
-      //$transition = $entity->getState()->getTransitions();
+      // $transition = $entity->getState()->getTransitions();
       $state_value = $state->getValue()['value'];
 
-      //update samhsa_publication_ob commerce_order
-      //update default commerce_order
+      // Update samhsa_publication_ob commerce_order
+      // update default commerce_order.
       if ($state->getWorkflow()
-          ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
+        ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
         // Allow Access
-        //return Drupal\Core\Access\AccessResult::allowed();
+        // return Drupal\Core\Access\AccessResult::allowed();
       }
       else {
         // No Access.
-        return Drupal\Core\Access\AccessResult::forbidden();
+        return AccessResult::forbidden();
       }
     }
 
-    //shipping tab
+    // Shipping tab.
     if ($entity->getEntityType()->id() == 'commerce_shipment'
       && ($operation == 'update' || $operation == 'delete')) {
-      //ksm($entity);
+
       $state = $entity->getOrder()->getState();
-      //$state = $entity->getState();
-      //$transition = $entity->getState()->getTransitions();
       $state_value = $state->getValue()['value'];
-      //ksm($state_value);
-      //ksm($state->getWorkflow()->getPluginDefinition()['states'][$state_value]['editable']);
+
       if ($state->getWorkflow()
-          ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
-        // Allow Access
-        return Drupal\Core\Access\AccessResult::allowed();
+        ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
+        // Allow Access.
+        return AccessResult::allowed();
       }
       else {
         // No Access.
-        return Drupal\Core\Access\AccessResult::forbidden();
+        return AccessResult::forbidden();
       }
     }
   }
 
   // No opinion.
-  return Drupal\Core\Access\AccessResult::neutral();
+  return AccessResult::neutral();
 
 }
 
@@ -103,7 +105,7 @@ function samhsa_pep_order_states_workflow_menu_local_tasks_alter(&$data, $route_
  * @return \Drupal\Component\Render\FormattableMarkup|\Drupal\Core\StringTranslation\TranslatableMarkup|string
  *   Translated text.
  */
-function _samhsa_pep_order_states_workflow_order_states_for_authenticated(Drupal\state_machine\Plugin\Field\FieldType\StateItemInterface $state = NULL) {
+function _samhsa_pep_order_states_workflow_order_states_for_authenticated(StateItemInterface $state = NULL) {
 
   $state_text = $state->getValue()['value'];
 
@@ -125,8 +127,9 @@ function _samhsa_pep_order_states_workflow_order_states_for_authenticated(Drupal
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function samhsa_pep_order_states_workflow_commerce_order_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity,
-                                                                    \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+function samhsa_pep_order_states_workflow_commerce_order_view_alter(array &$build,
+ EntityInterface $entity,
+                                                                    EntityViewDisplayInterface $display) {
 
   $roles = \Drupal::currentUser()->getRoles();
   if (count($roles) == 1 && $roles[0] == 'authenticated') {

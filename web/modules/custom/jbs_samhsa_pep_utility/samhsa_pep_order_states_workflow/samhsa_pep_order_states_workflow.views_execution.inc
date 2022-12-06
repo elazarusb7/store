@@ -13,33 +13,33 @@ use Drupal\views\ViewExecutable;
  * Implements hook_views_pre_view().
  */
 function samhsa_pep_order_states_workflow_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
-    //cart page. calculate total items
-    if ($view->id() == 'commerce_cart_form') {
-      // Footer with items qty count total
-      $carts = \Drupal::service('commerce_cart.cart_provider')
-          ->getCarts();
-      if(is_array($carts) && count($carts) == 1 ) {
-          $cart = array_shift($carts);
-          $items = $cart->getItems();
-          $total = 0;
-          foreach ($items as $key => $item){
-              $total +=$item->getQuantity();
-          }
-
-          $options = [
-              'id' => 'area_text_custom',
-              'table' => 'views',
-              'field' => 'area_text_custom',
-              'relationship' => 'none',
-              'group_type' => 'none',
-              'admin_label' => '',
-              'empty' => TRUE,
-              'tokenize' => FALSE,
-              'content' => ($total == 0 || $total > 1) ? $total . ' items' : $total . ' item',
-              'plugin_id' => 'text_custom',
-          ];
-          $view->setHandler($display_id, 'footer', 'area_text_custom', $options);
+  // Cart page. calculate total items.
+  if ($view->id() == 'commerce_cart_form') {
+    // Footer with items qty count total.
+    $carts = \Drupal::service('commerce_cart.cart_provider')
+      ->getCarts();
+    if (is_array($carts) && count($carts) == 1) {
+      $cart = array_shift($carts);
+      $items = $cart->getItems();
+      $total = 0;
+      foreach ($items as $key => $item) {
+        $total += $item->getQuantity();
       }
+
+      $options = [
+        'id' => 'area_text_custom',
+        'table' => 'views',
+        'field' => 'area_text_custom',
+        'relationship' => 'none',
+        'group_type' => 'none',
+        'admin_label' => '',
+        'empty' => TRUE,
+        'tokenize' => FALSE,
+        'content' => ($total == 0 || $total > 1) ? $total . ' items' : $total . ' item',
+        'plugin_id' => 'text_custom',
+      ];
+      $view->setHandler($display_id, 'footer', 'area_text_custom', $options);
+    }
   }
 
   if ($view->id() == 'order_information_report' && $display_id === 'page_1') {
@@ -149,4 +149,3 @@ function _samhsa_pep_order_states_workflow_calculate_total_bulk(array $filters) 
   $result = $query->countQuery()->execute()->fetchField();
   return $result;
 }
-

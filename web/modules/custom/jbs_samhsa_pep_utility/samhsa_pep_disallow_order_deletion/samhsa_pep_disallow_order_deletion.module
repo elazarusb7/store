@@ -31,7 +31,7 @@ function samhsa_pep_disallow_order_deletion_help($route_name, RouteMatchInterfac
  */
 function samhsa_pep_disallow_order_deletion_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
   if ($form['#theme'] == "confirm_form" && str_contains($form_id, "commerce_order_") && str_contains($form_id, "_delete_form")) {
-    //Do not let any role delete orders if setting is set to not allow deletion
+    // Do not let any role delete orders if setting is set to not allow deletion.
     $config = \Drupal::config('samhsa_pep_disallow_order_deletion.settings');
     $delete_order = $config->get('disable_order_delete');
 
@@ -47,7 +47,7 @@ function samhsa_pep_disallow_order_deletion_form_alter(&$form, FormStateInterfac
     $config = \Drupal::config('samhsa_pep_disallow_order_deletion.settings');
     $delete_order = $config->get('disable_order_delete');
     if ($delete_order === 1) {
-      //Unser Delete link. Do not let any role delete orders if setting is set to not allow deletion
+      // Unser Delete link. Do not let any role delete orders if setting is set to not allow deletion.
       unset($form['actions']['delete']);
     }
   }

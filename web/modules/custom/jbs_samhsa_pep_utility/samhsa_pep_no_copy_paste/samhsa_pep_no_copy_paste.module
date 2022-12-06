@@ -1,10 +1,12 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_paste_page_attachments().
  */
 function samhsa_pep_no_copy_paste_page_attachments(array &$attachments) {
-    $attachments['#attached']['library'][] = 'samhsa_pep_no_copy_paste/samhsa_pep_no_copy_paste.lib';
+  $attachments['#attached']['library'][] = 'samhsa_pep_no_copy_paste/samhsa_pep_no_copy_paste.lib';
 }
-
-
