@@ -5,72 +5,49 @@
  * Contains jbs_commerce_over_the_max_limit.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\commerce_order\Entity\Order;
-use Drupal\commerce_order\Entity\OrderInterface;
-use Drupal\profile\Entity\Profile;
-use Drupal\profile\Entity\ProfileInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\commerce\Context;
 use Drupal\commerce\PurchasableEntityInterface;
 use Drupal\commerce\Response\NeedsRedirectException;
+use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationInterface;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\views\Form\ViewsForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\commerce_cart\Event\CartEvents;
-use Drupal\commerce_cart\OrderItemMatcherInterface;
-use Drupal\commerce_cart\CartProviderInterface;
-use Drupal\commerce_cart\Event\CartEntityAddEvent;
-use Drupal\commerce_cart\Event\CartOrderItemUpdateEvent;
-use Drupal\commerce_order\Event\OrderEvents;
-use Drupal\commerce_order\Event\OrderItemEvent;
-use Drupal\commerce_order\AvailabilityCheckerInterface;
-use Drupal\commerce_order\AvailabilityResult;
-use Drupal\commerce_order\Entity\OrderItemInterface;
-use Drupal\commerce_price\Calculator;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\commerce_order\Entity\OrderItem;
-
 
 /**
  * Implements hook_help()
  */
 function jbs_commerce_over_the_max_limit_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
   switch ($route_name) {
     // Main module help for the jbs_commerce_extended_log module.
     case 'help.page.jbs_commerce_extended_log':
-      $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Extends the functionality of the commerce logging system') . '</p>';
-      return $output;
 
     default:
   }
+
+  return $output;
 }
 
 /**
  * Implements hook_entity_presave().
  */
-function jbs_commerce_over_the_max_limit_presave(EntityInterface $entity) {
+function jbs_commerce_over_the_max_limit_presave(EntityInterface $entity): void {
   // Check changes in the Order.
   if ($entity instanceof OrderInterface) {
     $transition_states = _jbs_commerce_over_the_max_limit_get_state_transition($entity);
     // If Order is transitioning states, no custom log is necessary.
     // That's because Commerce takes care of that.
-    if (
-      $transition_states->from != 'draft' &&
-      !$transition_states->trasitioning
-    ) {
+    if ($transition_states->from !== 'draft' && !$transition_states->trasitioning) {
 
     }
   }
@@ -88,7 +65,7 @@ function jbs_commerce_over_the_max_limit_presave(EntityInterface $entity) {
  * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
  * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
  */
-function _jbs_commerce_over_the_max_limit_get_order_from_profile($profile_id) {
+function _jbs_commerce_over_the_max_limit_get_order_from_profile($profile_id): Order {
   $results = \Drupal::entityTypeManager()
     ->getStorage('commerce_order')
     ->loadByProperties(['billing_profile__target_id' => $profile_id]);
@@ -106,82 +83,65 @@ function _jbs_commerce_over_the_max_limit_get_order_from_profile($profile_id) {
  *   The new state;
  *   The original and new state of the transition, formatted as "from-to".
  */
-function _jbs_commerce_over_the_max_limit_get_state_transition(Order $order) {
+function _jbs_commerce_over_the_max_limit_get_state_transition(Order $order): stdClass {
   $result = new stdClass();
   $state = $order->getState();
   $result->from = $state->getOriginalId();
   $result->to = $state->getString();
   $result->fromTo = sprintf('%s-%s', $result->from, $result->to);
-  $result->trasitioning = ($result->from  == $result->to) ? FALSE : TRUE;
+  $result->trasitioning = ($result->from == $result->to) ? FALSE : TRUE;
   return $result;
 }
 
 /**
  * Implements hook_entity_presave().
  */
-function jbs_commerce_over_the_max_limit_commerce_order_presave(\Drupal\Core\Entity\EntityInterface $entity)
-{
-    /* when order is completed
-     * check if at least one item is over the max limit
-     * set order type to bulk
-     */
-    //ksm($entity->get('checkout_step')->value);
-    $original = $entity->original;
-    $state_original = '';
-    if (isset($original)) {
-        $state_original = $original->get('state')->value;
-    }
-    //only set onhold state (is bulk) when order first gets created
-    if($entity->get('checkout_step')->value == 'complete' && $state_original == "draft" ||
-        //for internally created oders
-        $entity->get('checkout_step')->value == null && $state_original == "draft" && $entity->getState()->value == "pending"){
-        $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isOrderBulk($entity);
-        $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
-        $entity->get('type')->__set('target_id', $order_type);
-        $state = $isbulk ? 'onhold' : 'pending';
-        $entity->set('state',$state);
-    }
-//  if ($isbulk=TRUE) {
-//    $response = new RedirectResponse('/cart');
-//    $response->send();
-//          if ($show_warnings) {
-//            $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
-//            $message_text = Xss::filter($msg);
-//            \Drupal::messenger()->addError(t($message_text));
-//          }
-    //      $order_over_limit = TRUE;
-//  }
-//  return $order_over_limit;
+function jbs_commerce_over_the_max_limit_commerce_order_presave(EntityInterface $entity): void {
+  /* when order is completed
+   * check if at least one item is over the max limit
+   * set order type to bulk
+   */
+  $original = $entity->original;
+  $state_original = '';
+  if (isset($original)) {
+    $state_original = $original->get('state')->value;
+  }
+  //only set onhold state (is bulk) when order first gets created
+  if (($entity->get('checkout_step')->value === 'complete' && $state_original === "draft") || //for internally created oders
+    ($entity->get('checkout_step')->value == NULL && $state_original === "draft" && $entity->getState()->value === "pending")) {
+    $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')
+      ->isOrderBulk($entity);
+    $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
+    $entity->get('type')->__set('target_id', $order_type);
+    $state = $isbulk ? 'onhold' : 'pending';
+    $entity->set('state', $state);
+  }
 }
 
 /**
  * Implements hook_entity_presave().
  */
-function jbs_commerce_over_the_max_limit_commerce_order_item_presave(\Drupal\Core\Entity\EntityInterface $entity)
-{
+function jbs_commerce_over_the_max_limit_commerce_order_item_presave(EntityInterface $entity): void {
   /* when order is completed
    * check if at order item is over the max limit
    * mark commerce order item as over the limit
    */
-  $item  = $entity;
+  $item = $entity;
   $order = $entity->getOrder();
-//  $show_warnings = TRUE;
-//  $order_over_limit = FALSE;
   //only set over the limit when order first gets created
   if ($order) {
     $state = $order->getState()->getValue()['value'];
-//    if ($state == 'draft') {
-      //set requested qty field
-      $entity->set('field_requested_quantity', $item->getQuantity());
-//    }
+    $entity->set('field_requested_quantity', $item->getQuantity());
     $over_the_limit = $entity->get('field_is_over_the_limit')->value;
-    $isItemOverTheLimit = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')->isItemOverTheMaxLimit($item);
+    $isItemOverTheLimit = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')
+      ->isItemOverTheMaxLimit($item);
     if (isset($over_the_limit)) {
       if ($over_the_limit != '1') {
         $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
       }
       else {
-        if (\Drupal::currentUser()->hasPermission('overwite order item over the limit flag')) {
+        if (\Drupal::currentUser()
+          ->hasPermission('overwite order item over the limit flag')) {
           $entity->set('field_is_over_the_limit', $isItemOverTheLimit);
         }
       }
@@ -204,15 +164,10 @@ function jbs_commerce_over_the_max_limit_commerce_order_item_presave(\Drupal\Cor
 /**
  * Implements hook_form_alter().
  */
-function jbs_commerce_over_the_max_limit_form_alter(
-  &$form,
-  FormStateInterface $form_state,
-  $form_id
-) {
+function jbs_commerce_over_the_max_limit_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
 
   // Add to cart form.
-  if (strpos($form_id, "commerce_order_item_add_to_cart_form") !== FALSE
-    || strpos($form_id, "commerce_order_item_dc_ajax_add_cart_form") !== FALSE) {
+  if (strpos($form_id, "commerce_order_item_add_to_cart_form") !== FALSE || strpos($form_id, "commerce_order_item_dc_ajax_add_cart_form") !== FALSE) {
     // Get the product variation.
     $selected_variation_id = $form_state->get('selected_variation');
     if (!empty($selected_variation_id)) {
@@ -236,21 +191,6 @@ function jbs_commerce_over_the_max_limit_form_alter(
       $maxlimit_field = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
         ->get('maxlimit_element', 'field_qty_max_order');
       $maxlimit = $product->get($maxlimit_field)->getValue()[0]['value'];
-//      $maxlimit = $product->get($maxlimit_field);
-//      $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
-      // Check if item is over the limit.
-//      $overlimit = jbs_commerce_over_the_max_limit_item_over_limit($selected_variation, 1, $context);
-//      if ($overlimit) {
-//        $form['quantity']['widget'][0]['value']['#attributes']['class'][] = 'errortest';
-//        $form['actions']['submit']['#value'] = t('Over the limit');
-//        $form['actions']['submit']['#value'] = t($maxlimit);
-//        $form['actions']['submit']['#disabled'] = TRUE;
-
-        // If quantity is visible.
-//        if (isset($form['quantity'])) {
-//          $form['quantity']['#disabled'] = TRUE;
-//        }
-//      }
     }
   }
 
@@ -259,7 +199,7 @@ function jbs_commerce_over_the_max_limit_form_alter(
     /** @var \Drupal\views\ViewExecutable $view */
     $view = reset($form_state->getBuildInfo()['args']);
     // Only add the Checkout button if the cart form view has order items.
-    if ($view->storage->get('tag') == 'commerce_cart_form' && !empty($view->result)) {
+    if ($view->storage->get('tag') === 'commerce_cart_form' && !empty($view->result)) {
       // Get the order ID from the view argument.
       $order_id = $view->args[0];
       /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
@@ -267,9 +207,11 @@ function jbs_commerce_over_the_max_limit_form_alter(
         ->getStorage('commerce_order')
         ->load($order_id);
       // Force a check to display the stock state to the user.
-      $request_method = \Drupal::requestStack()->getCurrentRequest()->getMethod();
+      $request_method = \Drupal::requestStack()
+        ->getCurrentRequest()
+        ->getMethod();
       // If a GET e.g. not a submit/post.
-      if ($request_method == 'GET') {
+      if ($request_method === 'GET') {
         // Perform a check to display the max limit to the user.
         // CAREY TODO - Maybe need to change from True to False
         jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE);
@@ -281,13 +223,13 @@ function jbs_commerce_over_the_max_limit_form_alter(
 
   // Checkout.
   if (strpos($form_id, "commerce_checkout_flow") !== FALSE && $form_state->getFormObject()
-    ->getBaseFormId() == 'commerce_checkout_flow') {
+      ->getBaseFormId() === 'commerce_checkout_flow') {
     /** @var Drupal\Core\Form\FormInterface $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
     $order = $form_object->getOrder();
-    if ($form['#step_id'] != 'complete' && jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
-//      // Redirect back to cart.
+    if ($form['#step_id'] !== 'complete' && jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
+      //      // Redirect back to cart.
       $response = new RedirectResponse('/cart');
       $response->send();
     }
@@ -296,25 +238,20 @@ function jbs_commerce_over_the_max_limit_form_alter(
   }
 }
 
-
 ////////// UTILITY FUNCTIONS //////////
 
 // Get the max limit
 
 /**
  *
- * @param Drupal\commerce_order\Entity\OrderItem $item
- * @param Drupal\commerce_product\Entity\ProductVariation $item
- * @param \Drupal\commerce_order\Entity\OrderInterface $order
- *
+ * @param \Drupal\commerce\PurchasableEntityInterface $purchased_entity
  *
  * @return string
- *
  */
 
-
-function jbs_commerce_over_the_max_limit_get_maxlimit(PurchasableEntityInterface $purchased_entity) {
-  $product_id = $purchased_entity->get('product_id')->getValue()[0]['target_id'];
+function jbs_commerce_over_the_max_limit_get_maxlimit(PurchasableEntityInterface $purchased_entity): string {
+  $product_id = $purchased_entity->get('product_id')
+    ->getValue()[0]['target_id'];
   $product = Product::load($product_id);
   $maxlimit_field = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
     ->get('maxlimit_element', 'field_qty_max_order');
@@ -322,11 +259,11 @@ function jbs_commerce_over_the_max_limit_get_maxlimit(PurchasableEntityInterface
 
   return $maxlimit;
 }
+
 /**
  * Check if the PurchasableEntity is over the limit.
  *
- * @param \Drupal\commerce\PurchasableEntityInterface $entity
- *   The purchasable entity.
+ * @param \Drupal\commerce\PurchasableEntityInterface $purchased_entity
  * @param int $quantity
  *   The quantity.
  * @param \Drupal\commerce\Context $context
@@ -336,11 +273,7 @@ function jbs_commerce_over_the_max_limit_get_maxlimit(PurchasableEntityInterface
  *   True if entity is over the limit, FALSE otherwise.
  */
 // From function function jbs_commerce_over_the_max_limit_check(
-function jbs_commerce_over_the_max_limit_item_over_limit(
-  PurchasableEntityInterface $purchased_entity,
-  $quantity,
-  Context $context
-): bool {
+function jbs_commerce_over_the_max_limit_item_over_limit(PurchasableEntityInterface $purchased_entity, $quantity, Context $context): bool {
   if (empty($quantity)) {
     $quantity = 1;
   }
@@ -351,8 +284,8 @@ function jbs_commerce_over_the_max_limit_item_over_limit(
 /**
  * Check if order is is over the limit.
  *
- * If order contains products that are is over the limit, then error messages will be
- * generated and the user redirected to the cart page.
+ * If order contains products that are is over the limit, then error messages
+ * will be generated and the user redirected to the cart page.
  *
  * @param \Drupal\commerce_order\Entity\OrderInterface $order
  *   The order.
@@ -366,10 +299,7 @@ function jbs_commerce_over_the_max_limit_item_over_limit(
  * if all purchasable entities are in stock. Factor out the warnings part.
  */
 // From function jbs_commerce_over_the_max_limit_order_over_limit(
-function jbs_commerce_over_the_max_limit_order_over_limit(
-  OrderInterface $order,
-  $show_warnings = TRUE
-) {
+function jbs_commerce_over_the_max_limit_order_over_limit(OrderInterface $order, $show_warnings = TRUE): bool {
   /** @var Drupal\commerce_store\Entity\StoreInterface $order_store */
   $order_store = $order->getStore();
   /** @var Drupal\user\UserInterface $order_user */
@@ -400,7 +330,6 @@ function jbs_commerce_over_the_max_limit_order_over_limit(
   return $order_over_limit;
 }
 
-
 /**
  * Get the context for the provided Purchasable Entity.
  *
@@ -413,9 +342,7 @@ function jbs_commerce_over_the_max_limit_order_over_limit(
  * @see \Drupal\commerce_stock\ContextCreatorTrait::getContextDetails()
  * @see \Drupal\commerce_cart\Form\AddToCartForm::selectStore()
  */
-function jbs_commerce_over_the_max_limit_get_context(
-  PurchasableEntityInterface $entity
-) {
+function jbs_commerce_over_the_max_limit_get_context(PurchasableEntityInterface $entity): Context {
   // @todo - think about using selectStore() in commerce_cart.module.
   $store_to_use = \Drupal::service('commerce_store.current_store')->getStore();
   $current_user = \Drupal::currentUser();
@@ -453,15 +380,11 @@ function jbs_commerce_over_the_max_limit_get_context(
  * @return int
  *   The ordered quantity.
  */
-function jbs_commerce_over_the_max_limit_get_ordered_quantity(
-  PurchasableEntityInterface $entity,
-  Context $context
-) {
+function jbs_commerce_over_the_max_limit_get_ordered_quantity(PurchasableEntityInterface $entity, Context $context): int {
   // Get the already ordered quantity.
   $already_ordered = 0;
   // Get all the carts.
-  $all_carts = \Drupal::service('commerce_cart.cart_provider')
-    ->getCarts();
+  $all_carts = \Drupal::service('commerce_cart.cart_provider')->getCarts();
   // Cycle all the carts to get the total stock already ordered.
   // It is unlikely that a product will be in more then one cart, but it is
   // probably safer to check.
@@ -476,8 +399,6 @@ function jbs_commerce_over_the_max_limit_get_ordered_quantity(
   return $already_ordered;
 }
 
-
-
 ////// VALIDATION FUNCTIONS ////////
 
 /// ADD TO CART FORM SUBMIT VALIDATION ///
@@ -489,10 +410,7 @@ function jbs_commerce_over_the_max_limit_get_ordered_quantity(
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
-function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
-  array $form,
-  FormStateInterface $form_state
-) {
+function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(array $form, FormStateInterface $form_state): void {
   // Get add to cart quantity.
   $values = $form_state->getValues();
   if (isset($values['quantity'])) {
@@ -534,12 +452,8 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
   $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
   $message_text = Xss::filter($msg);
   $message = t($message_text);
-  $form_state->setError(
-    $form['quantity']['widget'][0]['value'],
-    $message
-  );
+  $form_state->setError($form['quantity']['widget'][0]['value'], $message);
 }
-
 
 /// CART PAGE FORM SUBMIT VALIDATION ///
 /**
@@ -552,10 +466,7 @@ function jbs_commerce_over_the_max_limit_add_to_cart_form_validate(
  *
  * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
  */
-function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
-  array $form,
-  FormStateInterface $form_state
-) {
+function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(array $form, FormStateInterface $form_state): void {
   $triggering_element = $form_state->getTriggeringElement();
   // If triggered by a line item delete.
   if (isset($triggering_element['#remove_order_item']) && $triggering_element['#remove_order_item']) {
@@ -598,19 +509,15 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
     $maxlimit = jbs_commerce_over_the_max_limit_get_maxlimit($purchased_entity);
     // Get the already ordered quantity.
     // KEEP EVERYTHING ABOUT ALREADY ORDERED FOR LATER
-//    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
+    //    $already_ordered = jbs_commerce_over_the_max_limit_get_ordered_quantity($purchased_entity, $context);
 
     if ($qty > $maxlimit) {
       $msg = t('Your order exceeds the maximum order limit. Please revise your order.');
       $message_text = Xss::filter($msg);
-      $form_state->setError(
-        $form['edit_quantity'][$id],
-        t($message_text)
-      );
+      $form_state->setError($form['edit_quantity'][$id], t($message_text));
     }
   }
 }
-
 
 /// CHECKOUT FORM SUBMIT VALIDATION ///
 /**
@@ -623,10 +530,7 @@ function jbs_commerce_over_the_max_limit_cart_order_item_views_form_validate(
  *
  * @throws \Drupal\commerce\Response\NeedsRedirectException
  */
-function jbs_commerce_over_the_max_limit_checkout_form_validate(
-  array $form,
-  FormStateInterface $form_state
-) {
+function jbs_commerce_over_the_max_limit_checkout_form_validate(array $form, FormStateInterface $form_state): void {
   $triggering_element = $form_state->getTriggeringElement();
 
   /** @var Drupal\Core\Form\FormInterface $form_object */
@@ -634,7 +538,6 @@ function jbs_commerce_over_the_max_limit_checkout_form_validate(
 
   /** @var \Drupal\commerce_order\Entity\OrderInterface $order */
   $order = $form_object->getOrder();
-
 
   if (jbs_commerce_over_the_max_limit_order_over_limit($order, TRUE)) {
     $cart_page = Url::fromRoute('commerce_cart.page', [], ['absolute' => TRUE]);

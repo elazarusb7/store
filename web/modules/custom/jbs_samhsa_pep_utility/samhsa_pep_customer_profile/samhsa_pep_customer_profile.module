@@ -1,160 +1,137 @@
 <?php
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_entity_bundle_field_info_alter().
  */
 
-function samhsa_pep_customer_profile_entity_bundle_field_info_alter(
-    array &$fields,
-    EntityTypeInterface $entity_type,
-    $bundle
-) {
+function samhsa_pep_customer_profile_entity_bundle_field_info_alter(array &$fields, EntityTypeInterface $entity_type, $bundle): void {
   if ($bundle === 'customer') {
-      $moduleHandler = \Drupal::service('module_handler');
-      if ($moduleHandler->moduleExists('samhsa_pep_utility')) {
-        if (isset($fields['field_phone_number'])) {
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('samhsa_pep_utility')) {
+      if (isset($fields['field_phone_number'])) {
 
-            if (\Drupal::currentUser()->hasPermission('create internal order')) {
-                $fields['field_phone_number']->addConstraint('PhoneNumberConstraint', ['max' => '15']);
-            } else {
-                $fields['field_phone_number']->addConstraint('PhoneNumberConstraint', ['max' => '10']);
-            }
+        if (\Drupal::currentUser()->hasPermission('create internal order')) {
+          $fields['field_phone_number']->addConstraint('PhoneNumberConstraint', ['max' => '15']);
         }
-        if (isset($fields['field_phone_extension'])) {
-            $fields['field_phone_extension']->addConstraint('PhoneExtensionConstraint', []);
+        else {
+          $fields['field_phone_number']->addConstraint('PhoneNumberConstraint', ['max' => '10']);
         }
       }
+      if (isset($fields['field_phone_extension'])) {
+        $fields['field_phone_extension']->addConstraint('PhoneExtensionConstraint', []);
+      }
+    }
   }
 }
 
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-    if($form_id == 'user_form' || $form_id == 'user_register_form'){
-        $form['#validate'][] = '_user_form_email_validate';
-    }
+function samhsa_pep_customer_profile_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id): void {
+  if ($form_id === 'user_form' || $form_id === 'user_register_form') {
+    $form['#validate'][] = '_user_form_email_validate';
+  }
 
-    if($form_id == 'commerce_checkout_flow_multistep_default' && $form['#step_id'] == 'order_information'){
-        $form['#validate'][] = '_order_information_form_validate';
-    }
+  if ($form_id === 'commerce_checkout_flow_multistep_default' && $form['#step_id'] === 'order_information') {
+    $form['#validate'][] = '_order_information_form_validate';
+  }
 
-    if ($form_id == 'commerce_checkout_flow_multistep_default' && $form['#step_id'] == 'complete'){
-        $form['#validate'][] = '_order_information_form_complete_validate';
-    }
+  if ($form_id === 'commerce_checkout_flow_multistep_default' && $form['#step_id'] === 'complete') {
+    $form['#validate'][] = '_order_information_form_complete_validate';
+  }
 
-    if($form['#theme'] == "commerce_order_edit_form" &&
-        strpos($form_id, "commerce_order_") !== FALSE &&
-        strpos($form_id, "_edit_form") !== FALSE ) {
-        $form['#validate'][] = '_profile_form_validate';
-    }
+  if ($form['#theme'] === "commerce_order_edit_form" && strpos($form_id, "commerce_order_") !== FALSE && strpos($form_id, "_edit_form") !== FALSE) {
+    $form['#validate'][] = '_profile_form_validate';
+  }
 
-    if($form_id == 'commerce_checkout_flow_multistep_default') {
-        switch ($form['#step_id']){
-            case 'review':
-                //add return to browsing link
-                $links = [];
-                $links[] = [
-                    '#prefix' => "<span class = \"link--front\">",
-                    '#suffix' => "</span>",
-                    '#type' => 'link',
-                    '#title' => t('Return to browsing'),
-                    '#url' => \Drupal\Core\Url::fromRoute('<front>'),
-                ];
-                //change weight of the action buttons
-                $form['actions']['return_to_browsing_button'] = $links;
+  if ($form_id === 'commerce_checkout_flow_multistep_default') {
+    switch ($form['#step_id']) {
+      case 'review':
+        //add return to browsing link
+        $links = [];
+        $links[] = [
+          '#prefix' => "<span class = \"link--front\">",
+          '#suffix' => "</span>",
+          '#type' => 'link',
+          '#title' => t('Return to browsing'),
+          '#url' => Url::fromRoute('<front>'),
+        ];
+        //change weight of the action buttons
+        $form['actions']['return_to_browsing_button'] = $links;
 
-                $form['actions']['return_to_browsing_button']['#weight'] = 10;
-                $form['actions']['return_to_browsing_button']['#prefix'] = '<br />';
-                if(isset($form['actions']['next']['submit'])) {
-                    $form['actions']['next']['submit'] = '<div class="cart--buttons">';
-                    $form['actions']['next']['submit']['#weight'] = 5;
-                    $form['actions']['return_to_browsing_button']['#suffix'] = '</div>';
-                }
-                break;
-            case 'order_information':
-                $shipping_method = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'];
-                if($shipping_method && !is_string($shipping_method)) {
-		   $arg = $shipping_method->__toString();
-		   $arg_explode = explode(':', $arg);
-		   //$arg = $shipping_method->getArguments();
-                   $options = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options'];
-                   if (count($options) == 1) {
-                        //ksm($form['shipping_information']['shipping_profile']['rendered']['#profile']);
-                        $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#required'] = FALSE;
-                        $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#default_value'] = '1--default';
-                        $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'] =
-                            t('%service, %shipping_time', [
-                                '%service' => $arg_explode[0],
-                                '%shipping_time' => Markup::create('<strong>3-4 weeks shipping time</strong>'),
-                            ]);
-                    }
-                }
-
-                //add go back to your cart
-                $links1 = [];
-                $links1[] = [
-                    '#prefix' => "<span class = \"link--front\">",
-                    '#suffix' => "</span>",
-                    '#type' => 'link',
-                    '#title' => t('Go back to Your Cart'),
-                    //'#attributes' => array('onclick' => 'if(!confirm("If you leave this page, any information you entered on this page will not be stored. Please click on OK if you still want to continue.")){return false;}'),
-                    '#url' => \Drupal\Core\Url::fromRoute('commerce_cart.page'),
-                ];
-                //add return to browsing link
-                $links = [];
-                $links[] = [
-                    '#prefix' => "<span class = \"link--front\">",
-                    '#suffix' => "</span>",
-                    '#type' => 'link',
-                    '#title' => t('Return to browsing'),
-                    //'#attributes' => array('onclick' => 'if(!confirm("If you leave this page, any information you entered on this page will not be stored. Please click on OK if you still want to continue.")){return false;}'),
-                    '#url' => \Drupal\Core\Url::fromRoute('<front>'),
-                ];
-                //change weight of the action buttons
-                $form['actions']['return_to_browsing_button'] = $links;
-                //$form['actions']['go_back_to_your_cart'] = $links1;
-                //$form['actions']['go_back_to_your_cart']['#prefix'] = '<div class="cart--buttons">';
-                //$form['actions']['go_back_to_your_cart']['#weight'] = -100;
-                //$form['actions']['step']['submit']['#weight'] = 5;
-                //$form['actions']['return_to_browsing_button']['#weight'] = 10;
-                //$form['actions']['return_to_browsing_button']['#prefix'] = '<br />';
-                //$form['actions']['return_to_browsing_button']['#suffix'] = '</div>';
-
-                $form['#validate'][] = '_profile_form_validate';
-
-                break;
-            case 'complete':
-              $form['#validate'][] = '_profile_form_validate';
-              break;
+        $form['actions']['return_to_browsing_button']['#weight'] = 10;
+        $form['actions']['return_to_browsing_button']['#prefix'] = '<br />';
+        if (isset($form['actions']['next']['submit'])) {
+          $form['actions']['next']['submit'] = '<div class="cart--buttons">';
+          $form['actions']['next']['submit']['#weight'] = 5;
+          $form['actions']['return_to_browsing_button']['#suffix'] = '</div>';
+        }
+        break;
+      case 'order_information':
+        $shipping_method = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'];
+        if ($shipping_method && !is_string($shipping_method)) {
+          $arg = $shipping_method->__toString();
+          $arg_explode = explode(':', $arg);
+          //$arg = $shipping_method->getArguments();
+          $options = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options'];
+          if (count($options) == 1) {
+            //ksm($form['shipping_information']['shipping_profile']['rendered']['#profile']);
+            $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#required'] = FALSE;
+            $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#default_value'] = '1--default';
+            $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'] = t('%service, %shipping_time', [
+              '%service' => $arg_explode[0],
+              '%shipping_time' => Markup::create('<strong>3-4 weeks shipping time</strong>'),
+            ]);
+          }
         }
 
+        //add return to browsing link
+        $links = [];
+        $links[] = [
+          '#prefix' => "<span class = \"link--front\">",
+          '#suffix' => "</span>",
+          '#type' => 'link',
+          '#title' => t('Return to browsing'),
+          //'#attributes' => array('onclick' => 'if(!confirm("If you leave this page, any information you entered on this page will not be stored. Please click on OK if you still want to continue.")){return false;}'),
+          '#url' => Url::fromRoute('<front>'),
+        ];
+        //change weight of the action buttons
+        $form['actions']['return_to_browsing_button'] = $links;
+        $form['#validate'][] = '_profile_form_validate';
+
+        break;
+      case 'complete':
+        $form['#validate'][] = '_profile_form_validate';
+        break;
     }
-    elseif ($form_id == 'user_register_form') {
-      $form['#validate'][] = '_profile_form_validate';
-    }
+
+  }
+  elseif ($form_id === 'user_register_form') {
+    $form['#validate'][] = '_profile_form_validate';
+  }
 }
 
 //_user_form_email_validate
 /*
  * validate completion_register form
  */
-function _user_form_email_validate(&$form, FormStateInterface $form_state) {
-    $mail = $form_state->getValue('mail');
-    // Check if email is valid.
-    if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-        $form_state->setErrorByName('mail', t('Email is not valid.'));
-    }
+function _user_form_email_validate(&$form, FormStateInterface $form_state): void {
+  $mail = $form_state->getValue('mail');
+  // Check if email is valid.
+  if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+    $form_state->setErrorByName('mail', t('Email is not valid.'));
+  }
 }
 
 /*
  * validate order_information checkout form
  */
-function _order_information_form_validate(&$form, FormStateInterface $form_state) {
+function _order_information_form_validate(&$form, FormStateInterface $form_state): void {
   $contact_information = $form_state->getValue('contact_information');
   if ($contact_information) {
     // Check if email is valid.
@@ -171,88 +148,88 @@ function _order_information_form_validate(&$form, FormStateInterface $form_state
 /*
  * validate completion_register form
  */
-function _order_information_form_complete_validate(&$form, FormStateInterface $form_state) {
-    $completion_register = $form_state->getValue('completion_register');
-    // Check if email account is valid.
-    if (!filter_var($completion_register['name'], FILTER_VALIDATE_EMAIL)) {
-        $form_state->setErrorByName('completion_register][name', t('Email account is not valid.'));
-    }
+function _order_information_form_complete_validate(&$form, FormStateInterface $form_state): void {
+  $completion_register = $form_state->getValue('completion_register');
+  // Check if email account is valid.
+  if (!filter_var($completion_register['name'], FILTER_VALIDATE_EMAIL)) {
+    $form_state->setErrorByName('completion_register][name', t('Email account is not valid.'));
+  }
 }
 
 /*
  * validate profile form validation
  */
-function _profile_form_validate(&$form, FormStateInterface $form_state) {
-    $errors_to_unset = array();
-    if ($errors = $form_state->getErrors()) {
-        // Now loop through and get all errors for the zip code field.
-        foreach ($errors as $name => $error_message) {
-            if (!is_string($error_message) && $error_message->getArguments()){
-                if(is_array($error_message->getArguments()) && isset($error_message->getArguments()['@name'])) {
-                    if ($error_message->getArguments()['@name'] == "Zip code") {
-                        $errors_to_unset[] = $name;
-                    }
-                }
-            }
+function _profile_form_validate(&$form, FormStateInterface $form_state): void {
+  $errors_to_unset = [];
+  if ($errors = $form_state->getErrors()) {
+    // Now loop through and get all errors for the zip code field.
+    foreach ($errors as $name => $error_message) {
+      if (!is_string($error_message) && $error_message->getArguments()) {
+        if (is_array($error_message->getArguments()) && isset($error_message->getArguments()['@name'])) {
+          if ($error_message->getArguments()['@name'] === "Zip code") {
+            $errors_to_unset[] = $name;
+          }
         }
-
-        // Clear the form errors.
-        $form_state->clearErrors();
-        foreach ($errors_to_unset as $name) {
-            unset($errors[$name]);
-        }
-
-        // Now loop through and re-apply the remaining form error messages.
-        foreach ($errors as $name => $error_message) {
-            $form_state->setErrorByName($name, $error_message);
-        }
-        foreach ($errors_to_unset as $name) {
-            // Add or custom message for the zip field
-            $form_state->setErrorByName($name, t('Zip code is not valid for the selected State/Territory.'));
-
-        }
+      }
     }
+
+    // Clear the form errors.
+    $form_state->clearErrors();
+    foreach ($errors_to_unset as $name) {
+      unset($errors[$name]);
+    }
+
+    // Now loop through and re-apply the remaining form error messages.
+    foreach ($errors as $name => $error_message) {
+      $form_state->setErrorByName($name, $error_message);
+    }
+    foreach ($errors_to_unset as $name) {
+      // Add or custom message for the zip field
+      $form_state->setErrorByName($name, t('Zip code is not valid for the selected State/Territory.'));
+
+    }
+  }
 }
+
 /**
  * Implements hook_preprocess_field().
  */
-function samhsa_pep_customer_profile_preprocess_field(&$variables) {
-    if ($variables['element']['#field_name'] == 'field_phone_number') {
-        $unformatted_phone = $variables['items'][0]['content']['#context']['value'];
-        if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
+function samhsa_pep_customer_profile_preprocess_field(&$variables): void {
+  if ($variables['element']['#field_name'] === 'field_phone_number') {
+    $unformatted_phone = $variables['items'][0]['content']['#context']['value'];
+    if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
 
-            $formatted_phone = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->format_phone_string($unformatted_phone);
+      $formatted_phone = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
+        ->format_phone_string($unformatted_phone);
 
-            $variables['items'][0]['content']['#context']['value'] = $formatted_phone;
-        }
+      $variables['items'][0]['content']['#context']['value'] = $formatted_phone;
     }
+  }
 }
 
 /**
  * Implements hook_page_attachments().
  */
-function samhsa_pep_customer_profile_page_attachments(array &$attachments) {
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    $step = \Drupal::routeMatch()->getParameter('step');
+function samhsa_pep_customer_profile_page_attachments(array &$attachments): void {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $step = \Drupal::routeMatch()->getParameter('step');
 
-    $attachments['#attached']['library'][] = 'samhsa_pep_customer_profile/samhsa_pep_shipping_method.lib';
-    if($route_name == "commerce_checkout.form" && $step == "order_information") {
-        $attachments['#attached']['library'][] = 'samhsa_pep_customer_profile/samhsa_pep_checkout_warning.lib';
-    }
+  $attachments['#attached']['library'][] = 'samhsa_pep_customer_profile/samhsa_pep_shipping_method.lib';
+  if ($route_name === "commerce_checkout.form" && $step === "order_information") {
+    $attachments['#attached']['library'][] = 'samhsa_pep_customer_profile/samhsa_pep_checkout_warning.lib';
+  }
 }
 
 /**
  * Implements hook_page_attachments().
  */
-function samhsa_pep_customer_profile_name_page_attachments(array &$page) {
-    $xuacompatible = [
-        '#tag' => 'meta',
-        '#attributes' => [
-            'http-equiv' => 'x-ua-compatible',
-            'content' => 'ie=edge',
-        ],
-    ];
-    $page['#attached']['html_head'][] = [$xuacompatible, 'x-ua-compatible'];
+function samhsa_pep_customer_profile_name_page_attachments(array &$page): void {
+  $xuacompatible = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'http-equiv' => 'x-ua-compatible',
+      'content' => 'ie=edge',
+    ],
+  ];
+  $page['#attached']['html_head'][] = [$xuacompatible, 'x-ua-compatible'];
 }
-
-

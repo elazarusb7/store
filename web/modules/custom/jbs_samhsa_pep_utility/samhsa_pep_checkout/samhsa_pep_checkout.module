@@ -1,15 +1,14 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Field\FieldFilteredMarkup;
+
 
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter(
-  &$form,
-  \Drupal\Core\Form\FormStateInterface $form_state,
-  $form_id
-) {
-  if ($form['#step_id'] =='order_information') {
+function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  if ($form['#step_id'] == 'order_information') {
     $form['message_top'] = [
       '#type' => 'markup',
       '#markup' => '<p aria-hidden="true">Fields marked with <span class="form-required--asterisk"></span> are required.</p>',
@@ -24,31 +23,34 @@ function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter
     }
 
     // BK SPD-681
-    $text = \Drupal\Core\Field\FieldFilteredMarkup::create('Format: 1234567890');
+    $text = FieldFilteredMarkup::create('Format: 1234567890');
     $form['shipping_information']['shipping_profile']['field_phone_number']['widget'][0]['value']['#description'] = $text;
     $form['payment_information']['billing_information']['field_phone_number']['widget'][0]['value']['#description'] = $text;
   }
-  else if ($form['#step_id'] =='review') {
-    $form['review']['shipping_information']['#title'] = t('Shipping Information');
-    if (isset($form['review']['billing_information'])) {
-      $form['review']['payment_information']['#title'] = t('Contact Information');
+  else {
+    if ($form['#step_id'] == 'review') {
+      $form['review']['shipping_information']['#title'] = t('Shipping Information');
+      if (isset($form['review']['billing_information'])) {
+        $form['review']['payment_information']['#title'] = t('Contact Information');
+      }
+      if (isset($form['review']['contact_information'])) {
+        $form['review']['contact_information']['#title'] = t('Contact Email');
+      }
+      $form['actions']['next']['#value'] = t('Place order');
+      // unset($form['actions']['next']['#suffix']);
     }
-    if (isset($form['review']['contact_information'])) {
-      $form['review']['contact_information']['#title'] = t('Contact Email');
+    else {
+      if ($form['#step_id'] == 'complete') {
+        // BK SPD-681
+        $text = FieldFilteredMarkup::create('Format: 1234567890');
+        $form['completion_register']['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
+      }
     }
-    $form['actions']['next']['#value'] = t('Place order');
-    // unset($form['actions']['next']['#suffix']);
-  }
-  else if ($form['#step_id'] =='complete') {
-    // BK SPD-681
-    $text = \Drupal\Core\Field\FieldFilteredMarkup::create('Format: 1234567890');
-    $form['completion_register']['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
   }
   $form['customer_profiles']['widget'][0]['#type'] = 'container';
   $form['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';
-  if ($form['#step_id'] =='login') {
+  if ($form['#step_id'] == 'login') {
     $form['email_registration_login']['returning_customer']['submit']['#prefix'] = '<div class="form-actions">';
     $form['email_registration_login']['returning_customer']['forgot_password']['#suffix'] = '</div>';
   }
 }
-

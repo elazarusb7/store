@@ -3,107 +3,76 @@
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\samhsa_pep_cart\PepCartBlockPrerender;
-use Drupal\Core\Url;
-
+use Drupal\Core\Block\BlockPluginInterface;
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $form_id)
-{
-    //ksm($form_id);//commerce_order_item_add_to_cart_form_commerce_product_
-    if($form_id == 'commerce_add_to_cart' ||
-    strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
-        $pep_order_combine = \Drupal::config('samhsa_pep_cart.settings')
-            ->get('combine_pep_cart');
-        $form_state->set(['settings', 'combine'], $pep_order_combine);
-    }
+function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  //ksm($form_id);//commerce_order_item_add_to_cart_form_commerce_product_
+  if ($form_id == 'commerce_add_to_cart' || strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
+    $pep_order_combine = \Drupal::config('samhsa_pep_cart.settings')
+      ->get('combine_pep_cart');
+    $form_state->set(['settings', 'combine'], $pep_order_combine);
+  }
 
-    if(isset($form['edit_quantity'])){
-        $max_quantity = \Drupal::config('samhsa_pep_cart.settings')
-            ->get('max_quantity');
-        foreach($form['edit_quantity'] as $key => $qty){
-          if (is_array($form['edit_quantity'][$key])) {
-            $form['edit_quantity'][$key]['#max'] = $max_quantity;
-          }
-        }
+  if (isset($form['edit_quantity'])) {
+    $max_quantity = \Drupal::config('samhsa_pep_cart.settings')
+      ->get('max_quantity');
+    foreach ($form['edit_quantity'] as $key => $qty) {
+      if (is_array($form['edit_quantity'][$key])) {
+        $form['edit_quantity'][$key]['#max'] = $max_quantity;
+      }
     }
-    if (strpos($form_id, "views_form_commerce_cart_form_default") !== FALSE) {
-        //add return to browsing button
-        /*$form['actions']['return_to_browsing'] = array(
-            '#type' => 'submit',
-            //'#weight' => 999,
-            '#limit_validation_errors' => array() ,
-            '#button_type' => 'primary',
-            '#submit' => array(
-                '_cart_return_to_browsing'
-            ) ,
-            '#value' => t('Return to browsing') ,
-        );*/
-        //add return to browsing link
-        $links = [];
-        $links[] = [
-            '#prefix' => "<span class = \"link--front\">",
-            '#suffix' => "</span>",
-            '#type' => 'link',
-            '#title' => t('Return to browsing'),
-            '#url' => \Drupal\Core\Url::fromRoute('<front>'),
-        ];
-        $form['actions']['return_to_browsing_button'] = $links;
+  }
+  if (strpos($form_id, "views_form_commerce_cart_form_default") !== FALSE) {
+    //add return to browsing button
+    /*$form['actions']['return_to_browsing'] = array(
+        '#type' => 'submit',
+        //'#weight' => 999,
+        '#limit_validation_errors' => array() ,
+        '#button_type' => 'primary',
+        '#submit' => array(
+            '_cart_return_to_browsing'
+        ) ,
+        '#value' => t('Return to browsing') ,
+    );*/
+    //add return to browsing link
+    $links = [];
+    $links[] = [
+      '#prefix' => "<span class = \"link--front\">",
+      '#suffix' => "</span>",
+      '#type' => 'link',
+      '#title' => t('Return to browsing'),
+      '#url' => Url::fromRoute('<front>'),
+    ];
+    $form['actions']['return_to_browsing_button'] = $links;
 
-        //change weight of the checkout action button
-        $form['actions']['return_to_browsing_button']['#weight'] = -10;
-        $form['actions']['return_to_browsing_button']['#prefix'] = '<div class="cart--buttons">';
-        $form['actions']['checkout']['#weight'] = -1;
-        $form['actions']['submit']['#weight'] = -5;
+    //change weight of the checkout action button
+    $form['actions']['return_to_browsing_button']['#weight'] = -10;
+    $form['actions']['return_to_browsing_button']['#prefix'] = '<div class="cart--buttons">';
+    $form['actions']['checkout']['#weight'] = -1;
+    $form['actions']['submit']['#weight'] = -5;
 
-        $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p>';
-//      $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p><p  class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p>';
-    }
+    $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p>';
+    //      $form['actions']['checkout']['#suffix'] = '</div><p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p><p  class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p>';
+  }
 }
 
 function _cart_return_to_browsing(&$form, FormStateInterface $form_state) {
-    $url =  \Drupal\Core\Url::fromRoute('<front>');
-    $response = new RedirectResponse($url->toString());
-    $response->send();
+  $url = Url::fromRoute('<front>');
+  $response = new RedirectResponse($url->toString());
+  $response->send();
 }
 
 /**
  * Implements hook_block_view_alter().
  */
-function samhsa_pep_cart_block_view_alter(array &$build, \Drupal\Core\Block\BlockPluginInterface $block) {
-    if ($block->getBaseId() === 'commerce_cart') {
-        //$build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
-      $build['#pre_render'][] = [PepCartBlockPrerender::class, '_pep_cart_block_cart_prerender'];
-    }
+function samhsa_pep_cart_block_view_alter(array &$build, BlockPluginInterface $block): void {
+  if ($block->getBaseId() === 'commerce_cart') {
+    //$build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
+    $build['#pre_render'][] = [
+      PepCartBlockPrerender::class,
+      '_pep_cart_block_cart_prerender',
+    ];
+  }
 }
-
-/*
-function _samhsa_pep_cart_block_cart_prerender(array $build) {
-    $all_carts = \Drupal::service('commerce_cart.cart_provider')
-        ->getCarts();
-    if(is_array($all_carts) && count($all_carts) == 1 ) {
-        $all_carts = array_shift($all_carts);
-        $order_id = $all_carts->id();
-
-        $links = [];
-        $links[] = [
-            '#prefix' => "<span class = \"cart-link\">",
-            '#suffix' => "</span>",
-            '#type' => 'link',
-            '#title' => t('Shopping Cart'),
-            '#url' => Url::fromRoute('commerce_cart.page'),
-        ];
-        if (isset($order_id) && $order_id > 0) {
-            $links[] = [
-                '#prefix' => "<span class = \"checkout-link\">",
-                '#suffix' => "</span>",
-                '#type' => 'link',
-                '#title' => t('Checkout'),
-                '#url' => Url::fromRoute('commerce_checkout.form', ['commerce_order' => $order_id, 'step' => 'order_information']),
-            ];
-        }
-        $build['content']['#links'] = $links;
-    }
-    return $build;
-}
-*/

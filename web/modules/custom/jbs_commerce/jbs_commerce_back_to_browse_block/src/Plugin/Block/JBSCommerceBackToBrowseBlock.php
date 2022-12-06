@@ -3,12 +3,11 @@
 namespace Drupal\jbs_commerce_back_to_browse_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Config\Config;
 use Drupal\Core\Url;
 
-
 /**
- * Creates a custom block for showing a link back to the store homepage and a link to return to search results
+ * Creates a custom block for showing a link back to the store homepage and a
+ * link to return to search results
  *
  * @Block(
  *   id = "jbs_commerce_back_to_browse_block",
@@ -20,12 +19,12 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build()
-  {
-    $front_alias =  \Drupal\Core\Url::fromRoute('<front>')->toString();
-    $base_path = \Drupal::request()->getSchemeAndHttpHost();                     // ex. http://pep-b.pep
+  public function build() {
+    $front_alias = Url::fromRoute('<front>')->toString();
+    $base_path = \Drupal::request()
+      ->getSchemeAndHttpHost();                     // ex. http://pep-b.pep
     $check_referer = "";
-    if(isset(\Drupal::request()->query)) {
+    if (isset(\Drupal::request()->query)) {
       $check_referer = \Drupal::request()->query->get('referer');
     }
 
@@ -45,23 +44,24 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
         strpos($referer, $base_path . "/?search_api_fulltext=") !== FALSE ||
         strpos($referer, $base_path . "?f%5B0%5D") !== FALSE ) {
     */
-    if (strpos($referer, "f[0]=")                 !== FALSE ||  // faceted search
-        strpos($referer, "search_api_fulltext=")  !== FALSE ||  // search text
-        strpos($referer, "f%5B0%5D")              !== FALSE )   // ???
+    if (strpos($referer, "f[0]=") !== FALSE ||  // faceted search
+      strpos($referer, "search_api_fulltext=") !== FALSE ||  // search text
+      strpos($referer, "f%5B0%5D") !== FALSE)   // ???
     {
       $results_link = '
     <li class="menu-item return-btn">
       <a href="' . $referer . '">Return to Search Results</a>
     </li>';
-    } else {
+    }
+    else {
       $results_link = '';
     }
 
-    return array(
-      '#cache' => array(
-        'contexts' => array('url.path'),
+    return [
+      '#cache' => [
+        'contexts' => ['url.path'],
         'max-age' => 0,
-      ),
+      ],
       '#markup' => '
 <!-- BEGIN jbs_commerce_back_to_browse_block -->
 <nav class="text-menu" aria-labelledby="searchnav">
@@ -72,7 +72,7 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
   </ul>
 </nav>
 <!-- END jbs_commerce_back_to_browse_block -->',
-    );
+    ];
   }
 
 }
