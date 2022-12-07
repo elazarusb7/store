@@ -6,12 +6,12 @@
  */
 
 // @todo Check if Solr server is set to bring results from Solr.
-use Drupal\search_api\Plugin\views\query\SearchApiQuery;
-use Drupal\views\ViewExecutable;
-use Solarium\QueryType\Select\Result\Result;
-use Drupal\search_api\Query\ResultSetInterface;
-use Solarium\Core\Query\QueryInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\search_api\Plugin\views\query\SearchApiQuery;
+use Drupal\search_api\Query\ResultSetInterface;
+use Drupal\views\ViewExecutable;
+use Solarium\Core\Query\QueryInterface;
+use Solarium\QueryType\Select\Result\Result;
 use Symfony\Component\Yaml\Yaml;
 
 /**
