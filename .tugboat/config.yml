@@ -57,7 +57,7 @@ services:
         - cp "${TUGBOAT_ROOT}/.tugboat/php.ini" /usr/local/etc/php/conf.d/samhsa_store.ini
 
         # Create a Private file folder
-        - mkdir "${TUGBOAT_ROOT}/private" && chgrp -R www-data "${TUGBOAT_ROOT}/private"
+        - mkdir "${TUGBOAT_ROOT}/private" && chown www-data "${TUGBOAT_ROOT}/private" && chmod 755 "${TUGBOAT_ROOT}/private"
 
         - composer install
         -
