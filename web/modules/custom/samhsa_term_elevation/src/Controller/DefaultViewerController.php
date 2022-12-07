@@ -42,6 +42,9 @@ class DefaultViewerController extends EntityViewBuilder {
    * {@inheritdoc}
    */
   public function view(EntityInterface $entity, $view_mode = 'full', $langcode = NULL) {
+
+    // $build['include'] = $this->buildLinksToContentTable($entity->getIncluded(), $this->t('Elevated content'));
+    //    $build['exclude'] = $this->buildLinksToContentTable($entity->getExcluded(), $this->t('Excluded content'));
     $build['include_details'] = [
       '#type' => 'details',
       '#title' => $this->t('Elevated content'),

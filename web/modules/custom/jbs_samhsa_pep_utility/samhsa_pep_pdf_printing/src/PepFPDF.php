@@ -11,23 +11,38 @@ namespace Drupal\samhsa_pep_pdf_printing;
  */
 class PepFPDF extends \FPDF {
 
-  protected bool $NewPageGroup = FALSE;   // variable indicating whether a new group was requested
+  /**
+   * Variable indicating whether a new group was requested.
+   */
+  protected bool $NewPageGroup = FALSE;
 
-  protected array $PageGroups = [];   // variable containing the number of pages of the groups
+  /**
+   * Variable containing the number of pages of the groups.
+   */
+  protected array $PageGroups = [];
 
-  protected $CurrPageGroup;          // variable containing the alias of the current page group
+  /**
+   * Variable containing the alias of the current page group.
+   */
+  protected $CurrPageGroup;
 
-  // create a new page group; call this before calling AddPage()
+  /**
+   * Create a new page group; call this before calling AddPage()
+   */
   public function StartPageGroup() {
     $this->NewPageGroup = TRUE;
   }
 
-  // current page in the group
+  /**
+   * Current page in the group.
+   */
   public function GroupPageNo() {
     return $this->PageGroups[$this->CurrPageGroup];
   }
 
-  // alias of the current page group -- will be replaced by the total number of pages in this group
+  /**
+   * Alias of the current page group -- will be replaced by the total number of pages in this group.
+   */
   public function PageGroupAlias() {
     return $this->CurrPageGroup;
   }
@@ -125,30 +140,31 @@ class PepFPDF extends \FPDF {
   /**
    * Formats the long text into multiline cell.
    *
-   * @param number $c_width
+   * @param int $c_width
    *   Width of the Cell.
-   * @param number $c_height
-   *   Height of the Cell
+   * @param int $c_height
+   *   Height of the Cell.
    * @param number X
    *   SetX
-   * @param string $text to format
-   *   Text to format
-   * @param number $border
-   *  Indicates if borders must be drawn around the cell. The value can be
+   * @param string $text
+   *   to format
+   *   Text to format.
+   * @param int $border
+   *   Indicates if borders must be drawn around the cell. The value can be
    *   either a number:
    *      0: no border
    *      1: frame
    *      or a string containing some or all of the following characters (in
-   *   any order): L: left T: top R: right B: bottom
-   * @param number $ln
-   *   Indicates where the current position should go after the call
+   *   any order): L: left T: top R: right B: bottom.
+   * @param int $ln
+   *   Indicates where the current position should go after the call.
    * @param Char $align
    *   Allows to center or align the text. Possible values are:
    *      0: to the right
    *      1: to the beginning of the next line
-   *      2: below
+   *      2: below.
    * @param $fill
-   *  Indicates if the cell background must be painted (true) or transparent
+   *   Indicates if the cell background must be painted (true) or transparent
    *   (false). Default value: false.
    *
    * @return array
@@ -159,15 +175,17 @@ class PepFPDF extends \FPDF {
     $w_w_1 = $w_w + 2;
     $w_w1 = $w_w + $w_w + $w_w + 3;
     // $w_w2=$w_w+$w_w+$w_w+$w_w+3;// for 3 rows wrap
-    $len = strlen($text);// check the length of the cell and splits the text into $max_char_len character each and saves in a array
+    // check the length of the cell and splits the text into $max_char_len character each and saves in a array
+    $len = strlen($text);
     if ($len > $max_char_len) {
-      $w_text = str_split($text, $max_char_len);// splits the text into length of $max_char_len and saves in a array since we need wrap cell of two cell we took $w_text[0], $w_text[1] alone.
-      // if we need wrap cell of 3 row then we can go for    $w_text[0],$w_text[1],$w_text[2]
+      // Splits the text into length of $max_char_len and saves in a array since we need wrap cell of two cell we took $w_text[0], $w_text[1] alone.
+      $w_text = str_split($text, $max_char_len);
+      // If we need wrap cell of 3 row then we can go for    $w_text[0],$w_text[1],$w_text[2].
       $this->SetX($x_axis);
       $this->Cell($c_width, $w_w_1, $w_text[0], $border, $ln, $align, $fill);
       $this->SetX($x_axis);
       $this->Cell($c_width, $w_w1, $w_text[1], $border, $ln, $align, $fill);
-      //$this->SetX($x_axis);
+      // $this->SetX($x_axis);
       // $this->Cell($c_width,$w_w2,$w_text[2],'','','');// for 3 rows wrap but increase the $c_height it is very important.
       $this->SetX($x_axis);
       $this->Cell($c_width, $c_height, '', $border, $ln, $align, $fill);
@@ -181,9 +199,9 @@ class PepFPDF extends \FPDF {
   /**
    * {@inheritdoc}
    */
-  function Header() {
+  public function Header() {
     $file = \Drupal::service('extension.list.module')
-        ->getPath('samhsa_pep_pdf_printing') . '/images/none.png';
+      ->getPath('samhsa_pep_pdf_printing') . '/images/none.png';
     $x = $this->GetX();
     $y = $this->GetY();
     $this->Image($file, 0, 0, 0);
@@ -208,13 +226,13 @@ class PepFPDF extends \FPDF {
           $address_text .= wordwrap($address_line, 35, chr(10)) . chr(10);
         }
 
-        // Header starts //
+        // Header starts //.
         $this->SetFont('Arial', '', 12);
         $this->SetY($this->GetY() + 15);
         $margin = 25;
         $this->SetLeftMargin($margin - 10);
         $this->SetRightMargin($margin - 10);
-        //$this->SetTopMargin(50);
+        // $this->SetTopMargin(50);
         $x = $this->GetX();
         $y = $this->GetY();
         $this->MultiCell(120, 5, $address_text, 0, 'l', FALSE);
@@ -295,7 +313,7 @@ class PepFPDF extends \FPDF {
   /**
    * {@inheritdoc}
    */
-  function Footer() {
+  public function Footer() {
     $y = $this->GetPageHeight() - 16;
     $w = $this->GetPageHeight();
     $this->Line(0, $y, $w, $y);
@@ -315,8 +333,8 @@ class PepFPDF extends \FPDF {
           $this->SetY(-15);
 
           $this->SetFont('Arial', '', 12);
-          //$this->Cell(0, 10, 'Page ' . $this->PageNo() . " of {nb}", 0, 0, 'C');
-          //$this->Cell(0,10,'Page '.$this->PageNo().' of {nb}',0,0,'C');
+          // $this->Cell(0, 10, 'Page ' . $this->PageNo() . " of {nb}", 0, 0, 'C');
+          // $this->Cell(0,10,'Page '.$this->PageNo().' of {nb}',0,0,'C');
           $this->Cell(0, 6, 'Page ' . $this->GroupPageNo() . ' of ' . $this->PageGroupAlias(), 0, 0, 'C');
 
           $this->SetFont('Arial', '', 8);
@@ -326,6 +344,9 @@ class PepFPDF extends \FPDF {
     }
   }
 
+  /**
+   *
+   */
   public function WordWrap(&$text, $maxwidth) {
     $text = trim($text);
     if ($text === '') {
@@ -373,23 +394,29 @@ class PepFPDF extends \FPDF {
     return $count;
   }
 
-  function WriteHTML($html) {
-    //HTML parser
-    $html = strip_tags($html, "<b><u><i><a><img><p><br><strong><em><tr><blockquote>"); //supprime tous les tags sauf ceux reconnus
-    $html = str_replace("\n", ' ', $html); //remplace retour à la ligne par un espace
-    $a = preg_split('/<(.*)>/U', $html, -1, PREG_SPLIT_DELIM_CAPTURE); //éclate la chaîne avec les balises
+  /**
+   *
+   */
+  public function WriteHTML($html) {
+    // HTML parser.
+    // Supprime tous les tags sauf ceux reconnus.
+    $html = strip_tags($html, "<b><u><i><a><img><p><br><strong><em><tr><blockquote>");
+    // Remplace retour à la ligne par un espace.
+    $html = str_replace("\n", ' ', $html);
+    // éclate la chaîne avec les balises.
+    $a = preg_split('/<(.*)>/U', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
     foreach ($a as $i => $e) {
       if ($i % 2 == 0) {
-        //Text
+        // Text.
         $this->Write(5, stripslashes($this->txtentities($e)));
       }
       else {
-        //Tag
+        // Tag.
         if ($e[0] === '/') {
           $this->CloseTag(strtoupper(substr($e, 1)));
         }
         else {
-          //Extract attributes
+          // Extract attributes.
           $a2 = explode(' ', $e);
           $tag = strtoupper(array_shift($a2));
           $attr = [];
@@ -404,8 +431,11 @@ class PepFPDF extends \FPDF {
     }
   }
 
-  function PutLink($URL, $txt) {
-    //Put a hyperlink
+  /**
+   *
+   */
+  public function PutLink($URL, $txt) {
+    // Put a hyperlink.
     $this->SetTextColor(0, 0, 255);
     $this->SetStyle('U', TRUE);
     $this->Write(5, $txt, $URL);
@@ -413,8 +443,11 @@ class PepFPDF extends \FPDF {
     $this->SetTextColor(0);
   }
 
-  function SetStyle($tag, $enable) {
-    //Modify style and select corresponding font
+  /**
+   *
+   */
+  public function SetStyle($tag, $enable) {
+    // Modify style and select corresponding font.
     if (!property_exists($this, $tag)) {
       $this->$tag = 0;
     }
@@ -428,14 +461,20 @@ class PepFPDF extends \FPDF {
     $this->SetFont('', $style);
   }
 
-  function txtentities($html) {
+  /**
+   *
+   */
+  public function txtentities($html) {
     $trans = get_html_translation_table(HTML_ENTITIES);
     $trans = array_flip($trans);
     return strtr($html, $trans);
   }
 
-  function CloseTag($tag) {
-    //Closing tag
+  /**
+   *
+   */
+  public function CloseTag($tag) {
+    // Closing tag.
     if ($tag === 'STRONG') {
       $tag = 'B';
     }
@@ -459,25 +498,32 @@ class PepFPDF extends \FPDF {
     }
   }
 
-  function OpenTag($tag, $attr) {
-    //Opening tag
+  /**
+   *
+   */
+  public function OpenTag($tag, $attr) {
+    // Opening tag.
     switch ($tag) {
       case 'STRONG':
         $this->SetStyle('B', TRUE);
         break;
+
       case 'EM':
         $this->SetStyle('I', TRUE);
         break;
+
       case 'B':
       case 'I':
       case 'U':
         $this->SetStyle($tag, TRUE);
         break;
+
       case 'A':
         if (isset($attr['HREF'])) {
           $this->HREF = $attr['HREF'];
         }
         break;
+
       case 'IMG':
         if (isset($attr['SRC']) && (isset($attr['WIDTH']) || isset($attr['HEIGHT']))) {
           if (!isset($attr['WIDTH'])) {
@@ -489,14 +535,17 @@ class PepFPDF extends \FPDF {
           $this->Image($attr['SRC'], $this->GetX(), $this->GetY(), px2mm($attr['WIDTH']), px2mm($attr['HEIGHT']));
         }
         break;
+
       case 'TR':
       case 'BLOCKQUOTE':
       case 'BR':
         $this->Ln(5);
         break;
+
       case 'P':
         $this->Ln(10);
         break;
+
       case 'FONT':
         if (isset($attr['COLOR']) && $attr['COLOR'] != '') {
           $coul = hex2dec($attr['COLOR']);
@@ -538,7 +587,10 @@ class PepFPDF extends \FPDF {
     }
   }
 
-  function fixtags($text) {
+  /**
+   *
+   */
+  public function fixtags($text) {
     $text = htmlspecialchars($text);
     $text = preg_replace("/=/", "=\"\"", $text);
     $text = preg_replace("/&quot;/", "&quot;\"", $text);
@@ -549,10 +601,13 @@ class PepFPDF extends \FPDF {
     return $text;
   }
 
-  function _beginpage($orientation, $size, $rotation) {
+  /**
+   *
+   */
+  public function _beginpage($orientation, $size, $rotation) {
     parent::_beginpage($orientation, $size, $rotation);
     if ($this->NewPageGroup) {
-      // start a new group
+      // Start a new group.
       $n = sizeof($this->PageGroups) + 1;
       $alias = "{nb$n}";
       $this->PageGroups[$alias] = 1;
@@ -564,10 +619,13 @@ class PepFPDF extends \FPDF {
     }
   }
 
-  function _putpages() {
+  /**
+   *
+   */
+  public function _putpages() {
     $nb = $this->page;
     if (!empty($this->PageGroups)) {
-      // do page number replacement
+      // Do page number replacement.
       foreach ($this->PageGroups as $k => $v) {
         for ($n = 1; $n <= $nb; $n++) {
           $this->pages[$n] = str_replace($k, $v, $this->pages[$n]);

@@ -34,7 +34,7 @@ function samhsa_pep_order_items_helper_commerce_order_presave(EntityInterface $e
    * check if at least one item is over the max limit
    * set order type to bulk
    */
-  /*
+  /*   //ksm($entity);
   $original = $entity->original;
   $state_original = '';
   if (isset($original)) {
@@ -57,14 +57,12 @@ function samhsa_pep_order_items_helper_commerce_order_presave(EntityInterface $e
 function samhsa_pep_order_items_helper_commerce_order_item_presave(EntityInterface $entity) {
   // Set default unit_price to $0.00 as this field value is required to save new order
   // item and add additional shipment for this order item.
-  $currencyCode = $entity->getUnitPrice() ? $entity->getUnitPrice()
-    ->getCurrencyCode() : 'USD';
+  $currencyCode = $entity->getUnitPrice() ? $entity->getUnitPrice()->getCurrencyCode() : 'USD';
   $unit_price = new Price('0.00', $currencyCode);
   $entity->setUnitPrice($unit_price, TRUE);
   $title = $entity->title->value;
   if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
-      ->getProductVariationTitleSku($entity->purchased_entity->target_id);
+    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
 
     $entity->title->value = $variation_title_sku;
   }
@@ -75,10 +73,10 @@ function samhsa_pep_order_items_helper_commerce_order_item_presave(EntityInterfa
  */
 function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterface $entity) {
   $title = $entity->title->value;
-
+  // $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+  // $log = $log_storage->generate($entity->getOrder(), 'commerce_order_item_removed', ['message' => $title])->save();
   if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')
-      ->getProductVariationTitleSku($entity->purchased_entity->target_id);
+    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
   }
   if (!empty($entity->getOrder())) {
     if ($entity->getOrder()->getState()->value != 'draft') {
@@ -91,9 +89,54 @@ function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterfac
 }
 
 /**
+ * Perform alterations before an entity form is included in the IEF widget.
+ *
+ * @param $entity_form
+ *   Nested array of form elements that comprise the entity form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+/*function samhsa_pep_order_items_helper_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+if ($entity_form['#entity_type'] == 'commerce_order_item') {
+ksm($entity_form);
+}
+}*/
+
+/**
+ * Alter the fields used to represent an entity in the IEF table.
+ *
+ * @param array $fields
+ *   The fields, keyed by field name.
+ * @param array $context
+ *   An array with the following keys:
+ *   - parent_entity_type: The type of the parent entity.
+ *   - parent_bundle: The bundle of the parent entity.
+ *   - field_name: The name of the reference field on which IEF is operating.
+ *   - entity_type: The type of the referenced entities.
+ *   - allowed_bundles: Bundles allowed on the reference field.
+ *
+ * @see \Drupal\inline_entity_form\InlineFormInterface::getTableFields()
+ */
+/*function samhsa_pep_order_items_helper_inline_entity_form_table_fields_alter(&$fields, $context) {
+if ($context['entity_type'] == 'commerce_order_item') {
+ksm($fields);
+ksm($context);
+$fields['field_category'] = [
+'type' => 'field',
+'label' => t('Category'),
+'weight' => 101,
+];
+}
+}*/
+
+/**
  * Implements hook_form_alter().
  */
-function samhsa_pep_order_items_helper_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function samhsa_pep_order_items_helper_form_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
   // Add to cart form_id: commerce_order_item_add_to_cart_form_commerce_product_17521.
   if (strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
     // Custom validate function.
@@ -114,18 +157,28 @@ function _rewrite_errors($form, FormStateInterface &$form_state) {
   if ($errors = $form_state->getErrors()) {
     foreach ($errors as $key => $error) {
       $err = $error->__toString();
-      if (strpos($err, "The maximum quantity for ") !== FALSE && strpos($err, " that can be ordered is ") !== FALSE) {
+      if (strpos($err, "The maximum quantity for ") !== FALSE &&
+          strpos($err, " that can be ordered is ") !== FALSE
+      ) {
         $err_key = $key;
+        /*  $error->getArguments() = [
+        [%name] => Tips for Teens: The Truth About Cocaine
+        [%qty]  => 100
+        ]
+         */
         $args = $error->getArguments();
         $name = $args['%name'];
-        $qty = $args['%qty'];
+        $qty  = $args['%qty'];
         $form_state->clearErrors();
         foreach ($errors as $key2 => $error_message) {
           if ($key2 == $err_key) {
-            $form_state->setError($form, t('The available quantity for "%label" is %qty. Please revise your order.', [
-              '%label' => $name,
-              '%qty' => $qty,
-            ]));
+            $form_state->setError(
+              $form,
+              t('The available quantity for "%label" is %qty. Please revise your order.', [
+                '%label' => $name,
+                '%qty'   => $qty,
+              ])
+            );
           }
           else {
             $form_state->setErrorByName($name, $error_message);
@@ -143,19 +196,21 @@ function _validate_cart($form, FormStateInterface &$form_state) {
   $values = $form_state->getValues();
 
   if ($errors = $form_state->getErrors()) {
+    // ksm($errors);
     foreach ($errors as $key => $error) {
       $err = $error->__toString();
-      if (strpos($err, "Sorry we only have ") !== FALSE && strpos($err, " in stock and you already added ") !== FALSE) {
+      if (strpos($err, "Sorry we only have ") !== FALSE &&
+            strpos($err, " in stock and you already added ") !== FALSE) {
         $arg = $error->getArguments();
         $form_state->clearErrors();
         $vid = array_shift($values['purchased_entity'])['variation'];
         $entity_manager = \Drupal::entityTypeManager();
-        $product_variation = $entity_manager->getStorage('commerce_product_variation')
-          ->load((int) $vid);
+        $product_variation = $entity_manager->getStorage('commerce_product_variation')->load((int) $vid);
         $label = $product_variation->label();
         // Now loop through and re-apply the remaining form error messages.
         foreach ($errors as $name => $error_message) {
-          if (strpos($error_message->getArguments(), "Sorry we only have ") !== FALSE && strpos($error_message->getArguments(), " in stock and you already added ") !== FALSE) {
+          if (strpos($error_message->getArguments(), "Sorry we only have ") !== FALSE &&
+                strpos($error_message->getArguments(), " in stock and you already added ") !== FALSE) {
             // DO NOT ADD BACK.
           }
           else {
@@ -164,10 +219,13 @@ function _validate_cart($form, FormStateInterface &$form_state) {
         }
         // Add or custom message for the quantity field
         // Original msg: 'Sorry we only have %qty in stock and you already added %qty_o to your cart.'.
-        $form_state->setError($form, t('The available quantity for "%label" is %qty. Please revise your order.', [
-          '%label' => $label,
-          '%qty' => $arg['%qty'],
-        ]));
+        $form_state->setError(
+              $form,
+              t('The available quantity for "%label" is %qty. Please revise your order.', [
+                '%label' => $label,
+                '%qty'   => $arg['%qty'],
+              ])
+          );
       }
 
     }

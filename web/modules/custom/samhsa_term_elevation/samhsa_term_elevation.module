@@ -5,7 +5,7 @@
  * Contains samhsa_term_elevation.module.
  */
 
-// @TODO: Check if Solr server is set to bring results from Solr.
+// @todo Check if Solr server is set to bring results from Solr.
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
 use Drupal\views\ViewExecutable;
 use Solarium\QueryType\Select\Result\Result;

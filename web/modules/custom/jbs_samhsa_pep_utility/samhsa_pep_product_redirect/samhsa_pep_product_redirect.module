@@ -27,6 +27,133 @@ function samhsa_pep_product_redirect_help($route_name, RouteMatchInterface $rout
 }
 
 /**
+ * Implements hook_pathauto_alias_alter()
+ *
+ * If /[commerce_product:field_sku] found in alias, get sku from variant and append.
+ *
+ * (important safety tip: hook only fires if
+ * "Generate automatic URL alias" is enabled on Product)
+ */
+/* from SPD-732
+function samhsa_pep_product_redirect_pathauto_alias_alter(&$alias, array &$context) {
+$pattern = $context['pattern']->getPattern();
+if ($context['module'] == 'commerce_product' &&
+preg_match('/\/\[commerce_product\:field_sku\]$/', $pattern)
+) {
+if (isset( $context['data'][$context['module']] ) ) {
+$product = $context['data'][$context['module']];
+$pid = $product->id();
+_remove_unpublished_aliases($pid);
+_add_published_aliases($alias, $pid);
+}
+}
+}
+
+
+function _add_published_aliases($alias, $pid) {
+// Get published variation to get SKU.
+$variations = \Drupal::entityQuery('commerce_product_variation')
+->condition('product_id', $pid)
+->condition('status', 1)  // published
+->execute();
+$vid = array_pop($variations);
+
+$variation = \Drupal::entityManager()->getStorage('commerce_product_variation')->load($vid);
+if (!isset($variation)) {
+return;
+}
+$sku = $variation->get('sku')->getValue();
+if (isset($sku[0]['value'])) {
+$sku = $sku[0]['value'];
+}
+else{
+return;
+}
+
+// Check if it exists so we don't create duplicates.
+$path = "/product/$pid";
+$entity_storage = \Drupal::entityTypeManager()->getStorage('path_alias');
+$query_result = $entity_storage->getQuery()
+->condition('path', $path)
+->execute();
+$aliases = [];
+if (!empty($query_result)) {
+if (!empty($entities = $entity_storage->loadMultiple($query_result))) {
+foreach($entities as $entity) {
+$aliases[] = $entity->getAlias();
+}
+}
+}
+
+$addl_aliases[] = "$alias/$sku";      // /product/<title>/<sku>
+$addl_aliases[] = "/product/$sku";    // /product/<sku>
+foreach ($addl_aliases as $addl_alias) {
+if (!in_array($addl_alias, $aliases)) {
+drupal_set_message('creating published alias: ' . "'$addl_alias'");
+$path_alias = $entity_storage->create([
+'path'  => $path,
+'alias' => $addl_alias,
+]);
+$path_alias->save();
+}
+else {
+// drupal_set_message('alias exists: ' . $addl_alias);.
+}
+}
+}
+
+
+
+function _remove_unpublished_aliases($pid) {
+// Remove any aliases which point to unpublished SKU's.
+$variations = \Drupal::entityQuery('commerce_product_variation')
+->condition('product_id', $pid)
+->condition('status', 0)  // unpublished
+->execute();
+
+$unpublished_skus = [];
+if (count($variations)) {
+// One or more unpublished.
+foreach ($variations as $vid) {
+$variation = \Drupal::entityManager()->getStorage('commerce_product_variation')->load($vid);
+if (!isset($variation)) {
+break;
+}
+$sku = $variation->get('sku')->getValue();
+if (isset($sku[0]['value'])) {
+$sku = $sku[0]['value'];
+$unpublished_skus[] = $sku;
+// drupal_set_message("unpublished: $sku");.
+}
+}
+
+// Get all existing aliases based on the Product ID.
+$entity_storage = \Drupal::entityTypeManager()->getStorage('path_alias');
+$query_result = $entity_storage->getQuery()
+->condition('path', "%$pid%", 'LIKE')
+->execute();
+
+if (!empty($query_result)) {
+if (!empty($entities = $entity_storage->loadMultiple($query_result))) {
+foreach($entities as $entity) {
+$alias = $entity->getAlias();
+foreach ($unpublished_skus as $sku) {
+if (preg_match('/\/' . $sku . '$/', $alias)) {
+$entity_storage->delete([$entity]);
+drupal_set_message("removing unpublished alias: '$alias'");
+}
+else {
+// drupal_set_message("leaving in place: '$alias'");.
+}
+}
+}
+}
+}
+}
+}
+ */
+
+/**
  * Implements hook_form_alter().
  */
 function samhsa_pep_product_redirect_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -65,58 +192,69 @@ function samhsa_pep_product_redirect_form_alter(&$form, FormStateInterface $form
     // Get alias of the node.
     $internal_path = '/product/' . $pid;
     // $current_alias = Drupal::service('path.alias_storage')->lookupPathAlias($internal_path, $lang);
-    $current_alias = \Drupal::service('path_alias.manager')
-      ->getAliasByPath($internal_path, $lang);
+    $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($internal_path, $lang);
 
     // Add URL redirect links TO and FROM.
     // Set Redirect TO: ?redirect=product/12.
-    $linkTo = Link::fromTextAndUrl('Add URL redirect TO this product', Url::fromRoute('redirect.add', [], [
-      'query' => [
-        // Redirect TO.
-        'redirect' => $internal_path,
-        'language' => $lang,
-        // Return destination.
-        'destination' => $internal_path . '/edit',
-      ],
-      'attributes' => [
-        'target' => '_blank',
-      ],
-    ]));
+    $linkTo = Link::fromTextAndUrl(
+      'Add URL redirect TO this product',
+      Url::fromRoute(
+        'redirect.add',
+        [],
+        [
+          'query' => [
+    // Redirect TO.
+            'redirect'    => $internal_path,
+            'language'    => $lang,
+    // Return destination.
+            'destination' => $internal_path . '/edit',
+          ],
+          'attributes'  => [
+            'target'    => '_blank',
+          ],
+        ]
+      )
+    );
     $existingRedirectsTo = lookupToRedirects($pid, $current_alias);
     $form['url_redirectTo'] = [
-      '#type' => 'details',
-      '#title' => t('URL redirect TO this product'),
-      '#access' => \Drupal::currentUser()
-        ->hasPermission('administer redirects'),
-      '#group' => 'advanced',
+      '#type'   => 'details',
+      '#title'  => t('URL redirect TO this product'),
+      '#access' => \Drupal::currentUser()->hasPermission('administer redirects'),
+      '#group'  => 'advanced',
       '#weight' => 100,
-      'table' => $existingRedirectsTo,
+      'table'   => $existingRedirectsTo,
       'content' => ['#markup' => '<p>' . $linkTo->toString() . '</p>'],
       '#open' => sizeof($existingRedirectsTo),
     ];
 
     // Set Redirect FROM:  ?source=product/12.
-    $linkFrom = Link::fromTextAndUrl('Add URL redirect FROM this product', Url::fromRoute('redirect.add', [], [
-      'query' => [
-        // Redirect FROM.
-        'source' => $internal_path,
-        'language' => $lang,
-        // Return destination.
-        'destination' => $internal_path . '/edit',
-      ],
-      'attributes' => [
-        'target' => '_blank',
-      ],
-    ]));
+    $linkFrom = Link::fromTextAndUrl(
+      'Add URL redirect FROM this product',
+      Url::fromRoute(
+        'redirect.add',
+        [],
+        [
+          'query' => [
+    // Redirect FROM.
+            'source'      => $internal_path,
+            'language'    => $lang,
+    // Return destination.
+            'destination' => $internal_path . '/edit',
+          ],
+          'attributes'  => [
+            'target'    => '_blank',
+          ],
+        ]
+      )
+    );
     $existingRedirectsFrom = lookupFromRedirects($pid, $current_alias);
     $form['url_redirectFrom'] = [
-      '#type' => 'details',
-      '#title' => t('URL redirect FROM this product'),
-      '#access' => \Drupal::currentUser()
-        ->hasPermission('administer redirects'),
-      '#group' => 'advanced',
+      '#type'   => 'details',
+      '#title'  => t('URL redirect FROM this product'),
+      '#access' => \Drupal::currentUser()->hasPermission('administer redirects'),
+      '#group'  => 'advanced',
       '#weight' => 100,
-      'table' => $existingRedirectsFrom,
+      'table'   => $existingRedirectsFrom,
       'content' => ['#markup' => '<p>' . $linkFrom->toString() . '</p>'],
       '#open' => sizeof($existingRedirectsFrom),
     ];
@@ -134,9 +272,7 @@ function lookupToRedirects($pid, $current_alias) {
     ->condition('redirect_redirect__uri', 'internal:/product/' . $pid, '=')
     ->condition('redirect_redirect__uri', '%internal:/product/' . $pid . '?%', 'LIKE')
     ->condition('redirect_redirect__uri', 'internal:' . $current_alias, '=');
-  $redirects = $query->condition($group)
-    ->orderBy('redirect_redirect__uri')
-    ->execute();
+  $redirects = $query->condition($group)->orderBy('redirect_redirect__uri')->execute();
   $redirects->allowRowCount = TRUE;
   $destination = '/product/' . $pid;
 
@@ -165,9 +301,7 @@ function lookupFromRedirects($pid, $current_alias) {
     ->condition('redirect_source__path', 'product/' . $pid, '=')
     ->condition('redirect_source__path', 'product/' . $pid . '?%', 'LIKE')
     ->condition('redirect_source__path', 'internal:' . $current_alias, '=');
-  $redirects = $query->condition($group)
-    ->orderBy('redirect_source__path')
-    ->execute();
+  $redirects = $query->condition($group)->orderBy('redirect_source__path')->execute();
   $redirects->allowRowCount = TRUE;
   $destination = '/product/' . $pid;
 
@@ -197,21 +331,11 @@ function _redirect_from_list_table($redirect_list, $header, $destination, $lang)
     $operations = [];
     $operations['edit'] = [
       'title' => t('Edit'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], [
-        'query' => [
-          'language' => $lang,
-          'destination' => $destination . '/edit',
-        ],
-      ]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
     ];
     $operations['delete'] = [
       'title' => t('delete'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], [
-        'query' => [
-          'language' => $lang,
-          'destination' => $destination . '/edit',
-        ],
-      ]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
     ];
     $row['operations'] = [
       'data' => [
@@ -246,27 +370,19 @@ function _redirect_to_list_table($redirect_list, $header, $destination, $lang) {
     // /product/1
     $name = str_replace('internal:', '', $redirect['redirect_redirect__uri']);
     // /product/<title>/<SKU>
-    $alias = Drupal::service('path.alias_storage')
-      ->lookupPathAlias($name, $lang);
-    $row['source'] = Link::fromTextAndUrl(($alias != '' ? "$alias ($name)" : $name), Url::fromUri($path));
+    $alias = Drupal::service('path.alias_storage')->lookupPathAlias($name, $lang);
+    $row['source'] = Link::fromTextAndUrl(
+      ($alias != '' ? "$alias ($name)" : $name),
+      Url::fromUri($path)
+    );
     $operations = [];
     $operations['edit'] = [
       'title' => t('Edit'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], [
-        'query' => [
-          'language' => $lang,
-          'destination' => $destination . '/edit',
-        ],
-      ]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
     ];
     $operations['delete'] = [
       'title' => t('delete'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], [
-        'query' => [
-          'language' => $lang,
-          'destination' => $destination . '/edit',
-        ],
-      ]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
     ];
     $row['operations'] = [
       'data' => [

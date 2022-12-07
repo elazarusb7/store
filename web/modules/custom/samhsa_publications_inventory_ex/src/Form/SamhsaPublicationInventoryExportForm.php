@@ -24,6 +24,9 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $this->entity_type_manager = $entity_type_manager;
   }
 
+  /**
+   *
+   */
   public static function create(ContainerInterface $container) {
     return new static($container->get('entity_type.manager'),);
   }
@@ -68,7 +71,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     fwrite($fp, implode(",", $header) . "\n");
     fclose($fp);
 
-    // Define the Operations variable
+    // Define the Operations variable.
     $operations = [];
 
     for ($i = 0; $i < 5; $i++) {
@@ -86,6 +89,9 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     batch_set($batch);
   }
 
+  /**
+   *
+   */
   public static function process_batch($ids, $total, &$context) {
     $download_folder = 'public://publication_inventory_export';
     $file_name = 'publication_inventory_export' . date('m-d-Y') . '.csv';
@@ -100,7 +106,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
       $context['sandbox']['progress']++;
     }
     fclose($fwp);
-    //check if batch is finished and update progress
+    // Check if batch is finished and update progress.
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] >= $context['sandbox']['max']);
     }
@@ -129,7 +135,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
   /**
    * @return string[]
    */
-  function csv_header() {
+  public function csv_header() {
     return [
       'GOVT PUB NUMBER',
       'TITLE',

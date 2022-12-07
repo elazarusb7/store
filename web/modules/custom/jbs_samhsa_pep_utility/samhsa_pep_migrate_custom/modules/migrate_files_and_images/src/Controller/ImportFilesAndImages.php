@@ -1,17 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Controller\ImportFilesAndImages.
- */
-
 namespace Drupal\migrate_files_and_images\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\migrate_files_and_images\Entity\FilesCrossReference;
 use Masterminds\HTML5\Exception;
-use DOMDocument;
 
 /**
  * Class ImportFilesAndImages.
@@ -24,11 +18,12 @@ class ImportFilesAndImages extends ControllerBase {
 
   private $protocolPattern = ['http' => '/http:\/\//', 'https' => '/https:/'];
 
-  //private $d7PublicFolder = '/sites/default/files/d7/';
-  //private $d7PrivateFolder = '/sites/default/files/d7/priv/';
-
-  //  private $d7PublicFolder = 'https:/niadev.jbsinternational.com/sites/default/files/';
-  //  private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
+  // Private $d7PublicFolder = '/sites/default/files/d7/';
+  // private $d7PrivateFolder = '/sites/default/files/d7/priv/';
+  // private $d7PublicFolder = 'https:/niadev.jbsinternational.com/sites/default/files/';.
+  /**
+   * Private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
+   */
   private $excludedEnxtensions = [
     'com',
     'edu',
@@ -71,7 +66,7 @@ class ImportFilesAndImages extends ControllerBase {
    * Call the importing process for non CLI triggered execution.
    *
    * @return array
-   *    Render array with messages about the execution.
+   *   Render array with messages about the execution.
    */
   public function prepareExecuteImport($limit = 0) {
     $output = [];
@@ -100,7 +95,7 @@ class ImportFilesAndImages extends ControllerBase {
         $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . \Drupal::service('file_url_generator')
-              ->generateAbsoluteString($this->managedCsvFileName) . '">CSV inline images</a>',
+            ->generateAbsoluteString($this->managedCsvFileName) . '">CSV inline images</a>',
         ];
       }
 
@@ -127,7 +122,7 @@ class ImportFilesAndImages extends ControllerBase {
         $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . \Drupal::service('file_url_generator')
-              ->generateAbsoluteString($this->inlineCsvFileName) . '">CSV inline images</a>',
+            ->generateAbsoluteString($this->inlineCsvFileName) . '">CSV inline images</a>',
         ];
       }
 
@@ -154,10 +149,9 @@ class ImportFilesAndImages extends ControllerBase {
         $output[] = [
           '#type' => 'markup',
           '#markup' => '<a href="' . \Drupal::service('file_url_generator')
-              ->generateAbsoluteString($this->blockCsvFileName) . '">CSV block images</a>',
+            ->generateAbsoluteString($this->blockCsvFileName) . '">CSV block images</a>',
         ];
       }
-
     }
     else {
       $output[] = [
@@ -171,8 +165,8 @@ class ImportFilesAndImages extends ControllerBase {
   /**
    * Delete all records in files_cross_reference table.
    *
-   * @return boolean $result
-   *    Result of the query.
+   * @return bool
+   *   Result of the query.
    */
   public function truncateCrossReference() {
     $db = Database::getConnection();
@@ -237,7 +231,8 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -307,7 +302,8 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -375,7 +371,8 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -392,7 +389,7 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function extractImagesAndFiles($text = NULL) {
@@ -412,13 +409,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function getImagesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $images_tags = $doc->getElementsByTagName('img');
       foreach ($images_tags as $images_tag) {
@@ -435,13 +432,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array $images
+   * @return array
    *   An array with all images file names.
    */
   private function getFilesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $a_tags = $doc->getElementsByTagName('a');
       foreach ($a_tags as $a_tag) {
@@ -479,7 +476,7 @@ class ImportFilesAndImages extends ControllerBase {
     $file_name = str_replace('public://', '', $uri);
     $file_name = str_replace('private://', '', $file_name);
     $uri = 'public://d7/';
-    //********* This is the substitute code:
+    // ********* This is the substitute code:
     if (strstr($file_managed->uri, 'public://images')) {
       $file = getcwd() . $this->getd7PublicFolder() . $file_name;
 
@@ -493,7 +490,7 @@ class ImportFilesAndImages extends ControllerBase {
     $data = @file_get_contents($file);
 
     if ($data && $file = \Drupal::service('file.repository')
-        ->writeData($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
+      ->writeData($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
       $result = $file->id();
     }
     else {

@@ -5,48 +5,50 @@
  * Contains samhsa_pep_disallow_order_deletion.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_help().
  */
-function samhsa_pep_disallow_order_deletion_help($route_name, RouteMatchInterface $route_match): string {
-  $output = '';
+function samhsa_pep_disallow_order_deletion_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the samhsa_pep_disallow_order_deletion module.
     case 'help.page.samhsa_pep_disallow_order_deletion':
+      $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('SAMHSA PEP Disallow Order Deletions.') . '</p>';
+      return $output;
 
     default:
   }
-
-  return $output;
 }
 
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_disallow_order_deletion_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
-  if ($form['#theme'] == "confirm_form" && str_contains($form_id, "commerce_order_") && str_contains($form_id, "_delete_form")) {
+function samhsa_pep_disallow_order_deletion_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form['#theme'] == "confirm_form" &&
+        strpos($form_id, "commerce_order_") !== FALSE &&
+        strpos($form_id, "_delete_form") !== FALSE) {
     // Do not let any role delete orders if setting is set to not allow deletion.
     $config = \Drupal::config('samhsa_pep_disallow_order_deletion.settings');
     $delete_order = $config->get('disable_order_delete');
 
-    if ($delete_order === 1) {
+    if ($delete_order == 1) {
       $response = new RedirectResponse(base_path());
       $response->send();
-      \Drupal::messenger()
-        ->addMessage(t("Illegal action. You are not allowed to delete orders"), 'error');
+      \Drupal::messenger()->addMessage(t("Illegal action. You are not allowed to delete orders"), 'error');
     }
   }
 
-  if ($form['#theme'] == "commerce_order_edit_form" && strpos($form_id, "commerce_order_") !== FALSE && strpos($form_id, "_edit_form") !== FALSE) {
+  if ($form['#theme'] == "commerce_order_edit_form" &&
+        strpos($form_id, "commerce_order_") !== FALSE &&
+        strpos($form_id, "_edit_form") !== FALSE) {
     $config = \Drupal::config('samhsa_pep_disallow_order_deletion.settings');
     $delete_order = $config->get('disable_order_delete');
-    if ($delete_order === 1) {
+    if ($delete_order == 1) {
       // Unser Delete link. Do not let any role delete orders if setting is set to not allow deletion.
       unset($form['actions']['delete']);
     }

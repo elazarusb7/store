@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_stock_locations_import\Commands;
 
+use Drupal\commerce_product\Entity\Product;
 use Drush\Commands\DrushCommands;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_stock\StockTransactionsInterface;
@@ -17,7 +18,7 @@ use Drupal\taxonomy\Entity\Term;
 class StockLocationsImportCommands extends DrushCommands {
 
   /**
-   * import stock locations.
+   * Import stock locations.
    *
    * @command samhsa_pep_stock_locations_import:import_stock_locations
    * @aliases import-stock-locations
@@ -57,7 +58,7 @@ class StockLocationsImportCommands extends DrushCommands {
   }
 
   /**
-   * associate locations with products.
+   * Associate locations with products.
    *
    * @command samhsa_pep_stock_locations_import:associate_locations
    * @aliases associate-locations
@@ -82,7 +83,7 @@ class StockLocationsImportCommands extends DrushCommands {
             if ($terms = taxonomy_term_load_multiple_by_name($location, 'pallet_location')) {
               // Only use the first term returned; there should only be one anyways if we do this right.
               $term = reset($terms);
-              //$this->output()->write("location_id: " . $term->id());
+              // $this->output()->write("location_id: " . $term->id());
               $location_id = $term->id();
               $products = $this->getProdBySKU(trim($pub_id));
               $message = "Associate publication " . $pub_id . " with location " . $location;
@@ -126,7 +127,7 @@ class StockLocationsImportCommands extends DrushCommands {
   }
 
   /**
-   * remove association of locations with products.
+   * Remove association of locations with products.
    *
    * @command samhsa_pep_stock_locations_import:remove_locations_association
    * @aliases remove-association
@@ -151,7 +152,7 @@ class StockLocationsImportCommands extends DrushCommands {
             if ($terms = taxonomy_term_load_multiple_by_name($location, 'pallet_location')) {
               // Only use the first term returned; there should only be one anyways if we do this right.
               $term = reset($terms);
-              //$this->output()->write("location_id: " . $term->id());
+              // $this->output()->write("location_id: " . $term->id());
               $location_id = $term->id();
               $products = $this->getProdBySKU(trim($pub_id));
               $message = "Association removed between publication " . $pub_id . " and location " . $location;
@@ -184,7 +185,10 @@ class StockLocationsImportCommands extends DrushCommands {
     }
   }
 
-  function removeLocation(array $pallets, $variation_id) {
+  /**
+   *
+   */
+  public function removeLocation(array $pallets, $variation_id) {
     $table_name = 'commerce_stock_transaction';
     $field = 'location_zone';
     foreach ($pallets as $key => $pallet) {
@@ -195,13 +199,16 @@ class StockLocationsImportCommands extends DrushCommands {
         ->condition('location_zone', $pallet, '=')
         ->fields([
           'location_zone' => "",
-          //'some_other_field' => 20,
+          // 'some_other_field' => 20,
         ])
         ->execute();
     }
   }
 
-  function getProdBySKU($sku = '') {
+  /**
+   *
+   */
+  public function getProdBySKU($sku = '') {
     $results_list = [];
     $query = \Drupal::database()
       ->select('commerce_product_variation_field_data', 't');
@@ -218,37 +225,41 @@ class StockLocationsImportCommands extends DrushCommands {
       while ($record = $results->fetchAssoc()) {
         $results_list[] = $record;
       }
-      //ksm($results_list);
+      // ksm($results_list);
       return $results_list;
     }
   }
 
-  function csvtoarray_locations($filename, $delimiter) {
+  /**
+   *
+   */
+  public function csvtoarray_locations($filename, $delimiter) {
     $locations = [];
     if (($handle = fopen($filename, "r")) !== FALSE) {
-      //Loop through the CSV rows.
-
+      // Loop through the CSV rows.
       while (($row = fgetcsv($handle, 0, ",")) !== FALSE) {
-        //Print out my column data.
+        // Print out my column data.
         if ($row == 1) {
           continue;
         }
         $locations[] = $row[2];
       }
     }
-    //unique array values
+    // Unique array values.
     $unique_locations = array_unique($locations);
 
     return array_filter($unique_locations);
   }
 
-  function csvtoarray_all($filename, $delimiter) {
+  /**
+   *
+   */
+  public function csvtoarray_all($filename, $delimiter) {
     $locations = [];
     if (($handle = fopen($filename, "r")) !== FALSE) {
-      //Loop through the CSV rows.
-
+      // Loop through the CSV rows.
       while (($row = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
-        //Print out my column data.
+        // Print out my column data.
         if ($row == 1) {
           continue;
         }
@@ -260,14 +271,14 @@ class StockLocationsImportCommands extends DrushCommands {
   }
 
   /**
-   * assign pick area locations to eligible products.
+   * Assign pick area locations to eligible products.
    *
    * @command samhsa_pep_stock_locations_import:assign_pickarea_location
    * @aliases assign-pickarea
    * @usage samhsa_pep_stock_locations_import:assign_pickarea_location
    */
   public function assign_pickarea_location() {
-    //get all eligible products
+    // Get all eligible products.
     $query = \Drupal::entityQuery('commerce_product');
     $query->condition('status', 1);
     $orGroup = $query->orConditionGroup()
@@ -285,7 +296,7 @@ class StockLocationsImportCommands extends DrushCommands {
       foreach ($entity_prod as $key => $prod) {
         $this->output()->write($prod);
         /*Load Product Variations*/
-        $product = \Drupal\commerce_product\Entity\Product::load((int) $prod);
+        $product = Product::load((int) $prod);
         $variation_id = $product->getVariationIds()[0];
 
         $this->output()->writeln("prod variation: " . $variation_id);
@@ -299,7 +310,7 @@ class StockLocationsImportCommands extends DrushCommands {
             'message' => $message,
           ],
         ];
-        $data = isset($metadata['data']) ? $metadata['data'] : NULL;
+        $data = $metadata['data'] ?? NULL;
 
         if (!is_null($variation)) {
           \Drupal::logger('samhsa_pep_stock_locations_import')
@@ -313,14 +324,14 @@ class StockLocationsImportCommands extends DrushCommands {
   }
 
   /**
-   * remove pick area locations from not eligible products.
+   * Remove pick area locations from not eligible products.
    *
    * @command samhsa_pep_stock_locations_import:remove_pickarea_location
    * @aliases remove-pickarea
    * @usage samhsa_pep_stock_locations_import:remove_pickarea_location
    */
   public function remove_pickarea_location() {
-    //get all eligible products
+    // Get all eligible products.
     $query = \Drupal::entityQuery('commerce_product');
     $query->condition('status', 1);
     $query->condition('field_pep_product_type', 'download_only');
@@ -332,10 +343,10 @@ class StockLocationsImportCommands extends DrushCommands {
       $this->output()->writeln("location_id: " . $term->id());
       $location_id = $term->id();
       $number_of_updated = 0;
-      //if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
+      // If (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {.
       foreach ($entity_prod as $key => $prod) {
         /*Load Product Variations*/
-        $product = \Drupal\commerce_product\Entity\Product::load((int) $prod);
+        $product = Product::load((int) $prod);
         $variation_id = $product->getVariationIds()[0];
         $this->output()->writeln("prod variation: " . $variation_id);
 
@@ -352,12 +363,12 @@ class StockLocationsImportCommands extends DrushCommands {
         ->writeln("Pick Area location removed from " . $number_of_updated . "product(s).");
       $this->output()
         ->writeln("\n___________________________________________________");
-      //}
+      // }
     }
   }
 
   /**
-   * revert pick area locations migration for all products.
+   * Revert pick area locations migration for all products.
    *
    * @command samhsa_pep_stock_locations_import:revert_pickarea_location_migration
    * @aliases revert-pickarea
@@ -387,20 +398,20 @@ class StockLocationsImportCommands extends DrushCommands {
   }
 
   /**
-   * revert pick area locations migration for all products.
+   * Revert pick area locations migration for all products.
    *
    * @command samhsa_pep_stock_locations_import:update_product_pallets_location_field
    * @aliases update-product-pallets
    * @usage samhsa_pep_stock_locations_import:update_product_pallets_location_field
    */
   public function update_product_pallets_location_field() {
-    //get all variations
+    // Get all variations.
     $query = \Drupal::entityQuery('commerce_product_variation');
     $variations = $query->execute();
     $number_of_updated = 0;
     foreach ($variations as $key => $value) {
       /*Load Product Variations*/
-      $variation = \Drupal\commerce_product\Entity\ProductVariation::load((int) $value);
+      $variation = ProductVariation::load((int) $value);
       $variation_id = $variation->id();
 
       $this->output()->writeln("prod variation: " . $variation_id);

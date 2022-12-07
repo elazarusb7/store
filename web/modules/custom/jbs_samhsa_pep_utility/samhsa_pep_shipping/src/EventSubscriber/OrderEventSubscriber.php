@@ -65,7 +65,6 @@ class OrderEventSubscriber implements EventSubscriberInterface {
       $weight = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->recalculateWeight($order);
       $this->updateOrderWeightInDatabase($order, $weight);
     }
-
     return;
   }
 

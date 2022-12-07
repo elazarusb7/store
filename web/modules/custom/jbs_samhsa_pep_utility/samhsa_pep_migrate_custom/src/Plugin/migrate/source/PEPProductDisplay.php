@@ -96,7 +96,7 @@ class PEPProductDisplay extends FieldableEntity {
       'field_samhsa_product_publication_product_id',
     ]);
     $query->fields('fc', ['field_name']);
-    //\Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
     if (isset($this->configuration['product_type'])) {
       $query->condition('n.type', $this->configuration['product_type']);
     }
@@ -135,7 +135,7 @@ class PEPProductDisplay extends FieldableEntity {
     }
 
     // Body (description).
-    //$result = $this->getDatabase()->query('
+    // $result = $this->getDatabase()->query('
     $query = 'SELECT
         body_value,
         body_summary,
@@ -144,19 +144,18 @@ class PEPProductDisplay extends FieldableEntity {
         field_data_body
       WHERE
         entity_id = :nid AND bundle = :bundle';
-    //\Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
-
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
     $result = $this->getDatabase()->query($query, [
       ':nid' => $nid,
       ':bundle' => $bundle,
     ]);
 
-    //$body_files_and_images = array();
+    // $body_files_and_images = array();
     foreach ($result as $record) {
-      //$body_files_and_images += \Drupal::service('set_migrating_values')->extractImagesAndFiles($record->body_value);
-      //$row->setSourceProperty('body_value', \Drupal::service('set_migrating_values')->convertReferencesAndSources($record->body_value, $product_id, $bundle));
-      //$row->setSourceProperty('body_summary', \Drupal::service('set_migrating_values')->convertReferencesAndSources($record->body_summary, $product_id, $bundle));
-      //$row->setSourceProperty('body_format', \Drupal::service('set_migrating_values')->getTextFormat($record->body_format));
+      // $body_files_and_images += \Drupal::service('set_migrating_values')->extractImagesAndFiles($record->body_value);
+      // $row->setSourceProperty('body_value', \Drupal::service('set_migrating_values')->convertReferencesAndSources($record->body_value, $product_id, $bundle));
+      // $row->setSourceProperty('body_summary', \Drupal::service('set_migrating_values')->convertReferencesAndSources($record->body_summary, $product_id, $bundle));
+      // $row->setSourceProperty('body_format', \Drupal::service('set_migrating_values')->getTextFormat($record->body_format));
       $row->setSourceProperty('body_value', $record->body_value);
       $row->setSourceProperty('body_summary', $record->body_summary);
       $row->setSourceProperty('body_format', $record->body_format);
@@ -198,23 +197,23 @@ class PEPProductDisplay extends FieldableEntity {
     }
     $row->setSourceProperty('field_related_products', $values);
 
-      // field_samhsa_promo_link
-      $components = array(
-          'fields_prefix' => 'field_samhsa_promo_link',
-          'table' => 'field_data_field_samhsa_promo_link',
-          'property' => 'field_samhsa_promo_link',
-      );
-      \Drupal::service('set_migrating_values')->link($this, $row, $components);
+    // field_samhsa_promo_link.
+    $components = [
+      'fields_prefix' => 'field_samhsa_promo_link',
+      'table' => 'field_data_field_samhsa_promo_link',
+      'property' => 'field_samhsa_promo_link',
+    ];
+    \Drupal::service('set_migrating_values')->link($this, $row, $components);
 
-      // Related Document Link.
-      $components = array(
-          'fields_prefix' => 'field_related_document_link',
-          'table' => 'field_data_field_related_document_link',
-          'property' => 'field_related_document_link',
-      );
-      \Drupal::service('set_migrating_values')->link($this, $row, $components);
+    // Related Document Link.
+    $components = [
+      'fields_prefix' => 'field_related_document_link',
+      'table' => 'field_data_field_related_document_link',
+      'property' => 'field_related_document_link',
+    ];
+    \Drupal::service('set_migrating_values')->link($this, $row, $components);
 
-    //field_data_field_max_purchase
+    // field_data_field_max_purchase.
     $query = 'SELECT field_max_purchase_value
       FROM
       field_data_field_max_purchase
@@ -229,7 +228,7 @@ class PEPProductDisplay extends FieldableEntity {
     }
     $row->setSourceProperty('field_data_field_max_purchase', $values);
 
-    //field_samhsa_stock_status
+    // field_samhsa_stock_status.
     $query = 'SELECT field_samhsa_stock_status_value
       FROM
       field_data_field_samhsa_stock_status
@@ -248,10 +247,11 @@ class PEPProductDisplay extends FieldableEntity {
         case  'ELECTRONIC ONLY':
           $value = 'download_only';
           break;
+
         case  'IN STOCK':
         case  'OUT OF STOCK':
-          //if stock > 0 and has downloads -> download_order
-          //if stock > 0 and no downloads -> order_only
+          // If stock > 0 and has downloads -> download_order
+          // if stock > 0 and no downloads -> order_only.
           if ($hasDownloads) {
             $value = 'download_order';
           }
@@ -261,7 +261,7 @@ class PEPProductDisplay extends FieldableEntity {
           break;
       }
       $values[] = $value;
-      //\Drupal::logger('samhsa_pep_migrate_custom')->notice($value);
+      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($value);
     }
     $row->setSourceProperty('field_samhsa_stock_status', $values);
 
@@ -279,7 +279,7 @@ class PEPProductDisplay extends FieldableEntity {
     }
     $row->setSourceProperty('field_also_be_interested_manual', $values);
 
-    //field_imported_language_value
+    // field_imported_language_value.
     $languages = [];
     $languages['CA'] = 'KM';
     $languages['CH'] = 'ZH';
@@ -294,7 +294,7 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_imported_language
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    //\Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
     $result = $this->getDatabase()->query($query, [
       ':entity_id' => $product_id,
       ':bundle' => $type,
@@ -313,12 +313,12 @@ class PEPProductDisplay extends FieldableEntity {
         }
       }
       $values[] = $value;
-      //\Drupal::logger('samhsa_pep_migrate_custom')->notice('Language: ' .$product_id . " / " .$record->field_imported_language_value);
+      // \Drupal::logger('samhsa_pep_migrate_custom')->notice('Language: ' .$product_id . " / " .$record->field_imported_language_value);
     }
 
     $row->setSourceProperty('imported_language_value', $values);
 
-    //Terms Migration
+    // Terms Migration
     // field_substances.
     $components = [
       'field' => 'field_taxo_substances_tid',
@@ -328,7 +328,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_issues_conditions_and_diso: issues_conditions
+    // field_issues_conditions_and_diso: issues_conditions.
     $components = [
       'field' => 'field_issues_con_disorders_tid',
       'table' => 'field_data_field_issues_con_disorders',
@@ -337,7 +337,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_professional_and_research_: professional_and_research
+    // field_professional_and_research_: professional_and_research.
     $components = [
       'field' => 'field_prof_research_topics_tid',
       'table' => 'field_data_field_prof_research_topics',
@@ -346,7 +346,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_treatment_prevention_and_r: treatment_prevention
+    // field_treatment_prevention_and_r: treatment_prevention.
     $components = [
       'field' => 'field_treatmt_prevent_recovery_tid',
       'table' => 'field_data_field_treatmt_prevent_recovery',
@@ -355,7 +355,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_taxo_audience: audience
+    // field_taxo_audience: audience.
     $components = [
       'field' => 'field_taxo_audience_tid',
       'table' => 'field_data_field_taxo_audience',
@@ -364,7 +364,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_series: series
+    // field_series: series.
     $components = [
       'field' => 'field_series_tid',
       'table' => 'field_data_field_series',
@@ -373,7 +373,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_population_group: population_group
+    // field_population_group: population_group.
     $components = [
       'field' => 'field_taxo_pop_group_tid',
       'table' => 'field_data_field_taxo_pop_group',
@@ -382,7 +382,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_format: format
+    // field_format: format.
     $components = [
       'field' => 'field_taxo_format_tid',
       'table' => 'field_data_field_taxo_format',
@@ -391,7 +391,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_location: location
+    // field_location: location.
     $components = [
       'field' => 'field_taxo_location_tid',
       'table' => 'field_data_field_taxo_location',
@@ -400,7 +400,7 @@ class PEPProductDisplay extends FieldableEntity {
     \Drupal::service('set_migrating_values')
       ->termReference($this, $row, $components);
 
-    //field_tags: tags
+    // field_tags: tags.
     $components = [
       'field' => 'field_taxo_tags_tid',
       'table' => 'field_data_field_taxo_tags',

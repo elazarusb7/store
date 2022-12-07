@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @file
+ */
+
+/**
+ *
+ */
 function samhsa_theme_block_pep8_theme($existing, $type, $theme, $path) {
 
   $image_path = \Drupal::urlGenerator()
-      ->generateFromRoute('<front>', [], ['absolute' => TRUE]) . \Drupal::service('extension.list.module')
-      ->getPath('samhsa_theme_block_pep8') . '/img';
+    ->generateFromRoute('<front>', [], ['absolute' => TRUE]) . \Drupal::service('extension.list.module')
+    ->getPath('samhsa_theme_block_pep8') . '/img';
 
   return [
     'header_social' => [

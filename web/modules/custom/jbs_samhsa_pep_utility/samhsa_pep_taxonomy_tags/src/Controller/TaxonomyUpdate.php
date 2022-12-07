@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_pep_taxonomy_tags\Controller;
 
-use Drupal;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\Controller\ControllerBase;
@@ -36,27 +35,27 @@ class TaxonomyUpdate extends ControllerBase {
    *
    */
   public function __construct($isDrush = FALSE, $isTest = FALSE) {
-    $this->isDrush = $isDrush;
-    $this->nl = ($isDrush ? "\n" : "<br />");
-    $this->output .= $this->nl . 'called from ' . ($this->isDrush ? 'Drush command' : 'Menu router') . $this->nl;
-    $this->isTest = $isTest;
-    $this->output = '';
-    $this->fields['publication_category'] = 'field_publication_category';
+    $this->isDrush                               = $isDrush;
+    $this->nl                                    = ($isDrush ? "\n" : "<br />");
+    $this->output                               .= $this->nl . 'called from ' . ($this->isDrush ? 'Drush command' : 'Menu router') . $this->nl;
+    $this->isTest                                = $isTest;
+    $this->output                                = '';
+    $this->fields['publication_category']        = 'field_publication_category';
     $this->fields['publication_target_audience'] = 'field_pub_target_audience';
 
-    $this->terms_to_add['Mental Health'] = 'publication_category';
-    $this->terms_to_add['Substance Abuse'] = 'publication_category';
+    $this->terms_to_add['Mental Health']             = 'publication_category';
+    $this->terms_to_add['Substance Abuse']           = 'publication_category';
     $this->terms_to_add['Practitioner/Professional'] = 'publication_target_audience';
-    $this->terms_to_add['General Public'] = 'publication_target_audience';
+    $this->terms_to_add['General Public']            = 'publication_target_audience';
 
     $this->taxonomy_terms = $this->getProductTaxonomies();
-    $this->taxonomy_map = $this->getTaxonomyMap();
+    $this->taxonomy_map   = $this->getTaxonomyMap();
     foreach ($this->taxonomy_terms as $vocabulary => $field) {
       $this->vocabularies[$vocabulary] = $this->get_vocabulary($vocabulary);
     }
 
     $this->cnt_error = 0;
-    $this->cnt_warn = 0;
+    $this->cnt_warn  = 0;
     $this->output .= $this->nl . "TaxonomyUpdate active";
   }
 
@@ -64,24 +63,36 @@ class TaxonomyUpdate extends ControllerBase {
    *
    */
   public function update() {
-    $nl = $this->nl;
-    $this->output .= $nl . $nl . 'Begin execution';
-    $module_handler = Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('samhsa_pep_taxonomy_tags')
-      ->getPath();
-    $this->output .= $nl . "module path: $module_path";
-    $filename = "/publication_taxonomy.csv";
-    $records = 0;
-    $cnt_product = 0;
+    $nl             = $this->nl;
+    $this->output  .= $nl . $nl . 'Begin execution';
+    $module_handler = \Drupal::service('module_handler');
+    $module_path    = $module_handler->getModule('samhsa_pep_taxonomy_tags')->getPath();
+    $this->output  .= $nl . "module path: $module_path";
+    $filename       = "/publication_taxonomy.csv";
+    $records        = 0;
+    $cnt_product    = 0;
+
+    // Verify taxonomy vocabulary mapping to Product fields.
+    /*$this->output .= $nl . "Verifying taxonomy...";
+    $taxonomyInvalid = $this->verifyTaxonomyFields();
+    if ($taxonomyInvalid > 0) {
+    $this->output .= $nl . "$taxonomyInvalid Taxonomy terms not valid";
+    $this->cnt_error += $taxonomyInvalid;
+    //return $this->output;
+    }
+    else {
+    $this->output .= $nl . "...validated.";
+    }*/
 
     // Check for new terms.
     $new_terms = [
-      'Substance Abuse' => 'publication_category',
-      'Mental Health' => 'publication_category',
+      'Substance Abuse'           => 'publication_category',
+      'Mental Health'             => 'publication_category',
       'Practitioner/Professional' => 'publication_target_audience',
-      'General Public' => 'publication_target_audience',
+      'General Public'            => 'publication_target_audience',
     ];
 
+    // $this->output .= $nl . "vocabluaries:" . print_r($this->vocabularies,true);
     $missing_terms = 0;
     foreach ($new_terms as $term => $vocab) {
       $this->output .= $nl . "verifing '$term' in '$vocab'";
@@ -101,12 +112,14 @@ class TaxonomyUpdate extends ControllerBase {
             // $this->output .= $nl . "$vocab: [$i]" . $t->name;
           }
         }
-      } catch (Exception $e) {
+      }
+      catch (Exception $e) {
         $this->output .= $nl . "***ERROR " . print_r($e, TRUE);
         return $this->output;
       }
     }
 
+    // $this->output .= $nl . "tids: " . print_r($tids);
     if ($missing_terms) {
       $this->output .= $nl . "$missing_terms new term(s) missing...exiting";
       $this->cnt_error += $missing_terms;
@@ -118,7 +131,8 @@ class TaxonomyUpdate extends ControllerBase {
     $not_found_skus = [];
     try {
       $handle = fopen($module_path . $filename, "r");
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       $this->output .= $nl . "ERROR: $e";
       return $this->output;
     }
@@ -141,7 +155,7 @@ class TaxonomyUpdate extends ControllerBase {
 
     // All data read in.
     $this->output .= $this->nl . "successfully read $records records";
-    $entity_manager = Drupal::entityTypeManager();
+    $entity_manager = \Drupal::entityTypeManager();
 
     // Get header.
     /*[
@@ -159,7 +173,7 @@ class TaxonomyUpdate extends ControllerBase {
         continue;
       }
 
-      $query = Drupal::entityQuery('commerce_product_variation')
+      $query = \Drupal::entityQuery('commerce_product_variation')
         ->condition('sku', $sku);
       $variation_id = array_shift($query->execute());
       if (!isset($variation_id) || $variation_id == '') {
@@ -169,8 +183,7 @@ class TaxonomyUpdate extends ControllerBase {
         continue;
       }
 
-      $product_variation = $entity_manager->getStorage('commerce_product_variation')
-        ->load($variation_id);
+      $product_variation = $entity_manager->getStorage('commerce_product_variation')->load($variation_id);
       if (!isset($product_variation)) {
         $this->output .= $nl . "***cannot load product variation for SKU '$sku'";
         $this->cnt_error++;
@@ -221,7 +234,8 @@ class TaxonomyUpdate extends ControllerBase {
           $this->assignTerm($tids['General Public'], $this->fields['publication_target_audience'], $product);
           $msg .= "\t" . $tids['General Public'];
         }
-      } catch (Exception $e) {
+      }
+      catch (Exception $e) {
         $this->output .= $nl . "ERROR: $e";
         return $this->output;
       }
@@ -236,7 +250,7 @@ class TaxonomyUpdate extends ControllerBase {
 
     $this->output .= $nl . $nl . 'missing SKU\'s: ' . print_r($not_found_skus, TRUE);
     $this->output .= $this->nl . "$cnt_product products updated";
-
+    // $this->output .= $this->nl . print_r($header,true);
     return $this->output;
   }
 
@@ -271,7 +285,7 @@ class TaxonomyUpdate extends ControllerBase {
     if ($vocabulary == '' || $name == '') {
       return FALSE;
     }
-    $query = Drupal::entityQuery('taxonomy_term');
+    $query = \Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', $vocabulary);
     $query->condition('name', $name);
     $tid = $query->execute();
@@ -286,7 +300,7 @@ class TaxonomyUpdate extends ControllerBase {
       return FALSE;
     }
     $term = Term::create([
-      'vid' => $vocabulary,
+      'vid'  => $vocabulary,
       'name' => $name,
     ]);
     $term->save();
@@ -296,11 +310,11 @@ class TaxonomyUpdate extends ControllerBase {
    *
    */
   private function get_vocabulary($vid) {
+    // $this->output .= $this->nl . __FUNCTION__ . "('$vid') #" . __LINE__;
     $terms = [];
-    $storage = Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadTree($vid);
+    $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
     foreach ($storage as $term) {
+      // If ($term->vid == 'publication_category') $this->output .= $this->nl . print_r($term,true);.
       $terms[$term->name] = $term->tid;
     }
     return $terms;
@@ -310,20 +324,19 @@ class TaxonomyUpdate extends ControllerBase {
    *
    */
   private function getProductTaxonomies() {
-    $bundle_fields = Drupal::service('entity_field.manager')
-      ->getFieldDefinitions('commerce_product', 'samhsa_publication');
+    $bundle_fields = \Drupal::service('entity_field.manager')->getFieldDefinitions('commerce_product', 'samhsa_publication');
     foreach (array_keys($bundle_fields) as $field_name) {
       $field = $bundle_fields[$field_name];
       if ($field->getType() == 'entity_reference') {
         $name = 'commerce_product.samhsa_publication.' . $field_name;
-        $field_config = Drupal::entityTypeManager()
-          ->getStorage('field_config')
-          ->load($name);
+        $field_config = \Drupal::entityTypeManager()->getStorage('field_config')->load($name);
         if (isset($field_config)) {
           $settings = $field_config->getSettings();
           // If ($field_name == 'field_treatment_prevention_and_r') $this->output .= $this->nl . __LINE__ . print_r($settings,true);.
           if (isset($settings['target_type']) && $settings['target_type'] == 'taxonomy_term') {
-            if (isset($settings['handler_settings']['target_bundles']) && count($settings['handler_settings']['target_bundles'])) {
+            if (isset($settings['handler_settings']['target_bundles']) &&
+                count($settings['handler_settings']['target_bundles'])
+            ) {
               // $this->output .= $this->nl . __LINE__ . ' target_bundles:' . print_r($settings['handler_settings']['target_bundles'],true);
               $vocab = array_shift($settings['handler_settings']['target_bundles']);
               $vocabs[$vocab] = $field_name;
@@ -345,18 +358,18 @@ class TaxonomyUpdate extends ControllerBase {
    */
   private function getTaxonomyMap() {
     return [
-      // Vocabulary                         Product Field.
-      'audience' => 'field_audience',
-      'format' => 'field_format',
-      'issues_conditions_disorders' => 'field_issues_conditions_and_diso',
-      'location' => 'field_location',
-      'population_group' => 'field_population_group',
-      'professional_research_topics' => 'field_professional_and_research_',
-      'publication_category' => 'field_publication_category',
-      'publication_target_audience' => 'field_pub_target_audience',
-      'series' => 'field_series',
-      'substances' => 'field_substances',
-      'tags1' => 'field_tags',
+    // Vocabulary                         Product Field.
+      'audience'                      => 'field_audience',
+      'format'                        => 'field_format',
+      'issues_conditions_disorders'   => 'field_issues_conditions_and_diso',
+      'location'                      => 'field_location',
+      'population_group'              => 'field_population_group',
+      'professional_research_topics'  => 'field_professional_and_research_',
+      'publication_category'          => 'field_publication_category',
+      'publication_target_audience'   => 'field_pub_target_audience',
+      'series'                        => 'field_series',
+      'substances'                    => 'field_substances',
+      'tags1'                         => 'field_tags',
       'treatment_prevention_recovery' => 'field_treatment_prevention_and_r',
     ];
   }

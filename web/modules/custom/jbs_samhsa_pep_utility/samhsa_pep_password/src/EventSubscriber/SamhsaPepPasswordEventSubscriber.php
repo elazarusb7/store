@@ -39,7 +39,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Session\AccountProxyInterface $account
    *   The current user account.
    *
-   * arguments: ['@path.current', '@current_user']
+   *   arguments: ['@path.current', '@current_user'].
    */
   public function __construct(CurrentPathStack $pathStack, AccountProxyInterface $account) {
     $this->pathStack = $pathStack;
@@ -50,7 +50,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
    * Event callback to look for users expired password.
    */
   public function checkForUserPasswordExpiration(RequestEvent $event, $eventName, ContainerAwareEventDispatcher $dispatcher) {
-    /* @var \Symfony\Component\HttpFoundation\Request */
+    /** @var \Symfony\Component\HttpFoundation\Request */
     $request = $event->getRequest();
     $path = $this->pathStack->getPath($request);
     $url = Url::fromUserInput($path);
@@ -62,7 +62,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
       // There needs to be an explicit check for non-anonymous or else
       // this will be tripped and a forced redirect will occur.
       if ($account->id() > 0) {
-        /* @var $user \Drupal\user\UserInterface */
+        /** @var \Drupal\user\UserInterface $user */
         $user = User::load($account->id());
         $ignore_route = in_array($route_name, [
           'entity.user.edit_form',
@@ -75,16 +75,16 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
         $user_expired = FALSE;
         if ($user->get('field_password_expiration')) {
           $user_expired = $user->get('field_password_expiration')->value;
-          //drupal_set_message("expired: $user_expired, ignore_route: $ignore_route, uid: " . $user->id());
+          // drupal_set_message("expired: $user_expired, ignore_route: $ignore_route, uid: " . $user->id());
         }
 
-        // TODO - Consider excluding admins here.
+        // @todo Consider excluding admins here.
         if ($user_expired && !$ignore_route && !$is_ajax) {
           $url = new Url('entity.user.edit_form', ['user' => $user->id()]);
           $url = $url->setAbsolute(TRUE)->toString();
           $url2 = new Url('entity.user.edit_form', ['user' => $user->id()]);
           $url2 = $url2->setAbsolute(FALSE)->toString();
-          /* @var Symfony\Component\HttpFoundation\RedirectResponse */
+          /** @var Symfony\Component\HttpFoundation\RedirectResponse */
           $redirect = new RedirectResponse($url2);
           $event->setResponse($redirect);
           \Drupal::messenger()
@@ -98,7 +98,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    // TODO - Evaluate if there is a better place to add this check.
+    // @todo Evaluate if there is a better place to add this check.
     $events[KernelEvents::REQUEST][] = ['checkForUserPasswordExpiration', 50];
     return $events;
   }

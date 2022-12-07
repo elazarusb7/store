@@ -155,8 +155,7 @@ class SamhsaThemeBlockPEP8SettingsForm extends ConfigFormBase {
    */
 
   /**
-   * Changing logic to only call setStatus if $block contains an object,
-   * otherwise 500 error.
+   * Changing logic to only call setStatus if $block contains an object, otherwise 500 error.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $block = Block::load('samhsa_footer_address');

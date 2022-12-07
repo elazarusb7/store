@@ -189,7 +189,7 @@ class FilesCrossReference extends ContentEntityBase implements FilesCrossReferen
    * @param string $name
    *   The file name.
    *
-   * @return bool
+   * @return objectbool
    *   The found record or false.
    */
   public static function loadByName($name) {

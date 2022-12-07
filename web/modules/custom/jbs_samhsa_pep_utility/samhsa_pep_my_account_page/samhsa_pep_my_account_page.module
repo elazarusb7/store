@@ -112,9 +112,7 @@ function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$su
   $is_address_book_container = FALSE;
   if (isset($variables['element']['#attributes']) && isset($variables['element']['#attributes']['class'])) {
     $classes = $variables['element']['#attributes']['class'];
-    if (is_array($classes) === TRUE) {
-      $is_address_book_container = array_search('address-book__container', $classes);
-    }
+    $is_address_book_container = array_search('address-book__container', $classes);
   }
   if ($route_name == 'commerce_order.address_book.overview' && $is_address_book_container !== FALSE) {
     $suggestions[] = 'container__address_book';
@@ -173,7 +171,7 @@ function samhsa_pep_my_account_page_form_user_form_alter(&$form, FormStateInterf
 /**
  * Info text for the top of the page.
  *
- * @param int $uid
+ * @param integernull $uid
  *   ID of the user.
  *
  * @return string
@@ -235,7 +233,7 @@ function _samhsa_pep_my_account_page_get_user_edit_info_text_password_2() {
 /**
  * Gather info regarding password expiration.
  *
- * @param int $uid
+ * @param integernull $uid
  *   ID of the user.
  *
  * @return object

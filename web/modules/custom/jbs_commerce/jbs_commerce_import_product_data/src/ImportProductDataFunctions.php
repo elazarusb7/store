@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\jbs_commerce_import_product_data;
-
 use Drupal\commerce_product\Entity\Product;
+
+namespace Drupal\jbs_commerce_import_product_data;
 
 /**
  *
@@ -21,11 +21,9 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
       $map = [];
       $map_titles = [];
 
-      $table_values = $db->select($map_tn, 'fd')->fields('fd', [
-        'sku',
-        'title',
-        'product_id',
-      ])->execute()->fetchAll();
+      $table_values = $db->select($map_tn, 'fd')
+        ->fields('fd', ['sku', 'title', 'product_id'])
+        ->execute()->fetchAll();
 
       foreach ($table_values as $p => $product) {
         $map[$product->sku] = $product->product_id;
@@ -38,15 +36,8 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
 
       if (($handle = fopen($file, 'r')) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-          $row = [
-            $data[0],
-            $data[1],
-            $data[4],
-            $data[5],
-            $data[6],
-            $data[7],
           // SKU, Title, Substance Abuse, Mental Health, Practitioner/Professional, General Public.
-          ];
+          $row = [$data[0], $data[1], $data[4], $data[5], $data[6], $data[7]];
           if (empty($columns)) {
             $columns = $row;
           }
@@ -92,8 +83,7 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
         }
       }
       fclose($handle);
-      \Drupal::messenger()
-        ->addMessage('Data was imported, check the corresponding tables.');
+      \Drupal::messenger()->addMessage('Data was imported, check the corresponding tables.');
     }
     catch (Exception $e) {
       \Drupal::messenger()->addWarning('Import failed.');

@@ -1,9 +1,8 @@
 <?php
 
-namespace Drupal\samhsa_pep_pdf_printing;
-
 use Drupal\commerce_shipping\Entity\Shipment;
 
+namespace Drupal\samhsa_pep_pdf_printing;
 
 /**
  * Class PdfPickSlips.
@@ -50,6 +49,9 @@ class PdfPickSlips {
     foreach ($label_rows as $label_row) {
       $y = ($label_height * $page_row) + $top_margin;
 
+      // // Rectangles for testing purpose.
+      //      $pdf->Rect($left_margin_col_1, $y, $label_width, $label_height);
+      //      $pdf->Rect($left_margin_col_2, $y, $label_width, $label_height);
       $text_col_1 = NULL;
       $text_col_2 = NULL;
 

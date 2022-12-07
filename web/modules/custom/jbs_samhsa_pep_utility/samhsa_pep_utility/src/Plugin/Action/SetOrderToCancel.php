@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_pep_utility\Plugin\Action;
 
-use Drupal;
 use Drupal\user\Entity\User;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\Core\Session\AccountInterface;
@@ -33,11 +32,10 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $selectedItems = array_map(function ($listItem) {
-      return reset($listItem);
+        return reset($listItem);
     }, $this->context['list']);
-
-    $tempstore = Drupal::service('tempstore.private')
-      ->get('samhsa_pep_utility');
+    // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility')
+    $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
 
     $tempstore->set('list', $selectedItems);
 
@@ -75,8 +73,7 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
-    $tempstore = Drupal::service('tempstore.private')
-      ->get('samhsa_pep_utility');
+    $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
 
     $selectedItems = $tempstore->get('list');
     $reasons = [];
@@ -102,11 +99,10 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
     if ($entity->hasField('state')) {
       $entity->set('state', 'canceled');
       // User who canceled the order.
-      $user = User::load(Drupal::currentUser()->id());
+      $user = User::load(\Drupal::currentUser()->id());
       $username = $user->getAccountName();
       // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
-      $tempstore = Drupal::service('tempstore.private')
-        ->get('samhsa_pep_utility');
+      $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
       $reason = $tempstore->get('reason');
       $reasons = $tempstore->get('reasons');
       if (is_array($reasons) && count($reasons) > 0) {
@@ -120,9 +116,8 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
       $entity->set('field_log', $logcomments . " (" . $username . ")");
       $entity->save();
 
-      $log_storage = Drupal::entityTypeManager()->getStorage('commerce_log');
-      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Order Cancelled: " . $logcomments])
-        ->save();
+      $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Order Cancelled: " . $logcomments])->save();
     }
     // Don't return anything for a default completion message, otherwise return translatable markup.
     return $this->t('Order status changed to Cancelled');

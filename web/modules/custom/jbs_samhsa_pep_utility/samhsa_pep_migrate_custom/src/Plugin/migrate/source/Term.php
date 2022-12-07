@@ -19,14 +19,9 @@ class Term extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('taxonomy_term_data', 'td')->fields('td', [
-      'tid',
-      'vid',
-      'name',
-      'description',
-      'weight',
-      'format',
-    ])->distinct();
+    $query = $this->select('taxonomy_term_data', 'td')
+      ->fields('td', ['tid', 'vid', 'name', 'description', 'weight', 'format'])
+      ->distinct();
     return $query;
   }
 

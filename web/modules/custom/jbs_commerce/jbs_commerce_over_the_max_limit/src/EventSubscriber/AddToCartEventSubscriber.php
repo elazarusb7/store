@@ -45,9 +45,9 @@ class AddToCartEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      CartEvents::CART_ENTITY_ADD         => 'displayOverTheMaxLimitMessage',
-      CartEvents::CART_ORDER_ITEM_UPDATE  => 'displayOverTheMaxLimitMessageCartUpdate',
-      OrderEvents::ORDER_ITEM_UPDATE      => 'displayOverTheMaxLimitMessageOrderUpdate',
+      CartEvents::CART_ENTITY_ADD => 'displayOverTheMaxLimitMessage',
+      CartEvents::CART_ORDER_ITEM_UPDATE => 'displayOverTheMaxLimitMessageCartUpdate',
+      OrderEvents::ORDER_ITEM_UPDATE => 'displayOverTheMaxLimitMessageOrderUpdate',
     ];
   }
 
@@ -107,7 +107,8 @@ class AddToCartEventSubscriber implements EventSubscriberInterface {
     $title = $item->label();
     $total_qty_in_cart = $item->getQuantity();
     $product = $item->getPurchasedEntity()->getProduct();
-    $maxlimit_field_name = \Drupal::config('jbs_commerce_over_the_max_limit.settings')->get('maxlimit_element');
+    $maxlimit_field_name = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
+      ->get('maxlimit_element');
     // field_qty_max_order.
     if (empty($maxlimit_field_name)) {
       return;
@@ -125,6 +126,9 @@ class AddToCartEventSubscriber implements EventSubscriberInterface {
       if ($type_class != 'OrderItemEvent') {
         // Show message.
         $msg = "The max order limit for this product is \"$max\".";
+        // $msg = t('The max order limit for this product is %max.', [
+        //          '%max' => $max,
+        //        ]);
         $this->messenger->addMessage(t($msg));
         return AvailabilityResult::unavailable($msg);
       }

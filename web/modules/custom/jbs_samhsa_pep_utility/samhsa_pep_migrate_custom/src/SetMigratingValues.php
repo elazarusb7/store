@@ -2,8 +2,6 @@
 
 namespace Drupal\samhsa_pep_migrate_custom;
 
-use DOMDocument;
-use Drupal;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -19,23 +17,17 @@ use Symfony\Component\HttpFoundation\Request;
 class SetMigratingValues implements SetMigratingValuesInterface {
 
   private $folderPattern = '/\/sites\/default\/files\//';
-
   private $protocolPattern = ['/http:\/\//', '/https:\/\//'];
-
   /**
    * Private $publicFolder = '/sites/default/files/d7/';.
    */
   private $publicFolder = '/sites/default/files/d7/public/';
-
   private $publicUrl = NULL;
-
   /**
    * @todo Set $baseUrl and $basePath accordingly before definitive migration.
    */
   private $baseUrl = '';
-
   private $basePath = '';
-
   private $excludedEnxtensions = [
     'com',
     'edu',
@@ -49,7 +41,6 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     'aspx',
     'php,',
   ];
-
   private $imagesExtension = [
     'jpg',
     'jpeg',
@@ -62,7 +53,6 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     'ico',
     'xbm',
   ];
-
   private $filesExtension = [
     'txt',
     'pdf',
@@ -92,7 +82,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function simpleField(SqlBase $sql_base, Row &$row = NULL, $components = [], $manipulation_method = NULL) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty($components['idfield']);
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty($components['idfield']);
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -113,7 +108,11 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $name_value = $components['field_prefix'] . '_value';
     $name_summary = $components['field_prefix'] . '_summary';
     $name_format = $components['field_prefix'] . '_format';
-    $query = "SELECT $name_value, $name_summary, $name_format" . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = "SELECT $name_value, $name_summary, $name_format" .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -130,7 +129,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function termReference(SqlBase $sql_base, Row &$row = NULL, $components = []) {
-    $query = 'SELECT GROUP_CONCAT( ' . $components['field'] . ') AS tids FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT GROUP_CONCAT( ' .
+      $components['field'] .
+      ') AS tids FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     foreach ($result as $record) {
       if (!is_null($record->tids)) {
@@ -143,14 +147,19 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function entityReference(SqlBase $sql_base, Row &$row = NULL, $components = []) {
-    $query = 'SELECT GROUP_CONCAT( ' . $components['field'] . ') AS tids FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT GROUP_CONCAT( ' .
+            $components['field'] .
+            ') AS tids FROM ' .
+            $components['table'] .
+            ' WHERE entity_id = ' .
+            $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
-
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
     foreach ($result as $record) {
-      Drupal::logger('samhsa_pep_migrate_custom')
-        ->notice($row->getSourceProperty('nid') . "/" . $record->tids);
+      \Drupal::logger('samhsa_pep_migrate_custom')->notice($row->getSourceProperty('nid') . "/" . $record->tids);
 
       if (!is_null($record->tids)) {
+        // \Drupal::logger('samhsa_pep_migrate_custom')->notice($record->tids);
         $row->setSourceProperty($components['property'], explode(',', $record->tids));
       }
     }
@@ -163,7 +172,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $body_files_and_images = [];
     $name_value = $components['fields_prefix'] . '_value';
     $name_format = $components['fields_prefix'] . '_format';
-    $query = 'SELECT ' . $name_value . ',' . $name_format . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $name_value . ',' .
+      $name_format . ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -185,7 +199,16 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $name_title = $components['fields_prefix'] . '_title';
     $name_width = $components['fields_prefix'] . '_width';
     $name_height = $components['fields_prefix'] . '_height';
-    $query = 'SELECT ' . $name_fid . ',' . $name_alt . ',' . $name_title . ',' . $name_width . ',' . $name_height . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $name_fid . ',' .
+      $name_alt . ',' .
+      $name_title . ',' .
+      $name_width . ',' .
+      $name_height . ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+    $row->getSourceProperty('nid');
+    // $row->getSourceProperty($components['idfield']);
     $result = $sql_base->getDatabase()->query($query);
     $images = [];
     foreach ($result as $record) {
@@ -244,7 +267,14 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $name_fid = $components['fields_prefix'] . '_fid';
     $name_display = $components['fields_prefix'] . '_display';
     $name_description = $components['fields_prefix'] . '_description';
-    $query = 'SELECT ' . $name_fid . ',' . $name_display . ',' . $name_description . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty($components['idfield']);
+    $query = 'SELECT ' .
+      $name_fid . ',' .
+      $name_display . ',' .
+      $name_description . ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      // $row->getSourceProperty('nid');
+      $row->getSourceProperty($components['idfield']);
     $result = $sql_base->getDatabase()->query($query);
     $files = [];
     foreach ($result as $record) {
@@ -255,7 +285,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
         'description' => $record->$name_description,
       ];
     }
-
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice('<pre><code>' . print_r($files) . '</code></pre>');
     if (isset($components['body_files'])) {
       foreach ($components['body_files'] as $body_file) {
         $p = strrpos($body_file['file_name'], '.');
@@ -284,7 +314,14 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $name_fid = $components['fields_prefix'] . '_fid';
     $name_display = $components['fields_prefix'] . '_display';
     $name_description = $components['fields_prefix'] . '_description';
-    $query = 'SELECT ' . $name_fid . ',' . $name_display . ',' . $name_description . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty($components['idfield']);
+    $query = 'SELECT ' .
+            $name_fid . ',' .
+            $name_display . ',' .
+            $name_description . ' FROM ' .
+            $components['table'] .
+            ' WHERE entity_id = ' .
+            // $row->getSourceProperty('nid');
+            $row->getSourceProperty($components['idfield']);
     $result = $sql_base->getDatabase()->query($query);
     $files = [];
     foreach ($result as $record) {
@@ -296,6 +333,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
         'description' => $display_name,
       ];
     }
+    // \Drupal::logger('samhsa_pep_migrate_custom')->notice('<pre><code>' . $display_name . '</code></pre>');
     $row->setSourceProperty($components['property'], $files);
   }
 
@@ -306,7 +344,13 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $name_url = $components['fields_prefix'] . '_url';
     $name_title = $components['fields_prefix'] . '_title';
     $name_attributes = $components['fields_prefix'] . '_attributes';
-    $query = 'SELECT ' . $name_url . ',' . $name_title . ',' . $name_attributes . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $name_url . ',' .
+      $name_title . ',' .
+      $name_attributes . ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -332,7 +376,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
   public function dateIsoEnd(SqlBase $sql_base, Row &$row = NULL, $components = []) {
     $name_start = $components['field'];
     $name_end = $components['field'] . '2';
-    $query = 'SELECT ' . $name_start . ',' . $name_end . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $name_start . ',' .
+      $name_end . ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -350,7 +399,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function dateIsoToYear(SqlBase $sql_base, Row &$row = NULL, $components = []) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -363,7 +417,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function yesNoToBool(SqlBase $sql_base, Row &$row = NULL, $components = []) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -390,7 +449,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    *
    */
   public function dateOnly(SqlBase $sql_base, Row &$row = NULL, $components = [], $manipulation_method = NULL) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -404,7 +468,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function multiValueToTextArea(SqlBase $sql_base, Row &$row = NULL, $components = []) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     $values = [];
     foreach ($result as $record) {
@@ -420,6 +489,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    */
   public function getNewFileId($fid = NULL) {
     if ($entity = FilesCrossReference::load($fid)) {
+      // drush_print_r($entity);
       return @$entity->d8fid->getString();
     }
     else {
@@ -436,10 +506,18 @@ class SetMigratingValues implements SetMigratingValuesInterface {
     $field_name = $components['display_name_field'];
 
     if (isset($components['display_name_tbl'])) {
-      $query = 'SELECT ' . $components['display_name_field'] . ' FROM ' . $components['display_name_tbl'] . ' WHERE entity_id = ' . $fid;
+      $query = 'SELECT ' .
+                $components['display_name_field'] .
+                ' FROM ' .
+                $components['display_name_tbl'] .
+                ' WHERE entity_id = ' .
+                $fid;
+      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
       $result = $sql_base->getDatabase()->query($query);
       $values = [];
       foreach ($result as $record) {
+        // \Drupal::logger('samhsa_pep_migrate_custom')->notice('<pre><code>' . print_r($record) . '</code></pre>');
+        // \Drupal::logger('samhsa_pep_migrate_custom')->notice($record->$field_name);
         $values[] = $record->$field_name;
       }
       if (count($values) > 0) {
@@ -484,7 +562,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
   public function getImagesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       @$doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $images_tags = $doc->getElementsByTagName('img');
       foreach ($images_tags as $images_tag) {
@@ -510,7 +588,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
   public function getFilesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       @$doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $a_tags = $doc->getElementsByTagName('a');
       foreach ($a_tags as $a_tag) {
@@ -541,7 +619,7 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    */
   public function convertReferencesAndSources($text, $nid = 0, $bundle = NULL) {
     if ($text) {
-      $doc = new DOMDocument();
+      $doc = new \DOMDocument();
       @$doc->loadHTML('<?xml encoding="UTF-8">' . $text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $images_tags = $doc->getElementsByTagName('img');
       foreach ($images_tags as $images_tag) {
@@ -578,7 +656,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    */
   public function convertTextListToVocabularyEntry(SqlBase $sql_base, Row &$row = NULL, $components = []) {
     $vocabulary = $components['vocabulary'];
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     foreach ($result as $record) {
       $results = taxonomy_term_load_multiple_by_name($record->$components['field'], $vocabulary);
@@ -655,7 +738,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function userReference(SqlBase $sql_base, Row &$row = NULL, $components = [], $manipulation_method = NULL) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('uid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('uid');
     $result = $sql_base->getDatabase()->query($query);
     foreach ($result as $record) {
       $values[] = $record->$components['field'];
@@ -667,7 +755,12 @@ class SetMigratingValues implements SetMigratingValuesInterface {
    * {@inheritdoc}
    */
   public function nodeReference(SqlBase $sql_base, Row &$row = NULL, $components = [], $manipulation_method = NULL) {
-    $query = 'SELECT ' . $components['field'] . ' FROM ' . $components['table'] . ' WHERE entity_id = ' . $row->getSourceProperty('nid');
+    $query = 'SELECT ' .
+      $components['field'] .
+      ' FROM ' .
+      $components['table'] .
+      ' WHERE entity_id = ' .
+      $row->getSourceProperty('nid');
     $result = $sql_base->getDatabase()->query($query);
     foreach ($result as $record) {
       $values[] = $record->$components['field'];

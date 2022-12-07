@@ -2,11 +2,9 @@
 
 namespace Drupal\samhsa_pep_utility\Plugin\Action;
 
-use Drupal;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Exception;
 
 /**
  * Action to set order status to Pick Slip Generated.
@@ -38,9 +36,8 @@ class SetOrderToPickSlipGenerated extends ViewsBulkOperationsActionBase {
       if ($entity->hasField('field_log')) {
         $logcomments = $entity->field_log->value;
       }
-      $log_storage = Drupal::entityTypeManager()->getStorage('commerce_log');
-      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Pick Slip Generated: " . $logcomments])
-        ->save();
+      $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Pick Slip Generated: " . $logcomments])->save();
     }
     // Don't return anything for a default completion message, otherwise return translatable markup.
     return $this->t('Order status changed to Pick Slip Generated');
@@ -59,8 +56,7 @@ class SetOrderToPickSlipGenerated extends ViewsBulkOperationsActionBase {
     }
     // Print the invoice of selected orders.
     try {
-      Drupal::service('samhsa_pep_pdf_printing.generate_pdf')
-        ->invoice($order_ids);
+      \Drupal::service('samhsa_pep_pdf_printing.generate_pdf')->invoice($order_ids);
       foreach ($entities as $entity) {
         if ($entity->hasField('state')) {
           $entity->set('state', 'pick_slips_generated');
@@ -69,14 +65,13 @@ class SetOrderToPickSlipGenerated extends ViewsBulkOperationsActionBase {
           if ($entity->hasField('field_log')) {
             $logcomments = $entity->field_log->value;
           }
-          $log_storage = Drupal::entityTypeManager()
-            ->getStorage('commerce_log');
-          $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Pick Slip Generated: " . $logcomments])
-            ->save();
+          $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+          $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Pick Slip Generated: " . $logcomments])->save();
         }
       }
 
-    } catch (Exception $e) {
+    }
+    catch (\Exception $e) {
       echo 'Caught exception: ', $e->getMessage(), "\n";
     }
 

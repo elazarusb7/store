@@ -2,11 +2,9 @@
 
 namespace Drupal\samhsa_term_elevation;
 
-use Drupal;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api_solr\SearchApiSolrException;
-use Exception;
 
 /**
  * Class SolrConnectionService.
@@ -14,16 +12,14 @@ use Exception;
 class SolrConnectionService {
 
   private $titleFieldName = '';
-
   private $solrCoreId = '';
-
   private $solrIndexId = '';
 
   /**
    * Constructs a new SolrConnectionService object.
    */
   public function __construct() {
-    $config = Drupal::config('samhsa_term_elevation.config');
+    $config = \Drupal::config('samhsa_term_elevation.config');
     $this->solrCoreId = $config->get('server_id');
     $this->solrIndexId = $config->get('index_id');
     $this->titleFieldName = $config->get('title_id');
@@ -46,12 +42,11 @@ class SolrConnectionService {
       $query = Index::load($this->solrIndexId)->query();
       $term = $this->titleFieldName . ':' . trim($string) . '*';
       $query->keys($term);
-      $parse_mode_manager = Drupal::service('plugin.manager.search_api.parse_mode');
+      $parse_mode_manager = \Drupal::service('plugin.manager.search_api.parse_mode');
       $query->setParseMode($parse_mode_manager->createInstance('direct'));
       $data = $query->execute();
       foreach ($data->getResultItems() as $item_id => $item) {
-        $item_fields = $item->getExtraData('search_api_solr_document')
-          ->getFields();
+        $item_fields = $item->getExtraData('search_api_solr_document')->getFields();
         $title = $item_fields[$this->titleFieldName][0];
         if (preg_match('/https:/', $item_fields['site'])) {
           $site = substr($item_fields['site'], 8);
@@ -143,11 +138,12 @@ class SolrConnectionService {
     try {
       $response = $connector->search($solarium_query);
       $result = explode(',', $response->getBody());
-    } catch (SearchApiSolrException $e) {
-      Drupal::messenger()
-        ->addMessage(t("Solr environment couldn't be reached. Please, check Search Api configurations"), 'error');
+    }
+    catch (SearchApiSolrException $e) {
+      \Drupal::messenger()->addMessage(t("Solr environment couldn't be reached. Please, check Search Api configurations"), 'error');
       $result = FALSE;
-    } catch (Exception $e) {
+    }
+    catch (\Exception $e) {
       $result = FALSE;
     }
     return $result;
@@ -175,8 +171,7 @@ class SolrConnectionService {
       foreach (search_api_solr_get_servers() as $server) {
         $servers[$server->id()] = $server;
       }
-      if (!$servers || !$connector = $servers[$core_id]->getBackend()
-          ->getSolrConnector()) {
+      if (!$servers || !$connector = $servers[$core_id]->getBackend()->getSolrConnector()) {
         return $result;
       }
       $solarium_query = $connector->getSelectQuery();
@@ -193,12 +188,12 @@ class SolrConnectionService {
           $result[] = $item;
         }
       }
-    } catch (SearchApiException $e) {
-      Drupal::messenger()
-        ->addError(t('Invalid server configuration for Solr: %core_id', ['%core_id' => $core_id]));
-    } catch (Exception $e) {
-      Drupal::messenger()
-        ->addError(t('Invalid server configuration for Solr.'));
+    }
+    catch (SearchApiException $e) {
+      \Drupal::messenger()->addError(t('Invalid server configuration for Solr: %core_id', ['%core_id' => $core_id]));
+    }
+    catch (Exception $e) {
+      \Drupal::messenger()->addError(t('Invalid server configuration for Solr.'));
     }
     return $result;
   }

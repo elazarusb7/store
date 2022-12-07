@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_term_elevation\Form;
 
-use Drupal;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -26,8 +25,7 @@ class WebsitesAliasesForm extends ConfigFormBase {
     parent::__construct($config_factory);
     $te_config = $this->config('samhsa_term_elevation.config');
     $server_id = $te_config->get('server_id');
-    $this->sites = Drupal::service('samhsa_te_solr_connections')
-      ->getMultiSiteComponents($server_id);
+    $this->sites = \Drupal::service('samhsa_te_solr_connections')->getMultiSiteComponents($server_id);
     $a = 1;
   }
 
@@ -52,8 +50,7 @@ class WebsitesAliasesForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $sites_list = unserialize($this->config('samhsa_term_elevation.websites_aliases')
-      ->get('sites'));
+    $sites_list = unserialize($this->config('samhsa_term_elevation.websites_aliases')->get('sites'));
 
     $form['description'] = [
       '#type' => 'item',

@@ -25,7 +25,7 @@ class SamhsaPepStockConfigForm extends ConfigFormBase {
       ->get('physical_count_error_message');
 
     $form['physical_count_error_message'] = [
-      // '#type' => 'textarea',
+          // '#type' => 'textarea',
       '#type' => 'text_format',
       '#format' => $value['format'],
       '#title' => $this->t('Add error message which will be displayed when physical count is less than allocated quantity'),
@@ -39,6 +39,7 @@ class SamhsaPepStockConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
+    // ksm($values['physical_count_error_message']);.
     $this->config('samhsa_pep_stock.settings')
       ->set('physical_count_error_message', $values['physical_count_error_message'])
       ->save();

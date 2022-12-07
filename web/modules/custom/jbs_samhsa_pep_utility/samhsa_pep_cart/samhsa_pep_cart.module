@@ -4,16 +4,19 @@
  * @file
  */
 
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\samhsa_pep_cart\PepCartBlockPrerender;
-use Drupal\Core\Block\BlockPluginInterface;
 
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
-  if ($form_id == 'commerce_add_to_cart' || strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
+function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // ksm($form_id);//commerce_order_item_add_to_cart_form_commerce_product_
+  if ($form_id == 'commerce_add_to_cart' ||
+    strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
     $pep_order_combine = \Drupal::config('samhsa_pep_cart.settings')
       ->get('combine_pep_cart');
     $form_state->set(['settings', 'combine'], $pep_order_combine);
@@ -29,6 +32,17 @@ function samhsa_pep_cart_form_alter(&$form, FormStateInterface $form_state, $for
     }
   }
   if (strpos($form_id, "views_form_commerce_cart_form_default") !== FALSE) {
+    // Add return to browsing button.
+    /*$form['actions']['return_to_browsing'] = array(
+    '#type' => 'submit',
+    //'#weight' => 999,
+    '#limit_validation_errors' => array() ,
+    '#button_type' => 'primary',
+    '#submit' => array(
+    '_cart_return_to_browsing'
+    ) ,
+    '#value' => t('Return to browsing') ,
+    );*/
     // Add return to browsing link.
     $links = [];
     $links[] = [
@@ -63,12 +77,40 @@ function _cart_return_to_browsing(&$form, FormStateInterface $form_state) {
 /**
  * Implements hook_block_view_alter().
  */
-function samhsa_pep_cart_block_view_alter(array &$build, BlockPluginInterface $block): void {
+function samhsa_pep_cart_block_view_alter(array &$build, BlockPluginInterface $block) {
   if ($block->getBaseId() === 'commerce_cart') {
     // $build['#pre_render'][] = '_samhsa_pep_cart_block_cart_prerender';
-    $build['#pre_render'][] = [
-      PepCartBlockPrerender::class,
-      '_pep_cart_block_cart_prerender',
-    ];
+    $build['#pre_render'][] = [PepCartBlockPrerender::class, '_pep_cart_block_cart_prerender'];
   }
 }
+
+/*
+function _samhsa_pep_cart_block_cart_prerender(array $build) {
+$all_carts = \Drupal::service('commerce_cart.cart_provider')
+->getCarts();
+if(is_array($all_carts) && count($all_carts) == 1 ) {
+$all_carts = array_shift($all_carts);
+$order_id = $all_carts->id();
+
+$links = [];
+$links[] = [
+'#prefix' => "<span class = \"cart-link\">",
+'#suffix' => "</span>",
+'#type' => 'link',
+'#title' => t('Shopping Cart'),
+'#url' => Url::fromRoute('commerce_cart.page'),
+];
+if (isset($order_id) && $order_id > 0) {
+$links[] = [
+'#prefix' => "<span class = \"checkout-link\">",
+'#suffix' => "</span>",
+'#type' => 'link',
+'#title' => t('Checkout'),
+'#url' => Url::fromRoute('commerce_checkout.form', ['commerce_order' => $order_id, 'step' => 'order_information']),
+];
+}
+$build['content']['#links'] = $links;
+}
+return $build;
+}
+ */

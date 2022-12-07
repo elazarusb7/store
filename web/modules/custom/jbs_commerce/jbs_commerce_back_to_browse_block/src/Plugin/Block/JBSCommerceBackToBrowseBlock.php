@@ -2,12 +2,11 @@
 
 namespace Drupal\jbs_commerce_back_to_browse_block\Plugin\Block;
 
-use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
+use Drupal\Core\Block\BlockBase;
 
 /**
- * Creates a custom block for showing a link back to the store homepage and a
- * link to return to search results
+ * Creates a custom block for showing a link back to the store homepage and a link to return to search results.
  *
  * @Block(
  *   id = "jbs_commerce_back_to_browse_block",
@@ -21,9 +20,8 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
    */
   public function build() {
     $front_alias = Url::fromRoute('<front>')->toString();
-    $base_path = \Drupal::request()
-      // ex. http://pep-b.pep
-      ->getSchemeAndHttpHost();
+    // ex. http://pep-b.pep
+    $base_path = \Drupal::request()->getSchemeAndHttpHost();
     $check_referer = "";
     if (isset(\Drupal::request()->query)) {
       $check_referer = \Drupal::request()->query->get('referer');
@@ -47,8 +45,10 @@ class JBSCommerceBackToBrowseBlock extends BlockBase {
      */
     // Faceted search.
     if (strpos($referer, "f[0]=") !== FALSE ||
-      strpos($referer, "search_api_fulltext=") !== FALSE ||
-      strpos($referer, "f%5B0%5D") !== FALSE) {
+    // Search text.
+        strpos($referer, "search_api_fulltext=") !== FALSE ||
+    // ???
+        strpos($referer, "f%5B0%5D") !== FALSE) {
       $results_link = '
     <li class="menu-item return-btn">
       <a href="' . $referer . '">Return to Search Results</a>

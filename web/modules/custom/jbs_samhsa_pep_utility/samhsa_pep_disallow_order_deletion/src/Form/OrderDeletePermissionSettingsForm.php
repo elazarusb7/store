@@ -36,6 +36,7 @@ class OrderDeletePermissionSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
+    // ksm($values['disable_order_delete']);.
     $this->config('samhsa_pep_disallow_order_deletion.settings')
       ->set('disable_order_delete', $values['disable_order_delete'])
       ->save();

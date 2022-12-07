@@ -43,96 +43,90 @@ class User extends DrupalSqlBase {
     $bundle = "user";
     // field_first_name.
     $query = '
-    SELECT field_first_name_value
-    FROM field_data_field_first_name
+    SELECT field_first_name_value 
+    FROM field_data_field_first_name 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
       $values[] = $record->field_first_name_value;
+      // $v = $record->field_first_name_value;
+      // drush_print($v);
     }
     $row->setSourceProperty('field_first_name', $values);
 
     // field_last_name.
     $query = '
-    SELECT field_last_name_value
-    FROM field_data_field_last_name
+    SELECT field_last_name_value 
+    FROM field_data_field_last_name 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
+      // $v = $record->field_last_name_value;
+      // drush_print($v);
       $values[] = $record->field_last_name_value;
     }
     $row->setSourceProperty('field_last_name', $values);
 
     // field_organization.
     $query = '
-    SELECT field_organization_value
-    FROM field_data_field_organization
+    SELECT field_organization_value 
+    FROM field_data_field_organization 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
+      // $v = $record->field_organization_value;
+      // drush_print($v);
       $values[] = $record->field_organization_value;
     }
     $row->setSourceProperty('field_organization', $values);
 
     // field_phone_number.
     $query = '
-    SELECT field_phone_number_value
-    FROM field_data_field_phone_number
+    SELECT field_phone_number_value 
+    FROM field_data_field_phone_number 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
+      // $v = $record->field_phone_number_value;
+      // drush_print($v);
       $values[] = $record->field_phone_number_value;
     }
     $row->setSourceProperty('field_phone_number', $values);
 
     // field_rejected_user.
     $query = '
-    SELECT field_rejected_user_value
-    FROM field_data_field_rejected_user
+    SELECT field_rejected_user_value 
+    FROM field_data_field_rejected_user 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
+      // $v = $record->field_rejected_user_value;
+      // drush_print($v);
       $values[] = $record->field_rejected_user_value;
     }
     $row->setSourceProperty('field_rejected_user', $values);
 
     // field_country_hidden.
     $query = '
-    SELECT field_country_hidden_value
-    FROM field_data_field_country_hidden
+    SELECT field_country_hidden_value 
+    FROM field_data_field_country_hidden 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
+      // $v = $record->field_country_hidden_value;
+      // drush_print($v);
       $values[] = $record->field_country_hidden_value;
     }
     $row->setSourceProperty('field_country_hidden', $values);
@@ -149,7 +143,7 @@ class User extends DrupalSqlBase {
     INNER JOIN location l
     ON fl.field_location_lid = l.lid
     WHERE
-      fl.entity_id = :uid AND bundle = :bundle
+      fl.entity_id = :uid AND bundle = :bundle  
   ', [':uid' => $uid, ':bundle' => $bundle]);
     foreach ($result as $record) {
       $row->setSourceProperty('city', $record->city);
@@ -174,10 +168,7 @@ class User extends DrupalSqlBase {
       FROM
       field_data_field_date_approved
       WHERE entity_id = :uid AND bundle = :bundle';
-    $result = $this->getDatabase()->query($query, [
-      ':uid' => $uid,
-      ':bundle' => $bundle,
-    ]);
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
       $values[] = date('Y-m-d', strtotime($record->field_date_approved_value));

@@ -100,14 +100,15 @@ class WorkflowHelper implements WorkflowHelperInterface {
   public function getAllStates(string $id) {
     $modulepath = \Drupal::service('extension.list.module')->getPath('samhsa_pep_order_states_workflow');
     $yaml = Yaml::parse(file_get_contents($modulepath . '/samhsa_pep_order_states_workflow.workflows.yml'));
-    //$yamlString = Yaml::dump($yaml);
+    // $yamlString = Yaml::dump($yaml);
     $states = $yaml[$id]['states'];
-    //$states = array_keys($states);
+    // $states = array_keys($states);
     $order_states = [];
     foreach ($states as $key => $state) {
       $order_states[$key] = $state['label'];
     }
-    return $order_states;//$yaml[$id]['states'];
+    // $yaml[$id]['states'];
+    return $order_states;
   }
 
 }

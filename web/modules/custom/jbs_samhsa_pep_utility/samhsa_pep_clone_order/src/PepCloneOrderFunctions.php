@@ -2,14 +2,13 @@
 
 namespace Drupal\samhsa_pep_clone_order;
 
-use Drupal;
+use Drupal\commerce_shipping\ShipmentItem;
+use Drupal\commerce_shipping\Entity\Shipment;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderItem;
-use Drupal\commerce_shipping\Entity\Shipment;
-use Drupal\commerce_shipping\ShipmentItem;
+use Symfony\Component\HttpFoundation\Request;
 use Drupal\physical\Weight;
 use Drupal\physical\WeightUnit;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class PepUtilityFunctions.
@@ -70,7 +69,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
       'order_items' => $line_items,
       'state' => 'draft',
       'mail' => $mail,
-      // 'completed' => time(),
+          // 'completed' => time(),
     ]);
 
     $order->save();
@@ -80,9 +79,8 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     $order->save();
 
     $comment = 'This order cloned from order#: ' . $entity->id();
-    $logStorage = Drupal::entityTypeManager()->getStorage('commerce_log');
-    $logStorage->generate($order, 'order_comment', ['comment' => $comment])
-      ->save();
+    $logStorage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+    $logStorage->generate($order, 'order_comment', ['comment' => $comment])->save();
 
     // Add shipments.
     $shipments = $entity->get('shipments');
@@ -93,6 +91,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     /*TODO: update foreach loop for shipments*/
     /*foreach ($order_shipments->getValue() as $order_shipment) {
     if ($order_shipment['target_id']) {
+    ksm($order_shipment['target_id']);
     }
     }*/
     if (is_array($shipment_ids)) {
@@ -130,8 +129,21 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
           $add_shipment->addItem($shipment_item);
         }
 
-        $shipping_method_storage = Drupal::entityTypeManager()
-          ->getStorage('commerce_shipping_method');
+        /*// Loop through shipment items of the cloned order and add them to new order shipment
+        $shipment_items = $shipment->getItems();
+
+        foreach ($shipment_items as $shipment_item) {
+        $shipment_item = new \Drupal\commerce_shipping\ShipmentItem([
+        'order_item_id' => $shipment_item->getOrderItemId(),
+        'title' => $shipment_item->getTitle(),
+        'quantity' => $shipment_item->getQuantity(),
+        'weight' => $shipment_item->getWeight(),
+        'declared_value' => $shipment_item->getDeclaredValue(),
+        ]);
+
+        $add_shipment->addItem($shipment_item);
+        }*/
+        $shipping_method_storage = \Drupal::entityTypeManager()->getStorage('commerce_shipping_method');
         $shipping_methods = $shipping_method_storage->loadMultipleForShipment($add_shipment);
         $add_shipment->setShippingMethod(reset($shipping_methods));
 

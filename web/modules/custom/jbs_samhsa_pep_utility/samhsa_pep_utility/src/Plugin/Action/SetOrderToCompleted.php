@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_pep_utility\Plugin\Action;
 
-use Drupal;
 use Drupal\views_bulk_operations\Action\ViewsBulkOperationsActionBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -41,9 +40,8 @@ class SetOrderToCompleted extends ViewsBulkOperationsActionBase {
       if ($entity->hasField('field_log')) {
         $logcomments = $entity->field_log->value;
       }
-      $log_storage = Drupal::entityTypeManager()->getStorage('commerce_log');
-      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Order Completed: " . $logcomments])
-        ->save();
+      $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+      $log = $log_storage->generate($entity, 'commerce_order_state_updated', ['message' => "Order Completed: " . $logcomments])->save();
 
       /*//send email notification
       $to = $entity->getEmail(); //Fetch owner email

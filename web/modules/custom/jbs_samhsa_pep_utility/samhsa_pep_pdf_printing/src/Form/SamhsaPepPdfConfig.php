@@ -148,6 +148,28 @@ class SamhsaPepPdfConfig extends ConfigFormBase {
       '#weight' => 25,
     ];
 
+    /*$form['test'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Generate testing labels'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 30,
+    );
+    $form['test']['number_of_test_rows'] = [
+    '#type' => 'number',
+    '#title' => $this->t('Number of rows to be printed'),
+    '#default_value' => $config->get('number_of_test_rows'),
+    '#min' => 1,
+    '#max' => 50,
+    '#weight' => 10,
+    ];
+    $form['test']['test_button'] = [
+    '#type' => 'submit',
+    '#name' => 'test_button',
+    '#value' => $this->t('Generate'),
+    '#weight' => 15,
+    ];*/
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -176,8 +198,12 @@ class SamhsaPepPdfConfig extends ConfigFormBase {
       ->set('font_style', $form_state->getValue('font_style'))
       ->set('font_size', $form_state->getValue('font_size'))
       ->set('number_of_test_rows', $form_state->getValue('number_of_test_rows'))
-      ->save();
 
+      ->save();
+    /*$triggering_element = $form_state->getTriggeringElement();
+    if ($triggering_element['#name'] == 'test_button') {
+    \Drupal::service('samhsa_pep_pdf_printing.label')->generateTestLabels($form_state->getValue('number_of_test_rows'));
+    }*/
   }
 
 }

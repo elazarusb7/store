@@ -4,6 +4,7 @@ namespace Drupal\migrate_files_and_images;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+// Use Drupal\Core\Routing\LinkGeneratorTrait;.
 use Drupal\Core\Url;
 
 /**

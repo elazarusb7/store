@@ -21,7 +21,6 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
    * @var \Drupal\commerce_stock\StockCheckInterface
    */
   protected $stockChecker;
-
   /**
    * The messenger.
    *
@@ -43,16 +42,17 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * This class is a placeholder for future implementation of the Event
-   * Subscriber for tracking changes in the Order.
+   * This class is a placeholder for future implementation of the Event Subscriber
+   * for tracking changes in the Order.
    */
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [// OrderEvents::ORDER_ITEM_PRESAVE => 'checkIfStockNegative',.
-    ];
+    return [
+          // OrderEvents::ORDER_ITEM_PRESAVE => 'checkIfStockNegative',.
+      ];
   }
 
   /**
@@ -62,10 +62,14 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
    *   The add to cart event.
    */
   public function checkIfStockNegative(OrderItemEvent $event) {
+    // ksm($event);
     // $order_item = $event->getOrderItem();
+    // ksm($order_item);
     // $variation = $order_item->getPurchasedEntity();
+    // ksm($order_item->getQuantity());
     // $original_order = $order_item->getOrder();
     // $original_items = $original_order->getItems();
+    // ksm($original_items);
     // Get the Stock manager:
     // $stockManager = \Drupal::service('commerce_stock.service_manager');
     // $stock_service = $stockManager->getService($variation);
@@ -75,6 +79,7 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
     $stock_service = $stockManager->getService($variation);
     $stock_checker = $stock_service->getStockChecker();
     $locations = $stock_checker->getLocationList(true);
+    //ksm($locations);
     $location_levels = [];
     foreach ($locations as $location) {
     $location_id = $location->getId();
@@ -90,6 +95,7 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
 
     if (!empty(\Drupal::hasService('samhsa_pep_stock.pep_stock_utility'))) {
     $data = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getTransactionData(1, $variation, $location_id);
+    ksm(unserialize($data));
     $location_levels[$location_id] = [
     'data' => unserialize($data),
     ];
@@ -98,6 +104,7 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
     //$location_levels[$location_id] = $location_level;
 
     }
+    ksm($location_levels);
      */
   }
 

@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_pep_order_states_workflow\EventSubscriber;
 
-use Drupal;
 use Drupal\samhsa_pep_order_states_workflow\WorkflowHelperInterface;
 use Drupal\state_machine\Event\WorkflowTransitionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,10 +39,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
     return [
       'state_machine.pre_transition' => 'handleAction',
       'commerce_order.placebulk.post_transition' => 'handlePlaceBulkOrderAction',
-      'commerce_order.place.post_transition' => [
-        'handlePlaceRegularOrderAction',
-        -300,
-      ],
+      'commerce_order.place.post_transition' => ['handlePlaceRegularOrderAction', -300],
     ];
   }
 
@@ -71,10 +67,11 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
                         Your order has been cancelled. If you have any questions or did not request a cancellation, please use the Order # provided above when contacting us.<br /><br />
                         Regards,<br /><br />
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
-                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.", ['%ordernumber' => $ordernumber]);
-          Drupal::messenger()->addStatus(t("Order Cancelled"));
+                        If you have questions or comments regarding your order, please send an email to 
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
+                ['%ordernumber' => $ordernumber]);
+          \Drupal::messenger()->addStatus(t("Order Cancelled"));
           if (function_exists('send_mail')) {
             send_mail($entity, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, FALSE);
           }
@@ -89,16 +86,17 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
           $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Your order has been shipped. You should receive the materials in 10-12 days<br />
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br />
-                        Note: If you ordered products over the Max Limit, only the authorized quantity has been shipped.<br /><br />
+                        Your order has been shipped. You should receive the materials in 10-12 days<br />                       
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br />                       
+                        Note: If you ordered products over the Max Limit, only the authorized quantity has been shipped.<br /><br />  
                         Regards,<br /> <br />
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
-                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.", ['%ordernumber' => $ordernumber]);
+                        If you have questions or comments regarding your order, please send an email to 
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
+                ['%ordernumber' => $ordernumber]);
 
-          Drupal::messenger()->addStatus("Order Shipped");
+          \Drupal::messenger()->addStatus("Order Shipped");
           if (function_exists('send_mail')) {
             send_mail($entity, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, FALSE);
           }
@@ -120,10 +118,10 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
     $order = $event->getEntity();
 
     // Place bulk order and call stock transaction to decrease stock.
-    $stockServiceManager = Drupal::service('commerce_stock.service_manager');
-    $stockEventTypeManager = Drupal::service('plugin.manager.commerce_stock_event_type');
-    $stockEventsManager = Drupal::service('plugin.manager.stock_events');
-    $entityTypeManager = Drupal::entityTypeManager();
+    $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+    $stockEventTypeManager = \Drupal::service('plugin.manager.commerce_stock_event_type');
+    $stockEventsManager = \Drupal::service('plugin.manager.stock_events');
+    $entityTypeManager = \Drupal::entityTypeManager();
     $oes = new OrderEventSubscriber($stockServiceManager, $stockEventTypeManager, $stockEventsManager, $entityTypeManager);
     $oes->onOrderPlace($event);
 
@@ -135,16 +133,17 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Thank you for your order. Since the quantity ordered exceeds the maximum limit, your order will require authorization. You will receive an email shortly with more details.<br /><br />
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />
+                        Thank you for your order. Since the quantity ordered exceeds the maximum limit, your order will require authorization. You will receive an email shortly with more details.<br /><br />                      
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />                     
+                                    
+                        Regards,<br /> <br />  
+                        SAMHSA Fulfillment Team<br /><br /> 
+                        If you have questions or comments regarding your order, please send an email to 
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
+          ['%ordernumber' => $ordernumber]);
 
-                        Regards,<br /> <br />
-                        SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
-                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.", ['%ordernumber' => $ordernumber]);
-
-    Drupal::messenger()->addStatus("Order Submitted");
+    \Drupal::messenger()->addStatus("Order Submitted");
     if (function_exists('send_mail')) {
       send_mail($order, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, TRUE);
     }
@@ -166,16 +165,17 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Thank you for your order. You should receive the materials in 3-4 weeks.<br /><br />
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />
-
-                        Regards,<br />
+                        Thank you for your order. You should receive the materials in 3-4 weeks.<br /><br />                      
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />                       
+                                    
+                        Regards,<br /> 
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
-                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.", ['%ordernumber' => $ordernumber]);
+                        If you have questions or comments regarding your order, please send an email to 
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
+          ['%ordernumber' => $ordernumber]);
 
-    Drupal::messenger()->addStatus("Order Submitted");
+    \Drupal::messenger()->addStatus("Order Submitted");
     if (function_exists('send_mail')) {
       send_mail($entity, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, TRUE);
     }

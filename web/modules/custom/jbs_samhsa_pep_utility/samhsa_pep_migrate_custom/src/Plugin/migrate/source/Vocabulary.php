@@ -18,15 +18,16 @@ class Vocabulary extends SqlBase {
    * {@inheritdoc}
    */
   public function query() {
-    $query = $this->select('taxonomy_vocabulary', 'v')->fields('v', [
-      'vid',
-      'name',
-      'description',
-      'hierarchy',
-      'module',
-      'weight',
-      'machine_name',
-    ]);
+    $query = $this->select('taxonomy_vocabulary', 'v')
+      ->fields('v', [
+        'vid',
+        'name',
+        'description',
+        'hierarchy',
+        'module',
+        'weight',
+        'machine_name',
+      ]);
     return $query;
   }
 

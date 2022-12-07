@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for migrate_custom module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+/*function samhsa_pep_migrate_custom_install() {
+_samhsa_pep_migrate_custom_create_taxonomy();
+}*/
+
+/**
+ * Implements hook_uninstall().
+ */
+/*function samhsa_pep_migrate_custom_uninstall() {
+_samhsa_pep_migrate_custom_delete_taxonomy();
+}*/
+
+/**
+ * Vocabularies.
+ *
+ * @return array
+ */
+/*function _samhsa_pep_migrate_custom_get_taxonomy_items() {
+return array(
+array(
+'vid' => 'ad_research_implementation',
+'name' => 'Ad Research Implementation',
+'terms' => array(
+),
+),
+array(
+'vid' => 'cadro_category',
+'name' => 'Cadro Category',
+'terms' => array(
+),
+),
+);
+}*/
+
+/**
+ * Create taxonomy vocabularies and their items.
+ */
+/*function _samhsa_pep_migrate_custom_create_taxonomy() {
+foreach (_migrate_custom_get_taxonomy_items() as $item) {
+if (!$vocabulary = \Drupal\taxonomy\Entity\Vocabulary::load($item['vid'])) {
+$vocabulary = \Drupal\taxonomy\Entity\Vocabulary::create(array(
+'vid' => $item['vid'],
+'machine_name' => $item['vid'],
+'name' => $item['name'],
+));
+$vocabulary->save();
+foreach ($item['terms'] as $term) {
+$term = \Drupal\taxonomy\Entity\Term::create([
+'vid' => $item['vid'],
+'name' => $term,
+]);
+$term->save();
+}
+}
+}
+}*/
+
+/**
+ * Creates taxonomy vocabularies and their items.
+ */
+/*function _migrate_custom_delete_taxonomy() {
+foreach (_migrate_custom_get_taxonomy_items() as $item) {
+if ($vocabulary = \Drupal\taxonomy\Entity\Vocabulary::load($item['vid'])) {
+$vocabulary->delete();
+}
+}
+}*/

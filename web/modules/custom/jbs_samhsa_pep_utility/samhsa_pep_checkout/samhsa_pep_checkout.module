@@ -4,13 +4,21 @@
  * @file
  */
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Field\FieldFilteredMarkup;
-
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter(&$form, FormStateInterface $form_state, $form_id): void {
+
+use Drupal\Core\Field\FieldFilteredMarkup;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ *
+ */
+function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter(
+  &$form,
+  FormStateInterface $form_state,
+  $form_id
+) {
   if ($form['#step_id'] == 'order_information') {
     $form['message_top'] = [
       '#type' => 'markup',
@@ -30,25 +38,21 @@ function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter
     $form['shipping_information']['shipping_profile']['field_phone_number']['widget'][0]['value']['#description'] = $text;
     $form['payment_information']['billing_information']['field_phone_number']['widget'][0]['value']['#description'] = $text;
   }
-  else {
-    if ($form['#step_id'] == 'review') {
-      $form['review']['shipping_information']['#title'] = t('Shipping Information');
-      if (isset($form['review']['billing_information'])) {
-        $form['review']['payment_information']['#title'] = t('Contact Information');
-      }
-      if (isset($form['review']['contact_information'])) {
-        $form['review']['contact_information']['#title'] = t('Contact Email');
-      }
-      $form['actions']['next']['#value'] = t('Place order');
-      // unset($form['actions']['next']['#suffix']);.
+  elseif ($form['#step_id'] == 'review') {
+    $form['review']['shipping_information']['#title'] = t('Shipping Information');
+    if (isset($form['review']['billing_information'])) {
+      $form['review']['payment_information']['#title'] = t('Contact Information');
     }
-    else {
-      if ($form['#step_id'] == 'complete') {
-        // BK SPD-681.
-        $text = FieldFilteredMarkup::create('Format: 1234567890');
-        $form['completion_register']['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
-      }
+    if (isset($form['review']['contact_information'])) {
+      $form['review']['contact_information']['#title'] = t('Contact Email');
     }
+    $form['actions']['next']['#value'] = t('Place order');
+    // unset($form['actions']['next']['#suffix']);.
+  }
+  elseif ($form['#step_id'] == 'complete') {
+    // BK SPD-681.
+    $text = FieldFilteredMarkup::create('Format: 1234567890');
+    $form['completion_register']['customer_profiles']['widget'][0]['entity']['field_phone_number']['widget'][0]['value']['#description'] = $text;
   }
   $form['customer_profiles']['widget'][0]['#type'] = 'container';
   $form['customer_profiles']['widget'][0]['entity']['address']['widget'][0]['#type'] = 'container';

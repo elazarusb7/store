@@ -2,9 +2,9 @@
 
 namespace Drupal\samhsa_pep_anonlogout\EventSubscriber;
 
-use Drupal\Core\Config\ImmutableConfig;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+// Use Drupal\samhsa_pep_anonlogout\AnonlogoutManagerInterface;.
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Session\SessionManagerInterface;
@@ -25,62 +25,66 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   /**
    * Settings.
    */
-  protected ImmutableConfig $settings;
+  protected $settings;
 
   /**
    * Session manager.
    *
    * @var \Drupal\Core\Session\SessionManagerInterface
    */
-  protected SessionManagerInterface $sessionManager;
+  protected $sessionManager;
 
   /**
    * The messenger.
    *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
-  protected MessengerInterface $messenger;
+  protected $messenger;
 
   /**
    * Constructs an AnonlogoutSubscriber object.
    *
-   * @param \Drupal\Core\Session\SessionManagerInterface $sessionManager
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   * @param \Drupal\samhsa_pep_anonlogout\AnonlogoutManagerInterface $anonlogout
+   *   The anonlogout manager service.
    */
-  public function __construct(SessionManagerInterface $sessionManager, MessengerInterface $messenger, TranslationInterface $string_translation) {
-    $this->sessionManager = $sessionManager;
-    $this->messenger = $messenger;
+  public function __construct(
+    SessionManagerInterface $sessionManager,
+    MessengerInterface $messenger,
+    TranslationInterface $string_translation
+  ) {
+    $this->sessionManager    = $sessionManager;
+    $this->messenger         = $messenger;
     $this->stringTranslation = $string_translation;
-    $this->settings = \Drupal::config('samhsa_pep_anonlogout.settings');
+    $this->settings          = \Drupal::config('samhsa_pep_anonlogout.settings');
   }
 
   /**
    *
    */
-  public function onRequest(RequestEvent $event): void {
+  public function onRequest(GetResponseEvent $event) {
     // Only run for anonymous sessions.
     if (\Drupal::currentUser()->id() > 0) {
       return;
     }
+    /** @var \Symfony\Component\HttpFoundation\Request */
     $request = \Drupal::request();
     $now = \Drupal::time()->getRequestTime();
 
-    /** @var \Symfony\Component\HttpFoundation\Session\Session $request */
+    /** @var \Symfony\Component\HttpFoundation\Session\Session */
     $session = $request->getSession();
-    $last = $session->get('last', 2);
-    if ($last === '') {
+    $last    = $session->get('last', 2);
+    if ($last == '') {
       $last = $now;
     }
     $lag = $now - $last;
 
     $timeout = $this->settings->get('timeout');
-    if (!isset($timeout) || $timeout === 0) {
+    if (!isset($timeout) || $timeout == 0) {
       $timeout = 60;
     }
 
     $redirect_url = $this->settings->get('redirect_url');
-    if ($redirect_url === '') {
+    if ($redirect_url == '') {
       $redirect_url = '/';
     }
     $clear_cart = FALSE;
@@ -88,7 +92,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
       // Over the limit so check for a cart.
       if ($session->has('commerce_cart_orders')) {
         $commerce_cart_orders = $session->get('commerce_cart_orders');
-        $cart_id = (int) $commerce_cart_orders[0];
+        $cart_id = intval($commerce_cart_orders[0]);
         if ($cart_id) {
           // We have a cart so clear it.
           $clear_cart = TRUE;
@@ -97,28 +101,25 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
     }
     if ($clear_cart) {
       $session->clear();
-      \Drupal::messenger()
-        ->addStatus(t('Your cart has expired due to inactivity'));
-      if ($redirect_url !== '') {
+      \Drupal::messenger()->addStatus(t('Your cart has expired due to inactivity'));
+      if ($redirect_url != '') {
         $event->setResponse(new RedirectResponse($redirect_url));
       }
     }
-    else {
-      if ($lag > 1) {
-        // Record the hit.
-        $session->set('last', $now);
-        $path = $event->getRequest()->getPathInfo();
+    elseif ($lag > 1) {
+      // Record the hit.
+      $session->set('last', $now);
+      $path = $event->getRequest()->getPathInfo();
 
-        // Checking if url isRouted. Without checking,
-        // it was throwing an error for anon user for invalid path.
-        $url = Url::fromUserInput($path);
-        $route_name = ($url->isRouted() ? $url->getRouteName() : 'not routed');
-        $route_chunks = explode('.', $route_name);
-        // \Drupal::messenger()->addStatus("name: $route_name, chunks: " . print_r($route_chunks,true));
-        if (isset($route_chunks[0])) {
-          if ($route_chunks[0] === 'commerce_checkout' || $route_chunks[0] === 'commerce_cart') {
-            $this->appendMessage();
-          }
+      // Checking if url isRouted. Without checking,
+      // it was throwing an error for anon user for invalid path.
+      $url = Url::fromUserInput($path);
+      $route_name = ($url->isRouted() ? $url->getRouteName() : 'not routed');
+      $route_chunks = explode('.', $route_name);
+      // \Drupal::messenger()->addStatus("name: $route_name, chunks: " . print_r($route_chunks,true));
+      if (isset($route_chunks[0])) {
+        if ($route_chunks[0] == 'commerce_checkout' || $route_chunks[0] == 'commerce_cart') {
+          $this->appendMessage();
         }
       }
     }
@@ -130,7 +131,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
    * @param \Drupal\commerce_cart\Event\CartEntityAddEvent $event
    *   The add to cart event.
    */
-  public function appendAddToCartMessage(CartEntityAddEvent $event): void {
+  public function appendAddToCartMessage(CartEntityAddEvent $event) {
     // Only run for anonymous sessions.
     if (\Drupal::currentUser()->id() > 0) {
       return;
@@ -141,9 +142,9 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   /**
    * Displays the actual add to cart message.
    */
-  private function appendMessage(): void {
+  private function appendMessage() {
     $msg = $this->settings->get('add_to_cart_message');
-    if ($msg !== '') {
+    if ($msg != '') {
       $this->messenger->addMessage($this->t($msg));
     }
   }
@@ -151,9 +152,9 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents(): array {
+  public static function getSubscribedEvents() {
     return [
-      KernelEvents::REQUEST => ['onRequest', 100],
+      KernelEvents::REQUEST       => ['onRequest', 100],
       CartEvents::CART_ENTITY_ADD => ['appendAddToCartMessage', -1],
     ];
   }

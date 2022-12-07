@@ -57,10 +57,13 @@ function samhsa_pep_order_states_workflow_entity_access(EntityInterface $entity,
     // Shipping tab.
     if ($entity->getEntityType()->id() == 'commerce_shipment'
       && ($operation == 'update' || $operation == 'delete')) {
-
+      // ksm($entity);
       $state = $entity->getOrder()->getState();
+      // $state = $entity->getState();
+      // $transition = $entity->getState()->getTransitions();
       $state_value = $state->getValue()['value'];
-
+      // ksm($state_value);
+      // ksm($state->getWorkflow()->getPluginDefinition()['states'][$state_value]['editable']);
       if ($state->getWorkflow()
         ->getPluginDefinition()['states'][$state_value]['editable'] == 'Yes') {
         // Allow Access.

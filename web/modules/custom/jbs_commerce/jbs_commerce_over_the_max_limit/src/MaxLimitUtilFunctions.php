@@ -38,6 +38,7 @@ class MaxLimitUtilFunctions implements MaxLimitUtilFunctionsInterface {
         if (isset($entity)) {
           $product_id = $entity->get('product_id')->getValue()[0]['target_id'];
           $product = Product::load($product_id);
+          // ksm("qty: " . $qty);.
           $maxlimit_machine_name_config = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
             ->get('maxlimit_element', 'field_qty_max_order');
           if (isset($maxlimit_machine_name_config) && !empty($maxlimit_machine_name_config)) {
@@ -71,6 +72,7 @@ class MaxLimitUtilFunctions implements MaxLimitUtilFunctionsInterface {
       $qty = $item->getQuantity();
       $product_id = $item->getPurchasedEntity()->get('product_id')->getValue()[0]['target_id'];
       $product = Product::load($product_id);
+      // ksm("qty: " . $qty);.
       $maxlimit_machine_name_config = \Drupal::config('jbs_commerce_over_the_max_limit.settings')
         ->get('maxlimit_element', 'field_qty_max_order');
       if (isset($maxlimit_machine_name_config) && !empty($maxlimit_machine_name_config)) {
