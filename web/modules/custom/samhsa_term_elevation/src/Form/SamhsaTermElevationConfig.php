@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_term_elevation\Form;
 
+use Drupal;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -136,7 +137,8 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
 
       $header = [$this->t('Solr index fields')] + $this->pluginIds;
 
-      $field_names = \Drupal::service('samhsa_te_solr_connections')->getIndexedFieldNames($server_id);
+      $field_names = Drupal::service('samhsa_te_solr_connections')
+        ->getIndexedFieldNames($server_id);
       $field_names = array_combine($field_names, $field_names);
 
       $data = [];
@@ -283,15 +285,16 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form State object=.
    *
-   * @todo Include elevation in the results.
-   *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   AjaxResponse object.
+   * @todo Include elevation in the results.
+   *
    */
   public function performSearch(array &$form, FormStateInterface &$form_state) {
     $response = new AjaxResponse();
     $term = $form_state->getValue('connection_test')['search_term'];
-    $results = \Drupal::service('samhsa_te_solr_connections')->searchString($term);
+    $results = Drupal::service('samhsa_te_solr_connections')
+      ->searchString($term);
     $results_json = new JsonResponse($results);
     $content_json = $results_json->getContent();
     $content_json = $this->jsonPrettyPrint($content_json);
@@ -321,11 +324,11 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
     }
     $result = '';
     // Indentation level.
-    $pos         = 0;
-    $strLen      = strlen($json);
-    $indentStr   = '&nbsp;&nbsp;&nbsp;';
-    $newLine     = "\n";
-    $prevChar    = '';
+    $pos = 0;
+    $strLen = strlen($json);
+    $indentStr = '&nbsp;&nbsp;&nbsp;';
+    $newLine = "\n";
+    $prevChar = '';
     $outOfQuotes = TRUE;
     for ($i = 0; $i < $strLen; $i++) {
       // Speedup: copy blocks of input which don't matter re string detection and formatting.

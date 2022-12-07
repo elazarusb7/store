@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_clone_order;
 
+use Drupal;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_shipping\Entity\Shipment;
@@ -79,7 +80,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     $order->save();
 
     $comment = 'This order cloned from order#: ' . $entity->id();
-    $logStorage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+    $logStorage = Drupal::entityTypeManager()->getStorage('commerce_log');
     $logStorage->generate($order, 'order_comment', ['comment' => $comment])
       ->save();
 
@@ -129,7 +130,7 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
           $add_shipment->addItem($shipment_item);
         }
 
-        $shipping_method_storage = \Drupal::entityTypeManager()
+        $shipping_method_storage = Drupal::entityTypeManager()
           ->getStorage('commerce_shipping_method');
         $shipping_methods = $shipping_method_storage->loadMultipleForShipment($add_shipment);
         $add_shipment->setShippingMethod(reset($shipping_methods));

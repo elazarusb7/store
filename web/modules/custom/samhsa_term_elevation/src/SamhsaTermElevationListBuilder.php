@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_term_elevation;
 
+use Drupal;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -23,17 +24,15 @@ class SamhsaTermElevationListBuilder extends EntityListBuilder {
    */
   public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage) {
     parent::__construct($entity_type, $storage);
-    $this->websitesBases = \Drupal::service('samhsa_te_solr_connections')->getWebsitesBases();
+    $this->websitesBases = Drupal::service('samhsa_te_solr_connections')
+      ->getWebsitesBases();
   }
 
   /**
    * {@inheritdoc}
    */
   protected function getEntityIds() {
-    $query = $this
-      ->getStorage()
-      ->getQuery()
-      ->sort('query');
+    $query = $this->getStorage()->getQuery()->sort('query');
     if ($this->limit) {
       $query->pager($this->limit);
     }
@@ -57,11 +56,7 @@ class SamhsaTermElevationListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /** @var \Drupal\samhsa_term_elevation\Entity\SamhsaTermElevation $entity */
     // $row['id'] = $entity->id();
-    $row['query'] = Link::createFromRoute(
-      $entity->label(),
-      'entity.samhsa_term_elevation.edit_form',
-      ['samhsa_term_elevation' => $entity->id()]
-    );
+    $row['query'] = Link::createFromRoute($entity->label(), 'entity.samhsa_term_elevation.edit_form', ['samhsa_term_elevation' => $entity->id()]);
     $row['elnid']['data'] = $this->buildLinksToContent($entity->getIncluded(), 'el');
     $row['exnid']['data'] = $this->buildLinksToContent($entity->getExcluded(), 'ex');
     return $row + parent::buildRow($entity);

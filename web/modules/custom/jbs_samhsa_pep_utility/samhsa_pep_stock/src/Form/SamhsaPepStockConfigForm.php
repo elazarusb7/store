@@ -25,7 +25,7 @@ class SamhsaPepStockConfigForm extends ConfigFormBase {
       ->get('physical_count_error_message');
 
     $form['physical_count_error_message'] = [
-          // '#type' => 'textarea',
+      // '#type' => 'textarea',
       '#type' => 'text_format',
       '#format' => $value['format'],
       '#title' => $this->t('Add error message which will be displayed when physical count is less than allocated quantity'),

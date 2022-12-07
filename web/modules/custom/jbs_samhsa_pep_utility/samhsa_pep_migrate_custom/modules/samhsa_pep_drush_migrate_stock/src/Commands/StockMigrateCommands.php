@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_drush_migrate_stock\Commands;
 
+use Drupal;
 use Drupal\Core\Database\Database;
 use Drush\Commands\DrushCommands;
 use Drupal\commerce_product\Entity\ProductVariation;
@@ -25,13 +26,15 @@ class StockMigrateCommands extends DrushCommands {
    * @command samhsa_pep_drush_migrate_stock:hello
    * @aliases d9-hello2
    * @options arr An option that takes multiple values.
-   * @options msg Whether or not an extra message should be displayed to the user.
+   * @options msg Whether or not an extra message should be displayed to the
+   *   user.
    * @usage samhsa_pep_drush_migrate_stock:hello akanksha --msg
    *   Display 'Hello Akanksha!' and a message.
    */
   public function hello($name, $options = ['msg' => FALSE]) {
     if ($options['msg']) {
-      $this->output()->writeln('Hello ' . $name . '! This is your first Drush 9 command.');
+      $this->output()
+        ->writeln('Hello ' . $name . '! This is your first Drush 9 command.');
     }
     else {
       $this->output()->writeln('Hello ' . $name . '!');
@@ -66,12 +69,13 @@ class StockMigrateCommands extends DrushCommands {
     // Switch back.
     Database::setActiveConnection();
     foreach ($values as $key => $value) {
-      $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+      $stockServiceManager = Drupal::service('commerce_stock.service_manager');
       $variation = ProductVariation::load($key);
       if (!is_null($variation)) {
         $stockServiceManager->createTransaction($variation, 1, '', $value, 0, 'USD', StockTransactionsInterface::STOCK_IN, ['data' => []]);
       }
-      $this->output()->writeln(count($values) . ' commerce stock transactions records were migrated.');
+      $this->output()
+        ->writeln(count($values) . ' commerce stock transactions records were migrated.');
     }
   }
 
@@ -104,12 +108,13 @@ class StockMigrateCommands extends DrushCommands {
     Database::setActiveConnection();
     foreach ($values as $key => $value) {
       // Delete stock.
-      $query = \Drupal::database()->delete('commerce_stock_transaction');
+      $query = Drupal::database()->delete('commerce_stock_transaction');
       $query->condition('entity_id', $value, '=');
       $query->execute();
     }
 
-    $this->output()->writeln(count($values) . ' commerce stock transactions records were rolled back.');
+    $this->output()
+      ->writeln(count($values) . ' commerce stock transactions records were rolled back.');
   }
 
 }

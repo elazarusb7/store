@@ -29,11 +29,7 @@ function samhsa_pep_user_registration_help($route_name, RouteMatchInterface $rou
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_user_registration_form_user_register_form_alter(
-  &$form,
-  FormStateInterface $form_state,
-  $form_id
-) {
+function samhsa_pep_user_registration_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['actions']['submit']['#submit'][] = "_samhsa_pep_user_reg_message";
 }
 
@@ -67,11 +63,7 @@ function samhsa_pep_user_registration_email_registration_name(UserInterface $acc
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_user_registration_form_user_form_alter(
-  &$form,
-  FormStateInterface $form_state,
-  $form_id
-) {
+function samhsa_pep_user_registration_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   unset($form['field_last_password_reset']);
 }
 
@@ -119,7 +111,8 @@ function samhsa_pep_user_registration_preprocess_menu(&$variables) {
 
   foreach ($items as $key => &$item) {
     if (!$item['url']->isExternal()) {
-      if (($item['url']->isRouted() && $item['url']->getRouteName() == 'user.register' && \Drupal::currentUser()->isAuthenticated())) {
+      if (($item['url']->isRouted() && $item['url']->getRouteName() == 'user.register' && \Drupal::currentUser()
+          ->isAuthenticated())) {
         unset($variables['items'][$key]);
       }
     }

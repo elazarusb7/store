@@ -21,6 +21,7 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
    * @var \Drupal\commerce_stock\StockCheckInterface
    */
   protected $stockChecker;
+
   /**
    * The messenger.
    *
@@ -42,17 +43,16 @@ class WarehouseOrderItemEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * This class is a placeholder for future implementation of the Event Subscriber
-   * for tracking changes in the Order.
+   * This class is a placeholder for future implementation of the Event
+   * Subscriber for tracking changes in the Order.
    */
 
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return [
-          // OrderEvents::ORDER_ITEM_PRESAVE => 'checkIfStockNegative',.
-      ];
+    return [// OrderEvents::ORDER_ITEM_PRESAVE => 'checkIfStockNegative',.
+    ];
   }
 
   /**

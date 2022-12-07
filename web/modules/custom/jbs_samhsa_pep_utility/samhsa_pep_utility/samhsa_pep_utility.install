@@ -16,8 +16,14 @@ function samhsa_pep_utility_install() {
  * Implements hook_uninstall().
  */
 function samhsa_pep_utility_uninstall() {
-  Drupal::configFactory()->getEditable('samhsa_pep_utility_cancel_order')->delete();
-  Drupal::configFactory()->getEditable('samhsa_pep_utility_complete_order')->delete();
+  Drupal::configFactory()
+    ->getEditable('samhsa_pep_utility_cancel_order')
+    ->delete();
+  Drupal::configFactory()
+    ->getEditable('samhsa_pep_utility_complete_order')
+    ->delete();
   Drupal::configFactory()->getEditable('samhsa_pep_utility_pending')->delete();
-  Drupal::configFactory()->getEditable('samhsa_pep_utility_pick_slip_generated')->delete();
+  Drupal::configFactory()
+    ->getEditable('samhsa_pep_utility_pick_slip_generated')
+    ->delete();
 }

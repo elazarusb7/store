@@ -40,9 +40,12 @@ class SamhsaPepTaxonomyTagsCommands extends DrushCommands {
         break;
 
       default:
-        $this->output()->writeln("useage:\n\tdrush taxonomy-migrate\n\t - show this message");
-        $this->output()->writeln("\n\tdrush taxonomy-migrate migrate\n\t - run migration");
-        $this->output()->writeln("\n\tdrush taxonomy-migrate update\n\t - apply updates");
+        $this->output()
+          ->writeln("useage:\n\tdrush taxonomy-migrate\n\t - show this message");
+        $this->output()
+          ->writeln("\n\tdrush taxonomy-migrate migrate\n\t - run migration");
+        $this->output()
+          ->writeln("\n\tdrush taxonomy-migrate update\n\t - apply updates");
         break;
     }
     if ($cmd != '') {

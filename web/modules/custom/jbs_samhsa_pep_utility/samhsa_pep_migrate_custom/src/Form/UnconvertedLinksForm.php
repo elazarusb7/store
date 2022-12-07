@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_migrate_custom\Form;
 
+use Drupal;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -32,15 +33,17 @@ class UnconvertedLinksForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        \Drupal::messenger()->addMessage($this->t('Created the %label Unconverted links.', [
-          '%label' => $entity->label(),
-        ]));
+        Drupal::messenger()
+          ->addMessage($this->t('Created the %label Unconverted links.', [
+            '%label' => $entity->label(),
+          ]));
         break;
 
       default:
-        \Drupal::messenger()->addMessage($this->t('Saved the %label Unconverted links.', [
-          '%label' => $entity->label(),
-        ]));
+        Drupal::messenger()
+          ->addMessage($this->t('Saved the %label Unconverted links.', [
+            '%label' => $entity->label(),
+          ]));
     }
     $form_state->setRedirect('entity.unconverted_links.canonical', ['unconverted_links' => $entity->id()]);
   }

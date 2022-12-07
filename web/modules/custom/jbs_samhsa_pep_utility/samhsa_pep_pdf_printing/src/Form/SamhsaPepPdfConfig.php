@@ -148,8 +148,6 @@ class SamhsaPepPdfConfig extends ConfigFormBase {
       '#weight' => 25,
     ];
 
-
-
     return parent::buildForm($form, $form_state);
   }
 
@@ -178,7 +176,6 @@ class SamhsaPepPdfConfig extends ConfigFormBase {
       ->set('font_style', $form_state->getValue('font_style'))
       ->set('font_size', $form_state->getValue('font_size'))
       ->set('number_of_test_rows', $form_state->getValue('number_of_test_rows'))
-
       ->save();
 
   }

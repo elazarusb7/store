@@ -50,8 +50,7 @@ class UnconvertedLinksHtmlRouteProvider extends AdminHtmlRouteProvider {
     if ($entity_type->hasLinkTemplate('collection') && $entity_type->hasListBuilderClass()) {
       $entity_type_id = $entity_type->id();
       $route = new Route($entity_type->getLinkTemplate('collection'));
-      $route
-        ->setDefaults([
+      $route->setDefaults([
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
@@ -84,15 +83,12 @@ class UnconvertedLinksHtmlRouteProvider extends AdminHtmlRouteProvider {
       if ($entity_type->getFormClass('add')) {
         $operation = 'add';
       }
-      $route
-        ->setDefaults([
+      $route->setDefaults([
           '_entity_form' => "{$entity_type_id}.{$operation}",
           '_title' => "Add {$entity_type->getLabel()}",
-        ])
-        ->setRequirement('_entity_create_access', $entity_type_id);
+        ])->setRequirement('_entity_create_access', $entity_type_id);
 
-      $route
-        ->setOption('parameters', $parameters)
+      $route->setOption('parameters', $parameters)
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -111,8 +107,7 @@ class UnconvertedLinksHtmlRouteProvider extends AdminHtmlRouteProvider {
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->getBundleEntityType()) {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
-      $route
-        ->setDefaults([
+      $route->setDefaults([
           '_form' => 'Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])

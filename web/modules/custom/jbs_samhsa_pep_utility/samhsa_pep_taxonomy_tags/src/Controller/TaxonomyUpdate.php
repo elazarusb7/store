@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_taxonomy_tags\Controller;
 
+use Drupal;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\Controller\ControllerBase;
@@ -65,7 +66,7 @@ class TaxonomyUpdate extends ControllerBase {
   public function update() {
     $nl = $this->nl;
     $this->output .= $nl . $nl . 'Begin execution';
-    $module_handler = \Drupal::service('module_handler');
+    $module_handler = Drupal::service('module_handler');
     $module_path = $module_handler->getModule('samhsa_pep_taxonomy_tags')
       ->getPath();
     $this->output .= $nl . "module path: $module_path";
@@ -140,7 +141,7 @@ class TaxonomyUpdate extends ControllerBase {
 
     // All data read in.
     $this->output .= $this->nl . "successfully read $records records";
-    $entity_manager = \Drupal::entityTypeManager();
+    $entity_manager = Drupal::entityTypeManager();
 
     // Get header.
     /*[
@@ -158,7 +159,7 @@ class TaxonomyUpdate extends ControllerBase {
         continue;
       }
 
-      $query = \Drupal::entityQuery('commerce_product_variation')
+      $query = Drupal::entityQuery('commerce_product_variation')
         ->condition('sku', $sku);
       $variation_id = array_shift($query->execute());
       if (!isset($variation_id) || $variation_id == '') {
@@ -270,7 +271,7 @@ class TaxonomyUpdate extends ControllerBase {
     if ($vocabulary == '' || $name == '') {
       return FALSE;
     }
-    $query = \Drupal::entityQuery('taxonomy_term');
+    $query = Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', $vocabulary);
     $query->condition('name', $name);
     $tid = $query->execute();
@@ -296,7 +297,7 @@ class TaxonomyUpdate extends ControllerBase {
    */
   private function get_vocabulary($vid) {
     $terms = [];
-    $storage = \Drupal::entityTypeManager()
+    $storage = Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadTree($vid);
     foreach ($storage as $term) {
@@ -309,13 +310,13 @@ class TaxonomyUpdate extends ControllerBase {
    *
    */
   private function getProductTaxonomies() {
-    $bundle_fields = \Drupal::service('entity_field.manager')
+    $bundle_fields = Drupal::service('entity_field.manager')
       ->getFieldDefinitions('commerce_product', 'samhsa_publication');
     foreach (array_keys($bundle_fields) as $field_name) {
       $field = $bundle_fields[$field_name];
       if ($field->getType() == 'entity_reference') {
         $name = 'commerce_product.samhsa_publication.' . $field_name;
-        $field_config = \Drupal::entityTypeManager()
+        $field_config = Drupal::entityTypeManager()
           ->getStorage('field_config')
           ->load($name);
         if (isset($field_config)) {

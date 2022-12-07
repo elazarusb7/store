@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_clone_order\Form;
 
+use Drupal;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -21,9 +22,10 @@ class SamhsaPepCloneOrderSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $moduleHandler = \Drupal::service('module_handler');
+    $moduleHandler = Drupal::service('module_handler');
     if ($moduleHandler->moduleExists('samhsa_pep_order_states_workflow')) {
-      $available_states = \Drupal::service('samhsa_pep_order_states_workflow.workflow.helper')->getAllStates('samhsa_pep_order_states_workflow_fulfillment_processing');
+      $available_states = Drupal::service('samhsa_pep_order_states_workflow.workflow.helper')
+        ->getAllStates('samhsa_pep_order_states_workflow_fulfillment_processing');
       $value = $this->config('samhsa_pep_clone_order.settings')
         ->get('order_states');
 

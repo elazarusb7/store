@@ -62,15 +62,17 @@ class SamhsaTermElevationForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        $this->messenger()->addMessage($this->t('Created the %label SAHMSA Term Elevation.', [
-          '%label' => $entity->label(),
-        ]));
+        $this->messenger()
+          ->addMessage($this->t('Created the %label SAHMSA Term Elevation.', [
+            '%label' => $entity->label(),
+          ]));
         break;
 
       default:
-        $this->messenger()->addMessage($this->t('Saved the %label SAHMSA Term Elevation.', [
-          '%label' => $entity->label(),
-        ]));
+        $this->messenger()
+          ->addMessage($this->t('Saved the %label SAHMSA Term Elevation.', [
+            '%label' => $entity->label(),
+          ]));
     }
     $form_state->setRedirect('entity.samhsa_term_elevation.canonical', ['samhsa_term_elevation' => $entity->id()]);
   }

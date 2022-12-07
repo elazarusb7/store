@@ -33,8 +33,7 @@ function samhsa_term_elevation_help($route_name, RouteMatchInterface $route_matc
 /**
  * Implements hook_search_api_solr_query_alter().
  */
-function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solarium_query,
-                                                           \Drupal\search_api\Query\QueryInterface $query) {
+function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solarium_query, \Drupal\search_api\Query\QueryInterface $query) {
 
   $config = \Drupal::config('samhsa_term_elevation.config');
   $use_elevation = $config->get('use_elevation');
@@ -102,7 +101,8 @@ function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solar
     return;
   }
 
-  $el_storage = \Drupal::entityTypeManager()->getStorage('samhsa_term_elevation');
+  $el_storage = \Drupal::entityTypeManager()
+    ->getStorage('samhsa_term_elevation');
   $elevated_ids = [];
   $excluded_ids = [];
 
@@ -133,9 +133,7 @@ function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solar
 /**
  * Implements hook_search_api_solr_search_results_alter().
  */
-function samhsa_term_elevation_search_api_solr_search_results_alter(ResultSetInterface $result_set,
-                                                                    \Drupal\search_api\Query\QueryInterface $query,
-                                                                    Result $result) {
+function samhsa_term_elevation_search_api_solr_search_results_alter(ResultSetInterface $result_set, \Drupal\search_api\Query\QueryInterface $query, Result $result) {
   $config = \Drupal::config('samhsa_term_elevation.config');
   $default_index_id = $config->get('index_id');
 
@@ -150,7 +148,8 @@ function samhsa_term_elevation_search_api_solr_search_results_alter(ResultSetInt
   $elevation_data = _samhsa_term_elevation_checked_as_elevated_terms($query_keys);
 
   foreach ($result_set->getResultItems() as &$result_item) {
-    $fields = $result_item->getExtraData('search_api_solr_document')->getFields();
+    $fields = $result_item->getExtraData('search_api_solr_document')
+      ->getFields();
     if ($elevation_data && in_array($fields['id'], $elevation_data->elevated_ids)) {
       $result_item->setExtraData('elevated_item', TRUE);
     }
@@ -264,11 +263,13 @@ function _samhsa_term_elevation_checked_as_elevated_terms($query_keys) {
     return FALSE;
   }
   $query_el = \Drupal::entityQuery('samhsa_term_elevation');
-  $elevated_entities = $query_el->condition('query', $query_keys, 'IN')->execute();
+  $elevated_entities = $query_el->condition('query', $query_keys, 'IN')
+    ->execute();
   if ($elevated_entities) {
     $result = new stdClass();
     $result->keys = $query_keys;
-    $el_storage = \Drupal::entityTypeManager()->getStorage('samhsa_term_elevation');
+    $el_storage = \Drupal::entityTypeManager()
+      ->getStorage('samhsa_term_elevation');
     $result->elevated_ids = [];
     foreach ($el_storage->loadMultiple($elevated_entities) as $item) {
       $elnid = $item->get('elnid')->getValue();
@@ -292,7 +293,8 @@ function _samhsa_term_elevation_checked_as_elevated_terms($query_keys) {
  */
 function _samhsa_term_elevation_include_this_view(ViewExecutable $view) {
   $result = FALSE;
-  $index_elevated = \Drupal::config('samhsa_term_elevation.config')->get('index_id');
+  $index_elevated = \Drupal::config('samhsa_term_elevation.config')
+    ->get('index_id');
   $query = $view->getQuery();
   if ($query instanceof SearchApiQuery) {
     $index = $query->getIndex();
@@ -361,7 +363,8 @@ function samhsa_term_elevation_preprocess_views_view_grid(&$variables) {
  *   List of plugins ids and titles.
  */
 function _samhsa_term_elevation_get_plugins_map() {
-  $plugins = \Drupal::config('samhsa_term_elevation.config')->get('plugins_field_map');
+  $plugins = \Drupal::config('samhsa_term_elevation.config')
+    ->get('plugins_field_map');
   return $plugins;
 }
 
@@ -374,7 +377,8 @@ function samhsa_term_elevation_rebuild() {
   foreach ($extended_plugins as $name => $values) {
     $plugins = $plugins + $values;
   }
-  $config = \Drupal::service('config.factory')->getEditable('samhsa_term_elevation.config');
+  $config = \Drupal::service('config.factory')
+    ->getEditable('samhsa_term_elevation.config');
   $config->set('plugins_field_map', $plugins)->save();
 }
 
@@ -399,7 +403,7 @@ function _samhsa_term_elevation_get_extended_plugins_map() {
           $extended_plugins[$module_name] = $yml_entries['solr_multisite_plugins_ids'];
         }
       }
-    };
+    }
   }
   return $extended_plugins;
 }

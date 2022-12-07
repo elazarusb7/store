@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\state_machine\Plugin\Workflow\WorkflowTransition;
+use Exception;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -39,7 +40,7 @@ class WorkflowHelper implements WorkflowHelperInterface {
     $allowed_transitions = $field->getTransitions();
 
     $allowed_states = array_map(function (WorkflowTransition $transition) {
-        return (string) $transition->getToState()->getLabel();
+      return (string) $transition->getToState()->getLabel();
     }, $allowed_transitions);
 
     return $allowed_states;
@@ -52,7 +53,7 @@ class WorkflowHelper implements WorkflowHelperInterface {
     $field = $this->getEntityStateField($entity);
 
     return array_map(function (WorkflowTransition $transition) {
-        return (string) $transition->getLabel();
+      return (string) $transition->getLabel();
     }, $field->getTransitions());
   }
 
@@ -61,7 +62,7 @@ class WorkflowHelper implements WorkflowHelperInterface {
    */
   public static function getEntityStateFieldDefinitions(FieldableEntityInterface $entity) {
     return array_filter($entity->getFieldDefinitions(), function (FieldDefinitionInterface $field_definition) {
-        return $field_definition->getType() == 'state';
+      return $field_definition->getType() == 'state';
     });
   }
 
@@ -82,7 +83,7 @@ class WorkflowHelper implements WorkflowHelperInterface {
   public function getEntityStateField(FieldableEntityInterface $entity) {
     $field_definition = $this->getEntityStateFieldDefinition($entity);
     if ($field_definition == NULL) {
-      throw new \Exception('No state fields were found in the entity.');
+      throw new Exception('No state fields were found in the entity.');
     }
     return $entity->{$field_definition->getName()}->first();
   }
@@ -101,14 +102,11 @@ class WorkflowHelper implements WorkflowHelperInterface {
     $modulepath = drupal_get_path('module', 'samhsa_pep_order_states_workflow');
 
     $yaml = Yaml::parse(file_get_contents($modulepath . '/samhsa_pep_order_states_workflow.workflows.yml'));
-    // $yamlString = Yaml::dump($yaml);
     $states = $yaml[$id]['states'];
-    // $states = array_keys($states);
     $order_states = [];
     foreach ($states as $key => $state) {
       $order_states[$key] = $state['label'];
     }
-    // $yaml[$id]['states'];
     return $order_states;
   }
 

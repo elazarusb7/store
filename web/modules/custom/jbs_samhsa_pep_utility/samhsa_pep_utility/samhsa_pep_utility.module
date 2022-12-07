@@ -77,7 +77,8 @@ function samhsa_pep_utility_mail_alter(&$message) {
 function samhsa_pep_utility_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
   // Append the current page title to the breadcrumb for non-admin routes.
   if ($breadcrumb && \Drupal::service('router.admin_context')->isAdminRoute()) {
-    $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+    $title = \Drupal::service('title_resolver')
+      ->getTitle(\Drupal::request(), $route_match->getRouteObject());
     if (!empty($title)) {
       $breadcrumb->addLink(Link::createFromRoute($title == 'Orders' ? 'All ' . $title : $title, '<none>'));
     }
@@ -103,8 +104,9 @@ function samhsa_pep_utility_preprocess_page_title(&$variables) {
  * Implements hook_menu_local_tasks_alter().
  */
 function samhsa_pep_utility_menu_local_tasks_alter(&$data, $route_name, RefinableCacheableDependencyInterface &$cacheability) {
-  $is_anon  = \Drupal::currentUser()->isAnonymous();
-  $is_admin = \Drupal::currentUser()->hasPermission('access commerce administration pages');
+  $is_anon = \Drupal::currentUser()->isAnonymous();
+  $is_admin = \Drupal::currentUser()
+    ->hasPermission('access commerce administration pages');
   if ($is_anon || !$is_admin) {
     switch ($route_name) {
       case 'entity.commerce_product.canonical':
@@ -142,8 +144,7 @@ function samhsa_pep_utility_preprocess_views_view_field(&$variables) {
   ];
 
   // Recreate dropbutton to add edit and delete functionality conditionally.
-  if ($view->storage->id() == 'order_shipments'&&
-        $field->field == 'operations') {
+  if ($view->storage->id() == 'order_shipments' && $field->field == 'operations') {
     $allow_shipment_deletion = \Drupal::config('samhsa_pep_shipping.settings')
       ->get('allow_shipment_deletion');
     $shipment_id = $entity->id();
@@ -151,13 +152,19 @@ function samhsa_pep_utility_preprocess_views_view_field(&$variables) {
     $order_id = $order->id();
     $links = [];
     if (isset($allow_shipment_deletion) && $allow_shipment_deletion == 1) {
-      $_url = Url::fromRoute('entity.commerce_shipment.delete_form', ['commerce_order' => $order_id, 'commerce_shipment' => $shipment_id], $options);
+      $_url = Url::fromRoute('entity.commerce_shipment.delete_form', [
+        'commerce_order' => $order_id,
+        'commerce_shipment' => $shipment_id,
+      ], $options);
       $links['delete'] = [
         'title' => t('Delete'),
         'url' => $_url,
       ];
     }
-    $_url = Url::fromRoute('entity.commerce_shipment.edit_form', ['commerce_order' => $order_id, 'commerce_shipment' => $shipment_id], $options);
+    $_url = Url::fromRoute('entity.commerce_shipment.edit_form', [
+      'commerce_order' => $order_id,
+      'commerce_shipment' => $shipment_id,
+    ], $options);
     if ($_url->access($userCurrent) && $userCurrent->hasPermission('update default commerce_order')) {
       $links['edit'] = [
         'title' => t('Edit'),
@@ -172,9 +179,7 @@ function samhsa_pep_utility_preprocess_views_view_field(&$variables) {
     $variables['output'] = $db;
   }
 
-  if (($view->storage->id() == 'admin_orders' ||
-        $view->storage->id() == 'commerce_orders') &&
-        $field->field == 'operations') {
+  if (($view->storage->id() == 'admin_orders' || $view->storage->id() == 'commerce_orders') && $field->field == 'operations') {
     $id = $entity->id();
     $order_state = $entity->getState()->getValue();
     $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
@@ -189,10 +194,7 @@ function samhsa_pep_utility_preprocess_views_view_field(&$variables) {
         'url' => $_url,
       ];
     }
-    if ($order_state['value'] == 'pending' ||
-          $order_state['value'] == 'pick_slips_generated' ||
-          $order_state['value'] == 'onhold'
-      ) {
+    if ($order_state['value'] == 'pending' || $order_state['value'] == 'pick_slips_generated' || $order_state['value'] == 'onhold') {
 
       $_url = Url::fromRoute('entity.commerce_order.edit_form', ['commerce_order' => $id], $options);
       if ($_url->access($userCurrent) && $userCurrent->hasPermission('update default commerce_order')) {

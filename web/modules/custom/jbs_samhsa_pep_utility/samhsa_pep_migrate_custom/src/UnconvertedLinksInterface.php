@@ -12,6 +12,7 @@ use Drupal\user\EntityOwnerInterface;
  * @ingroup samhsa_pep_migrate_custom
  */
 interface UnconvertedLinksInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
+
   // Add get/set methods for your configuration properties here.
 
   /**
@@ -66,7 +67,8 @@ interface UnconvertedLinksInterface extends ContentEntityInterface, EntityChange
    * Sets the published status of a Unconverted links.
    *
    * @param bool $published
-   *   TRUE to set this Unconverted links to published, FALSE to set it to unpublished.
+   *   TRUE to set this Unconverted links to published, FALSE to set it to
+   *   unpublished.
    *
    * @return \Drupal\samhsa_pep_migrate_custom\UnconvertedLinksInterface
    *   The called Unconverted links entity.

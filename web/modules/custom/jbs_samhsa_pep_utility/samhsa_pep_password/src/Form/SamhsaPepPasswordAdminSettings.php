@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_password\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 
@@ -53,10 +54,12 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
       '#field_suffix' => $this->t('character(s)'),
     ];
 
-    $all_roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    $all_roles = Drupal::entityTypeManager()
+      ->getStorage('user_role')
+      ->loadMultiple();
     foreach ($all_roles as $entity) {
       $role = $entity->getTypedData()->getValue();
-      $rid  = $role->id();
+      $rid = $role->id();
       if ($rid != 'anonymous' && $rid != 'authenticated') {
         $roles[$rid] = $role->label();
       }
@@ -203,7 +206,8 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->configFactory()->getEditable('samhsa_pep_password.settings')
+    $this->configFactory()
+      ->getEditable('samhsa_pep_password.settings')
       ->set('length_enforce', $form_state->getValue('length_enforce'))
       ->set('length_min_user', $form_state->getValue('length_min_user'))
       ->set('length_min_admin', $form_state->getValue('length_min_admin'))

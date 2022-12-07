@@ -29,14 +29,9 @@ class UnconvertedLinksListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /** @var \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks $entity */
     $row['id'] = $entity->id();
-    $row['name'] = Link::fromTextAndUrl(
-      $entity->label(),
-      new Url(
-        'entity.unconverted_links.edit_form', [
+    $row['name'] = Link::fromTextAndUrl($entity->label(), new Url('entity.unconverted_links.edit_form', [
           'unconverted_links' => $entity->id(),
-        ]
-      )
-    );
+        ]));
     return $row + parent::buildRow($entity);
   }
 

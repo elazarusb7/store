@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_password\EventSubscriber;
 
+use Drupal;
 use Drupal\Core\Url;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -43,7 +44,7 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(CurrentPathStack $pathStack, AccountProxyInterface $account) {
     $this->pathStack = $pathStack;
-    $this->account   = $account;
+    $this->account = $account;
   }
 
   /**
@@ -56,9 +57,9 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
     $url = Url::fromUserInput($path);
     $route_name = ($url->isRouted() ? $url->getRouteName() : 'not routed');
 
-    $conf = \Drupal::config('samhsa_pep_password.settings');
+    $conf = Drupal::config('samhsa_pep_password.settings');
     if ($conf->get('lifetime_max_enforce')) {
-      $account = \Drupal::currentUser();
+      $account = Drupal::currentUser();
       // There needs to be an explicit check for non-anonymous or else
       // this will be tripped and a forced redirect will occur.
       if ($account->id() > 0) {
@@ -86,7 +87,8 @@ class SamhsaPepPasswordEventSubscriber implements EventSubscriberInterface {
           /** @var Symfony\Component\HttpFoundation\RedirectResponse */
           $redirect = new RedirectResponse($url2);
           $event->setResponse($redirect);
-          \Drupal::messenger()->addMessage(t('Your password has expired.  You must change it to continue.'), 'error');
+          Drupal::messenger()
+            ->addMessage(t('Your password has expired.  You must change it to continue.'), 'error');
         }
       }
     }

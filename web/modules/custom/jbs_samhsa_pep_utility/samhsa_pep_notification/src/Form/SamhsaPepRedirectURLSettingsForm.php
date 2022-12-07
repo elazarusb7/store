@@ -51,11 +51,7 @@ class SamhsaPepRedirectURLSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('path.validator'),
-      $container->get('entity_type.manager')
-    );
+    return new static($container->get('config.factory'), $container->get('path.validator'), $container->get('entity_type.manager'));
   }
 
   /**
@@ -166,13 +162,10 @@ class SamhsaPepRedirectURLSettingsForm extends ConfigFormBase {
       foreach ($form_state->getValue($action_id) as $role_id => $settings) {
 
         if (!empty($settings['redirect_url']) && !$this->pathValidator->isValid($settings['redirect_url'])) {
-          $form_state->setErrorByName(
-            $action_id . '][' . $role_id . '][redirect_url',
-            $this->t(
-              '<strong>@action:</strong> Redirect URL for "@role" role is invalid or you do not have access to it.',
-              ['@action' => $action_label, '@role' => $roles[$role_id]]
-            )
-          );
+          $form_state->setErrorByName($action_id . '][' . $role_id . '][redirect_url', $this->t('<strong>@action:</strong> Redirect URL for "@role" role is invalid or you do not have access to it.', [
+              '@action' => $action_label,
+              '@role' => $roles[$role_id],
+            ]));
         }
       }
     }

@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_migrate_custom\Entity;
 
+use Drupal;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -21,18 +22,24 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Unconverted links"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksListBuilder",
- *     "views_data" = "Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinksViewsData",
+ *     "list_builder" =
+ *   "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksListBuilder",
+ *     "views_data" =
+ *   "Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinksViewsData",
  *
  *     "form" = {
- *       "default" = "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksForm",
+ *       "default" =
+ *   "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksForm",
  *       "add" = "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksForm",
  *       "edit" = "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksForm",
- *       "delete" = "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksDeleteForm",
+ *       "delete" =
+ *   "Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksDeleteForm",
  *     },
- *     "access" = "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksAccessControlHandler",
+ *     "access" =
+ *   "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksHtmlRouteProvider",
+ *       "html" =
+ *   "Drupal\samhsa_pep_migrate_custom\UnconvertedLinksHtmlRouteProvider",
  *     },
  *   },
  *   base_table = "unconverted_links",
@@ -44,14 +51,17 @@ use Drupal\user\UserInterface;
  *   links = {
  *     "canonical" = "/admin/structure/unconverted_links/{unconverted_links}",
  *     "add-form" = "/admin/structure/unconverted_links/add",
- *     "edit-form" = "/admin/structure/unconverted_links/{unconverted_links}/edit",
- *     "delete-form" = "/admin/structure/unconverted_links/{unconverted_links}/delete",
+ *     "edit-form" =
+ *   "/admin/structure/unconverted_links/{unconverted_links}/edit",
+ *     "delete-form" =
+ *   "/admin/structure/unconverted_links/{unconverted_links}/delete",
  *     "collection" = "/admin/structure/unconverted_links",
  *   },
  *   field_ui_base_route = "unconverted_links.settings"
  * )
  */
 class UnconvertedLinks extends ContentEntityBase implements UnconvertedLinksInterface {
+
   use EntityChangedTrait;
 
   /**
@@ -60,7 +70,7 @@ class UnconvertedLinks extends ContentEntityBase implements UnconvertedLinksInte
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
     $values += [
-      'user_id' => \Drupal::currentUser()->id(),
+      'user_id' => Drupal::currentUser()->id(),
     ];
   }
 

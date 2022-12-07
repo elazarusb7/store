@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_http_injector\EventSubscriber;
 
+use Drupal;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,7 +19,7 @@ class SamhsaHttpInjector implements EventSubscriberInterface {
     // Get the response to the event.
     $response = $event->getResponse();
     // Get an instance of routeMatch.
-    $r = \Drupal::routeMatch();
+    $r = Drupal::routeMatch();
     // Is the object being request in the processed Symfony route a node?
     $node = $r->getParameter('node');
     if (is_object($node)) {

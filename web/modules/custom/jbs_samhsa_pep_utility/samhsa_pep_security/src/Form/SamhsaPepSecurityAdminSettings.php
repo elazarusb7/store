@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_security\Form;
 
+use Drupal;
 use Drupal\user\Entity\User;
 use Drupal\Component\Render\FormattableMarkup;
 
@@ -34,8 +35,7 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
       '#open' => TRUE,
       '#title' => $this->t('General settings'),
     ];
-    $formatted_description = new FormattableMarkup(
-        '<span class="fullname-wrapper">
+    $formatted_description = new FormattableMarkup('<span class="fullname-wrapper">
           @text The time window to check for security violations: the time in seconds the login information is kept to compute the login attempts count.<br />
           A common example could be 20 minutes. After that time, the attempt is deleted from the list, and will never be considered again.
           <ul>
@@ -45,10 +45,8 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
             <li>1800 = 30 minutes</li>
             <li>3600 = 1 hour</li>
           </ul>
-        </span>',
-        // Needs to be here.
-        ['@text' => '']
-      );
+        </span>', // Needs to be here.
+      ['@text' => '']);
     $form['general_settings']['track_time'] = [
       '#type' => 'number',
       '#min' => 0,
@@ -154,7 +152,8 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->configFactory()->getEditable('samhsa_pep_security.settings')
+    $this->configFactory()
+      ->getEditable('samhsa_pep_security.settings')
       ->set('track_time', $form_state->getValue('track_time'))
       ->set('user_wrong_count', $form_state->getValue('user_wrong_count'))
       ->set('restore_blocked_user', $form_state->getValue('restore_blocked_user'))
@@ -182,7 +181,8 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
    */
   public function cleanTrackedEvents(array &$form, FormStateInterface $form_state) {
     $count = _samhsa_pep_security_remove_all_events();
-    \Drupal::messenger()->addMessage($this->t('Login Security event track list is now empty. @count item(s) deleted.', ['@count' => $count]));
+    Drupal::messenger()
+      ->addMessage($this->t('Login Security event track list is now empty. @count item(s) deleted.', ['@count' => $count]));
   }
 
   /**
@@ -193,10 +193,10 @@ class SamhsaPepSecurityAdminSettings extends ConfigFormBase {
     $account = User::load(15);
     // Argument 1 passed to Drupal\\Core\\Session\\AccountProxy::setAccount()
     // must implement interface Drupal\\Core\\Session\\AccountInterface, null given.
-    \Drupal::currentUser()->setAccount($account);
-    if (\Drupal::currentUser()->isAuthenticated()) {
-      $session_manager = \Drupal::service('session_manager');
-      $session_manager->delete(\Drupal::currentUser()->id());
+    Drupal::currentUser()->setAccount($account);
+    if (Drupal::currentUser()->isAuthenticated()) {
+      $session_manager = Drupal::service('session_manager');
+      $session_manager->delete(Drupal::currentUser()->id());
     }
 
   }

@@ -2,12 +2,14 @@
 
 namespace Drupal\samhsa_pep_plugins\Plugin\views\field;
 
+use Drupal;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Field handler to generate Links perform actions on pre-analysis and analysis forms.
+ * Field handler to generate Links perform actions on pre-analysis and analysis
+ * forms.
  *
  * @ingroup views_field_handlers
  *
@@ -53,7 +55,8 @@ class StockStatusField extends FieldPluginBase {
     $entity = $values->_entity;
     $product = $entity->getProduct();
     $pep_product_type = $product->get('field_pep_product_type')->value;
-    $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($entity);
+    $stock = Drupal::service('samhsa_pep_stock.pep_stock_utility')
+      ->getStock($entity);
 
     if ($pep_product_type == 'download_only') {
       $output = 'ELECTRONIC ONLY';

@@ -11,7 +11,7 @@ function samhsa_pep_taxonomy_tags_drush_command() {
   $commands = [];
   $commands['taxonomy-migrate'] = [
     'description' => 'Migrate PEP Product tags from Tags vocabulary to proper vocabularies.',
-    'aliases'     => ['tmig'],
+    'aliases' => ['tmig'],
   ];
   return $commands;
 }

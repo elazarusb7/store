@@ -18,20 +18,27 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *   id = "samhsa_term_elevation",
  *   label = @Translation("SAHMSA Term Elevation Queries"),
  *   handlers = {
- *     "view_builder" = "Drupal\samhsa_term_elevation\Controller\DefaultViewerController",
- *     "list_builder" = "Drupal\samhsa_term_elevation\SamhsaTermElevationListBuilder",
- *     "views_data" = "Drupal\samhsa_term_elevation\Entity\SamhsaTermElevationViewsData",
+ *     "view_builder" =
+ *   "Drupal\samhsa_term_elevation\Controller\DefaultViewerController",
+ *     "list_builder" =
+ *   "Drupal\samhsa_term_elevation\SamhsaTermElevationListBuilder",
+ *     "views_data" =
+ *   "Drupal\samhsa_term_elevation\Entity\SamhsaTermElevationViewsData",
  *
  *     "form" = {
- *       "default" = "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationForm",
+ *       "default" =
+ *   "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationForm",
  *       "add" = "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationForm",
  *       "edit" = "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationForm",
- *       "delete" = "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationDeleteForm",
+ *       "delete" =
+ *   "Drupal\samhsa_term_elevation\Form\SamhsaTermElevationDeleteForm",
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\samhsa_term_elevation\SamhsaTermElevationHtmlRouteProvider",
+ *       "html" =
+ *   "Drupal\samhsa_term_elevation\SamhsaTermElevationHtmlRouteProvider",
  *     },
- *     "access" = "Drupal\samhsa_term_elevation\SamhsaTermElevationAccessControlHandler",
+ *     "access" =
+ *   "Drupal\samhsa_term_elevation\SamhsaTermElevationAccessControlHandler",
  *   },
  *   base_table = "samhsa_term_elevation",
  *   translatable = FALSE,
@@ -43,10 +50,13 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}",
+ *     "canonical" =
+ *   "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}",
  *     "add-form" = "/admin/structure/samhsa_term_elevation/add",
- *     "edit-form" = "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}/edit",
- *     "delete-form" = "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}/delete",
+ *     "edit-form" =
+ *   "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}/edit",
+ *     "delete-form" =
+ *   "/admin/structure/samhsa_term_elevation/{samhsa_term_elevation}/delete",
  *     "collection" = "/admin/structure/samhsa_term_elevation",
  *   },
  *   field_ui_base_route = "samhsa_term_elevation.settings"

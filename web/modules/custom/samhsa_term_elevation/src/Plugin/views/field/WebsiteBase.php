@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_term_elevation\Plugin\views\field;
 
+use Drupal;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -30,7 +31,8 @@ class WebsiteBase extends FieldPluginBase {
    * URL replacements.
    *
    * @var array
-   *   List of URL replacements of the websites that compound the multisite environment.
+   *   List of URL replacements of the websites that compound the multisite
+   *   environment.
    */
   private $urlReplacements = [];
 
@@ -39,8 +41,10 @@ class WebsiteBase extends FieldPluginBase {
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $sites_aliases = unserialize(\Drupal::config('samhsa_term_elevation.websites_aliases')->get('sites'));
-    $this->urlReplacements = unserialize(\Drupal::config('samhsa_te_url_replacement.configuration')->get('sites'));
+    $sites_aliases = unserialize(Drupal::config('samhsa_term_elevation.websites_aliases')
+      ->get('sites'));
+    $this->urlReplacements = unserialize(Drupal::config('samhsa_te_url_replacement.configuration')
+      ->get('sites'));
     $this->sitesAliases = [];
     foreach ($sites_aliases as $key => $value) {
       if ($this->urlReplacements[$key]) {
@@ -103,7 +107,8 @@ class WebsiteBase extends FieldPluginBase {
       return 'n/a';
     }
 
-    $fields = $values->_item->getExtraData('search_api_solr_document')->getFields();
+    $fields = $values->_item->getExtraData('search_api_solr_document')
+      ->getFields();
 
     if ($this->options['use_aliases'] && $this->sitesAliases[$fields['site']]) {
       $site_name = $this->sitesAliases[$fields['site']];

@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_publications_inventory_ex\Form;
 
+use Drupal;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -28,9 +29,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
    *
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager'),
-    );
+    return new static($container->get('entity_type.manager'),);
   }
 
   /**
@@ -74,7 +73,10 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $operations = [];
 
     for ($i = 0; $i < 5; $i++) {
-      $operations[] = ['\Drupal\samhsa_publications_inventory_ex\Form\SamhsaPublicationInventoryExportForm::process_batch', [$i, 2]];
+      $operations[] = [
+        '\Drupal\samhsa_publications_inventory_ex\Form\SamhsaPublicationInventoryExportForm::process_batch',
+        [$i, 2],
+      ];
     }
 
     $batch = [
@@ -115,14 +117,16 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
    */
   public static function process_finished_batch($success, $results, $operations) {
     if ($success) {
-      \Drupal::messenger()->addStatus('Publication Inventory was exported successfully');
+      Drupal::messenger()
+        ->addStatus('Publication Inventory was exported successfully');
       $uri = 'public://';
       $path = file_create_url($uri) . 'publication_inventory_export/' . 'publication_inventory_export' . date('m-d-Y') . '.csv';
       $url = Url::fromUri($path);
-      \Drupal::messenger()->addStatus(t('Download <a href = "@here">here</a>', ["@here" => $url->toUriString()]));
+      Drupal::messenger()
+        ->addStatus(t('Download <a href = "@here">here</a>', ["@here" => $url->toUriString()]));
     }
     else {
-      \Drupal::messenger()->addError("An error occured!");
+      Drupal::messenger()->addError("An error occured!");
     }
   }
 

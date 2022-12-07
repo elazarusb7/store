@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_migrate_custom\Plugin\migrate\source;
 
+use Drupal;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\commerce_store\Resolver\DefaultStoreResolver;
@@ -41,15 +42,7 @@ class PEPProductDisplay extends FieldableEntity {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration = NULL) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $migration,
-      $container->get('state'),
-      $container->get('entity.manager'),
-      $container->get('commerce_store.default_store_resolver')
-    );
+    return new static($configuration, $plugin_id, $plugin_definition, $migration, $container->get('state'), $container->get('entity.manager'), $container->get('commerce_store.default_store_resolver'));
   }
 
   /**
@@ -153,7 +146,10 @@ class PEPProductDisplay extends FieldableEntity {
       WHERE
         entity_id = :nid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':nid' => $nid, ':bundle' => $bundle]);
+    $result = $this->getDatabase()->query($query, [
+      ':nid' => $nid,
+      ':bundle' => $bundle,
+    ]);
 
     // $body_files_and_images = array();
     foreach ($result as $record) {
@@ -173,7 +169,10 @@ class PEPProductDisplay extends FieldableEntity {
       field_data_field_publication_date
       WHERE entity_id = :entity_id AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $product_id,
+      ':bundle' => $type,
+    ]);
     $values = [];
 
     foreach ($result as $record) {
@@ -188,7 +187,10 @@ class PEPProductDisplay extends FieldableEntity {
       field_data_field_you_maybe_interested
       WHERE entity_id = :entity_id AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':entity_id' => $nid, ':bundle' => $bundle]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $nid,
+      ':bundle' => $bundle,
+    ]);
     $values = [];
 
     foreach ($result as $record) {
@@ -205,7 +207,7 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_samhsa_promo_link',
       'property' => 'field_samhsa_promo_link',
     ];
-    \Drupal::service('set_migrating_values')->link($this, $row, $components);
+    Drupal::service('set_migrating_values')->link($this, $row, $components);
 
     // Related Document Link.
     $components = [
@@ -213,7 +215,7 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_related_document_link',
       'property' => 'field_related_document_link',
     ];
-    \Drupal::service('set_migrating_values')->link($this, $row, $components);
+    Drupal::service('set_migrating_values')->link($this, $row, $components);
 
     // field_data_field_max_purchase.
     $query = 'SELECT field_max_purchase_value
@@ -221,7 +223,10 @@ class PEPProductDisplay extends FieldableEntity {
       field_data_field_max_purchase
       WHERE entity_id = :entity_id AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $product_id,
+      ':bundle' => $type,
+    ]);
     $values = [];
 
     foreach ($result as $record) {
@@ -235,7 +240,10 @@ class PEPProductDisplay extends FieldableEntity {
       field_data_field_samhsa_stock_status
       WHERE entity_id = :entity_id AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $product_id,
+      ':bundle' => $type,
+    ]);
     $values = [];
 
     foreach ($result as $record) {
@@ -266,7 +274,10 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_related_products
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    $result = $this->getDatabase()->query($query, [':entity_id' => $nid, ':bundle' => $bundle]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $nid,
+      ':bundle' => $bundle,
+    ]);
     $values = [];
     foreach ($result as $record) {
       $values[] = $record->field_related_products_target_id;
@@ -289,7 +300,10 @@ class PEPProductDisplay extends FieldableEntity {
       field_data_field_imported_language
       WHERE entity_id = :entity_id AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
+    $result = $this->getDatabase()->query($query, [
+      ':entity_id' => $product_id,
+      ':bundle' => $type,
+    ]);
     $values = [];
     foreach ($result as $record) {
       if (empty($value = $record->field_imported_language_value)) {
@@ -315,7 +329,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_substances',
       'property' => 'substances',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_issues_conditions_and_diso: issues_conditions.
     $components = [
@@ -323,7 +338,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_issues_con_disorders',
       'property' => 'issues_conditions',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_professional_and_research_: professional_and_research.
     $components = [
@@ -331,7 +347,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_prof_research_topics',
       'property' => 'professional_and_research',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_treatment_prevention_and_r: treatment_prevention.
     $components = [
@@ -339,7 +356,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_treatmt_prevent_recovery',
       'property' => 'treatment_prevention',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_taxo_audience: audience.
     $components = [
@@ -347,7 +365,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_audience',
       'property' => 'audience',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_series: series.
     $components = [
@@ -355,7 +374,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_series',
       'property' => 'series',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_population_group: population_group.
     $components = [
@@ -363,7 +383,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_pop_group',
       'property' => 'population_group',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_format: format.
     $components = [
@@ -371,7 +392,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_format',
       'property' => 'format',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_location: location.
     $components = [
@@ -379,7 +401,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_location',
       'property' => 'location',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_tags: tags.
     $components = [
@@ -387,7 +410,8 @@ class PEPProductDisplay extends FieldableEntity {
       'table' => 'field_data_field_taxo_tags',
       'property' => 'tags',
     ];
-    \Drupal::service('set_migrating_values')->termReference($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->termReference($this, $row, $components);
 
     // field_thumbnail.
     $components = [
@@ -396,7 +420,7 @@ class PEPProductDisplay extends FieldableEntity {
       'property' => 'thumbnail',
       'idfield' => 'nid',
     ];
-    \Drupal::service('set_migrating_values')->images($this, $row, $components);
+    Drupal::service('set_migrating_values')->images($this, $row, $components);
 
     // field_data_field_samhsa_digital_download.
     $components = [
@@ -407,7 +431,8 @@ class PEPProductDisplay extends FieldableEntity {
       'display_name_tbl' => 'field_data_field_samhsa_display_name',
       'display_name_field' => 'field_samhsa_display_name_value',
     ];
-    \Drupal::service('set_migrating_values')->files_with_display_name($this, $row, $components);
+    Drupal::service('set_migrating_values')
+      ->files_with_display_name($this, $row, $components);
 
     return parent::prepareRow($row);
 
@@ -421,7 +446,9 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_samhsa_digital_download
       WHERE entity_id = :entity_id';
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id])->fetchAll();
+    $result = $this->getDatabase()
+      ->query($query, [':entity_id' => $product_id])
+      ->fetchAll();
 
     return count($result);
   }
@@ -434,7 +461,9 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_commerce_stock
       WHERE entity_id = :entity_id';
-    $result = $this->getDatabase()->query($query, [':entity_id' => $product_id])->fetchAll();
+    $result = $this->getDatabase()
+      ->query($query, [':entity_id' => $product_id])
+      ->fetchAll();
 
     return $result[0]->commerce_stock_value;
   }

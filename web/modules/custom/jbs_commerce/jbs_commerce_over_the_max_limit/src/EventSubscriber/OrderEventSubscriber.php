@@ -37,8 +37,8 @@ class OrderEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * This class is a placeholder for future implementation of the Event Subscriber
-   * for tracking changes in the Order.
+   * This class is a placeholder for future implementation of the Event
+   * Subscriber for tracking changes in the Order.
    */
 
   /**
@@ -46,7 +46,8 @@ class OrderEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      OrderEvents::ORDER_UPDATE => 'orderTypeUpdateIfBulk', 300,
+      OrderEvents::ORDER_UPDATE => 'orderTypeUpdateIfBulk',
+      300,
     ];
   }
 

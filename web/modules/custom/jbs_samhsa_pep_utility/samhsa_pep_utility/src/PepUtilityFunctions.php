@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_utility;
 
+use Drupal;
 use Drupal\commerce_shipping\Entity\Shipment;
 use Drupal\commerce_order\Entity\Order;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,7 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
   public function getCustomerDefaultProfileAddress($order = NULL) {
     $customer_information = NULL;
     $uid = $order->getCustomerId('uid');
-    $p = \Drupal::entityTypeManager()->getStorage('profile')->loadByProperties([
+    $p = Drupal::entityTypeManager()->getStorage('profile')->loadByProperties([
       'uid' => $uid,
       'type' => 'customer',
       'is_default' => TRUE,
@@ -43,7 +44,7 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
     $p = array_shift($p);
     if ($p) {
       $address = array_shift($p->toArray()['address']);
-      $country = \Drupal::service('country_manager')
+      $country = Drupal::service('country_manager')
         ->getList()[$address['country_code']]->__toString();
       $customer_information = Markup::create($address['given_name'] . '&nbsp;' . $address['family_name'] . '<br />' . $address['address_line1'] . '<br />' . $address['locality'] . $address['administrative_area'] . $address['postal_code'] . '<br />' . $country);
     }
@@ -179,7 +180,7 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
    * {@inheritdoc}
    */
   public function _get_vocabulary_as_select_options($vid) {
-    $terms = \Drupal::entityTypeManager()
+    $terms = Drupal::entityTypeManager()
       ->getStorage('taxonomy_term')
       ->loadTree($vid);
     $result = ['' => '- Select product location -'];
@@ -198,7 +199,7 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
     $pallets = $variation->get('field_location_pallet')->referencedEntities();
     foreach ($pallets as $term) {
       $tid = $term->get('tid')->value;
-      $entity = \Drupal::entityTypeManager()
+      $entity = Drupal::entityTypeManager()
         ->getStorage("taxonomy_term")
         ->load($tid);
       $name = $entity->getName();
@@ -253,13 +254,13 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
    */
   public function showRequiredTfaMsg($uid) {
     $msg = '';
-    $config = \Drupal::config('tfa.settings');
+    $config = Drupal::config('tfa.settings');
     $allowed_skips = $config->get('validation_skip');
     $required_roles = array_filter($config->get('required_roles'));
-    $user_data = \Drupal::service('user.data')
-      ->get('tfa', \Drupal::currentUser()->id(), 'tfa_user_settings');
+    $user_data = Drupal::service('user.data')
+      ->get('tfa', Drupal::currentUser()->id(), 'tfa_user_settings');
     // If the user has a role that is required to use TFA, then return TRUE.
-    $user_roles = \Drupal::currentUser()->getRoles();
+    $user_roles = Drupal::currentUser()->getRoles();
     $arr_r = array_intersect($required_roles, $user_roles);
 
     if (!empty($user_data)) {

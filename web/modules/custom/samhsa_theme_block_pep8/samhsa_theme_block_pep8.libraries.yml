@@ -2,5 +2,5 @@ samhsa-addthis:
   version: 1.x
   header: true
   js:
-    //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51bf394976d1e084: {type: external}
-    js/addthis.js: {}
+    //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51bf394976d1e084: { type: external }
+    js/addthis.js: { }

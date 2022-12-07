@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_stock_locations_import\Commands;
 
+use Drupal;
 use Drupal\commerce_product\Entity\Product;
 use Drush\Commands\DrushCommands;
 use Drupal\commerce_product\Entity\ProductVariation;
@@ -32,7 +33,7 @@ class StockLocationsImportCommands extends DrushCommands {
     if (file_exists($file)) {
       $this->output()->writeln('file exists');
       $data = $this->csvtoarray_locations($file, ',');
-      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $language = Drupal::languageManager()->getCurrentLanguage()->getId();
       if (is_array($data) && count($data) > 0) {
         $count = 0;
         foreach ($data as $key => $l) {
@@ -70,7 +71,7 @@ class StockLocationsImportCommands extends DrushCommands {
 
     if (file_exists($file)) {
       $data = $this->csvtoarray_all($file, ',');
-      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $language = Drupal::languageManager()->getCurrentLanguage()->getId();
       if ($data) {
         $count = 0;
         foreach ($data as $key => $l) {
@@ -99,13 +100,15 @@ class StockLocationsImportCommands extends DrushCommands {
                   $this->output()->writeln("vid: " . $vid);
                   $this->output()->writeln("pid: " . $pid);
                   $this->output()->writeln("sku: " . $sku);
-                  $this->output()->writeln("______________________________________");
+                  $this->output()
+                    ->writeln("______________________________________");
 
                   $variation = ProductVariation::load($vid);
-                  $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+                  $stockServiceManager = Drupal::service('commerce_stock.service_manager');
 
                   if (!is_null($variation)) {
-                    \Drupal::logger('samhsa_pep_stock_locations_import')->notice('<pre><code>' . $message . '</code></pre>');
+                    Drupal::logger('samhsa_pep_stock_locations_import')
+                      ->notice('<pre><code>' . $message . '</code></pre>');
                     $stockServiceManager->createTransaction($variation, 1, $location_id, 0, 0, 'USD', StockTransactionsInterface::STOCK_IN, $metadata);
                   }
 
@@ -136,7 +139,7 @@ class StockLocationsImportCommands extends DrushCommands {
 
     if (file_exists($file)) {
       $data = $this->csvtoarray_all($file, ',');
-      $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $language = Drupal::languageManager()->getCurrentLanguage()->getId();
       if ($data) {
         $count = 0;
         foreach ($data as $key => $l) {
@@ -163,7 +166,8 @@ class StockLocationsImportCommands extends DrushCommands {
                   $this->output()->writeln("sku: " . $sku);
                   $this->output()->writeln("location: " . $location);
 
-                  $this->output()->writeln("______________________________________");
+                  $this->output()
+                    ->writeln("______________________________________");
 
                   $this->removeLocation([trim($location_id)], $vid);
                   $this->output()->writeln($message);
@@ -188,12 +192,13 @@ class StockLocationsImportCommands extends DrushCommands {
     $field = 'location_zone';
     foreach ($pallets as $key => $pallet) {
       $this->output()->writeln("location being removed: " . $pallet);
-      \Drupal::database()->update($table_name)
+      Drupal::database()
+        ->update($table_name)
         ->condition('entity_id', $variation_id, '=')
         ->condition('location_zone', $pallet, '=')
         ->fields([
           'location_zone' => "",
-                // 'some_other_field' => 20,
+          // 'some_other_field' => 20,
         ])
         ->execute();
     }
@@ -204,7 +209,8 @@ class StockLocationsImportCommands extends DrushCommands {
    */
   public function getProdBySKU($sku = '') {
     $results_list = [];
-    $query = \Drupal::database()->select('commerce_product_variation_field_data', 't');
+    $query = Drupal::database()
+      ->select('commerce_product_variation_field_data', 't');
     $query->fields('t', ['variation_id', 'product_id', 'sku']);
     $query->condition('sku', $sku, '=');
     $query->distinct(TRUE);
@@ -272,7 +278,7 @@ class StockLocationsImportCommands extends DrushCommands {
    */
   public function assign_pickarea_location() {
     // Get all eligible products.
-    $query = \Drupal::entityQuery('commerce_product');
+    $query = Drupal::entityQuery('commerce_product');
     $query->condition('status', 1);
     $orGroup = $query->orConditionGroup()
       ->condition('field_pep_product_type', 'order_only')
@@ -295,7 +301,7 @@ class StockLocationsImportCommands extends DrushCommands {
         $this->output()->writeln("prod variation: " . $variation_id);
         $variation = ProductVariation::load($variation_id);
         $pub_id = $variation->getSku();
-        $stockServiceManager = \Drupal::service('commerce_stock.service_manager');
+        $stockServiceManager = Drupal::service('commerce_stock.service_manager');
         $products = $this->getProdBySKU(trim($pub_id));
         $message = $pub_id . ": add default location: " . $location;
         $metadata = [
@@ -306,11 +312,13 @@ class StockLocationsImportCommands extends DrushCommands {
         $data = $metadata['data'] ?? NULL;
 
         if (!is_null($variation)) {
-          \Drupal::logger('samhsa_pep_stock_locations_import')->notice('<pre><code>' . $message . '</code></pre>');
+          Drupal::logger('samhsa_pep_stock_locations_import')
+            ->notice('<pre><code>' . $message . '</code></pre>');
           $stockServiceManager->createTransaction($variation, 1, $location_id, 0, 0, 'USD', StockTransactionsInterface::MOVEMENT_TO, $data);
         }
       }
-      $this->output()->writeln("\n___________________________________________________");
+      $this->output()
+        ->writeln("\n___________________________________________________");
     }
   }
 
@@ -323,7 +331,7 @@ class StockLocationsImportCommands extends DrushCommands {
    */
   public function remove_pickarea_location() {
     // Get all eligible products.
-    $query = \Drupal::entityQuery('commerce_product');
+    $query = Drupal::entityQuery('commerce_product');
     $query->condition('status', 1);
     $query->condition('field_pep_product_type', 'download_only');
     $entity_prod = $query->execute();
@@ -341,7 +349,8 @@ class StockLocationsImportCommands extends DrushCommands {
         $variation_id = $product->getVariationIds()[0];
         $this->output()->writeln("prod variation: " . $variation_id);
 
-        $num_deleted = \Drupal::database()->delete('commerce_stock_transaction')
+        $num_deleted = Drupal::database()
+          ->delete('commerce_stock_transaction')
           ->condition('entity_id', $variation_id)
           ->condition('location_zone', $location_id)
           ->condition('transaction_type_id', 8)
@@ -349,8 +358,10 @@ class StockLocationsImportCommands extends DrushCommands {
           ->execute();
         $number_of_updated += $num_deleted;
       }
-      $this->output()->writeln("Pick Area location removed from " . $number_of_updated . "product(s).");
-      $this->output()->writeln("\n___________________________________________________");
+      $this->output()
+        ->writeln("Pick Area location removed from " . $number_of_updated . "product(s).");
+      $this->output()
+        ->writeln("\n___________________________________________________");
     }
   }
 
@@ -369,15 +380,18 @@ class StockLocationsImportCommands extends DrushCommands {
       $this->output()->writeln("location_id: " . $term->id());
       $location_id = $term->id();
       $number_of_updated = 0;
-      $num_deleted = \Drupal::database()->delete('commerce_stock_transaction')
+      $num_deleted = Drupal::database()
+        ->delete('commerce_stock_transaction')
         ->condition('location_zone', $location_id)
         ->condition('transaction_type_id', 8)
         ->condition('data', '%add default location%', "LIKE")
         ->execute();
       $number_of_updated += $num_deleted;
 
-      $this->output()->writeln("Pick Area location removed from " . $number_of_updated . " product(s).");
-      $this->output()->writeln("\n___________________________________________________");
+      $this->output()
+        ->writeln("Pick Area location removed from " . $number_of_updated . " product(s).");
+      $this->output()
+        ->writeln("\n___________________________________________________");
     }
   }
 
@@ -390,7 +404,7 @@ class StockLocationsImportCommands extends DrushCommands {
    */
   public function update_product_pallets_location_field() {
     // Get all variations.
-    $query = \Drupal::entityQuery('commerce_product_variation');
+    $query = Drupal::entityQuery('commerce_product_variation');
     $variations = $query->execute();
     $number_of_updated = 0;
     foreach ($variations as $key => $value) {
@@ -399,10 +413,12 @@ class StockLocationsImportCommands extends DrushCommands {
       $variation_id = $variation->id();
 
       $this->output()->writeln("prod variation: " . $variation_id);
-      \Drupal::service('samhsa_pep_stock.pep_stock_utility')->updateProductPallets($variation_id, $variation);
+      Drupal::service('samhsa_pep_stock.pep_stock_utility')
+        ->updateProductPallets($variation_id, $variation);
       $number_of_updated++;
     }
-    $this->output()->writeln("Number of Variations updated " . $number_of_updated);
+    $this->output()
+      ->writeln("Number of Variations updated " . $number_of_updated);
 
   }
 

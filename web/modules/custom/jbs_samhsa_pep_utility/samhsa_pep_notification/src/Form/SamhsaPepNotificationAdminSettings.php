@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_pep_notification\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
 
@@ -42,7 +43,7 @@ class SamhsaPepNotificationAdminSettings extends ConfigFormBase {
       '#type' => 'text_format',
       '#title' => $this->t('Notification text'),
       '#default_value' => $config->get('notification_text')['value'],
-      '#format'        => $config->get('notification_text')['format'],
+      '#format' => $config->get('notification_text')['format'],
       '#description' => $this->t('Provide the notification text.'),
       '#rows' => 12,
     ];
@@ -87,10 +88,12 @@ class SamhsaPepNotificationAdminSettings extends ConfigFormBase {
       '#size' => 80,
     ];
 
-    $all_roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    $all_roles = Drupal::entityTypeManager()
+      ->getStorage('user_role')
+      ->loadMultiple();
     foreach ($all_roles as $entity) {
       $role = $entity->getTypedData()->getValue();
-      $rid  = $role->id();
+      $rid = $role->id();
       if ($rid != 'anonymous') {
         $roles[$rid] = $role->label();
       }
@@ -114,7 +117,8 @@ class SamhsaPepNotificationAdminSettings extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\Core\Config\ImmutableConfig */
-    $this->configFactory()->getEditable('samhsa_pep_notification.settings')
+    $this->configFactory()
+      ->getEditable('samhsa_pep_notification.settings')
       ->set('title', $form_state->getValue('title'))
       ->set('notification_text', $form_state->getValue('notification_text'))
       ->set('submit', $form_state->getValue('submit'))
