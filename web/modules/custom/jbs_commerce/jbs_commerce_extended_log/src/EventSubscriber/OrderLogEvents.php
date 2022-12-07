@@ -27,7 +27,6 @@ class OrderLogEvents implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     $events = [
-    // 'commerce_order.place.post_transition' => 'onOrderPlace',
       'commerce_order.placebulk.post_transition' => 'onBulkOrderPlace',
       'commerce_order.approve.post_transition' => 'onOrderApproved',
       'commerce_order.process.post_transition' => 'onOrderPickSlipsGenerated',

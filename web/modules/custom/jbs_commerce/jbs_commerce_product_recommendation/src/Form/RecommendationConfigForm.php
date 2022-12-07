@@ -69,17 +69,6 @@ class RecommendationConfigForm extends ConfigFormBase {
       '#default_value' => \Drupal::config($this->getEditableConfigNames()[0])->get('numberOfRecommendations'),
       '#min' => 0,
     ];
-    $form['edit_config']['userHistoryExpire'] = [
-      '#type' => 'number',
-      '#required' => TRUE,
-      '#title' => t('Days of user browsing history to keep:'),
-      '#description' => t('User activity history is used to generate recommendations, but can also generate
-        a lot of information in the database, so keep this on the small side. This directly impacts
-        the number of rows in the <em>product_recommendation__product_events</em> table.'),
-      '#default_value' => \Drupal::config($this->getEditableConfigNames()[0])->get('userHistoryExpire'),
-      '#min' => 1,
-      '#max' => 180,
-    ];
     $form['edit_config']['save'] = [
       '#type' => 'submit',
       '#value' => t('Save Configuration'),
@@ -155,7 +144,6 @@ class RecommendationConfigForm extends ConfigFormBase {
     ];
 
     return parent::buildForm($form, $form_state);
-    // Return $form;.
   }
 
   /**
@@ -171,14 +159,12 @@ class RecommendationConfigForm extends ConfigFormBase {
         ->set('default.autoUpdate', $original['autoUpdate'])
         ->set('default.intervalUpdate', $original['intervalUpdate'])
         ->set('default.numberOfRecommendations', $original['numberOfRecommendations'])
-        ->set('default.userHistoryExpire', $original['userHistoryExpire'])
         ->save();
     }
     $this->config($this->getEditableConfigNames()[0])
       ->set('autoUpdate', $values['autoUpdate'])
       ->set('intervalUpdate', $values['intervalUpdate'])
       ->set('numberOfRecommendations', $values['numberOfRecommendations'])
-      ->set('userHistoryExpire', $values['userHistoryExpire'])
       ->save();
     parent::submitForm($form, $form_state);
   }

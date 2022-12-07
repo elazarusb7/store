@@ -122,4 +122,7 @@ function jbs_commerce_product_recommendation_schema() {
  */
 function jbs_commerce_product_recommendation_uninstall() {
   Drupal::configFactory()->getEditable('jbs_commerce_product_recommendation.settings')->delete();
+  // If (\Drupal::database()->schema()->tableExists('product_recommendation__product_pairs')) {
+  //    \Drupal::database()->schema()->dropTable('product_recommendation__product_pairs');
+  //  }
 }

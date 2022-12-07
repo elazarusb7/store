@@ -60,21 +60,6 @@ class RecommendationModelFunctions implements RecommendationModelFunctionsInterf
           ->condition('session_id', $session->session_id, '=')
           ->execute()->fetchAll();
 
-        // $clickEvents = array_filter($events, function ($e) {
-        //        if ($e->event === 'click') {
-        //          return $e;
-        //        }
-        //      });
-        //      $cartEvents = array_filter($events, function ($e) {
-        //        if ($e->event === $this->eventNames[CartEvents::CART_ENTITY_ADD] || $e->event === $this->eventNames[CartEvents::CART_ORDER_ITEM_REMOVE]) {
-        //          return $e;
-        //        }
-        //      });
-        //      $orderEvents = array_filter($events, function ($e) {
-        //        if ($e->event === $this->eventNames['commerce_order.place.post_transition']) {
-        //          return $e;
-        //        }
-        //      });
         $this->mergeMatrices($matrix, $this->computeWeights($events));
         $cutoff = $events[count($events) - 1]->timestamp;
       }
@@ -244,21 +229,6 @@ class RecommendationModelFunctions implements RecommendationModelFunctionsInterf
       }
     }
 
-    // $unique_clicks = array_unique($click);
-    //    foreach ($unique_clicks as $u => $event) {
-    //      $indices = array_keys($click, $event);
-    //
-    //      for ($i = 0; $i < count($click); $i++) {
-    //        $shortestPathLength = array();
-    //        if ($event == $click[$i]) {
-    //          continue;
-    //        }
-    //        array_walk($indices, function ($index) use (&$shortestPathLength, $i)  {
-    //          $shortestPathLength[] = abs($index - $i);
-    //        });
-    //        $matrix[$event][$click[$i]] = ($matrix[$event][$click[$i]] > 0 ? min($matrix[$event][$click[$i]], min($shortestPathLength)) : min($shortestPathLength));
-    //      }
-    //    }
     foreach ($matrix as $r => $row) {
       foreach ($row as $key => $value) {
         if ($r !== $key) {
