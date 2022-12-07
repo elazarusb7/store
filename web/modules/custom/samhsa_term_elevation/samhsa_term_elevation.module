@@ -5,7 +5,7 @@
  * Contains samhsa_term_elevation.module.
  */
 
-// @todo Check if Solr server is set to bring results from Solr.
+// @TODO: Check if Solr server is set to bring results from Solr.
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
 use Drupal\views\ViewExecutable;
 use Solarium\QueryType\Select\Result\Result;
@@ -33,7 +33,7 @@ function samhsa_term_elevation_help($route_name, RouteMatchInterface $route_matc
 /**
  * Implements hook_search_api_solr_query_alter().
  */
-function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solarium_query, \Drupal\search_api\Query\QueryInterface $query) {
+function samhsa_term_elevation_search_api_solr_query_alter(QueryInterface $solarium_query, \Drupal\search_api\Query\QueryInterface $query): void {
 
   $config = \Drupal::config('samhsa_term_elevation.config');
   $use_elevation = $config->get('use_elevation');
@@ -403,7 +403,7 @@ function _samhsa_term_elevation_get_extended_plugins_map() {
           $extended_plugins[$module_name] = $yml_entries['solr_multisite_plugins_ids'];
         }
       }
-    }
+    };
   }
   return $extended_plugins;
 }
@@ -415,7 +415,7 @@ function _samhsa_term_elevation_get_extended_plugins_map() {
  *   List of plugins ids and titles.
  */
 function _samhsa_term_elevation_get_native_plugins_map() {
-  $path = drupal_get_path('module', 'samhsa_term_elevation');
+  $path = \Drupal::service('extension.list.module')->getPath('samhsa_term_elevation');
   $file_content = file_get_contents($path . '/samhsa_term_elevation.fields.map.yml');
   if ($yml_entries = Yaml::parse($file_content)) {
     return $yml_entries['solr_multisite_plugins_ids'];

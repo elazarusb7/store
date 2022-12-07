@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\migrate_files_and_images\Controller\ImportFilesAndImages.
+ */
+
 namespace Drupal\migrate_files_and_images\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\migrate_files_and_images\Entity\FilesCrossReference;
 use Masterminds\HTML5\Exception;
+use DOMDocument;
 
 /**
  * Class ImportFilesAndImages.
@@ -15,11 +21,14 @@ use Masterminds\HTML5\Exception;
 class ImportFilesAndImages extends ControllerBase {
 
   private $folderPattern = '/\/sites\/default\/files\//';
+
   private $protocolPattern = ['http' => '/http:\/\//', 'https' => '/https:/'];
 
-  /**
-   * Private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
-   */
+  //private $d7PublicFolder = '/sites/default/files/d7/';
+  //private $d7PrivateFolder = '/sites/default/files/d7/priv/';
+
+  //  private $d7PublicFolder = 'https:/niadev.jbsinternational.com/sites/default/files/';
+  //  private $d7PublicFolder = 'https://www.nia.nih.gov/sites/default/files/';
   private $excludedEnxtensions = [
     'com',
     'edu',
@@ -33,8 +42,11 @@ class ImportFilesAndImages extends ControllerBase {
     'aspx',
     'php,',
   ];
+
   public $managedCsvFileName = 'public://managed_files_and_images.csv';
+
   public $inlineCsvFileName = 'public://inline_files_and_images.csv';
+
   public $blockCsvFileName = 'public://block_files_and_images.csv';
 
   /**
@@ -59,7 +71,7 @@ class ImportFilesAndImages extends ControllerBase {
    * Call the importing process for non CLI triggered execution.
    *
    * @return array
-   *   Render array with messages about the execution.
+   *    Render array with messages about the execution.
    */
   public function prepareExecuteImport($limit = 0) {
     $output = [];
@@ -87,7 +99,8 @@ class ImportFilesAndImages extends ControllerBase {
         ];
         $output[] = [
           '#type' => 'markup',
-          '#markup' => '<a href="' . file_create_url($this->managedCsvFileName) . '">CSV inline images</a>',
+          '#markup' => '<a href="' . \Drupal::service('file_url_generator')
+              ->generateAbsoluteString($this->managedCsvFileName) . '">CSV inline images</a>',
         ];
       }
 
@@ -113,7 +126,8 @@ class ImportFilesAndImages extends ControllerBase {
         ];
         $output[] = [
           '#type' => 'markup',
-          '#markup' => '<a href="' . file_create_url($this->inlineCsvFileName) . '">CSV inline images</a>',
+          '#markup' => '<a href="' . \Drupal::service('file_url_generator')
+              ->generateAbsoluteString($this->inlineCsvFileName) . '">CSV inline images</a>',
         ];
       }
 
@@ -139,7 +153,8 @@ class ImportFilesAndImages extends ControllerBase {
         ];
         $output[] = [
           '#type' => 'markup',
-          '#markup' => '<a href="' . file_create_url($this->blockCsvFileName) . '">CSV block images</a>',
+          '#markup' => '<a href="' . \Drupal::service('file_url_generator')
+              ->generateAbsoluteString($this->blockCsvFileName) . '">CSV block images</a>',
         ];
       }
 
@@ -156,8 +171,8 @@ class ImportFilesAndImages extends ControllerBase {
   /**
    * Delete all records in files_cross_reference table.
    *
-   * @return bool
-   *   Result of the query.
+   * @return boolean $result
+   *    Result of the query.
    */
   public function truncateCrossReference() {
     $db = Database::getConnection();
@@ -197,9 +212,7 @@ class ImportFilesAndImages extends ControllerBase {
           $file_managed->fid,
           $file_managed->filename,
         ];
-        if (!strstr($file_managed->uri, 'publication_transactions_rpt') &&
-              !strstr($file_managed->uri, 'doc/bulkorders') &&
-              !strstr($file_managed->uri, 'doc/otherorders')) {
+        if (!strstr($file_managed->uri, 'publication_transactions_rpt') && !strstr($file_managed->uri, 'doc/bulkorders') && !strstr($file_managed->uri, 'doc/otherorders')) {
           if ($fid = $this->copyTheFile($file_managed)) {
             $values = [
               'id' => $file_managed->fid,
@@ -224,8 +237,7 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -295,8 +307,7 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -364,8 +375,7 @@ class ImportFilesAndImages extends ControllerBase {
         }
       }
       Database::setActiveConnection();
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       $error_message = $e->getMessage();
     }
     fclose($csv_file);
@@ -382,7 +392,7 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array
+   * @return array $images
    *   An array with all images file names.
    */
   private function extractImagesAndFiles($text = NULL) {
@@ -402,13 +412,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array
+   * @return array $images
    *   An array with all images file names.
    */
   private function getImagesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new \DOMDocument();
+      $doc = new DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $images_tags = $doc->getElementsByTagName('img');
       foreach ($images_tags as $images_tag) {
@@ -425,13 +435,13 @@ class ImportFilesAndImages extends ControllerBase {
    * @param string $text
    *   The text string.
    *
-   * @return array
+   * @return array $images
    *   An array with all images file names.
    */
   private function getFilesReferences($text = NULL) {
     $result = [];
     if ($text) {
-      $doc = new \DOMDocument();
+      $doc = new DOMDocument();
       $doc->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       $a_tags = $doc->getElementsByTagName('a');
       foreach ($a_tags as $a_tag) {
@@ -469,7 +479,7 @@ class ImportFilesAndImages extends ControllerBase {
     $file_name = str_replace('public://', '', $uri);
     $file_name = str_replace('private://', '', $file_name);
     $uri = 'public://d7/';
-    // ********* This is the substitute code:
+    //********* This is the substitute code:
     if (strstr($file_managed->uri, 'public://images')) {
       $file = getcwd() . $this->getd7PublicFolder() . $file_name;
 
@@ -482,7 +492,8 @@ class ImportFilesAndImages extends ControllerBase {
     $this->output()->writeln("uri: " . $uri . $file_name);
     $data = @file_get_contents($file);
 
-    if ($data && $file = file_save_data($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
+    if ($data && $file = \Drupal::service('file.repository')
+        ->writeData($data, $uri . $file_name, FILE_EXISTS_OVERWRITE)) {
       $result = $file->id();
     }
     else {

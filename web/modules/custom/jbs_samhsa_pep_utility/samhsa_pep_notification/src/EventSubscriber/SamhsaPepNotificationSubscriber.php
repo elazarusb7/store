@@ -2,15 +2,14 @@
 
 namespace Drupal\samhsa_pep_notification\EventSubscriber;
 
-use Drupal;
+use Drupal\agreement\AgreementHandlerInterface;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Session\SessionManagerInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Database\Connection;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -58,8 +57,8 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Session\AccountProxyInterface $account
    *   The current user account.
    *
-   *   arguments: ['@samhsa_pep_notification.handler', '@path.current',
-   *   '@session_manager', '@current_user'].
+   * arguments: ['@samhsa_pep_notification.handler', '@path.current',
+   *   '@session_manager', '@current_user']
    */
   public function __construct(Connection $connection, CurrentPathStack $pathStack, SessionManagerInterface $sessionManager, AccountProxyInterface $account) {
     $this->connection = $connection;
@@ -71,10 +70,10 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
   /**
    * Check if the user needs to accept an samhsa_pep_notification.
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   * @param \Drupal\samhsa_pep_notification\EventSubscriber\RequestEvent $event
    *   The response event.
    */
-  public function notificationCheck(GetResponseEvent $event) {
+  public function notificationCheck(RequestEvent $event) {
     // Users with the bypass samhsa_pep_notification permission are always excluded from any
     // samhsa_pep_notification.
     $request = $event->getRequest();
@@ -84,10 +83,11 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
       return;
     }
     $route_name = $url->getRouteName();
-    $config = Drupal::config('samhsa_pep_notification.settings');
+    $config = \Drupal::config('samhsa_pep_notification.settings');
     $referer = $request->server->get('HTTP_REFERER');
     $host = $request->getSchemeAndHttpHost();
     $referer_uri = substr($referer ?? '', strlen($host));
+
     $ignore_routes = [
       'entity.user.edit_form',
       'system.ajax',
@@ -97,38 +97,39 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
     ];
 
     if (in_array($route_name, $ignore_routes)) {
-      // don't go into an endless loop.
+      // don't go into an endless loop
       return;
     }
 
-    if (sizeof(array_intersect(Drupal::currentUser()
+    if (sizeof(array_intersect(\Drupal::currentUser()
       ->getRoles(), $config->get('roles')))) {
-      // We are in a role that requires acceptance.
+      // we are in a role that requires acceptance
       $query = $this->connection->select('samhsa_pep_notification_history', 'n')
-        ->condition('n.uid', Drupal::currentUser()->id())
+        ->condition('n.uid', \Drupal::currentUser()->id())
         ->fields('n', ['sid', 'timestamp'])
         ->execute()
         ->fetchObject();
 
       if (is_object($query)) {
-        // We have a previous acceptance.
-        $age = intval(Drupal::currentUser()
+        // we have a previous acceptance
+        $age = intval(\Drupal::currentUser()
             ->getLastAccessedTime()) - intval($query->timestamp);
         $one_day = 60 * 60 * 24;
         if ($age < $one_day && $query->sid == session_id()) {
-          // Previous acceptance is valid.
+          // previous acceptance is valid
           return;
         }
       }
-
+      //drupal_set_message("age: '$age', sid: $query->sid, ts: $query->timestamp");
       // if we get here, force new agreement
       // - redirect to the samhsa_pep_notification page.
       if ($referer_uri != $path && $referer_uri != '/user/login') {
-        // Use tried to click away w/o accepting.
-        Drupal::messenger()->addMessage($config->get('failure'), 'warning');
+        // use tried to click away w/o accepting
+        \Drupal::messenger()->addMessage($config->get('failure'), 'warning');
       }
-      $redirect_path = Url::fromRoute('samhsa_pep_notification.form')
+      $redirect_path = \Drupal\Core\Url::fromRoute('samhsa_pep_notification.form')
         ->toString();
+      //drupal_set_message("forcing redirect to '$redirect_path'");
       $event->setResponse(new RedirectResponse($redirect_path));
     }
   }

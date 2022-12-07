@@ -1,45 +1,40 @@
 <?php
 
-/**
- * @file
- */
-
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Form\FormStateInterface;
+use  Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_cron().
  */
-function samhsa_pep_daily_prod_report_download_cron() {
+function samhsa_pep_daily_prod_report_download_cron(){
 
-  // Save default weight unit.
+  // save default weight unit.
   $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_daily_prod_report_download.settings');
 
-  // Get date.
+  // get date.
   $last_pub_trans_rpt_date = $config->get('last_pub_trans_rpt_date');
   if ($last_pub_trans_rpt_date == '') {
-    // If never run, force last run time to be 24 hours ago.
-    $last_pub_trans_rpt_date = (time() - 60 * 60 * 24);
+    // if never run, force last run time to be 24 hours ago.
+    $last_pub_trans_rpt_date = ( time() - 60 * 60 * 24 );
   }
-  // Get hour.
+  // get hour.
   $hour = $config->get('samhsa_daily_prod_report_download_hour');
 
-  $hour = $hour ?? 22;
+  $hour = isset($hour) ? $hour : 22;
 
   $msg = "last_pub_trans_rpt_date: $last_pub_trans_rpt_date<br />hour: $hour<br />";
 
-  if (strlen($last_pub_trans_rpt_date) > 0) {
+  if(strlen($last_pub_trans_rpt_date) > 0) {
     $d_last    = date('YmdHis', $last_pub_trans_rpt_date);
     $d_check   = date('Ymd000000');
     $date_hour = date('H');
-    $msg      .= "d_last: $d_last<br />d_check: $d_check<br />date_hour: $date_hour<br />";
+    $msg .= "d_last: $d_last<br />d_check: $d_check<br />date_hour: $date_hour<br />";
 
     if ($d_last < $d_check && $date_hour >= $hour) {
       $msg .= 'running report 1...';
       _rpt_download_execute();
     }
   }
-  elseif ($date_hour >= $hour) {
+  else if( $date_hour >= $hour) {
     $msg .= 'running report 2...';
     _rpt_download_execute();
   }
@@ -57,24 +52,22 @@ function _rpt_download_execute() {
   $msg = __FUNCTION__ . '() begin...<br />';
   $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_daily_prod_report_download.settings');
 
-  // Get directory.
+  // get directory.
   $path_to_save = $config->get('path_to_save');
-  // Get file prefix name.
+  // get file prefix name.
   $file_name_prefix = $config->get('file_name_prefix');
-  // Set file name.
+  //set file name
   $date = date("Y-m-d-h-i-sa");
   $file_name = $file_name_prefix . $date . ".csv";
-  // Get base url
-  // $base_url = $GLOBALS['base_url'];   //  http://default
+  //get base url
+  //$base_url = $GLOBALS['base_url'];   //  http://default
   $base_url = \Drupal::request()->getHost();
-  if ($base_url == 'default') {
-    $base_url = 'http://pep-b.pep';
-  }
+  if ($base_url == 'default') $base_url = 'http://pep-b.pep';
   $msg .= "base_url: $base_url<br />";
 
-  $base_url = str_ireplace('https://', 'http://', $base_url);
+  $base_url = str_ireplace( 'https://', 'http://', $base_url );
   $msg .= "base_url protocol: $base_url<br />";
-  // Get path where to save file.
+  //get path where to save file
   $path = 'public://' . $path_to_save;
   $msg .= "path: $path<br />file_name: $file_name<br />";
 
@@ -89,17 +82,13 @@ function _rpt_download_execute() {
   $filePath = $wrapperObj->realpath();
   $fileContent = file_get_contents($filePath);
   $length = strlen($fileContent);
-  $msg .= "beginning of fileContent ($length bytes):<br /><br />'" . substr($fileContent, 0, 1000) . "...'<br /><br />";
+  $msg .= "beginning of fileContent ($length bytes):<br /><br />'" . substr($fileContent,0,1000) . "...'<br /><br />";
   $destination = $path . '/' . $file_name;
   $msg .= "destination: $destination<br />";
 
-  $file = file_save_data(
-    $fileContent,
-    $destination,
-    FileSystemInterface::EXISTS_REPLACE
-  );
+  \Drupal::service('file.repository')->writeData($fileContent, $destination, FileSystemInterface::EXISTS_REPLACE);
 
-  // Get totals.
+  //get totals
   $file = fopen($path . '/' . $file_name, 'r');
   $count = 0;
   $totals_available = 0;
@@ -109,9 +98,8 @@ function _rpt_download_execute() {
   while (($line = fgetcsv($file)) !== FALSE) {
     $count++;
 
-    $allocated = str_replace(' ', '', $line[8]);
-    // Skip headers.
-    if ($count > 1) {
+    $allocated = str_replace(' ', '',$line[8]);
+    if($count > 1) {//skip headers
       $totals_available += $line[7];
       $totals_allocated += intval($allocated);
       $totals_onhand += $line[9];
@@ -119,18 +107,19 @@ function _rpt_download_execute() {
   }
   fclose($file);
 
+
   /*
    * Totals row
    *
    * The last row shall be labeled as "Total" in the Govt Pub Number column
    * and the following totals will be calculated and provided in this row
    * under the respective column:
-   *  Total Available Inventory (col 8)
-   *  Total Allocated Qty       (col 9)
-   *  Total On Hand Qty         (col 10)
-   *  Total Pallets             (col 15)
+        Total Available Inventory (col 8)
+        Total Allocated Qty       (col 9)
+        Total On Hand Qty         (col 10)
+        Total Pallets             (col 15)
    */
-  $totals = ',,,,,,,"' . number_format($totals_available) . '","' . number_format($totals_allocated) . '","' . number_format($totals_onhand) . '",,,,,,';
+  $totals = ',,,,,,,"'. number_format($totals_available) . '","' . number_format($totals_allocated). '","' . number_format($totals_onhand) . '",,,,,,';
   $msg .= "totals: $totals<br />";
 
   $fpc = file_put_contents($path . '/' . $file_name, PHP_EOL . $totals . PHP_EOL, FILE_APPEND | LOCK_EX);
@@ -141,7 +130,7 @@ function _rpt_download_execute() {
 
     $msg .= print_r('Daily product status file created successfully: ' . $uri, TRUE) . '<br />';
   }
-  // Save datestamp when file was created.
+  //save datestamp when file was created
   $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_daily_prod_report_download.settings');
 
   // Set date report downloaded last.
@@ -151,23 +140,80 @@ function _rpt_download_execute() {
 }
 
 /**
- * @param string $filename
- *   <p>file name including folder.
- *   example :: /path/to/file/filename.ext or filename.ext</p>.
- * @param string $data
- *   <p> The data to write.
- *   </p>.
- * @param int $flags
- *   same flags used for file_put_contents.
- *   more info: http://php.net/manual/en/function.file-put-contents.php.
+ * @param string $filename <p>file name including folder.
+ * example :: /path/to/file/filename.ext or filename.ext</p>
+ * @param string $data <p> The data to write.
+ * </p>
+ * @param int $flags same flags used for file_put_contents.
+ * more info: http://php.net/manual/en/function.file-put-contents.php
  * @return bool <b>TRUE</b> file created succesfully <br> <b>FALSE</b> failed to create file.
  */
-function file_force_contents($filename, $data, $flags = 0) {
-  if (!is_dir(dirname($filename))) {
-    mkdir(dirname($filename) . '/', 0777, TRUE);
-  }
-  return file_put_contents($filename, $data, $flags);
+function file_force_contents($filename, $data, $flags = 0){
+  if(!is_dir(dirname($filename)))
+    mkdir(dirname($filename).'/', 0777, TRUE);
+  return file_put_contents($filename, $data,$flags);
 }
+
+
+/**
+ * Implements template_preprocess_views_aggregator_results_table()
+ *
+ * does NOT get called by Data Export view format plugin...so this is useless
+ */
+/*function samhsa_pep_daily_prod_report_download_preprocess_views_aggregator_results_table(&$variables){
+  $view  = $variables['view'];
+  $vname = $view->id();
+  $vdisp = $view->current_display;
+  if (($vname == "publication_transaction_report" && ($vdisp == 'page_2' || $vdisp == 'data_export_1')) ||
+       $vname == "product_status_report"          && ($vdisp == 'page_1' || $vdisp == 'data_export_1')
+  ) {
+    $total_avail  = 0;
+    $total_alloc =  0;
+    $total_onhand = 0;
+    foreach ($view->result as $key => $value) {
+      $alloc = intval($value->commerce_order_item_commerce_product_variation_field_data_qu);
+      $variation_id = $value->variation_id;
+      $variation = $value->_entity;
+      $available = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
+      $total_avail  += $available;
+      $total_alloc  += $alloc;
+      $total_onhand += ($available + $alloc);
+    }
+  }
+  $variables['totals']['field_available_quantity'] = number_format($total_avail);
+  $variables['totals']['quantity'] = number_format($total_alloc);
+  $variables['totals']['nothing'] = number_format($total_onhand);
+}*/
+
+/*function samhsa_pep_daily_prod_report_download_views_post_execute(&$view) {
+    if (
+        $view->id() == "product_status_report"
+        && ($view->current_display == 'data_export_1')) {
+        $total_stock = 0;
+        $total_allocated = 0;
+        $total_onhand = 0;
+        ksm('here');
+
+        $count = 0;
+        foreach ($view->result as $key => $value) {
+            $count++;
+            //if($count == 1) {
+            $qty = $value->commerce_order_item_commerce_product_variation_field_data_qu;
+            $variation_id = $value->variation_id;
+            $variation = $value->_entity;
+            $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($variation);
+            $total_stock += $stock;
+            $total_allocated += $qty;
+            $total_onhand += ($stock + $qty);
+            //ksm($stock);
+            //}
+        }
+    }
+    $variables['totals']['field_available_quantity'] = $total_stock;
+    $variables['totals']['quantity'] = $total_allocated;
+    $variables['totals']['nothing'] = $total_onhand;
+    ksm($variables['totals']);
+}*/
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -175,31 +221,32 @@ function file_force_contents($filename, $data, $flags = 0) {
  * Alters the artist options on artwork pages.
  */
 function samhsa_pep_daily_prod_report_download_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // If not the view we are looking, move on.
+  //ksm($form);
+  // If not the view we are looking, move on
   if ($form['#id'] != 'views-exposed-form-product-status-report-page-1') {
     return FALSE;
   }
 
   $form['title']['#maxlength'] = NULL;
-  // Gell list of pallets.
+  // Gell list of pallets
   $pallet_list_variation = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->_get_vocabulary_as_select_options('pallet_location');
 
-  // Start building out the options for our select list.
+  // Start building out the options for our select list
   $options = [];
-  // Push Pallet names into select list.
+  // Push Pallet names into select list
   foreach ($pallet_list_variation as $key => $pallet) {
     $options[$pallet] = $pallet;
   }
 
-  // Start building out our new form element.
+  // Start building out our new form element
   $pallets_field = 'field_pallet_location_value';
   $form[$pallets_field]['#type'] = 'select';
   $form[$pallets_field]['#multiple'] = FALSE;
 
-  // Specify the empty option for our select list.
+  // Specify the empty option for our select list
   $form[$pallets_field]['#empty_option'] = t('Select Pallet');
 
-  // Add the $options from above to our select list.
+  // Add the $options from above to our select list
   $form[$pallets_field]['#options'] = $options;
   unset($form[$pallets_field]['#size']);
 

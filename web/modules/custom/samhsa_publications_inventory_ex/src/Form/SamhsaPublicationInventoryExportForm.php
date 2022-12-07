@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_publications_inventory_ex\Form;
 
-use Drupal;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -25,9 +24,6 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $this->entity_type_manager = $entity_type_manager;
   }
 
-  /**
-   *
-   */
   public static function create(ContainerInterface $container) {
     return new static($container->get('entity_type.manager'),);
   }
@@ -62,14 +58,17 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $header = $this->csv_header();
     // Append header values.
     if (!file_exists($download_folder)) {
-      mkdir($download_folder, 0777, TRUE);
+      if (!mkdir($download_folder, 0777, TRUE) && !is_dir($download_folder)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $download_folder));
+      }
     }
+
     $fp = fopen($download_folder . '/' . $file_name, 'w');
     fprintf($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
     fwrite($fp, implode(",", $header) . "\n");
     fclose($fp);
 
-    // Define the Operations variable.
+    // Define the Operations variable
     $operations = [];
 
     for ($i = 0; $i < 5; $i++) {
@@ -87,9 +86,6 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     batch_set($batch);
   }
 
-  /**
-   *
-   */
   public static function process_batch($ids, $total, &$context) {
     $download_folder = 'public://publication_inventory_export';
     $file_name = 'publication_inventory_export' . date('m-d-Y') . '.csv';
@@ -104,7 +100,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
       $context['sandbox']['progress']++;
     }
     fclose($fwp);
-    // Check if batch is finished and update progress.
+    //check if batch is finished and update progress
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] >= $context['sandbox']['max']);
     }
@@ -117,23 +113,23 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
    */
   public static function process_finished_batch($success, $results, $operations) {
     if ($success) {
-      Drupal::messenger()
+      \Drupal::messenger()
         ->addStatus('Publication Inventory was exported successfully');
       $uri = 'public://';
-      $path = file_create_url($uri) . 'publication_inventory_export/' . 'publication_inventory_export' . date('m-d-Y') . '.csv';
+      $path = \Drupal::service('file_url_generator')->generateAbsoluteString($uri) . 'publication_inventory_export/' . 'publication_inventory_export' . date('m-d-Y') . '.csv';
       $url = Url::fromUri($path);
-      Drupal::messenger()
+      \Drupal::messenger()
         ->addStatus(t('Download <a href = "@here">here</a>', ["@here" => $url->toUriString()]));
     }
     else {
-      Drupal::messenger()->addError("An error occured!");
+      \Drupal::messenger()->addError("An error occured!");
     }
   }
 
   /**
    * @return string[]
    */
-  public function csv_header() {
+  function csv_header() {
     return [
       'GOVT PUB NUMBER',
       'TITLE',

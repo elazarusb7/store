@@ -7,7 +7,6 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\state_machine\Plugin\Workflow\WorkflowTransition;
-use Exception;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -83,7 +82,7 @@ class WorkflowHelper implements WorkflowHelperInterface {
   public function getEntityStateField(FieldableEntityInterface $entity) {
     $field_definition = $this->getEntityStateFieldDefinition($entity);
     if ($field_definition == NULL) {
-      throw new Exception('No state fields were found in the entity.');
+      throw new \Exception('No state fields were found in the entity.');
     }
     return $entity->{$field_definition->getName()}->first();
   }
@@ -99,15 +98,16 @@ class WorkflowHelper implements WorkflowHelperInterface {
    * {@inheritdoc}
    */
   public function getAllStates(string $id) {
-    $modulepath = drupal_get_path('module', 'samhsa_pep_order_states_workflow');
-
+    $modulepath = \Drupal::service('extension.list.module')->getPath('samhsa_pep_order_states_workflow');
     $yaml = Yaml::parse(file_get_contents($modulepath . '/samhsa_pep_order_states_workflow.workflows.yml'));
+    //$yamlString = Yaml::dump($yaml);
     $states = $yaml[$id]['states'];
+    //$states = array_keys($states);
     $order_states = [];
     foreach ($states as $key => $state) {
       $order_states[$key] = $state['label'];
     }
-    return $order_states;
+    return $order_states;//$yaml[$id]['states'];
   }
 
 }
