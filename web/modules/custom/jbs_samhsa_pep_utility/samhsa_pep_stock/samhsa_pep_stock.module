@@ -997,7 +997,6 @@ function getMoveStockStatusMessage(FormStateInterface $form_state) {
  * Implements hook_entity_postsave().
  */
 function samhsa_pep_stock_commerce_order_postsave(EntityInterface $entity, $op) {
-  // \Drupal::logger('samhsa_pep_stock:order_postsave')->info('postsave order hook');
   $order_line_items = $entity->getItems();
   $state = $entity->getState()->getValue()['value'];
   if ($state == 'canceled') {
@@ -1010,9 +1009,7 @@ function samhsa_pep_stock_commerce_order_postsave(EntityInterface $entity, $op) 
   $tempstore = \Drupal::service('tempstore.private')
     ->get('samhsa_pep_admin_orders_helper');
   $is_internal = $tempstore->get('is_order_internal');
-  // \Drupal::logger('samhsa_pep_stock:is_internal')->info($is_internal);
   if ($is_internal) {
-    // \Drupal::logger('samhsa_pep_stock:current_state')->info($state);
     // only set pending state when internal order gets created
     if ($state == "draft") {
       $entity->set('state', "pending");

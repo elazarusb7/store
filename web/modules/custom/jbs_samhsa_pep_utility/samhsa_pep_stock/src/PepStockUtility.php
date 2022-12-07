@@ -45,7 +45,6 @@ class PepStockUtility implements PepStockUtilityInterface {
    * {@inheritdoc}
    */
   public function getLastTransactionDataAndLocation(PurchasableEntityInterface $entity, $transaction_id) {
-    // \Drupal::logger('transacrion id')->warning('<pre><code>' . $transaction_id . '</code></pre>');
     $query = \Drupal::database()->select('commerce_stock_transaction', 't')
       ->fields('t', ['data', 'location_id', 'id'])
       ->condition('id', $transaction_id)
@@ -63,7 +62,7 @@ class PepStockUtility implements PepStockUtilityInterface {
         'id' => $result->id,
       ];
     }
-    // \Drupal::logger('arr result 1')->warning('<pre><code>' . print_r($arrresult, TRUE) . '</code></pre>');
+
     return $arrresult;
   }
 

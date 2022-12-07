@@ -102,28 +102,27 @@ class SamhsaPepNotificationAdminSettings extends ConfigFormBase {
       '#options' => $roles,
       '#description' => $this->t('Select all of the roles that are required to agree.'),
     ];
-    if (null !== $config->get('roles')) {
+    if (NULL !== $config->get('roles')) {
       $form['notification']['roles']['#default_value'] = $config->get('roles');
     }
 
     return parent::buildForm($form, $form_state);
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /* @var \Drupal\Core\Config\ImmutableConfig */
+    /** @var \Drupal\Core\Config\ImmutableConfig */
     $this->configFactory()->getEditable('samhsa_pep_notification.settings')
-      ->set('title',                $form_state->getValue('title'))
-      ->set('notification_text',    $form_state->getValue('notification_text'))
-      ->set('submit',               $form_state->getValue('submit'))
-      ->set('success',              $form_state->getValue('success'))
-      ->set('failure',              $form_state->getValue('failure'))
-      ->set('frequency',            $form_state->getValue('frequency'))
-      ->set('checkbox_text',        $form_state->getValue('checkbox_text'))
-      ->set('roles',                $form_state->getValue('roles'))
+      ->set('title', $form_state->getValue('title'))
+      ->set('notification_text', $form_state->getValue('notification_text'))
+      ->set('submit', $form_state->getValue('submit'))
+      ->set('success', $form_state->getValue('success'))
+      ->set('failure', $form_state->getValue('failure'))
+      ->set('frequency', $form_state->getValue('frequency'))
+      ->set('checkbox_text', $form_state->getValue('checkbox_text'))
+      ->set('roles', $form_state->getValue('roles'))
       ->save();
 
     parent::submitForm($form, $form_state);

@@ -92,7 +92,6 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
     /*TODO: update foreach loop for shipments*/
     /*foreach ($order_shipments->getValue() as $order_shipment) {
     if ($order_shipment['target_id']) {
-    ksm($order_shipment['target_id']);
     }
     }*/
     if (is_array($shipment_ids)) {

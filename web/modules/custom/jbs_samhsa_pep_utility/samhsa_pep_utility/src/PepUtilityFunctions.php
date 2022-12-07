@@ -43,13 +43,9 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
     $p = array_shift($p);
     if ($p) {
       $address = array_shift($p->toArray()['address']);
-      $country = \Drupal::service('country_manager')->getList()[$address['country_code']]->__toString();
-      $customer_information = Markup::create(
-            $address['given_name'] . '&nbsp;' . $address['family_name'] . '<br />' .
-            $address['address_line1'] . '<br />' .
-            $address['locality'] . $address['administrative_area'] . $address['postal_code'] . '<br />' .
-            $country
-        );
+      $country = \Drupal::service('country_manager')
+        ->getList()[$address['country_code']]->__toString();
+      $customer_information = Markup::create($address['given_name'] . '&nbsp;' . $address['family_name'] . '<br />' . $address['address_line1'] . '<br />' . $address['locality'] . $address['administrative_area'] . $address['postal_code'] . '<br />' . $country);
     }
     return $customer_information;
   }
@@ -75,8 +71,7 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
       if (is_array($value)) {
         $counter += $this->checkFilters($value);
       }
-      elseif (!in_array($key, $key_exclude)  &&
-            !empty($value) && $value != 'All') {
+      elseif (!in_array($key, $key_exclude) && !empty($value) && $value != 'All') {
         $counter++;
       }
     }
@@ -132,7 +127,8 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
   public function getOrderSource($order = NULL) {
     $order_source = $order->get('field_order_source')->value;
     // Get the allowed values directly from the field_order_source field.
-    $allowed_values = $order->get('field_order_source')->getSetting('allowed_values');
+    $allowed_values = $order->get('field_order_source')
+      ->getSetting('allowed_values');
     // Return value or other text.
     return array_key_exists($order_source, $allowed_values) ? $allowed_values[$order_source] : $order_source;
   }
@@ -183,7 +179,9 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
    * {@inheritdoc}
    */
   public function _get_vocabulary_as_select_options($vid) {
-    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadTree($vid);
     $result = ['' => '- Select product location -'];
     foreach ($terms as $term) {
       $result[$term->tid] = $term->name;
@@ -200,7 +198,9 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
     $pallets = $variation->get('field_location_pallet')->referencedEntities();
     foreach ($pallets as $term) {
       $tid = $term->get('tid')->value;
-      $entity = \Drupal::entityTypeManager()->getStorage("taxonomy_term")->load($tid);
+      $entity = \Drupal::entityTypeManager()
+        ->getStorage("taxonomy_term")
+        ->load($tid);
       $name = $entity->getName();
       $result[$tid] = $name;
     }
@@ -220,7 +220,9 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
         $purchased_entity = $item->getPurchasedEntity();
         if (isset($purchased_entity)) {
           if ($purchased_entity->get('weight')->first() != NULL) {
-            $weight = $purchased_entity->get('weight')->first()->toMeasurement();
+            $weight = $purchased_entity->get('weight')
+              ->first()
+              ->toMeasurement();
             $itemweight = ($weight->getNumber() * $quantity);
             $totalweight = $totalweight + $itemweight;
           }
@@ -254,14 +256,14 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
     $config = \Drupal::config('tfa.settings');
     $allowed_skips = $config->get('validation_skip');
     $required_roles = array_filter($config->get('required_roles'));
-    $user_data = \Drupal::service('user.data')->get('tfa', \Drupal::currentUser()->id(), 'tfa_user_settings');
+    $user_data = \Drupal::service('user.data')
+      ->get('tfa', \Drupal::currentUser()->id(), 'tfa_user_settings');
     // If the user has a role that is required to use TFA, then return TRUE.
     $user_roles = \Drupal::currentUser()->getRoles();
     $arr_r = array_intersect($required_roles, $user_roles);
 
     if (!empty($user_data)) {
-      if (count($arr_r) > 0 &&
-            $user_data['validation_skipped'] > 0 && $allowed_skips >= $user_data['validation_skipped']) {
+      if (count($arr_r) > 0 && $user_data['validation_skipped'] > 0 && $allowed_skips >= $user_data['validation_skipped']) {
         $enabled = isset($user_data['status']) && $user_data['status'] ? TRUE : FALSE;
 
         if ($enabled && !empty($user_data['data']['plugins'])) {
@@ -329,7 +331,6 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
   $qty = $item->getQuantity();
   $product_id = $item->getPurchasedEntity()->get('product_id')->getValue()[0]['target_id'];
   $product = Product::load($product_id);
-  //ksm("qty: " . $qty);
   $maxlimit_machine_name_config = \Drupal::config('maxlimit.settings')
   ->get('maxlimit_element','field_qty_max_order');
   if(isset($maxlimit_machine_name_config) && !empty($maxlimit_machine_name_config)){

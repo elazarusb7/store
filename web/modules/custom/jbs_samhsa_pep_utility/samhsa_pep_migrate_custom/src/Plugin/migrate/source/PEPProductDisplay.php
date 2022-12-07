@@ -104,7 +104,7 @@ class PEPProductDisplay extends FieldableEntity {
       'field_samhsa_product_publication_product_id',
     ]);
     $query->fields('fc', ['field_name']);
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     if (isset($this->configuration['product_type'])) {
       $query->condition('n.type', $this->configuration['product_type']);
     }
@@ -152,7 +152,7 @@ class PEPProductDisplay extends FieldableEntity {
         field_data_body
       WHERE
         entity_id = :nid AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':nid' => $nid, ':bundle' => $bundle]);
 
     // $body_files_and_images = array();
@@ -172,10 +172,10 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_publication_date
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
     $values = [];
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($type);
+
     foreach ($result as $record) {
       $values[] = date('Y-m-d', strtotime($record->field_publication_date_value));
 
@@ -187,13 +187,12 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_you_maybe_interested
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':entity_id' => $nid, ':bundle' => $bundle]);
     $values = [];
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($type);
+
     foreach ($result as $record) {
       $values[] = $record->field_you_maybe_interested_value;
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($record->field_you_maybe_interested_value);
     }
     if (count($values) == 0) {
       $values[] = 'auto';
@@ -221,13 +220,12 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_max_purchase
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
     $values = [];
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($type);
+
     foreach ($result as $record) {
       $values[] = $record->field_max_purchase_value;
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($record->field_max_purchase_value);
     }
     $row->setSourceProperty('field_data_field_max_purchase', $values);
 
@@ -236,16 +234,13 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_samhsa_stock_status
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
     $values = [];
 
     foreach ($result as $record) {
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice('product_id:'. $product_id);
       $hasDownloads = $this->getDownloadsCount($product_id);
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice('hasdownloads:'. $product_id . ":" . $hasDownloads);
       $stock = $this->getProductStock($product_id);
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice('stock:'. $product_id . ":" . $stock);
       switch ($record->field_samhsa_stock_status_value) {
         case  'ELECTRONIC ONLY':
           $value = 'download_only';
@@ -264,17 +259,8 @@ class PEPProductDisplay extends FieldableEntity {
           break;
       }
       $values[] = $value;
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($value);
     }
     $row->setSourceProperty('field_samhsa_stock_status', $values);
-
-    // field_data_field_related_products.
-    /*$components = array(
-    'field' => 'field_related_products_target_id',
-    'table' => 'field_data_field_related_products',
-    'property' => 'field_also_be_interested_manual',
-    );
-    \Drupal::service('set_migrating_values')->entityReference($this, $row, $components);*/
 
     $query = 'SELECT field_related_products_target_id
       FROM
@@ -284,7 +270,6 @@ class PEPProductDisplay extends FieldableEntity {
     $values = [];
     foreach ($result as $record) {
       $values[] = $record->field_related_products_target_id;
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice($nid ." / ".$record->field_related_products_target_id);
     }
     $row->setSourceProperty('field_also_be_interested_manual', $values);
 
@@ -303,7 +288,7 @@ class PEPProductDisplay extends FieldableEntity {
       FROM
       field_data_field_imported_language
       WHERE entity_id = :entity_id AND bundle = :bundle';
-    // \Drupal::logger('samhsa_pep_migrate_custom')->notice($query);
+
     $result = $this->getDatabase()->query($query, [':entity_id' => $product_id, ':bundle' => $type]);
     $values = [];
     foreach ($result as $record) {
@@ -319,7 +304,6 @@ class PEPProductDisplay extends FieldableEntity {
         }
       }
       $values[] = $value;
-      // \Drupal::logger('samhsa_pep_migrate_custom')->notice('Language: ' .$product_id . " / " .$record->field_imported_language_value);
     }
 
     $row->setSourceProperty('imported_language_value', $values);

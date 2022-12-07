@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom\Entity;
 
+use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -57,14 +53,15 @@ use Drupal\user\UserInterface;
  */
 class UnconvertedLinks extends ContentEntityBase implements UnconvertedLinksInterface {
   use EntityChangedTrait;
+
   /**
    * {@inheritdoc}
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'user_id' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
@@ -138,7 +135,7 @@ class UnconvertedLinks extends ContentEntityBase implements UnconvertedLinksInte
    * {@inheritdoc}
    */
   public function setPublished($published) {
-    $this->set('status', $published ? \Drupal\node\NodeInterface::PUBLISHED : \Drupal\node\NodeInterface::NOT_PUBLISHED);
+    $this->set('status', $published ? NodeInterface::PUBLISHED : NodeInterface::NOT_PUBLISHED);
     return $this;
   }
 
@@ -149,48 +146,48 @@ class UnconvertedLinks extends ContentEntityBase implements UnconvertedLinksInte
     $fields['id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('ID'))
       ->setDescription(t('The ID of the Unconverted links entity.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 50,
-      ))
+      ])
       ->setReadOnly(TRUE);
 
     $fields['url'] = BaseFieldDefinition::create('string')
       ->setLabel(t('URL'))
       ->setDescription(t('The link URL.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 510,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['bundle'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Bundle'))
       ->setDescription(t('The content type.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 250,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 

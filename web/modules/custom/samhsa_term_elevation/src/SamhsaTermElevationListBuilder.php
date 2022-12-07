@@ -44,7 +44,7 @@ class SamhsaTermElevationListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-//    $header['id'] = $this->t('ID');
+    // $header['id'] = $this->t('ID');
     $header['query'] = $this->t('Query');
     $header['elnid'] = $this->t('Include');
     $header['exnid'] = $this->t('Exclude');
@@ -55,8 +55,8 @@ class SamhsaTermElevationListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var \Drupal\samhsa_term_elevation\Entity\SamhsaTermElevation $entity */
-//    $row['id'] = $entity->id();
+    /** @var \Drupal\samhsa_term_elevation\Entity\SamhsaTermElevation $entity */
+    // $row['id'] = $entity->id();
     $row['query'] = Link::createFromRoute(
       $entity->label(),
       'entity.samhsa_term_elevation.edit_form',

@@ -1,89 +1,96 @@
 <?php
 
-function samhsa_theme_block_pep8_theme($existing, $type, $theme, $path){
+/**
+ * @file
+ */
+
+/**
+ *
+ */
+function samhsa_theme_block_pep8_theme($existing, $type, $theme, $path) {
 
   $image_path = \Drupal::urlGenerator()->generateFromRoute('<front>', [], ['absolute' => TRUE]) . drupal_get_path('module', 'samhsa_theme_block_pep8') . '/img';
 
   return [
-		'header_social' => [
+    'header_social' => [
       'variables' => [],
-      'template' => 'block--HeaderSocial'
+      'template' => 'block--HeaderSocial',
     ],
-		'footer_address' => [
+    'footer_address' => [
       'variables' => [],
-      'template' => 'block--FooterAddress'
+      'template' => 'block--FooterAddress',
     ],
-		'footer_social' => [
+    'footer_social' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FooterSocial'
+      'template' => 'block--FooterSocial',
     ],
     'newsletter_signup' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--NewsletterSignup'
+      'template' => 'block--NewsletterSignup',
     ],
-		'footer_banners' => [
+    'footer_banners' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FooterBanners'
+      'template' => 'block--FooterBanners',
     ],
-		'footer_logo' => [
+    'footer_logo' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FooterLogo'
+      'template' => 'block--FooterLogo',
     ],
-		'footer_motto' => [
+    'footer_motto' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FooterMotto'
+      'template' => 'block--FooterMotto',
     ],
     'footer_note' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FooterNote'
+      'template' => 'block--FooterNote',
     ],
-		'footer_motto_text' => [
+    'footer_motto_text' => [
       'variables' => [],
-      'template' => 'block--FooterMottoText'
+      'template' => 'block--FooterMottoText',
     ],
-		'footer_nav_toggle' => [
+    'footer_nav_toggle' => [
       'variables' => [],
-      'template' => 'block--FooterNavToggle'
+      'template' => 'block--FooterNavToggle',
     ],
-		'frontpage_motto' => [
+    'frontpage_motto' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--FrontpageMotto'
+      'template' => 'block--FrontpageMotto',
     ],
-		'language_assistance' => [
+    'language_assistance' => [
       'variables' => [],
-      'template' => 'block--LanguageAssistance'
+      'template' => 'block--LanguageAssistance',
     ],
-		'jump_to_top' => [
+    'jump_to_top' => [
       'variables' => [],
-      'template' => 'block--JumpToTop'
+      'template' => 'block--JumpToTop',
     ],
-		'mobile_hamburger' => [
+    'mobile_hamburger' => [
       'variables' => [],
-      'template' => 'block--MobileHamburger'
+      'template' => 'block--MobileHamburger',
     ],
-		'mono_bar' => [
+    'mono_bar' => [
       'variables' => [],
-      'template' => 'block--MonoBar'
+      'template' => 'block--MonoBar',
     ],
-		'share_buttons' => [
+    'share_buttons' => [
       'variables' => [
         'image_path' => $image_path,
       ],
-      'template' => 'block--ShareButtons'
+      'template' => 'block--ShareButtons',
     ],
   ];
 }

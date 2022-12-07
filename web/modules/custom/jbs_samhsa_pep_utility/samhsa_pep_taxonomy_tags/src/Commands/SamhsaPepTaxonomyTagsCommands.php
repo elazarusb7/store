@@ -2,19 +2,23 @@
 
 namespace Drupal\samhsa_pep_taxonomy_tags\Commands;
 
+use Drupal\samhsa_pep_taxonomy_tags\Controller\TaxonomyUpdate;
+use Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate;
 use Drush\Commands\DrushCommands;
 
+/**
+ *
+ */
 class SamhsaPepTaxonomyTagsCommands extends DrushCommands {
 
   /**
    * Migrate PEP Product tags from Tags vocabulary to proper vocabularies.
    *
-   *
    * @command taxonomy:migrate
    * @aliases tmig,taxonomy-migrate
    */
   public function migrate($cmd = '', $options = ['test' => FALSE]) {
-    $migrate = new \Drupal\samhsa_pep_taxonomy_tags\Controller\Migrate(TRUE, $options['test']);
+    $migrate = new Migrate(TRUE, $options['test']);
     $this->output()->writeln("\nRunning SAMHSA PEP Taxonomy migration $cmd...");
 
     switch ($cmd) {
@@ -31,7 +35,7 @@ class SamhsaPepTaxonomyTagsCommands extends DrushCommands {
         break;
 
       case 'update':
-        $update = new \Drupal\samhsa_pep_taxonomy_tags\Controller\TaxonomyUpdate(TRUE, $options['test']);
+        $update = new TaxonomyUpdate(TRUE, $options['test']);
         $update->update();
         break;
 
@@ -50,4 +54,5 @@ class SamhsaPepTaxonomyTagsCommands extends DrushCommands {
       }
     }
   }
+
 }

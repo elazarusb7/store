@@ -113,7 +113,7 @@ class SamhsaPepRedirectURLSettingsForm extends ConfigFormBase {
         $row = $config->get($action_id . '.' . $role_id);
 
         $form[$action_id][$role_id]['#attributes']['class'][] = 'draggable';
-        $form[$action_id][$role_id]['#weight'] = isset($row['weight']) ? $row['weight'] : 0;
+        $form[$action_id][$role_id]['#weight'] = $row['weight'] ?? 0;
 
         $form[$action_id][$role_id]['role'] = [
           '#markup' => $role_name,
@@ -122,7 +122,7 @@ class SamhsaPepRedirectURLSettingsForm extends ConfigFormBase {
           '#type' => 'textfield',
           '#title' => $this->t('Redirect URL'),
           '#title_display' => 'invisible',
-          '#default_value' => isset($row['redirect_url']) ? $row['redirect_url'] : '',
+          '#default_value' => $row['redirect_url'] ?? '',
         ];
         $form[$action_id][$role_id]['allow_destination'] = [
           '#type' => 'checkbox',

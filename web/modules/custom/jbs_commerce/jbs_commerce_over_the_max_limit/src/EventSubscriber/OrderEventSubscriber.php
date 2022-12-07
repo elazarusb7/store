@@ -64,9 +64,7 @@ class OrderEventSubscriber implements EventSubscriberInterface {
     /*$order = $event->getOrder();
 
     if(isset($order) && $order->get('checkout_step')->value == 'complete') {
-    //ksm($status);
     $isbulk = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isOrderBulk($order);
-    //ksm($isbulk);
     $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
     $order->get('type')->__set('target_id', $order_type);
     $order->save();

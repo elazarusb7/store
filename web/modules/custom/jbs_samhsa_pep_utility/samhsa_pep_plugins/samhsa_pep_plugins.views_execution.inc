@@ -25,7 +25,6 @@ $view->setOffset(0);
 $pager = $view->display_handler->getOption('pager');
 
 // Change the pager plugin. Some will show a specified number of results.
-ksm($pager);
 $pager['type'] = 'none';
 // All options used by the plugin are available in $pager['options'].
 // If you want to change them, that's fine. You just need to know the keys.
@@ -57,7 +56,6 @@ function samhsa_pep_plugins_views_pre_render(ViewExecutable $view) {
   $total_stock += $stock;
   $total_allocated += $qty;
   $total_onhand += ($stock + $qty);
-  //ksm($stock);
   //}
   }
 

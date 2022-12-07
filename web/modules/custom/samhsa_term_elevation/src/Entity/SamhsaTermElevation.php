@@ -71,6 +71,7 @@ class SamhsaTermElevation extends ContentEntityBase {
     $this->set('query', $query);
     return $this;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -134,7 +135,6 @@ class SamhsaTermElevation extends ContentEntityBase {
     }
     return $array_out;
   }
-
 
   /**
    * {@inheritdoc}
@@ -206,7 +206,6 @@ class SamhsaTermElevation extends ContentEntityBase {
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))

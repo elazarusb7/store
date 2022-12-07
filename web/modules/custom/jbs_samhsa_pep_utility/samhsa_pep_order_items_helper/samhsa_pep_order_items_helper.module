@@ -34,7 +34,7 @@ function samhsa_pep_order_items_helper_commerce_order_presave(EntityInterface $e
    * check if at least one item is over the max limit
    * set order type to bulk
    */
-  /*   //ksm($entity);
+  /*
   $original = $entity->original;
   $state_original = '';
   if (isset($original)) {
@@ -89,47 +89,6 @@ function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterfac
     }
   }
 }
-
-/**
- * Perform alterations before an entity form is included in the IEF widget.
- *
- * @param $entity_form
- *   Nested array of form elements that comprise the entity form.
- * @param $form_state
- *   The form state of the parent form.
- */
-/*function samhsa_pep_order_items_helper_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-if ($entity_form['#entity_type'] == 'commerce_order_item') {
-ksm($entity_form);
-}
-}*/
-
-/**
- * Alter the fields used to represent an entity in the IEF table.
- *
- * @param array $fields
- *   The fields, keyed by field name.
- * @param array $context
- *   An array with the following keys:
- *   - parent_entity_type: The type of the parent entity.
- *   - parent_bundle: The bundle of the parent entity.
- *   - field_name: The name of the reference field on which IEF is operating.
- *   - entity_type: The type of the referenced entities.
- *   - allowed_bundles: Bundles allowed on the reference field.
- *
- * @see \Drupal\inline_entity_form\InlineFormInterface::getTableFields()
- */
-/*function samhsa_pep_order_items_helper_inline_entity_form_table_fields_alter(&$fields, $context) {
-if ($context['entity_type'] == 'commerce_order_item') {
-ksm($fields);
-ksm($context);
-$fields['field_category'] = [
-'type' => 'field',
-'label' => t('Category'),
-'weight' => 101,
-];
-}
-}*/
 
 /**
  * Implements hook_form_alter().

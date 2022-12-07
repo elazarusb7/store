@@ -7,7 +7,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
+use Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 
 /**
  * A handler to provide a field that is completely custom by the administrator.
@@ -19,7 +19,7 @@ use \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 class WebsiteBase extends FieldPluginBase {
 
   /**
-   * Aliases
+   * Aliases.
    *
    * @var array
    *   List of aliases of the websites that compound the multisite environment.
@@ -27,7 +27,7 @@ class WebsiteBase extends FieldPluginBase {
   private $sitesAliases = [];
 
   /**
-   * URL replacements
+   * URL replacements.
    *
    * @var array
    *   List of URL replacements of the websites that compound the multisite environment.
@@ -105,7 +105,7 @@ class WebsiteBase extends FieldPluginBase {
 
     $fields = $values->_item->getExtraData('search_api_solr_document')->getFields();
 
-    if ($this->options['use_aliases'] && $this->sitesAliases[$fields['site']])  {
+    if ($this->options['use_aliases'] && $this->sitesAliases[$fields['site']]) {
       $site_name = $this->sitesAliases[$fields['site']];
     }
     else {

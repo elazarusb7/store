@@ -34,7 +34,7 @@ class SamhsaTermElevationForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var \Drupal\samhsa_term_elevation\Entity\SamhsaTermElevation $entity */
+    /** @var \Drupal\samhsa_term_elevation\Entity\SamhsaTermElevation $entity */
     $form = parent::buildForm($form, $form_state);
     for ($i = 0; $i <= $form['elnid']['widget']['#max_delta']; $i++) {
       $form['elnid']['widget'][$i]['value']['#type'] = 'textfield';

@@ -2,7 +2,6 @@
 
 namespace Drupal\samhsa_pep_notification\EventSubscriber;
 
-use Drupal\agreement\AgreementHandlerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Session\SessionManagerInterface;
@@ -10,8 +9,6 @@ use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -59,7 +56,7 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Session\AccountProxyInterface $account
    *   The current user account.
    *
-   * arguments: ['@samhsa_pep_notification.handler', '@path.current', '@session_manager', '@current_user']
+   *   arguments: ['@samhsa_pep_notification.handler', '@path.current', '@session_manager', '@current_user'].
    */
   public function __construct(Connection $connection,
                               CurrentPathStack $pathStack,
@@ -83,20 +80,15 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
     // samhsa_pep_notification.
     $request = $event->getRequest();
     $path = $this->pathStack->getPath($request);
-    $url  = Url::fromUserInput($path);
+    $url = Url::fromUserInput($path);
     if (!$url->isRouted()) {
       return;
     }
     $route_name = $url->getRouteName();
-    $config   = \Drupal::config('samhsa_pep_notification.settings');
-    $referer  = $request->server->get('HTTP_REFERER');
-    $host     = $request->getSchemeAndHttpHost();
-//    if (strlen($host) != NULL) {
-      $referer_uri = substr($referer ?? '', strlen($host));
-//    } else {
-//      $referer_uri = $referer;
-//    }
-
+    $config     = \Drupal::config('samhsa_pep_notification.settings');
+    $referer    = $request->server->get('HTTP_REFERER');
+    $host       = $request->getSchemeAndHttpHost();
+    $referer_uri = substr($referer ?? '', strlen($host));
     $ignore_routes = [
       'entity.user.edit_form',
       'system.ajax',
@@ -105,13 +97,13 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
       'samhsa_pep_notification.form',
     ];
 
-    if (in_array($route_name,$ignore_routes)) {
-      // don't go into an endless loop
+    if (in_array($route_name, $ignore_routes)) {
+      // don't go into an endless loop.
       return;
     }
 
     if (sizeof(array_intersect(\Drupal::currentUser()->getRoles(), $config->get('roles')))) {
-      // we are in a role that requires acceptance
+      // We are in a role that requires acceptance.
       $query = $this->connection->select('samhsa_pep_notification_history', 'n')
         ->condition('n.uid', \Drupal::currentUser()->id())
         ->fields('n', ['sid', 'timestamp'])
@@ -119,23 +111,22 @@ class SamhsaPepNotificationSubscriber implements EventSubscriberInterface {
         ->fetchObject();
 
       if (is_object($query)) {
-        // we have a previous acceptance
+        // We have a previous acceptance.
         $age = intval(\Drupal::currentUser()->getLastAccessedTime()) - intval($query->timestamp);
         $one_day = 60 * 60 * 24;
         if ($age < $one_day && $query->sid == session_id()) {
-          // previous acceptance is valid
+          // Previous acceptance is valid.
           return;
         }
       }
-      //drupal_set_message("age: '$age', sid: $query->sid, ts: $query->timestamp");
+
       // if we get here, force new agreement
       // - redirect to the samhsa_pep_notification page.
       if ($referer_uri != $path && $referer_uri != '/user/login') {
-        // use tried to click away w/o accepting
+        // Use tried to click away w/o accepting.
         \Drupal::messenger()->addMessage($config->get('failure'), 'warning');
       }
-      $redirect_path = \Drupal\Core\Url::fromRoute('samhsa_pep_notification.form')->toString();
-      //drupal_set_message("forcing redirect to '$redirect_path'");
+      $redirect_path = Url::fromRoute('samhsa_pep_notification.form')->toString();
       $event->setResponse(new RedirectResponse($redirect_path));
     }
   }

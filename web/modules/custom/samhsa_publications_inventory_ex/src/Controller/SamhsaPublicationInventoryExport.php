@@ -81,7 +81,7 @@ LEFT JOIN {commerce_product_variation__9ec3c7b4e5} commerce_product_variation__f
 WHERE (commerce_product_variation_field_data.status = '1') AND (commerce_product_field_data_commerce_product_variation_field_data__commerce_product__stores.stores_target_id = '1')
 GROUP BY sku, title, format, office_center, campaign, publication_date, owner_name, commerce_product_variation__field_available_quantity_field_a, commerce_product_field_data_commerce_product_variation_field_9, commerce_product_variation_field_data.variation_id, commerce_product_field_data_commerce_product_variation_field_10, commerce_product_variation__field_pallet_location_field_pall");
     foreach ($result as $res) {
-      $data = array(
+      $data = [
         $res->sku,
         $res->title,
         $res->format,
@@ -101,9 +101,9 @@ GROUP BY sku, title, format, office_center, campaign, publication_date, owner_na
         $res->variation_id_1,
         $res->commerce_product_field_data_commerce_product_variation_field_11,
         $res->commerce_order_item_commerce_product_variation_field_data_or,
-      );
+      ];
 
-      // Add the data we exported to the next line of the CSV>
+      // Add the data we exported to the next line of the CSV>.
       fputcsv($handle, array_values($data));
     }
     // Reset where we are in the CSV.
@@ -125,7 +125,7 @@ GROUP BY sku, title, format, office_center, campaign, publication_date, owner_na
     $response->headers->set('Content-Type', 'text/csv');
     $response->headers->set('Content-Disposition', 'attachment; filename="samhsa_publications_inventory.csv"');
 
-    // This line physically adds the CSV data we created
+    // This line physically adds the CSV data we created.
     $response->setContent($csv_data);
 
     return $response;
