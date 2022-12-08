@@ -254,7 +254,7 @@ class RecommendationConfigForm extends ConfigFormBase {
       $headers = array_keys(get_object_vars($pairs[0]) + ['title' => NULL]);
       $rows = [];
 
-      for ($row = 0; $row < count($pairs); $row++) {
+      for ($row = 0, $rowMax = count($pairs); $row < $rowMax; $row++) {
         if ($numberOfRecommendations > 0) {
           if (!empty($recommendedPairs[$pairs[$row]->{$headers[0]}]) || !empty($recommendedPairs[$pairs[$row]->{$headers[1]}])) {
             $recommendedColumn = ($pairs[$row]->{$headers[0]} !== $pid ? 0 : ($pairs[$row]->{$headers[1]} !== $pid ? 1 : NULL));
@@ -370,7 +370,7 @@ class RecommendationConfigForm extends ConfigFormBase {
       $headers = ['product_id', 'title'];
       $rows = [];
 
-      for ($row = 0; $row < count($title); $row++) {
+      for ($row = 0, $rowMax = count($title); $row < $rowMax; $row++) {
         $new_row = [$title[$row]->{$headers[0]},
           t('<a href="' . \Drupal::request()->getSchemeAndHttpHost() . '/product/' . $title[$row]->{$headers[0]} . '">' . $title[$row]->{$headers[1]} . '</a>'),
         ];

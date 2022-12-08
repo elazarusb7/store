@@ -5,18 +5,18 @@
  * Contains jbs_commerce_over_the_max_limit.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\commerce_order\Entity\Order;
-use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce\Context;
 use Drupal\commerce\PurchasableEntityInterface;
 use Drupal\commerce\Response\NeedsRedirectException;
+use Drupal\commerce_order\Entity\Order;
+use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\commerce_product\Entity\ProductVariationInterface;
 use Drupal\Component\Utility\Xss;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\views\Form\ViewsForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -108,8 +108,7 @@ function jbs_commerce_over_the_max_limit_commerce_order_presave(EntityInterface 
   }
   // Only set onhold state (is bulk) when order first gets created.
   // For internally created oders.
-  if (($entity->get('checkout_step')->value == 'complete' && $state_original == "draft") ||
-    ($entity->get('checkout_step')->value == NULL && $state_original == "draft" && $entity->getState()->value == "pending")) {
+  if (($entity->get('checkout_step')->value == 'complete' && $state_original == "draft") || ($entity->get('checkout_step')->value == NULL && $state_original == "draft" && $entity->getState()->value == "pending")) {
     $isbulk = \Drupal::service('jbs_commerce_over_the_max_limit.maxlimit_util_functions')
       ->isOrderBulk($entity);
     $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
@@ -254,7 +253,7 @@ function jbs_commerce_over_the_max_limit_form_alter(&$form, FormStateInterface $
 
   // Checkout.
   if (strpos($form_id, "commerce_checkout_flow") !== FALSE && $form_state->getFormObject()
-    ->getBaseFormId() == 'commerce_checkout_flow') {
+      ->getBaseFormId() == 'commerce_checkout_flow') {
     /** @var Drupal\Core\Form\FormInterface $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\commerce_order\Entity\OrderInterface $order */

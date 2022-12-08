@@ -1,8 +1,8 @@
 <?php
 
-use Drupal\commerce_order\Entity\Order;
-
 namespace Drupal\samhsa_pep_utility;
+
+use Drupal\commerce_order\Entity\Order;
 
 /**
  * Interface PepUtilityFunctionsInterface.

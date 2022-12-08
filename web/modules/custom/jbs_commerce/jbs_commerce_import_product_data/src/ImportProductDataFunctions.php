@@ -1,8 +1,8 @@
 <?php
 
-use Drupal\commerce_product\Entity\Product;
-
 namespace Drupal\jbs_commerce_import_product_data;
+
+use Drupal\commerce_product\Entity\Product;
 
 /**
  *

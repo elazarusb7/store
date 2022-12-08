@@ -1,8 +1,8 @@
 <?php
 
-use Drupal\commerce_shipping\Entity\Shipment;
-
 namespace Drupal\samhsa_pep_pdf_printing;
+
+use Drupal\commerce_shipping\Entity\Shipment;
 
 /**
  * Class PdfPickSlips.

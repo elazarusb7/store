@@ -6,61 +6,10 @@
  */
 
 /**
- * Implements hook_install().
- */
-function jbs_commerce_over_the_max_limit_install() {
-  // Create bulk order type.
-  /**
-   * id [String]
-   *   The primary key for this order type.
-   *
-   * label [String]
-   *   The label for this order type.
-   *
-   * status [Bool] - [OPTIONAL, DEFAULTS TO TRUE]
-   *   [AVAILABLE = FALSE, TRUE]
-   *   Whether or not it's enabled or disabled. 1 for enabled.
-   *
-   * workflow [String] - [DEFAULT = order_default]
-   *   [AVAILABLE = order_default, order_default_validation, order_fulfillment, order_fulfillment_validation]
-   *   The workflow id to use as the workflow.
-   *
-   * refresh_mode [String] - [DEFAULT = always]
-   *   [AVAILABLE = always, customer]
-   *   The refresh mode to use as the refresh mode.
-   *
-   * refresh_frequency [Integer] - [DEFAULT = 30]
-   *   The refresh freuency in seconds.
-   */
-  /*   //check if order item type exists
-  // Loading is based off of the primary key [String] that was defined when creating it.
-  $order_item_type = \Drupal\commerce_order\Entity\OrderType::load('samhsa_publication_ob');
-
-  //\Drupal::logger('my_module')->notice($order_item_type);
-  if(is_null($order_item_type)) {
-  $order_type = \Drupal\commerce_order\Entity\OrderType::create([
-  'status' => TRUE,
-  'id' => 'samhsa_publication_ob',
-  'label' => 'SAMHSA Publication (Bulk)',
-  'workflow' => 'samhsa_pep_order_states_workflow_fulfillment_processing',
-  'refresh_mode' => 'always',
-  'refresh_frequency' => 30,
-  ]);
-
-  //$order_type['commerce_checkout']['checkout_flow']['#default_value'] = 'shipping';
-  //$order_type['commerce_shipping']['enable_shipping']['#default_value'] = TRUE;
-  $order_type->save();
-
-  // This must be called after saving.
-  commerce_order_add_order_items_field($order_type);
-  }
-   */
-
-}
-
-/**
  * Implements hook_uninstall().
  */
 function jbs_commerce_over_the_max_limit_uninstall() {
-  Drupal::configFactory()->getEditable('jbs_commerce_over_the_max_limit.settings')->delete();
+  Drupal::configFactory()
+    ->getEditable('jbs_commerce_over_the_max_limit.settings')
+    ->delete();
 }

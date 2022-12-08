@@ -130,7 +130,6 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
    * {@inheritdoc}
    */
   public function getOrderSource($order = NULL) {
-    $order_source = NULL;
     $order_source = $order->get('field_order_source')->value;
     // Get the allowed values directly from the field_order_source field.
     $allowed_values = $order->get('field_order_source')->getSetting('allowed_values');

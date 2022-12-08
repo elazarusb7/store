@@ -114,8 +114,8 @@ class RecommendationModelFunctions implements RecommendationModelFunctionsInterf
     $products = array_keys($matrix);
     if (empty($pairs)) {
       $query = $db->insert($this->pairsTableName)->fields(['p1', 'p2', 'score', 'count']);
-      for ($i = 0; $i < count($products); $i++) {
-        for ($j = ($i + 1); $j < count($matrix[$products[$i]]); $j++) {
+      for ($i = 0, $iMax = count($products); $i < $iMax; $i++) {
+        for ($j = ($i + 1), $jMax = count($matrix[$products[$i]]); $j < $jMax; $j++) {
           $p1 = min($products[$i], $products[$j]);
           $p2 = max($products[$i], $products[$j]);
           if ($matrix[$p1][$p2] > 0) {
@@ -143,8 +143,8 @@ class RecommendationModelFunctions implements RecommendationModelFunctionsInterf
       foreach ($pairs as $p => $pair) {
         $pairs[$p] = array_combine(array_column($pairs[$p], 'p2'), $pairs[$p]);
       }
-      for ($i = 0; $i < count($products); $i++) {
-        for ($j = ($i + 1); $j < count($matrix[$products[$i]]); $j++) {
+      for ($i = 0, $iMax = count($products); $i < $iMax; $i++) {
+        for ($j = ($i + 1), $jMax = count($matrix[$products[$i]]); $j < $jMax; $j++) {
           $p1 = min($products[$i], $products[$j]);
           $p2 = max($products[$i], $products[$j]);
           if ($matrix[$p1][$p2] > 0) {

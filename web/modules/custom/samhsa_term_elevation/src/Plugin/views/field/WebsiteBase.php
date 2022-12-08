@@ -48,10 +48,10 @@ class WebsiteBase extends FieldPluginBase {
     $this->sitesAliases = [];
     foreach ($sites_aliases as $key => $value) {
       if ($this->urlReplacements[$key]) {
-        $this->sitesAliases[$this->urlReplacements[$key]] = $sites_aliases[$key];
+        $this->sitesAliases[$this->urlReplacements[$key]] = $value;
       }
       else {
-        $this->sitesAliases[$key] = $sites_aliases[$key];
+        $this->sitesAliases[$key] = $value;
       }
     }
   }

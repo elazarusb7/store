@@ -159,7 +159,9 @@ function _rpt_download_execute() {
  */
 function file_force_contents($filename, $data, $flags = 0) {
   if (!is_dir(dirname($filename))) {
-    mkdir(dirname($filename) . '/', 0777, TRUE);
+    if (!mkdir($concurrentDirectory = dirname($filename) . '/', 0777, TRUE) && !is_dir($concurrentDirectory)) {
+      throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+    }
   }
   return file_put_contents($filename, $data, $flags);
 }

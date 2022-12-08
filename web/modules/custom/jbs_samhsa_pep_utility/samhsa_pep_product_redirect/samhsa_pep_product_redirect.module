@@ -313,7 +313,7 @@ function lookupFromRedirects($pid, $current_alias) {
       $redirect_list[] = $record;
     }
     // Return _redirect_to_list_table($redirect_list, $header, $destination, $lang);.
-    return _redirect_to_list_table($redirect_list, $header, $destination, '');
+    return _redirect_to_list_table($redirect_list, $header, $destination);
   }
   return [];
 }
@@ -359,7 +359,7 @@ function _redirect_from_list_table($redirect_list, $header, $destination, $lang)
 /**
  *
  */
-function _redirect_to_list_table($redirect_list, $header, $destination, $lang) {
+function _redirect_to_list_table($redirect_list, $header, $destination): array {
   $rows = [];
   // Get language.
   $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
