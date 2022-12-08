@@ -126,6 +126,9 @@ tooling:
     cmd:
       - echo "Clearing all cache tables"
       - ./scripts/cache-nuke.sh
+      # The following composer command will stack trace occassionally for no
+      # known reason. The fix is to run the command from the shell, then rerun
+      # this command.
       - echo "Running composer install"
       - composer install
       - echo "Running configuration import"
