@@ -2,18 +2,17 @@
 
 namespace Drupal\samhsa_pep_anonlogout\EventSubscriber;
 
-// Use Drupal\samhsa_pep_anonlogout\AnonlogoutManagerInterface;.
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Core\Session\SessionManagerInterface;
-use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\commerce_cart\Event\CartEntityAddEvent;
 use Drupal\commerce_cart\Event\CartEvents;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\SessionManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Defines autologout Subscriber.
@@ -44,8 +43,6 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   /**
    * Constructs an AnonlogoutSubscriber object.
    *
-   * @param \Drupal\samhsa_pep_anonlogout\AnonlogoutManagerInterface $anonlogout
-   *   The anonlogout manager service.
    */
   public function __construct(
     SessionManagerInterface $sessionManager,
@@ -61,7 +58,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
   /**
    *
    */
-  public function onRequest(GetResponseEvent $event) {
+  public function onRequest(RequestEvent $event) {
     // Only run for anonymous sessions.
     if (\Drupal::currentUser()->id() > 0) {
       return;
@@ -118,7 +115,7 @@ class AnonlogoutSubscriber implements EventSubscriberInterface {
       $route_chunks = explode('.', $route_name);
       // \Drupal::messenger()->addStatus("name: $route_name, chunks: " . print_r($route_chunks,true));
       if (isset($route_chunks[0])) {
-        if ($route_chunks[0] == 'commerce_checkout' || $route_chunks[0] == 'commerce_cart') {
+        if ($route_chunks[0] === 'commerce_checkout' || $route_chunks[0] === 'commerce_cart') {
           $this->appendMessage();
         }
       }
