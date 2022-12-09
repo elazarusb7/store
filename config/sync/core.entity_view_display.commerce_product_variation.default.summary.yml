@@ -6,6 +6,7 @@ dependencies:
     - commerce_product.commerce_product_variation_type.default
     - core.entity_view_mode.commerce_product_variation.summary
     - field.field.commerce_product_variation.default.field_available_quantity
+    - field.field.commerce_product_variation.default.field_gpo_pubcode
     - field.field.commerce_product_variation.default.field_location_pallet
     - field.field.commerce_product_variation.default.field_pallet_location
     - field.field.commerce_product_variation.default.weight
@@ -29,6 +30,7 @@ content:
     region: content
 hidden:
   field_available_quantity: true
+  field_gpo_pubcode: true
   field_location_pallet: true
   field_pallet_location: true
   langcode: true
