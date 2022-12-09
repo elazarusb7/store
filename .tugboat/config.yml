@@ -56,8 +56,11 @@ services:
         # SAMHSA_STORE: Our own custom php tweaks
         - cp "${TUGBOAT_ROOT}/.tugboat/php.ini" /usr/local/etc/php/conf.d/samhsa_store.ini
 
-        # Create a Private file folder
-        - mkdir "${TUGBOAT_ROOT}/private" && chown www-data "${TUGBOAT_ROOT}/private" && chmod 755 "${TUGBOAT_ROOT}/private"
+        # Create a Private file folder with an encryption key subfolder
+        - mkdir -p "${TUGBOAT_ROOT}/private/keys" && chown -R www-data "${TUGBOAT_ROOT}/private" && chmod -R 755 "${TUGBOAT_ROOT}/private"
+
+        # Adding an encryption key.
+        - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key 
 
         - composer install
         -
