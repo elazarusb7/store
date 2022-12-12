@@ -5,10 +5,10 @@
  * Contains samhsa_pep_product_redirect.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -29,7 +29,8 @@ function samhsa_pep_product_redirect_help($route_name, RouteMatchInterface $rout
 /**
  * Implements hook_pathauto_alias_alter()
  *
- * If /[commerce_product:field_sku] found in alias, get sku from variant and append.
+ * If /[commerce_product:field_sku] found in alias, get sku from variant and
+ * append.
  *
  * (important safety tip: hook only fires if
  * "Generate automatic URL alias" is enabled on Product)
@@ -191,69 +192,58 @@ function samhsa_pep_product_redirect_form_alter(&$form, FormStateInterface $form
     $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
     // Get alias of the node.
     $internal_path = '/product/' . $pid;
-    $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($internal_path, $lang);
+    $current_alias = \Drupal::service('path_alias.manager')
+      ->getAliasByPath($internal_path, $lang);
 
     // Add URL redirect links TO and FROM.
     // Set Redirect TO: ?redirect=product/12.
-    $linkTo = Link::fromTextAndUrl(
-      'Add URL redirect TO this product',
-      Url::fromRoute(
-        'redirect.add',
-        [],
-        [
-          'query' => [
-    // Redirect TO.
-            'redirect'    => $internal_path,
-            'language'    => $lang,
-    // Return destination.
-            'destination' => $internal_path . '/edit',
-          ],
-          'attributes'  => [
-            'target'    => '_blank',
-          ],
-        ]
-      )
-    );
+    $linkTo = Link::fromTextAndUrl('Add URL redirect TO this product', Url::fromRoute('redirect.add', [], [
+        'query' => [
+          // Redirect TO.
+          'redirect' => $internal_path,
+          'language' => $lang,
+          // Return destination.
+          'destination' => $internal_path . '/edit',
+        ],
+        'attributes' => [
+          'target' => '_blank',
+        ],
+      ]));
     $existingRedirectsTo = lookupToRedirects($pid, $current_alias);
     $form['url_redirectTo'] = [
-      '#type'   => 'details',
-      '#title'  => t('URL redirect TO this product'),
-      '#access' => \Drupal::currentUser()->hasPermission('administer redirects'),
-      '#group'  => 'advanced',
+      '#type' => 'details',
+      '#title' => t('URL redirect TO this product'),
+      '#access' => \Drupal::currentUser()
+        ->hasPermission('administer redirects'),
+      '#group' => 'advanced',
       '#weight' => 100,
-      'table'   => $existingRedirectsTo,
+      'table' => $existingRedirectsTo,
       'content' => ['#markup' => '<p>' . $linkTo->toString() . '</p>'],
       '#open' => sizeof($existingRedirectsTo),
     ];
 
     // Set Redirect FROM:  ?source=product/12.
-    $linkFrom = Link::fromTextAndUrl(
-      'Add URL redirect FROM this product',
-      Url::fromRoute(
-        'redirect.add',
-        [],
-        [
-          'query' => [
-    // Redirect FROM.
-            'source'      => $internal_path,
-            'language'    => $lang,
-    // Return destination.
-            'destination' => $internal_path . '/edit',
-          ],
-          'attributes'  => [
-            'target'    => '_blank',
-          ],
-        ]
-      )
-    );
+    $linkFrom = Link::fromTextAndUrl('Add URL redirect FROM this product', Url::fromRoute('redirect.add', [], [
+        'query' => [
+          // Redirect FROM.
+          'source' => $internal_path,
+          'language' => $lang,
+          // Return destination.
+          'destination' => $internal_path . '/edit',
+        ],
+        'attributes' => [
+          'target' => '_blank',
+        ],
+      ]));
     $existingRedirectsFrom = lookupFromRedirects($pid, $current_alias);
     $form['url_redirectFrom'] = [
-      '#type'   => 'details',
-      '#title'  => t('URL redirect FROM this product'),
-      '#access' => \Drupal::currentUser()->hasPermission('administer redirects'),
-      '#group'  => 'advanced',
+      '#type' => 'details',
+      '#title' => t('URL redirect FROM this product'),
+      '#access' => \Drupal::currentUser()
+        ->hasPermission('administer redirects'),
+      '#group' => 'advanced',
       '#weight' => 100,
-      'table'   => $existingRedirectsFrom,
+      'table' => $existingRedirectsFrom,
       'content' => ['#markup' => '<p>' . $linkFrom->toString() . '</p>'],
       '#open' => sizeof($existingRedirectsFrom),
     ];
@@ -271,7 +261,9 @@ function lookupToRedirects($pid, $current_alias) {
     ->condition('redirect_redirect__uri', 'internal:/product/' . $pid, '=')
     ->condition('redirect_redirect__uri', '%internal:/product/' . $pid . '?%', 'LIKE')
     ->condition('redirect_redirect__uri', 'internal:' . $current_alias, '=');
-  $redirects = $query->condition($group)->orderBy('redirect_redirect__uri')->execute();
+  $redirects = $query->condition($group)
+    ->orderBy('redirect_redirect__uri')
+    ->execute();
   $redirects->allowRowCount = TRUE;
   $destination = '/product/' . $pid;
 
@@ -300,7 +292,9 @@ function lookupFromRedirects($pid, $current_alias) {
     ->condition('redirect_source__path', 'product/' . $pid, '=')
     ->condition('redirect_source__path', 'product/' . $pid . '?%', 'LIKE')
     ->condition('redirect_source__path', 'internal:' . $current_alias, '=');
-  $redirects = $query->condition($group)->orderBy('redirect_source__path')->execute();
+  $redirects = $query->condition($group)
+    ->orderBy('redirect_source__path')
+    ->execute();
   $redirects->allowRowCount = TRUE;
   $destination = '/product/' . $pid;
 
@@ -330,11 +324,21 @@ function _redirect_from_list_table($redirect_list, $header, $destination, $lang)
     $operations = [];
     $operations['edit'] = [
       'title' => t('Edit'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], [
+        'query' => [
+          'language' => $lang,
+          'destination' => $destination . '/edit',
+        ],
+      ]),
     ];
     $operations['delete'] = [
       'title' => t('delete'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], [
+        'query' => [
+          'language' => $lang,
+          'destination' => $destination . '/edit',
+        ],
+      ]),
     ];
     $row['operations'] = [
       'data' => [
@@ -364,24 +368,29 @@ function _redirect_to_list_table($redirect_list, $header, $destination): array {
   $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
   foreach ($redirect_list as $redirect) {
     $row = [];
-    // internal:/product/1.
-    $path = $redirect['redirect_redirect__uri'];
-    // /product/1
-    $name = str_replace('internal:', '', $redirect['redirect_redirect__uri']);
-    // /product/<title>/<SKU>
-    $alias = \Drupal::service('path_alias.manager')->getAliasByPath($name);
-    $row['source'] = Link::fromTextAndUrl(
-      ($alias != '' ? "$alias ($name)" : $name),
-      Url::fromUri($path)
-    );
+    $path = $redirect['redirect_redirect__uri'];                                              // internal:/product/1
+    $name = str_replace('internal:', '', $redirect['redirect_redirect__uri']);  // /product/1
+    $alias = \Drupal::service('path_alias.manager')
+      ->getAliasByPath($name);  // /product/<title>/<SKU>
+    $row['source'] = Drupal\Core\Link::fromTextAndUrl(($alias != '' ? "$alias ($name)" : $name), Url::fromUri($path));
     $operations = [];
     $operations['edit'] = [
       'title' => t('Edit'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/edit/' . $redirect['rid'], [
+        'query' => [
+          'language' => $lang,
+          'destination' => $destination . '/edit',
+        ],
+      ]),
     ];
     $operations['delete'] = [
       'title' => t('delete'),
-      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], ['query' => ['language' => $lang, 'destination' => $destination . '/edit']]),
+      'url' => Url::fromUri('internal:/admin/config/search/redirect/delete/' . $redirect['rid'], [
+        'query' => [
+          'language' => $lang,
+          'destination' => $destination . '/edit',
+        ],
+      ]),
     ];
     $row['operations'] = [
       'data' => [

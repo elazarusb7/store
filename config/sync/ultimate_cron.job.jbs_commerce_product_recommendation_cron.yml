@@ -1,0 +1,17 @@
+uuid: ed0af12e-42e9-4969-8087-1e9cbd4f4b6a
+langcode: en
+status: true
+dependencies:
+  module:
+    - jbs_commerce_product_recommendation
+title: 'Default cron handler'
+id: jbs_commerce_product_recommendation_cron
+weight: 0
+module: jbs_commerce_product_recommendation
+callback: jbs_commerce_product_recommendation_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database
