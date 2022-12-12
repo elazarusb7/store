@@ -370,7 +370,7 @@ function _redirect_to_list_table($redirect_list, $header, $destination): array {
     // /product/1
     $name = str_replace('internal:', '', $redirect['redirect_redirect__uri']);
     // /product/<title>/<SKU>
-    $alias = Drupal::service('path.alias_storage')->lookupPathAlias($name, $lang);
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath($name);
     $row['source'] = Link::fromTextAndUrl(
       ($alias != '' ? "$alias ($name)" : $name),
       Url::fromUri($path)
