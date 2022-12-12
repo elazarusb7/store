@@ -1,0 +1,24 @@
+uuid: e89a0c39-3765-4a42-9f0d-e7a9b1a0474e
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - field_permissions
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: commerce_product_variation.field_gpo_pubcode
+field_name: field_gpo_pubcode
+entity_type: commerce_product_variation
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
