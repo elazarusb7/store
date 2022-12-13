@@ -112,7 +112,8 @@ function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$su
   $is_address_book_container = FALSE;
   if (isset($variables['element']['#attributes']) && isset($variables['element']['#attributes']['class'])) {
     $classes = $variables['element']['#attributes']['class'];
-    $is_address_book_container = array_search('address-book__container', $classes);
+    if ( is_array($classes) === true ) {
+      $is_address_book_container = array_search('address-book__container', $classes);
   }
   if ($route_name == 'commerce_order.address_book.overview' && $is_address_book_container !== FALSE) {
     $suggestions[] = 'container__address_book';
