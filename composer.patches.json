@@ -7,9 +7,6 @@
       "Customize new account password reset message": "_patches/core_user_new-account-password-msg_20200305.patch",
       "Entity Views not displayed after autocomplete finishes":"https://www.drupal.org/files/issues/2020-04-06/2796341-28.patch"
     },
-    "drupal/pathologic": {
-      "Pathologic: Internal URLs include language prefix": "_patches/internal_url_handling-2418369-15.patch"     
-    },
     "drupal/order": {
       "Order unable to add or edit. Unit Price Required.": "_patches/2910410-41.patch"
     },
@@ -24,9 +21,6 @@
     },
     "drupal/mobile_device_detection": {
       "Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
-    },
-    "drupal/commerce_reports": {
-      "Drupal 9 Commerce Sales Report pages not loading": "https://www.drupal.org/files/issues/2021-12-18/3254973-4.patch"
     }
   }
-} 
+}
