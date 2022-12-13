@@ -97,6 +97,9 @@ module:
   jbs_commerce_over_the_max_limit: 0
   jbs_commerce_product_recommendation: 0
   jquery_ui: 0
+  jquery_ui_datepicker: 0
+  jquery_ui_slider: 0
+  jquery_ui_touch_punch: 0
   key: 0
   language: 0
   link: 0
@@ -121,6 +124,7 @@ module:
   mimemail: 0
   mobile_device_detection: 0
   module_filter: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -173,7 +177,6 @@ module:
   search_api_autocomplete: 0
   search_api_solr: 0
   search_api_solr_autocomplete: 0
-  search_api_solr_defaults: 0
   search_api_spellcheck: 0
   serialization: 0
   shortcut: 0

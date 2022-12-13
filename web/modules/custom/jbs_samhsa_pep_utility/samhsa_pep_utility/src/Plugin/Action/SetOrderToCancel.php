@@ -64,14 +64,14 @@ class SetOrderToCancel extends ViewsBulkOperationsActionBase implements PluginFo
   /**
    * {@inheritdoc}
    */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state): void {
 
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state): void {
     // $tempstore = \Drupal::service('user.private_tempstore')->get('samhsa_pep_utility');
     $tempstore = \Drupal::service('tempstore.private')->get('samhsa_pep_utility');
 

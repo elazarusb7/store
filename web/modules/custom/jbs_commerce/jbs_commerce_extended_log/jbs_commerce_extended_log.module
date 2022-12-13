@@ -41,7 +41,7 @@ function jbs_commerce_extended_log_entity_presave(EntityInterface $entity) {
     // That's because Commerce takes care of that.
     if (
       $transition_states->from != 'draft' &&
-      !$transition_states->trasitioning
+      !$transition_states->transitioning
     ) {
       // Check if changes have happened in the bundled custom fields.
       if ($changes = _jbs_commerce_extended_log_check_custom_fields_changes($entity)) {
@@ -361,6 +361,6 @@ function _jbs_commerce_extended_log_get_state_transition(Order $order) {
   $result->from = $state->getOriginalId();
   $result->to = $state->getString();
   $result->fromTo = sprintf('%s-%s', $result->from, $result->to);
-  $result->trasitioning = ($result->from == $result->to) ? FALSE : TRUE;
+  $result->transitioning = ($result->from  == $result->to) ? FALSE : TRUE;
   return $result;
 }

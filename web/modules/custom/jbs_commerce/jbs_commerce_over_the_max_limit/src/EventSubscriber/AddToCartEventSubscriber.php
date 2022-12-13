@@ -101,7 +101,13 @@ class AddToCartEventSubscriber implements EventSubscriberInterface {
    *
    * @param Drupal\commerce_order\Entity\OrderItem $item
    */
-  private function displayMessage($item, $event_type) {
+  private function displayMessage($item, $event_type)
+  {
+    // OCWT-3522 - ignore order limit with proper perms
+    if (\Drupal::currentUser()->hasPermission('bypass max number products order')) {
+      return;
+    }
+
     $type_expanded = explode('\\', $event_type);
     $type_class = array_pop($type_expanded);
     $title = $item->label();
@@ -124,11 +130,7 @@ class AddToCartEventSubscriber implements EventSubscriberInterface {
     $max = $maxlimit_value[0]['value'];
     if ($total_qty_in_cart > $max) {
       if ($type_class != 'OrderItemEvent') {
-        // Show message.
         $msg = "The max order limit for this product is \"$max\".";
-        // $msg = t('The max order limit for this product is %max.', [
-        //          '%max' => $max,
-        //        ]);
         $this->messenger->addMessage(t($msg));
         return AvailabilityResult::unavailable($msg);
       }
