@@ -1,0 +1,7 @@
+samhsa.testbed:
+  path: '/testbed'
+  defaults:
+    _controller: '\Drupal\samhsa_testbed\SamhsaTestbed\SamhsaTestbedController::testbed'
+    _title: 'SAMHSA Testbed'
+  requirements:
+    _permission: 'access testbed'

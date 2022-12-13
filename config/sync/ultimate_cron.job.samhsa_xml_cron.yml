@@ -1,0 +1,30 @@
+uuid: 1867369d-9e9a-4893-b7d9-b418049bf1e3
+langcode: en
+status: true
+dependencies:
+  module:
+    - samhsa_xml
+title: 'Default cron handler'
+id: samhsa_xml_cron
+weight: 0
+module: samhsa_xml
+callback: samhsa_xml_cron
+scheduler:
+  id: crontab
+  configuration:
+    rules:
+      - '0 2 * * *'
+    catch_up: 0
+launcher:
+  id: serial
+  configuration:
+    timeouts:
+      lock_timeout: 3600
+    launcher:
+      thread: 0
+logger:
+  id: database
+  configuration:
+    method: '3'
+    expire: 1209600
+    retain: 1000
