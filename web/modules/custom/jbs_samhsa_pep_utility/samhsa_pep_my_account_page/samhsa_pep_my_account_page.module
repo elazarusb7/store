@@ -114,6 +114,7 @@ function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$su
     $classes = $variables['element']['#attributes']['class'];
     if ( is_array($classes) === true ) {
       $is_address_book_container = array_search('address-book__container', $classes);
+    }
   }
   if ($route_name == 'commerce_order.address_book.overview' && $is_address_book_container !== FALSE) {
     $suggestions[] = 'container__address_book';
