@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - jbs_commerce_back_to_browse_block
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_admin

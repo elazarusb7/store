@@ -5,7 +5,6 @@ dependencies:
   config:
     - system.menu.main-menu
   module:
-    - mobile_device_detection
     - superfish
   theme:
     - samhsa_pep_admin

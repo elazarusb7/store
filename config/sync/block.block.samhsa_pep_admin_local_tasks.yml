@@ -2,8 +2,6 @@ uuid: 62637f0c-227c-49a0-9ab6-fde07dbe51bf
 langcode: en
 status: true
 dependencies:
-  module:
-    - mobile_device_detection
   theme:
     - samhsa_pep_admin
 third_party_settings:

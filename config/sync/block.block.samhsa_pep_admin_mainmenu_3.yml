@@ -6,7 +6,6 @@ dependencies:
     - system.menu.main-menu
   module:
     - menu_block
-    - mobile_device_detection
   theme:
     - samhsa_pep_admin
 third_party_settings:

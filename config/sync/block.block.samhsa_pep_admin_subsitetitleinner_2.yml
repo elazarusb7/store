@@ -6,7 +6,6 @@ dependencies:
     - 'block_content:basic:2afc0d88-e333-4687-897e-fcc5d2ba88f8'
   module:
     - block_content
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_admin

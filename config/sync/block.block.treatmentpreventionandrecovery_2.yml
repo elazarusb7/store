@@ -6,7 +6,6 @@ dependencies:
     - facets.facet.treatment_prevention_and_recovery
   module:
     - facets
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds
