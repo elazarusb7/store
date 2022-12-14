@@ -7,6 +7,9 @@ dependencies:
     - samhsa_theme_block_pep8
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 id: newsletter_signup
 theme: samhsa_pep_uswds
 region: postscript_first
@@ -19,3 +22,4 @@ settings:
   label_display: '0'
   provider: samhsa_theme_block_pep8
   my_block_settings: null
+visibility: {  }

@@ -7,6 +7,9 @@ dependencies:
     - mobile_device_detection
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 id: help
 theme: samhsa_pep_uswds
 region: content
@@ -18,3 +21,4 @@ settings:
   label: Help
   label_display: '0'
   provider: help
+visibility: {  }

@@ -27,4 +27,4 @@ settings:
   status: true
   info: ''
   view_mode: full
-visibility:
+visibility: {  }

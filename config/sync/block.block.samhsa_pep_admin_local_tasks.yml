@@ -6,6 +6,9 @@ dependencies:
     - mobile_device_detection
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 _core:
   default_config_hash: nzixR-0PbiKErOlfehzoOnJ2Iy6Jy4rsBxeDNPuDCng
 id: samhsa_pep_admin_local_tasks
@@ -21,3 +24,4 @@ settings:
   provider: core
   primary: true
   secondary: false
+visibility: {  }

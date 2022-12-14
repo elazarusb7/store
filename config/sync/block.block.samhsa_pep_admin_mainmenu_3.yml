@@ -9,6 +9,9 @@ dependencies:
     - mobile_device_detection
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_mainmenu_3
 theme: samhsa_pep_admin
 region: header
@@ -29,3 +32,4 @@ settings:
   expand_all_items: false
   parent: 'main-menu:'
   suggestion: main_menu
+visibility: {  }

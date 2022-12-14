@@ -33,3 +33,4 @@ settings:
   expand_all_items: false
   parent: 'utility-menu:'
   suggestion: utility_menu
+visibility: {  }

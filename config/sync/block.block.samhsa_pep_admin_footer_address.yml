@@ -23,3 +23,4 @@ settings:
   label_display: '0'
   provider: samhsa_theme_block_pep8
   my_block_settings: null
+visibility: {  }

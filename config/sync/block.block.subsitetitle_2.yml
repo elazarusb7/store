@@ -9,6 +9,9 @@ dependencies:
     - mobile_device_detection
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 id: subsitetitle_2
 theme: samhsa_pep_uswds
 region: preface_third
@@ -23,3 +26,4 @@ settings:
   status: true
   info: ''
   view_mode: full
+visibility: {  }

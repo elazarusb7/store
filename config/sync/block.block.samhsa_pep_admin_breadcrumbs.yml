@@ -7,6 +7,9 @@ dependencies:
     - system
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_breadcrumbs
 theme: samhsa_pep_admin
 region: breadcrumb
@@ -18,3 +21,4 @@ settings:
   label: Breadcrumbs
   label_display: '0'
   provider: system
+visibility: {  }

@@ -7,6 +7,9 @@ dependencies:
     - samhsa_theme_block_pep8
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_language_assistance
 theme: samhsa_pep_admin
 region: sidebar_first
@@ -19,3 +22,4 @@ settings:
   label_display: visible
   provider: samhsa_theme_block_pep8
   my_block_settings: null
+visibility: {  }
