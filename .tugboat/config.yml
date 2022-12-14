@@ -2,13 +2,11 @@
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#the-build-process-explained
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#why-build-phases-matter
 
-# @todo: Remove all commmented/unneeded config once this is stable
+# @todo: Remove all commmented/unneeded (store) config once this is stable
 
 services:
-
   # What to call the service hosting the site
   php:
-
     # Match versions used on prod: Minimum Apache 2.4.51, php 8.0.x
     image: tugboatqa/php:8.0-apache
 
@@ -23,7 +21,6 @@ services:
 
     # A set of commands to run while building this service
     commands:
-
       # Commands that set up the basic preview infrastructure. This is where we
       # install the tools that need to be present before building the site.
       # Building a "base preview" starts here and completes subsequent phases
@@ -57,7 +54,6 @@ services:
         - cp "${TUGBOAT_ROOT}/.tugboat/php.ini" /usr/local/etc/php/conf.d/samhsa_store.ini
 
         - composer install
-        -
         # Link drush (before trying to use it
         - ln -s "${TUGBOAT_ROOT}/vendor/drush/drush/drush" /usr/local/bin/drush
 
@@ -77,7 +73,6 @@ services:
       # already be present.
       # "refresh" starts here and completes subsequent phases
       update:
-
         # Fetch and import database
         - wget $SAMHSA_STORE_DB -O /tmp/database.sql.gz
         - zcat /tmp/database.sql.gz | drush -y -r $DOCROOT sql-cli
@@ -97,7 +92,6 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
-
         # Run composer install again cuz branch may include new stuff.
         - composer install
 
@@ -121,7 +115,8 @@ services:
     urls:
       # Create visual diffs of the these URLs using the default options
       - /
-
+      - /product/tthy-student-assistance-get-the-full-picture-parents-24x36-poster/PEP20-03-01-074
+      - /product/tthy-before-dropping-her-off-at-the-party-wallet-card/PEP20-03-01-020
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
