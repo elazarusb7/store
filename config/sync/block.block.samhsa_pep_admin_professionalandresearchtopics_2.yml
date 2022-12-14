@@ -10,7 +10,6 @@ dependencies:
     - system
   theme:
     - samhsa_pep_admin
-
 third_party_settings:
   block_class:
     classes: null
