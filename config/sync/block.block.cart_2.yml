@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - commerce_cart
-    - mobile_device_detection
   theme:
     - samhsa_pep_uswds
 id: cart_2

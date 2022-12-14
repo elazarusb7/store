@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   module:
-    - mobile_device_detection
     - samhsa_theme_block_pep8
   theme:
     - samhsa_pep_uswds

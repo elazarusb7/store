@@ -4,7 +4,6 @@ status: false
 dependencies:
   module:
     - block_class
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_admin

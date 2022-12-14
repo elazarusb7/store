@@ -6,7 +6,6 @@ dependencies:
     - 'block_content:basic:01856660-d057-4308-9d90-f4e75adf8303'
   module:
     - block_content
-    - mobile_device_detection
     - system
   theme:
     - seven

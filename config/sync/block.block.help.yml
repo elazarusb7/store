@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - help
-    - mobile_device_detection
   theme:
     - samhsa_pep_uswds
 third_party_settings:

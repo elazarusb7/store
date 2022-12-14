@@ -6,7 +6,6 @@ dependencies:
     - facets.facet.professional_and_research_topics
   module:
     - facets
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds

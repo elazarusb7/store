@@ -6,7 +6,6 @@ dependencies:
     - facets.facet.format
   module:
     - facets
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds

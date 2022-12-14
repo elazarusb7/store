@@ -7,7 +7,6 @@ dependencies:
   module:
     - block_class
     - menu_block
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds
