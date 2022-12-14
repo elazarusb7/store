@@ -21,11 +21,6 @@ settings:
   provider: views_exposed_filter_blocks
   view_display: 'solr_search_content:block_1'
 visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
   request_path:
     id: request_path
     negate: false

@@ -23,9 +23,3 @@ settings:
   status: true
   info: ''
   view_mode: full
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }

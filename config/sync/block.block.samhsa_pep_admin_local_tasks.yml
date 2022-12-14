@@ -21,8 +21,3 @@ settings:
   provider: core
   primary: true
   secondary: false
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    devices: {  }

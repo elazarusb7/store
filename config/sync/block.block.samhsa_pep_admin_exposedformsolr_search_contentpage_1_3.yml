@@ -23,11 +23,6 @@ settings:
   provider: views
   views_label: ''
 visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
   request_path:
     id: request_path
     negate: false

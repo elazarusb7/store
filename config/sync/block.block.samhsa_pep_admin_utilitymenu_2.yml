@@ -33,9 +33,3 @@ settings:
   expand_all_items: false
   parent: 'utility-menu:'
   suggestion: utility_menu
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }

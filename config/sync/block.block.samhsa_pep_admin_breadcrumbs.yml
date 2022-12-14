@@ -18,8 +18,3 @@ settings:
   label: Breadcrumbs
   label_display: '0'
   provider: system
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    devices: {  }
