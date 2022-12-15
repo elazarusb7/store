@@ -235,7 +235,11 @@
         "solarium/solarium": "^6.0.4",
         "swiftmailer/swiftmailer": "^6.0",
         "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3"
+        "webmozart/path-util": "^2.3",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-curl": "*",
+        "ext-pdo": "*"
     },
     "repositories": [
         {
