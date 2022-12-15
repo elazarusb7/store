@@ -1,15 +1,14 @@
 <?php
 
+namespace Drupal\samhsa_pep_justification_pane\Plugin\Commerce\CheckoutPane;
+
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
- * Namespace Drupal\samhsa_pep_justification_pane\Plugin\Commerce\CheckoutPane;
- *
- * Use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
- * use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
- * use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneInterface;
- * use Drupal\Core\Entity\EntityTypeManagerInterface;
- * use Drupal\Core\Form\FormStateInterface;
- *
- * /**
  * Provides the coupons pane.
  *
  * @CommerceCheckoutPane(
