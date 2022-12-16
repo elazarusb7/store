@@ -1,0 +1,11 @@
+<?php
+
+use Drupal\samhsa_xml\API\SamhsaXmlAPI;
+
+//function samhsa_xml_cron() {
+//  $date = date("Y-m-d", strtotime("yesterday"));
+//  $exportExists = SamhsaXmlAPI::testForExport($date);
+//  if (!$exportExists) {
+//    SamhsaXmlAPI::generateXML($date);
+//  }
+//}

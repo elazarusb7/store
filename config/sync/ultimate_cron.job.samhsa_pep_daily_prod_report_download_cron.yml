@@ -1,0 +1,17 @@
+uuid: 6715ad17-94fb-4809-ac97-ff9ff6c8ff12
+langcode: en
+status: true
+dependencies:
+  module:
+    - samhsa_pep_daily_prod_report_download
+title: 'Default cron handler'
+id: samhsa_pep_daily_prod_report_download_cron
+weight: 0
+module: samhsa_pep_daily_prod_report_download
+callback: samhsa_pep_daily_prod_report_download_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

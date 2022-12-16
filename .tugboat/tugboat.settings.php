@@ -62,3 +62,6 @@ $config['search_api.server.default_solr_server'] = [
     ],
   ],
 ];
+
+// Adding a private folder
+$settings['file_private_path'] = '../private';

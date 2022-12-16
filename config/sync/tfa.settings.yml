@@ -7,6 +7,7 @@ required_roles:
   warehouse_clerk: warehouse_clerk
   site_manager: site_manager
   authenticated: '0'
+  warehouse_manager_gpo: '0'
 send_plugins: {  }
 login_plugins: {  }
 allowed_validation_plugins:
@@ -14,19 +15,19 @@ allowed_validation_plugins:
   tfa_recovery_code: tfa_recovery_code
 default_validation_plugin: ga_login_totp
 validation_plugin_settings:
-  ga_login_hotp:
-    counter_window: 10
-    site_name_prefix: 1
-    name_prefix: TFA
-    issuer: Drupal
   ga_login_totp:
     time_skew: 2
     site_name_prefix: 1
     name_prefix: TFA
     issuer: Drupal
+  ga_login_hotp:
+    counter_window: 10
+    site_name_prefix: 1
+    name_prefix: TFA
+    issuer: Drupal
   tfa_recovery_code:
     recovery_codes_amount: 9
-validation_skip: 3
+validation_skip: 300
 encryption: pep_encryption_profile
 trust_cookie_expiration: 2592000
 cookie_name: TFA
