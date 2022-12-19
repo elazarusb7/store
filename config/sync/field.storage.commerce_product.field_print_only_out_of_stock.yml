@@ -1,0 +1,25 @@
+uuid: c1fb92b7-f641-4b7a-a8ce-f50aa9ff9f93
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - computed_field
+    - field_permissions
+third_party_settings:
+  field_permissions:
+    permission_type: private
+id: commerce_product.field_print_only_out_of_stock
+field_name: field_print_only_out_of_stock
+entity_type: commerce_product
+type: computed_integer
+settings:
+  unsigned: false
+  size: normal
+module: computed_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
