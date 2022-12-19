@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Form\MigrateFilesAndImagesForm.
- */
-
 namespace Drupal\migrate_files_and_images\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -29,50 +24,49 @@ class MigrateFilesAndImagesSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $image_path = $this->config('migrate_files_and_images.settings')
-        ->get('images_path');
+      ->get('images_path');
 
-    $form['images_path'] = array(
+    $form['images_path'] = [
       '#type' => 'textfield',
       '#description' => $this->t('Path, where source images files are stored.'),
       '#title' => $this->t('Path to source images location'),
       '#size' => 60,
-      '#default_value' => isset($image_path) ? $image_path : '/sites/default/files/d7/',
-    );
+      '#default_value' => $image_path ?? '/sites/default/files/d7/',
+    ];
     $documents_path = $this->config('migrate_files_and_images.settings')
-        ->get('documents_path');
-    $form['documents_path'] = array(
+      ->get('documents_path');
+    $form['documents_path'] = [
       '#type' => 'textfield',
       '#description' => $this->t('Path, where source documents files are stored.'),
       '#title' => $this->t('Path to source documents location'),
       '#size' => 60,
-      '#default_value' => isset($documents_path) ? $documents_path : '/sites/default/files/d7/priv/',
-    );
+      '#default_value' => $documents_path ?? '/sites/default/files/d7/priv/',
+    ];
 
     return parent::buildForm($form, $form_state);
   }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function submitForm(array &$form, FormStateInterface $form_state) {
-        $values = $form_state->getValues();
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
 
-        $this->config('migrate_files_and_images.settings')
-            ->set('images_path', $values['images_path'])
-            ->save();
-        $this->config('migrate_files_and_images.settings')
-            ->set('documents_path', $values['documents_path'])
-            ->save();
+    $this->config('migrate_files_and_images.settings')
+      ->set('images_path', $values['images_path'])
+      ->save();
+    $this->config('migrate_files_and_images.settings')
+      ->set('documents_path', $values['documents_path'])
+      ->save();
 
-        parent::submitForm($form, $form_state);
-    }
+    parent::submitForm($form, $form_state);
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEditableConfigNames() {
-        return ['migrate_files_and_images.settings'];
-    }
-
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['migrate_files_and_images.settings'];
+  }
 
 }

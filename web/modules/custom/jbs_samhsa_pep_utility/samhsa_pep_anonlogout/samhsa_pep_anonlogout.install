@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * @file
  * Install, update and uninstall functions for the samhsa_pep_password module.

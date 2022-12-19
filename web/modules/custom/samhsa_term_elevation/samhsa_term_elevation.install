@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_install().
  */
 function samhsa_term_elevation_install($is_syncing) {
@@ -13,5 +17,4 @@ function samhsa_term_elevation_install($is_syncing) {
  * Implements hook_uninstall().
  */
 function samhsa_term_elevation_uninstall($is_syncing) {
-  //
 }

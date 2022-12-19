@@ -64,7 +64,7 @@ class PEPProductVariations extends FieldableEntity {
       $row->setSourceProperty($field, $this->getFieldValues('commerce_product', $field, $product_id, $revision_id));
     }
 
-    //update variaton of the status based on the product status it is associated with
+    // Update variaton of the status based on the product status it is associated with.
     $product_id = $row->getSourceProperty('product_id');
     $query = 'SELECT n.status
     FROM
@@ -72,11 +72,11 @@ class PEPProductVariations extends FieldableEntity {
     INNER JOIN field_data_field_samhsa_product_publication pp
     ON n.nid = pp.entity_id
     WHERE pp.field_samhsa_product_publication_product_id = :product_id';
-    $result = $this->getDatabase()->query($query, array(':product_id' => $row->getSourceProperty('product_id')));
+    $result = $this->getDatabase()->query($query, [':product_id' => $row->getSourceProperty('product_id')]);
     $values = [];
     foreach ($result as $record) {
-        $values[] = $record->status;
-        \Drupal::logger('samhsa_pep_migrate_custom')->notice($product_id ." / ".$record->status);
+      $values[] = $record->status;
+      \Drupal::logger('samhsa_pep_migrate_custom')->notice($product_id . " / " . $record->status);
     }
 
     \Drupal::logger('product_status')->notice($query);
@@ -88,13 +88,13 @@ class PEPProductVariations extends FieldableEntity {
     $value[0]['fraction_digits'] = $currencyRepository->get($currency_code)->getFractionDigits();
     $row->setSourceProperty('commerce_price', $value);
 
-    // field_available_quantity
-    $components = array(
-       'field' => 'commerce_stock_value',
-       'table' => 'field_data_commerce_stock',
-       'property' => 'stock',
-       'idfield' => 'product_id',
-    );
+    // field_available_quantity.
+    $components = [
+      'field' => 'commerce_stock_value',
+      'table' => 'field_data_commerce_stock',
+      'property' => 'stock',
+      'idfield' => 'product_id',
+    ];
     \Drupal::service('set_migrating_values')->simpleField($this, $row, $components);
 
     return parent::prepareRow($row);

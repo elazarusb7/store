@@ -1,12 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_clone_order\PepUtilityFunctions.
- */
-
 namespace Drupal\samhsa_pep_clone_order;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Interface PepUtilityFunctionsInterface.
@@ -14,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\samhsa_pep_clone_order
  */
 interface PepCloneOrderFunctionsInterface {
+
   /**
    *
    * @param $order
@@ -23,4 +18,5 @@ interface PepCloneOrderFunctionsInterface {
    *   The new cloned commerce order id.
    */
   public function cloneOrder($order = NULL);
+
 }

@@ -5,7 +5,7 @@ namespace Drupal\samhsa_index_field_switch;
 use Drupal\Component\Datetime\DateTimePlus;
 
 /**
- * Class FieldSwitchTypecasting
+ * Class FieldSwitchTypecasting.
  *
  * @package Drupal\samhsa_index_field_switch
  */

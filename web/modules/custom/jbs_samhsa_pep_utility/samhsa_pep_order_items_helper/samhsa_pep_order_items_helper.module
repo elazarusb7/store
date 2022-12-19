@@ -7,10 +7,9 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\commerce_price\Price;
-use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Implements hook_help().
  */
@@ -30,64 +29,63 @@ function samhsa_pep_order_items_helper_help($route_name, RouteMatchInterface $ro
 /**
  * Implements hook_entity_presave().
  */
-function samhsa_pep_order_items_helper_commerce_order_presave(Drupal\Core\Entity\EntityInterface $entity)
-{
-    /* when order is completed
-     * check if at least one item is over the max limit
-     * set order type to bulk
-     */
- /*   //ksm($entity);
-    $original = $entity->original;
-    $state_original = '';
-    if (isset($original)) {
-        $state_original = $original->get('state')->value;
-    }
-    //only set onhold state (is bulk) when order first gets created
-    if($entity->get('checkout_step')->value == 'complete' && $state_original == "draft"){
-        $isbulk = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isOrderBulk($entity);
-        $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
-        $entity->get('type')->__set('target_id', $order_type);
-        $state = $isbulk ? 'onhold' : 'pending';
-        $entity->set('state',$state);
-    }
- */
+function samhsa_pep_order_items_helper_commerce_order_presave(EntityInterface $entity) {
+  /* when order is completed
+   * check if at least one item is over the max limit
+   * set order type to bulk
+   */
+  /*   //ksm($entity);
+  $original = $entity->original;
+  $state_original = '';
+  if (isset($original)) {
+  $state_original = $original->get('state')->value;
+  }
+  //only set onhold state (is bulk) when order first gets created
+  if($entity->get('checkout_step')->value == 'complete' && $state_original == "draft"){
+  $isbulk = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->isOrderBulk($entity);
+  $order_type = $isbulk ? 'samhsa_publication_ob' : 'default';
+  $entity->get('type')->__set('target_id', $order_type);
+  $state = $isbulk ? 'onhold' : 'pending';
+  $entity->set('state',$state);
+  }
+   */
 }
 
 /**
  * Implements hook_entity_presave().
  */
-function samhsa_pep_order_items_helper_commerce_order_item_presave(Drupal\Core\Entity\EntityInterface $entity) {
-    //set default unit_price to $0.00 as this field value is required to save new order
-    //item and add additional shipment for this order item.
-    $currencyCode = $entity->getUnitPrice() ? $entity->getUnitPrice()->getCurrencyCode() : 'USD';
-    $unit_price = new Price('0.00', $currencyCode);
-    $entity->setUnitPrice($unit_price,TRUE);
-    $title = $entity->title->value;
-    if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-        $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
+function samhsa_pep_order_items_helper_commerce_order_item_presave(EntityInterface $entity) {
+  // Set default unit_price to $0.00 as this field value is required to save new order
+  // item and add additional shipment for this order item.
+  $currencyCode = $entity->getUnitPrice() ? $entity->getUnitPrice()->getCurrencyCode() : 'USD';
+  $unit_price = new Price('0.00', $currencyCode);
+  $entity->setUnitPrice($unit_price, TRUE);
+  $title = $entity->title->value;
+  if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
+    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
 
-        $entity->title->value = $variation_title_sku;
-    }
+    $entity->title->value = $variation_title_sku;
+  }
 }
 
 /**
- * Implements hook_ENTITY_TYPE_delete(): commerce_order_item
+ * Implements hook_ENTITY_TYPE_delete(): commerce_order_item.
  */
-function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterface $entity)
-{
-    $title = $entity->title->value;
-    //$log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
-    //$log = $log_storage->generate($entity->getOrder(), 'commerce_order_item_removed', ['message' => $title])->save();
-    if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-        $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
+function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterface $entity) {
+  $title = $entity->title->value;
+  // $log_storage = \Drupal::entityTypeManager()->getStorage('commerce_log');
+  // $log = $log_storage->generate($entity->getOrder(), 'commerce_order_item_removed', ['message' => $title])->save();
+  if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
+    $variation_title_sku = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getProductVariationTitleSku($entity->purchased_entity->target_id);
+  }
+  if (!empty($entity->getOrder())) {
+    if ($entity->getOrder()->getState()->value != 'draft') {
+      \Drupal::messenger()->addMessage(t("\"$title\" removed from the order."));
     }
-    if(!empty($entity->getOrder())) {
-        if ($entity->getOrder()->getState()->value != 'draft') {
-            \Drupal::messenger()->addMessage(t("\"$title\" removed from the order."));
-        } else {
-            \Drupal::messenger()->addMessage(t("\"$title\" removed from the cart."));
-        }
+    else {
+      \Drupal::messenger()->addMessage(t("\"$title\" removed from the cart."));
     }
+  }
 }
 
 /**
@@ -99,9 +97,9 @@ function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterfac
  *   The form state of the parent form.
  */
 /*function samhsa_pep_order_items_helper_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-    if ($entity_form['#entity_type'] == 'commerce_order_item') {
-        ksm($entity_form);
-    }
+if ($entity_form['#entity_type'] == 'commerce_order_item') {
+ksm($entity_form);
+}
 }*/
 
 /**
@@ -120,15 +118,15 @@ function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterfac
  * @see \Drupal\inline_entity_form\InlineFormInterface::getTableFields()
  */
 /*function samhsa_pep_order_items_helper_inline_entity_form_table_fields_alter(&$fields, $context) {
-    if ($context['entity_type'] == 'commerce_order_item') {
-        ksm($fields);
-        ksm($context);
-        $fields['field_category'] = [
-            'type' => 'field',
-            'label' => t('Category'),
-            'weight' => 101,
-        ];
-    }
+if ($context['entity_type'] == 'commerce_order_item') {
+ksm($fields);
+ksm($context);
+$fields['field_category'] = [
+'type' => 'field',
+'label' => t('Category'),
+'weight' => 101,
+];
+}
 }*/
 
 /**
@@ -136,16 +134,16 @@ function samhsa_pep_order_items_helper_commerce_order_item_delete(EntityInterfac
  */
 function samhsa_pep_order_items_helper_form_alter(
   &$form,
-  \Drupal\Core\Form\FormStateInterface $form_state,
+  FormStateInterface $form_state,
   $form_id
 ) {
-  // add to cart form_id: commerce_order_item_add_to_cart_form_commerce_product_17521
+  // Add to cart form_id: commerce_order_item_add_to_cart_form_commerce_product_17521.
   if (strpos($form_id, "commerce_order_item_add_to_cart_form_commerce_product_") !== FALSE) {
     // Custom validate function.
     $form['#validate'][] = '_validate_cart';
   }
 
-  // cart display form_id: views_form_commerce_cart_form_default_76
+  // Cart display form_id: views_form_commerce_cart_form_default_76.
   if (strpos($form_id, "views_form_commerce_cart_form_default_") !== FALSE) {
     // Custom validate function.
     $form['#validate'][] = '_rewrite_errors';
@@ -153,22 +151,21 @@ function samhsa_pep_order_items_helper_form_alter(
 }
 
 /**
- * custom validation function for Modify Cart
- *
+ * Custom validation function for Modify Cart.
  */
 function _rewrite_errors($form, FormStateInterface &$form_state) {
   if ($errors = $form_state->getErrors()) {
-    foreach($errors as $key => $error) {
+    foreach ($errors as $key => $error) {
       $err = $error->__toString();
       if (strpos($err, "The maximum quantity for ") !== FALSE &&
           strpos($err, " that can be ordered is ") !== FALSE
       ) {
         $err_key = $key;
         /*  $error->getArguments() = [
-              [%name] => Tips for Teens: The Truth About Cocaine
-              [%qty]  => 100
-            ]
-        */
+        [%name] => Tips for Teens: The Truth About Cocaine
+        [%qty]  => 100
+        ]
+         */
         $args = $error->getArguments();
         $name = $args['%name'];
         $qty  = $args['%qty'];
@@ -193,50 +190,53 @@ function _rewrite_errors($form, FormStateInterface &$form_state) {
 }
 
 /**
- * custom validation function for Add to Cart
- *
+ * Custom validation function for Add to Cart.
  */
 function _validate_cart($form, FormStateInterface &$form_state) {
-    $values = $form_state->getValues();
+  $values = $form_state->getValues();
 
-    if ($errors = $form_state->getErrors()) {
-        //ksm($errors);
-        foreach($errors as $key => $error) {
-            $err = $error-> __toString();
-            if (strpos($err, "Sorry we only have ") !== FALSE &&
-                strpos($err, " in stock and you already added ") !== FALSE) {
-                $arg = $error->getArguments();
-                $form_state->clearErrors();
-                $vid = array_shift($values['purchased_entity'])['variation'];
-                $entity_manager = \Drupal::entityTypeManager();
-                $product_variation = $entity_manager->getStorage('commerce_product_variation')->load((int)$vid);
-                $label = $product_variation->label();
-                // Now loop through and re-apply the remaining form error messages.
-                foreach ($errors as $name => $error_message) {
-                    if (strpos($error_message->getArguments(), "Sorry we only have ") !== FALSE &&
-                        strpos($error_message->getArguments(), " in stock and you already added ") !== FALSE) {
-                        //DO NOT ADD BACK
-                    } else {
-                        $form_state->setErrorByName($name, $error_message);
-                    }
-                }
-                // Add or custom message for the quantity field
-                //Original msg: 'Sorry we only have %qty in stock and you already added %qty_o to your cart.'
-                $form_state->setError(
-                    $form,
-                    t('The available quantity for "%label" is %qty. Please revise your order.', [
-                        '%label' => $label,
-                        '%qty'   => $arg['%qty'],
-                    ])
-                );
-            }
-
+  if ($errors = $form_state->getErrors()) {
+    // ksm($errors);
+    foreach ($errors as $key => $error) {
+      $err = $error->__toString();
+      if (strpos($err, "Sorry we only have ") !== FALSE &&
+            strpos($err, " in stock and you already added ") !== FALSE) {
+        $arg = $error->getArguments();
+        $form_state->clearErrors();
+        $vid = array_shift($values['purchased_entity'])['variation'];
+        $entity_manager = \Drupal::entityTypeManager();
+        $product_variation = $entity_manager->getStorage('commerce_product_variation')->load((int) $vid);
+        $label = $product_variation->label();
+        // Now loop through and re-apply the remaining form error messages.
+        foreach ($errors as $name => $error_message) {
+          if (strpos($error_message->getArguments(), "Sorry we only have ") !== FALSE &&
+                strpos($error_message->getArguments(), " in stock and you already added ") !== FALSE) {
+            // DO NOT ADD BACK.
+          }
+          else {
+            $form_state->setErrorByName($name, $error_message);
+          }
         }
+        // Add or custom message for the quantity field
+        // Original msg: 'Sorry we only have %qty in stock and you already added %qty_o to your cart.'.
+        $form_state->setError(
+              $form,
+              t('The available quantity for "%label" is %qty. Please revise your order.', [
+                '%label' => $label,
+                '%qty'   => $arg['%qty'],
+              ])
+          );
+      }
+
     }
+  }
 }
 
+/**
+ *
+ */
 function samhsa_pep_order_items_helper_page_attachments(array &$attachments) {
-    $attachments['#attached']['library'][] = 'samhsa_pep_order_items_helper/samhsa_pep_order_items_helper.lib';
+  $attachments['#attached']['library'][] = 'samhsa_pep_order_items_helper/samhsa_pep_order_items_helper.lib';
 }
 
 /**
@@ -248,7 +248,7 @@ function samhsa_pep_order_items_helper_page_attachments(array &$attachments) {
  *   The form state of the parent form.
  */
 function samhsa_pep_order_items_helper_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-    if ($entity_form['#entity_type'] == 'commerce_order_item') {
-        $entity_form['purchased_entity']['widget'][0]['target_id']['#title'] = t('Product');
-    }
+  if ($entity_form['#entity_type'] == 'commerce_order_item') {
+    $entity_form['purchased_entity']['widget'][0]['target_id']['#title'] = t('Product');
+  }
 }

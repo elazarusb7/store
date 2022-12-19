@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\samhsa_term_elevation\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -23,11 +24,11 @@ class MultisiteAutocompleteWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    $element['value'] =  [
+    $element['value'] = [
       '#type' => 'textfield',
       '#title' => 'My multisite autocomplete field',
       '#description' => 'Custom field to be used for alpha-numeric values',
-      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
+      '#default_value' => $items[$delta]->value ?? NULL,
       '#empty_value' => '',
       '#weight' => 0,
       '#autocomplete_route_name' => 'samhsa_term_elevation.matcher',

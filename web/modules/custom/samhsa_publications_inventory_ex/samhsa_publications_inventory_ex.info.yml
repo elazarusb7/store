@@ -2,6 +2,6 @@ name: 'Samhsa Publications Inventory and Storage Status'
 type: module
 description: 'Samhsa Publications Inventory and Storage Status'
 core_version_requirement: ^8.8 || ^9
-package: 'Custom'
+package: 'SAMHSA'
 dependencies:
   - commerce

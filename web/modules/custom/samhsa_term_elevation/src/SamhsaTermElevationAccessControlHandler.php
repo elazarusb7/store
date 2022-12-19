@@ -28,7 +28,6 @@ class SamhsaTermElevationAccessControlHandler extends EntityAccessControlHandler
           return AccessResult::allowedIfHasPermission($account, 'view unpublished sahmsa term elevation entities');
         }
 
-
         return AccessResult::allowedIfHasPermission($account, 'view published sahmsa term elevation entities');
 
       case 'update':
@@ -50,6 +49,5 @@ class SamhsaTermElevationAccessControlHandler extends EntityAccessControlHandler
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
     return AccessResult::allowedIfHasPermission($account, 'add sahmsa term elevation entities');
   }
-
 
 }

@@ -13,57 +13,59 @@ use Drupal\migrate_files_and_images\Controller\ImportFilesAndImages;
  * of the services file to use.
  */
 class FilesImagesMigrateCommands extends DrushCommands {
-    /**
-     * migrate files from source to destination.
-     *
-     * @command migrate_files_and_images:migrate_files
-     * @aliases migrate-files
-     * @usage migrate_files_and_images:migrate_files
-     */
-    public function migrate_files_and_images($limit = 0) {
-        $migrate = new ImportFilesAndImages();
-        if ($migrate->truncateCrossReference()) {
 
-          $this->output()->writeln('Migrating Managed Files');
-            $result = $migrate->executeManagedFilesImport($limit);
-            if ($result['managed_error_message']) {
-              $this->output()->writeln($result['managed_error_message']);
-            }
-            else {
-              $this->output()->writeln($result['managed_processed'] . ' files imported.');
-              $this->output()->writeln($result['managed_not_found'] . ' files not found in public://d7 directory.');
-              $this->output()->writeln('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->managedCsvFileName));
-            }
-//We only migration managed files and images and don't need to rest. Commenting out for now
-            /*drush_print(' ');
-            drush_print('Migrating Inline Files in Nodes');
-            $result = $migrate->executeInlineImagesImport($limit);
-            if ($result['inline_error_message']) {
-                drush_print($result['inline_error_message']);
-            }
-            else {
-                drush_print($result['inline_processed'] . ' files imported.');
-                drush_print($result['inline_not_found'] . ' files not found in public:// directory.');
-                drush_print('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->inlineCsvFileName));
-            }
+  /**
+   * Migrate files from source to destination.
+   *
+   * @command migrate_files_and_images:migrate_files
+   * @aliases migrate-files
+   * @usage migrate_files_and_images:migrate_files
+   */
+  public function migrate_files_and_images($limit = 0) {
+    $migrate = new ImportFilesAndImages();
+    if ($migrate->truncateCrossReference()) {
 
-            drush_print(' ');
-            drush_print('Migrating Inline Files in Blocks');
-            $result = $migrate->executeblockImagesImport($limit);
-            if ($result['block_error_message']) {
-                drush_print($result['block_error_message']);
-            }
-            else {
-                drush_print($result['block_processed'] . ' files imported.');
-                drush_print($result['block_not_found'] . ' files not found in public:// directory.');
-                drush_print('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->blockCsvFileName));
-            }*/
-        }
+      $this->output()->writeln('Migrating Managed Files');
+      $result = $migrate->executeManagedFilesImport($limit);
+      if ($result['managed_error_message']) {
+        $this->output()->writeln($result['managed_error_message']);
+      }
+      else {
+        $this->output()->writeln($result['managed_processed'] . ' files imported.');
+        $this->output()->writeln($result['managed_not_found'] . ' files not found in public://d7 directory.');
+        $this->output()->writeln('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->managedCsvFileName));
+      }
+      // We only migration managed files and images and don't need to rest. Commenting out for now.
+      /*drush_print(' ');
+      drush_print('Migrating Inline Files in Nodes');
+      $result = $migrate->executeInlineImagesImport($limit);
+      if ($result['inline_error_message']) {
+      drush_print($result['inline_error_message']);
+      }
+      else {
+      drush_print($result['inline_processed'] . ' files imported.');
+      drush_print($result['inline_not_found'] . ' files not found in public:// directory.');
+      drush_print('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->inlineCsvFileName));
+      }
 
-        else {
-          $this->output()->writeln('Could not truncate files_cross_reference table!');
-        }
-
-        $this->output()->writeln('Hello World!');
+      drush_print(' ');
+      drush_print('Migrating Inline Files in Blocks');
+      $result = $migrate->executeblockImagesImport($limit);
+      if ($result['block_error_message']) {
+      drush_print($result['block_error_message']);
+      }
+      else {
+      drush_print($result['block_processed'] . ' files imported.');
+      drush_print($result['block_not_found'] . ' files not found in public:// directory.');
+      drush_print('Log for this migration stored in: ' . \Drupal::service('file_system')->realpath($migrate->blockCsvFileName));
+      }*/
     }
+
+    else {
+      $this->output()->writeln('Could not truncate files_cross_reference table!');
+    }
+
+    $this->output()->writeln('Hello World!');
+  }
+
 }

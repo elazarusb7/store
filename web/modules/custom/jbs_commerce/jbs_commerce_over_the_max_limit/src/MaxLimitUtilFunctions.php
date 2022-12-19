@@ -1,15 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\jbs_commerce_over_the_max_limit\MaxLimitUtilFunctions.
- */
-
 namespace Drupal\jbs_commerce_over_the_max_limit;
 
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\Render\Markup;
-use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\commerce_product\Entity\Product;
 use Drupal\commerce_order\Entity\OrderInterface;

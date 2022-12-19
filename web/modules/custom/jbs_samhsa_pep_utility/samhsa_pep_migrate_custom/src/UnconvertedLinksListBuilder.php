@@ -1,17 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\UnconvertedLinksListBuilder.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom;
 
+use Drupal\Core\Link;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-#use Drupal\Core\Routing\LinkGeneratorTrait;
+// Use Drupal\Core\Routing\LinkGeneratorTrait;.
 use Drupal\Core\Url;
-use Drupal\Core\Link;
+
 /**
  * Defines a class to build a listing of Unconverted links entities.
  *
@@ -32,14 +28,14 @@ class UnconvertedLinksListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks */
+    /** @var \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks $entity */
     $row['id'] = $entity->id();
-    $row['name'] = \Drupal\Core\Link::fromTextAndUrl(
+    $row['name'] = Link::fromTextAndUrl(
       $entity->label(),
       new Url(
-        'entity.unconverted_links.edit_form', array(
+        'entity.unconverted_links.edit_form', [
           'unconverted_links' => $entity->id(),
-        )
+        ]
       )
     );
     return $row + parent::buildRow($entity);

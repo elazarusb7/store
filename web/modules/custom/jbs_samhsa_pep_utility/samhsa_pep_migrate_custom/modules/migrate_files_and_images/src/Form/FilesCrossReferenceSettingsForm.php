@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Form\FilesCrossReferenceSettingsForm.
- */
-
 namespace Drupal\migrate_files_and_images\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -18,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup migrate_files_and_images
  */
 class FilesCrossReferenceSettingsForm extends FormBase {
+
   /**
    * Returns a unique string identifying the form.
    *
@@ -39,7 +35,6 @@ class FilesCrossReferenceSettingsForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
   }
-
 
   /**
    * Defines the settings form for Files cross reference entities.

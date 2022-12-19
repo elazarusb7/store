@@ -11,4 +11,4 @@ id: samhsa_pep_utility_complete_order
 label: 'Complete Order'
 type: commerce_order
 plugin: "samhsa_pep_utility_complete_order"
-configuration: {  }
+configuration: { }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\UnconvertedLinksAccessControlHandler.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
@@ -18,6 +13,7 @@ use Drupal\Core\Access\AccessResult;
  * @see \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks.
  */
 class UnconvertedLinksAccessControlHandler extends EntityAccessControlHandler {
+
   /**
    * {@inheritdoc}
    */

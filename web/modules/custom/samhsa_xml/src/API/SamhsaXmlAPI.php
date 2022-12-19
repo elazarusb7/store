@@ -6,8 +6,6 @@
 
 namespace Drupal\samhsa_xml\API;
 
-
-use DOMAttr;
 use DOMDocument;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\node\Entity\Node;

@@ -1,63 +1,63 @@
 <?php
-/**
-* @file
-* Contains \Drupal\jbs_commerce_over_the_max_limit/Form\MaxLimitSettingsForm.
-*/
 
 namespace Drupal\jbs_commerce_over_the_max_limit\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ *
+ */
 class MaxLimitSettingsForm extends ConfigFormBase {
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormId() {
-        return 'maxlimit_admin_settings';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(array $form, FormStateInterface $form_state) {
-        /*$elements = drupal_map_assoc(array('pre', 'code'));
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'maxlimit_admin_settings';
+  }
 
-        $form['maxlimit_element'] = array(
-            '#type' => 'select',
-            '#title' => $this->t('Select Max Limit field'),
-            '#default_value' => $config->get('element'),
-            '#options' => $elements,
-        );*/
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    /*$elements = drupal_map_assoc(array('pre', 'code'));
 
-        $value = $this->config('jbs_commerce_over_the_max_limit.settings')
-            ->get('maxlimit_element');
-        $form['maxlimit_element'] = array(
-            '#type' => 'textfield',
-            '#title' => $this->t('Enter Max Limit field machine name here'),
-            '#default_value' => $value,
-        );
-        return parent::buildForm($form, $form_state);
-    }
+    $form['maxlimit_element'] = array(
+    '#type' => 'select',
+    '#title' => $this->t('Select Max Limit field'),
+    '#default_value' => $config->get('element'),
+    '#options' => $elements,
+    );*/
 
-    /**
-     * {@inheritdoc}
-     */
-    public function submitForm(array &$form, FormStateInterface $form_state) {
-        $values = $form_state->getValues();
-        //ksm($values['maxlimit_element']);
-        $this->config('jbs_commerce_over_the_max_limit.settings')
-            ->set('maxlimit_element', $values['maxlimit_element'])
-            ->save();
+    $value = $this->config('jbs_commerce_over_the_max_limit.settings')
+      ->get('maxlimit_element');
+    $form['maxlimit_element'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Enter Max Limit field machine name here'),
+      '#default_value' => $value,
+    ];
+    return parent::buildForm($form, $form_state);
+  }
 
-        parent::submitForm($form, $form_state);
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    // ksm($values['maxlimit_element']);.
+    $this->config('jbs_commerce_over_the_max_limit.settings')
+      ->set('maxlimit_element', $values['maxlimit_element'])
+      ->save();
 
-    /**
-    * {@inheritdoc}
-    */
-    protected function getEditableConfigNames() {
-          return ['jbs_commerce_over_the_max_limit.settings'];
-    }
+    parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['jbs_commerce_over_the_max_limit.settings'];
+  }
 
 }

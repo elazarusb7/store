@@ -11,4 +11,4 @@ id: samhsa_pep_utility_pendig
 label: 'Move to Pending'
 type: commerce_order
 plugin: "samhsa_pep_utility_pending"
-configuration: {  }
+configuration: { }

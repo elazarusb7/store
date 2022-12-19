@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vlyalko
- * Date: 10/24/19
- * Time: 2:38 PM
- */
 
 namespace Drupal\samhsa_pep_order_states_workflow;
 
@@ -18,41 +12,41 @@ use Drupal\Core\Session\AccountProxyInterface;
  */
 class WorkflowUserProvider {
 
-    /**
-     * The user object to be passed in.
-     *
-     * @var \Drupal\Core\Session\AccountInterface
-     */
-    private $account;
+  /**
+   * The user object to be passed in.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  private $account;
 
-    /**
-     * Constructs an WorkflowUserProvider service.
-     *
-     * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
-     *   The service that contains the current active user.
-     */
-    public function __construct(AccountProxyInterface $currentUser) {
-        $this->account = $currentUser;
-    }
+  /**
+   * Constructs an WorkflowUserProvider service.
+   *
+   * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
+   *   The service that contains the current active user.
+   */
+  public function __construct(AccountProxyInterface $currentUser) {
+    $this->account = $currentUser;
+  }
 
-    /**
-     * Returns the saved user.
-     *
-     * @return \Drupal\Core\Session\AccountInterface
-     *   A user object.
-     */
-    public function getUser() {
-        return $this->account;
-    }
+  /**
+   * Returns the saved user.
+   *
+   * @return \Drupal\Core\Session\AccountInterface
+   *   A user object.
+   */
+  public function getUser() {
+    return $this->account;
+  }
 
-    /**
-     * Overrides the default user account which is the logged in user.
-     *
-     * @param \Drupal\Core\Session\AccountInterface $account
-     *   A user object.
-     */
-    public function setUser(AccountInterface $account) {
-        $this->account = $account;
-    }
+  /**
+   * Overrides the default user account which is the logged in user.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   A user object.
+   */
+  public function setUser(AccountInterface $account) {
+    $this->account = $account;
+  }
 
 }

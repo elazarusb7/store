@@ -1,16 +1,9 @@
 <?php
-/**
- * @file
- * Contains \Drupal\samhsa_pep_plugins\Plugin\views\field\DisplayModeField.
- */
 
 namespace Drupal\samhsa_pep_plugins\Plugin\views\field;
 
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use Drupal\Core\Url;
-use Drupal\Component\Serialization\Json;
-use Drupal\node\Entity;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -23,10 +16,10 @@ use Drupal\Core\Form\FormStateInterface;
 class DisplayModeField extends FieldPluginBase {
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function usesGroupBy() {
-      return FALSE;
+    return FALSE;
   }
 
   /**
@@ -36,22 +29,22 @@ class DisplayModeField extends FieldPluginBase {
     // Leave empty to avoid a query on this field.
   }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function defineOptions() {
-        $options = parent::defineOptions();
+  /**
+   * {@inheritdoc}
+   */
+  protected function defineOptions() {
+    $options = parent::defineOptions();
 
-        $options['hide_alter_empty'] = ['default' => FALSE];
-        return $options;
-    }
+    $options['hide_alter_empty'] = ['default' => FALSE];
+    return $options;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-        parent::buildOptionsForm($form, $form_state);
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    parent::buildOptionsForm($form, $form_state);
+  }
 
   /**
    * @{inheritdoc}
@@ -62,14 +55,17 @@ class DisplayModeField extends FieldPluginBase {
     $pep_product_type = $product->get('field_pep_product_type')->value;
     $stock = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->getStock($entity);
 
-    if($pep_product_type == 'download_only'){
-        $output = 'Download Only';
-    } else if($pep_product_type == 'order_only' || $pep_product_type == 'download_order') {
-        $output = 'External';
-    } else if($pep_product_type == 'samhsa_only') {
-        $output = 'Internal';
-    } else {
-        $output = 'None';
+    if ($pep_product_type == 'download_only') {
+      $output = 'Download Only';
+    }
+    elseif ($pep_product_type == 'order_only' || $pep_product_type == 'download_order') {
+      $output = 'External';
+    }
+    elseif ($pep_product_type == 'samhsa_only') {
+      $output = 'Internal';
+    }
+    else {
+      $output = 'None';
     }
     return $output;
   }
