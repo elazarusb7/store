@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\jbs_commerce_product_recommendation\Form\RecommendationConfigForm.
- */
 namespace Drupal\jbs_commerce_product_recommendation\Form;
+
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\jbs_commerce_product_recommendation\RecommendationModelFunctions;
 
+/**
+ *
+ */
 class RecommendationConfigForm extends ConfigFormBase {
 
   /**
@@ -68,17 +68,6 @@ class RecommendationConfigForm extends ConfigFormBase {
       '#title' => t('Enter the number of recommendations shown per product:'),
       '#default_value' => \Drupal::config($this->getEditableConfigNames()[0])->get('numberOfRecommendations'),
       '#min' => 0,
-    ];
-    $form['edit_config']['userHistoryExpire'] = [
-      '#type' => 'number',
-      '#required' => TRUE,
-      '#title' => t('Days of user browsing history to keep:'),
-      '#description' => t('User activity history is used to generate recommendations, but can also generate
-        a lot of information in the database, so keep this on the small side. This directly impacts
-        the number of rows in the <em>product_recommendation__product_events</em> table.'),
-      '#default_value' => \Drupal::config($this->getEditableConfigNames()[0])->get('userHistoryExpire'),
-      '#min' => 1,
-      '#max' => 180,
     ];
     $form['edit_config']['save'] = [
       '#type' => 'submit',
@@ -155,7 +144,6 @@ class RecommendationConfigForm extends ConfigFormBase {
     ];
 
     return parent::buildForm($form, $form_state);
-    //return $form;
   }
 
   /**
@@ -163,22 +151,20 @@ class RecommendationConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    if ($this->config($this->getEditableConfigNames()[0])->get('default.autoUpdate') === null &&
-      $this->config($this->getEditableConfigNames()[0])->get('default.intervalUpdate') === null &&
-      $this->config($this->getEditableConfigNames()[0])->get('default.numberOfRecommendations') === null) {
+    if ($this->config($this->getEditableConfigNames()[0])->get('default.autoUpdate') === NULL &&
+      $this->config($this->getEditableConfigNames()[0])->get('default.intervalUpdate') === NULL &&
+      $this->config($this->getEditableConfigNames()[0])->get('default.numberOfRecommendations') === NULL) {
       $original = $this->config($this->getEditableConfigNames()[0])->getOriginal();
       $this->config($this->getEditableConfigNames()[0])
         ->set('default.autoUpdate', $original['autoUpdate'])
         ->set('default.intervalUpdate', $original['intervalUpdate'])
         ->set('default.numberOfRecommendations', $original['numberOfRecommendations'])
-        ->set('default.userHistoryExpire', $original['userHistoryExpire'])
         ->save();
     }
     $this->config($this->getEditableConfigNames()[0])
       ->set('autoUpdate', $values['autoUpdate'])
       ->set('intervalUpdate', $values['intervalUpdate'])
       ->set('numberOfRecommendations', $values['numberOfRecommendations'])
-      ->set('userHistoryExpire', $values['userHistoryExpire'])
       ->save();
     parent::submitForm($form, $form_state);
   }
@@ -191,16 +177,16 @@ class RecommendationConfigForm extends ConfigFormBase {
   }
 
   /**
-   * Reset 'EDIT CONFIG' fields to the default values
+   * Reset 'EDIT CONFIG' fields to the default values.
    *
    * @param array $form
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    */
   public function resetForm(array &$form, FormStateInterface $form_state) {
     $original = $this->config($this->getEditableConfigNames()[0])->getOriginal();
-    if ($this->config($this->getEditableConfigNames()[0])->get('default.autoUpdate') !== null &&
-      $this->config($this->getEditableConfigNames()[0])->get('default.intervalUpdate') !== null &&
-      $this->config($this->getEditableConfigNames()[0])->get('default.numberOfRecommendations') !== null) {
+    if ($this->config($this->getEditableConfigNames()[0])->get('default.autoUpdate') !== NULL &&
+      $this->config($this->getEditableConfigNames()[0])->get('default.intervalUpdate') !== NULL &&
+      $this->config($this->getEditableConfigNames()[0])->get('default.numberOfRecommendations') !== NULL) {
       $this->config($this->getEditableConfigNames()[0])
         ->set('autoUpdate', $original['default']['autoUpdate'])
         ->set('intervalUpdate', $original['default']['intervalUpdate'])
@@ -212,19 +198,21 @@ class RecommendationConfigForm extends ConfigFormBase {
   }
 
   /**
-   * Recommendation Engine Functions
+   * Recommendation Engine Functions.
    */
-
   public function refreshModel() {
     (new RecommendationModelFunctions)->refreshModel();
   }
 
+  /**
+   *
+   */
   public function clearModel() {
     (new RecommendationModelFunctions)->clearModel();
   }
 
   /**
-   * getScores() callback returns the form element creation of the table
+   * GetScores() callback returns the form element creation of the table
    * containing product pairs based on the input_pid given. This is called
    * when the button labeled 'Get Scores' is clicked.
    *
@@ -235,19 +223,20 @@ class RecommendationConfigForm extends ConfigFormBase {
    */
   public function getScores(array &$form, FormStateInterface $form_state) {
     $pid = $form['query']['input_pid']['#value'];
-    $modelFunctionsInstance = (new RecommendationModelFunctions);
+    $modelFunctionsInstance = (new RecommendationModelFunctions());
     $pairs = $modelFunctionsInstance->getScores($pid);
     $numberOfRecommendations = \Drupal::config('jbs_commerce_product_recommendation.settings')->get('numberOfRecommendations');
 
     $title = $this->getTitleQuery($pid);
 
     $recommendedPairs = (function () use ($pid, $numberOfRecommendations, $modelFunctionsInstance) {
-      $recommended = array();
+      $recommended = [];
       $rows = $modelFunctionsInstance->getScores($pid, $numberOfRecommendations);
       foreach ($rows as $r => $row) {
         if ($row->p1 !== $pid) {
           $recommended[] = $row->p1;
-        } else {
+        }
+        else {
           $recommended[] = $row->p2;
         }
       }
@@ -262,25 +251,27 @@ class RecommendationConfigForm extends ConfigFormBase {
     ];
 
     if (!empty($pairs)) {
-      $headers = array_keys(get_object_vars($pairs[0]) + array('title' => null));
-      $rows = array();
+      $headers = array_keys(get_object_vars($pairs[0]) + ['title' => NULL]);
+      $rows = [];
 
-      for ($row = 0; $row < count($pairs); $row++) {
+      for ($row = 0, $rowMax = count($pairs); $row < $rowMax; $row++) {
         if ($numberOfRecommendations > 0) {
           if (!empty($recommendedPairs[$pairs[$row]->{$headers[0]}]) || !empty($recommendedPairs[$pairs[$row]->{$headers[1]}])) {
-            $recommendedColumn = ($pairs[$row]->{$headers[0]} !== $pid ? 0 : ($pairs[$row]->{$headers[1]} !== $pid ? 1 : null));
+            $recommendedColumn = ($pairs[$row]->{$headers[0]} !== $pid ? 0 : ($pairs[$row]->{$headers[1]} !== $pid ? 1 : NULL));
             $new_row = [
               ($pairs[$row]->{$headers[0]} !== $pid ? t('<span style="background:yellow">' . $pairs[$row]->{$headers[0]} . '</span>') : $pairs[$row]->{$headers[0]}),
               ($pairs[$row]->{$headers[1]} !== $pid ? t('<span style="background:yellow">' . $pairs[$row]->{$headers[1]} . '</span>') : $pairs[$row]->{$headers[1]}),
               $pairs[$row]->{$headers[2]},
-              ($recommendedColumn !== null ? t('<a href="'.\Drupal::request()->getSchemeAndHttpHost(). '/product/'. $pairs[$row]->{$headers[$recommendedColumn]} .'">' . $this->getTitleQuery($pairs[$row]->{$headers[$recommendedColumn]})->title . '</a>') : null)
+              ($recommendedColumn !== NULL ? t('<a href="' . \Drupal::request()->getSchemeAndHttpHost() . '/product/' . $pairs[$row]->{$headers[$recommendedColumn]} . '">' . $this->getTitleQuery($pairs[$row]->{$headers[$recommendedColumn]})->title . '</a>') : NULL),
             ];
             $numberOfRecommendations -= 1;
-          } else {
-            $new_row = array($pairs[$row]->{$headers[0]}, $pairs[$row]->{$headers[1]}, $pairs[$row]->{$headers[2]}, null);
           }
-        } else {
-          $new_row = array($pairs[$row]->{$headers[0]}, $pairs[$row]->{$headers[1]}, $pairs[$row]->{$headers[2]}, null);
+          else {
+            $new_row = [$pairs[$row]->{$headers[0]}, $pairs[$row]->{$headers[1]}, $pairs[$row]->{$headers[2]}, NULL];
+          }
+        }
+        else {
+          $new_row = [$pairs[$row]->{$headers[0]}, $pairs[$row]->{$headers[1]}, $pairs[$row]->{$headers[2]}, NULL];
         }
         $rows[] = $new_row;
       }
@@ -289,17 +280,19 @@ class RecommendationConfigForm extends ConfigFormBase {
         '#type' => 'table',
         '#header' => $headers,
         '#rows' => $rows,
-        '#prefix' => '<div id="ajax-container"><h3>Showing results for Product '. $pid . ':</h3>
-                      <a href="'.\Drupal::request()->getSchemeAndHttpHost(). '/product/'. $pid .'">'
-                      . $title->title . '</a>' .
-                      '<p>Note: Highlighted IDs are the products most likely being recommended for this product (assuming no manual recommendations have been set).</p>' .
-                      '<div>&nbsp;</div>',
+        '#prefix' => '<div id="ajax-container"><h3>Showing results for Product ' . $pid . ':</h3>
+                      <a href="' . \Drupal::request()->getSchemeAndHttpHost() . '/product/' . $pid . '">'
+        . $title->title . '</a>' .
+        '<p>Note: Highlighted IDs are the products most likely being recommended for this product (assuming no manual recommendations have been set).</p>' .
+        '<div>&nbsp;</div>',
         '#suffix' => '</div>',
       ];
-    } else {
+    }
+    else {
       if (!empty($title)) {
         \Drupal::messenger()->addWarning('Product ' . $pid . ' (' . $title->title . ') currently has no pair scores.');
-      } else {
+      }
+      else {
         \Drupal::messenger()->addWarning('Product with id ' . $pid . ' does not exist.');
       }
     }
@@ -307,7 +300,7 @@ class RecommendationConfigForm extends ConfigFormBase {
   }
 
   /**
-   * getTitle() callback returns the form element creation of the product title
+   * GetTitle() callback returns the form element creation of the product title
    * based on the input_pid given. This is called when the textfield labeled
    * 'Enter a product ID:' changes.
    *
@@ -324,10 +317,11 @@ class RecommendationConfigForm extends ConfigFormBase {
       $form['product_title'] = [
         '#type' => 'item',
         '#prefix' => '<div id="product-title">' .
-          '<a href="'.\Drupal::request()->getSchemeAndHttpHost(). '/product/'. $pid.'">'. $title->title .'</a>',
+        '<a href="' . \Drupal::request()->getSchemeAndHttpHost() . '/product/' . $pid . '">' . $title->title . '</a>',
         '#suffix' => '</div>',
       ];
-    } else {
+    }
+    else {
       $form['product_title'] = [
         '#type' => 'hidden',
         '#prefix' => '<div id="product-title">',
@@ -339,7 +333,7 @@ class RecommendationConfigForm extends ConfigFormBase {
   }
 
   /**
-   * getTitleQuery() queries the database to get the title of a product by id
+   * GetTitleQuery() queries the database to get the title of a product by id.
    *
    * @param $pid
    *
@@ -355,7 +349,7 @@ class RecommendationConfigForm extends ConfigFormBase {
   }
 
   /**
-   * getAllProducts() callback returns the form element creation of the table
+   * GetAllProducts() callback returns the form element creation of the table
    * containing all products. This is called when the button labeled
    * 'Get All Products' is clicked.
    *
@@ -374,11 +368,12 @@ class RecommendationConfigForm extends ConfigFormBase {
 
     if (!empty($title)) {
       $headers = ['product_id', 'title'];
-      $rows = array();
+      $rows = [];
 
-      for ($row = 0; $row < count($title); $row++) {
-        $new_row = array($title[$row]->{$headers[0]},
-          t('<a href="'.\Drupal::request()->getSchemeAndHttpHost(). '/product/'. $title[$row]->{$headers[0]}.'">' . $title[$row]->{$headers[1]} . '</a>'));
+      for ($row = 0, $rowMax = count($title); $row < $rowMax; $row++) {
+        $new_row = [$title[$row]->{$headers[0]},
+          t('<a href="' . \Drupal::request()->getSchemeAndHttpHost() . '/product/' . $title[$row]->{$headers[0]} . '">' . $title[$row]->{$headers[1]} . '</a>'),
+        ];
         $rows[] = $new_row;
       }
 
@@ -386,10 +381,11 @@ class RecommendationConfigForm extends ConfigFormBase {
         '#type' => 'table',
         '#header' => $headers,
         '#rows' => $rows,
-        '#prefix' => '<div id="ajax-container"><h3>Showing IDs and Titles for all Products ('. count($rows) .' total)</h3><div>&nbsp;</div>',
+        '#prefix' => '<div id="ajax-container"><h3>Showing IDs and Titles for all Products (' . count($rows) . ' total)</h3><div>&nbsp;</div>',
         '#suffix' => '</div>',
       ];
-    } else {
+    }
+    else {
       \Drupal::messenger()->addWarning('There was an error retrieving Product information.');
     }
     return $form['table'];

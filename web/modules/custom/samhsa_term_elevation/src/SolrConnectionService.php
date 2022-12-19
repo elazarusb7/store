@@ -6,7 +6,6 @@ use Drupal\search_api\Entity\Index;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api_solr\SearchApiSolrException;
 
-
 /**
  * Class SolrConnectionService.
  */
@@ -59,7 +58,7 @@ class SolrConnectionService {
           $site = $item_fields['site'];
         }
         if ($site[strlen($site) - 1] == '/') {
-          $site = substr($site, 0, -1) ;
+          $site = substr($site, 0, -1);
         }
         $results[] = [
           'value' => $title . ' (' . $item_fields['id'] . ')',
@@ -110,7 +109,7 @@ class SolrConnectionService {
   /**
    * Queries Solr to extract the names off all indexed fields.
    *
-   * Sample request: select?q=*:*&wt=csv&rows=0&facet
+   * Sample request: select?q=*:*&wt=csv&rows=0&facet.
    *
    * @param string $core_id
    *   Id of the Solr core.

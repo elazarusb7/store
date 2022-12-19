@@ -2,12 +2,13 @@
 
 namespace Drupal\samhsa_term_elevation\Plugin\views\field;
 
+use Drupal;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
+use Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 
 /**
  * A handler to provide a field that is completely custom by the administrator.
@@ -19,7 +20,7 @@ use \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 class WebsiteBase extends FieldPluginBase {
 
   /**
-   * Aliases
+   * Aliases.
    *
    * @var array
    *   List of aliases of the websites that compound the multisite environment.
@@ -27,10 +28,11 @@ class WebsiteBase extends FieldPluginBase {
   private $sitesAliases = [];
 
   /**
-   * URL replacements
+   * URL replacements.
    *
    * @var array
-   *   List of URL replacements of the websites that compound the multisite environment.
+   *   List of URL replacements of the websites that compound the multisite
+   *   environment.
    */
   private $urlReplacements = [];
 
@@ -39,15 +41,17 @@ class WebsiteBase extends FieldPluginBase {
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $sites_aliases = unserialize(\Drupal::config('samhsa_term_elevation.websites_aliases')->get('sites'));
-    $this->urlReplacements = unserialize(\Drupal::config('samhsa_te_url_replacement.configuration')->get('sites'));
+    $sites_aliases = unserialize(Drupal::config('samhsa_term_elevation.websites_aliases')
+      ->get('sites'));
+    $this->urlReplacements = unserialize(Drupal::config('samhsa_te_url_replacement.configuration')
+      ->get('sites'));
     $this->sitesAliases = [];
     foreach ($sites_aliases as $key => $value) {
       if ($this->urlReplacements[$key]) {
-        $this->sitesAliases[$this->urlReplacements[$key]] = $sites_aliases[$key];
+        $this->sitesAliases[$this->urlReplacements[$key]] = $value;
       }
       else {
-        $this->sitesAliases[$key] = $sites_aliases[$key];
+        $this->sitesAliases[$key] = $value;
       }
     }
   }
@@ -103,9 +107,10 @@ class WebsiteBase extends FieldPluginBase {
       return 'n/a';
     }
 
-    $fields = $values->_item->getExtraData('search_api_solr_document')->getFields();
+    $fields = $values->_item->getExtraData('search_api_solr_document')
+      ->getFields();
 
-    if ($this->options['use_aliases'] && $this->sitesAliases[$fields['site']])  {
+    if ($this->options['use_aliases'] && $this->sitesAliases[$fields['site']]) {
       $site_name = $this->sitesAliases[$fields['site']];
     }
     else {

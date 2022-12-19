@@ -1,6 +1,12 @@
 <?php
 
-use \Drupal\Core\Url;
+/**
+ * @file
+ */
+
+use Drupal\user\Entity\User;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -77,14 +83,14 @@ function samhsa_pep_my_account_page_preprocess_menu_local_task(&$variables) {
  */
 function samhsa_pep_my_account_page_preprocess_page_title(&$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-  
+
   if ($route_name == 'entity.user.canonical' ||
   $route_name == 'view.commerce_user_orders.order_page') {
-      $variables['title'] = is_array($variables['title']) ? t('My Account') : ['#markup' => t('My Account')];
+    $variables['title'] = is_array($variables['title']) ? t('My Account') : ['#markup' => t('My Account')];
   }
-  //update address book page title
+  // Update address book page title.
   if ($route_name == 'commerce_order.address_book.overview') {
-      $variables['title'] = t('My Account');
+    $variables['title'] = t('My Account');
   }
 }
 
@@ -104,11 +110,11 @@ function samhsa_pep_my_account_page_theme_suggestions_form_element_alter(array &
 function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$suggestions, array $variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   $is_address_book_container = FALSE;
-  if(isset($variables['element']['#attributes']) && isset($variables['element']['#attributes']['class'])) {
-      $classes = $variables['element']['#attributes']['class'];
-      if ( is_array($classes) === true ) {
-        $is_address_book_container = array_search ('address-book__container', $classes);
-      }
+  if (isset($variables['element']['#attributes']) && isset($variables['element']['#attributes']['class'])) {
+    $classes = $variables['element']['#attributes']['class'];
+    if ( is_array($classes) === true ) {
+      $is_address_book_container = array_search('address-book__container', $classes);
+    }
   }
   if ($route_name == 'commerce_order.address_book.overview' && $is_address_book_container !== FALSE) {
     $suggestions[] = 'container__address_book';
@@ -118,7 +124,7 @@ function samhsa_pep_my_account_page_theme_suggestions_container_alter(array &$su
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_my_account_page_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function samhsa_pep_my_account_page_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (in_array($form_id, ['profile_customer_address-book-add_form', 'profile_customer_address-book-edit_form'])) {
     $form['message_top'] = [
       '#type' => 'markup',
@@ -140,34 +146,34 @@ function samhsa_pep_my_account_page_form_alter(&$form, \Drupal\Core\Form\FormSta
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_my_account_page_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if($form_id != 'user_register_form') {
-      $user_id = $form_state->getformObject()->getEntity()->id();
-      $form['#title'] = t('My Account');
-      $form['message_top'] = [
-          '#type' => 'markup',
-          '#markup' => _samhsa_pep_my_account_page_get_user_edit_info_text_password_1($user_id),
-          '#weight' => -90,
-      ];
-      $form['account']['pass']['#description'] = _samhsa_pep_my_account_page_get_user_edit_info_text_password_2();
+function samhsa_pep_my_account_page_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'user_register_form') {
+    $user_id = $form_state->getformObject()->getEntity()->id();
+    $form['#title'] = t('My Account');
+    $form['message_top'] = [
+      '#type' => 'markup',
+      '#markup' => _samhsa_pep_my_account_page_get_user_edit_info_text_password_1($user_id),
+      '#weight' => -90,
+    ];
+    $form['account']['pass']['#description'] = _samhsa_pep_my_account_page_get_user_edit_info_text_password_2();
   }
 
-  if($form_id == 'user_form'){
-      $moduleHandler = \Drupal::service('module_handler');
-      if ($moduleHandler->moduleExists('email_registration')) {
-          // If email registration module enabled, hide user name field on edit user profile page
-          $form['account']['name']['#attributes']['class'][] = 'visually-hidden';
-          $form['account']['name']['#title'] = "";
-          $form['account']['name']['#description'] = "";
-          $form['account']['name']['#required'] = FALSE;
-      }
+  if ($form_id == 'user_form') {
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('email_registration')) {
+      // If email registration module enabled, hide user name field on edit user profile page.
+      $form['account']['name']['#attributes']['class'][] = 'visually-hidden';
+      $form['account']['name']['#title'] = "";
+      $form['account']['name']['#description'] = "";
+      $form['account']['name']['#required'] = FALSE;
+    }
   }
 }
 
 /**
  * Info text for the top of the page.
  *
- * @param integer/null $uid
+ * @param integernull $uid
  *   ID of the user.
  *
  * @return string
@@ -229,7 +235,7 @@ function _samhsa_pep_my_account_page_get_user_edit_info_text_password_2() {
 /**
  * Gather info regarding password expiration.
  *
- * @param integer/null $uid
+ * @param integernull $uid
  *   ID of the user.
  *
  * @return object
@@ -246,14 +252,14 @@ function _samhsa_pep_my_account_page_get_user_password_expiration($uid = NULL) {
         $result->text = "$lifetime_max day";
       }
       else {
-        $result->text =  "$lifetime_max days";
+        $result->text = "$lifetime_max days";
       }
       return $result;
     }
   }
-  $user = \Drupal\user\Entity\User::load($uid);
+  $user = User::load($uid);
   $field_last_password_reset = $user->get('field_last_password_reset')->getValue();
-  if (!isset($field_last_password_reset[0]) || ! (bool) $field_last_password_reset[0]) {
+  if (!isset($field_last_password_reset[0]) || !(bool) $field_last_password_reset[0]) {
     $last_reset_day = $user->getCreatedTime();
   }
   else {
@@ -271,23 +277,25 @@ function _samhsa_pep_my_account_page_get_user_password_expiration($uid = NULL) {
     $result->value = $days_left;
     if ($days_left > 0) {
       if ($days_left == 1) {
-        $result->text =  "1 day";
+        $result->text = "1 day";
       }
       else {
-        $result->text =  "$days_left days";
+        $result->text = "$days_left days";
       }
     }
     else {
       $days_left *= -1;
       switch ($days_left) {
         case 0:
-          $result->text =  "today";
+          $result->text = "today";
           break;
+
         case 1:
-          $result->text =  "1 day ago";
+          $result->text = "1 day ago";
           break;
+
         default;
-          $result->text =  "$days_left days ago";
+          $result->text = "$days_left days ago";
       }
     }
   }
@@ -297,7 +305,7 @@ function _samhsa_pep_my_account_page_get_user_password_expiration($uid = NULL) {
       $result->text = "$lifetime_max day";
     }
     else {
-      $result->text =  "$lifetime_max days";
+      $result->text = "$lifetime_max days";
     }
   }
   return $result;

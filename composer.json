@@ -1,18 +1,19 @@
 {
     "name": "drupal-composer/drupal-project",
-    "description": "Project template for Drupal 8 projects with composer",
+    "description": "SAMHSA Store Drupal projects",
     "type": "project",
     "license": "GPL-2.0+",
     "authors": [
         {
-            "name": "SAMHSA D8 Web Dev Team",
+            "name": "SAMHSA Web Dev Team",
             "email": "webmaster@samhsa.hhs.gov",
-            "homepage": "https://www.samhsa.gov",
+            "homepage": "https://store.samhsa.gov",
             "role": "Developers"
         }
     ],
     "require": {
         "behat/mink-selenium2-driver": "dev-master as 1.3.x-dev",
+        "chi-teck/drupal-code-generator": "^2.6",
         "ckeditor/fakeobjects": "4.7.2",
         "ckeditor/image": "4.7.2",
         "ckeditor/link": "4.6.2",
@@ -38,6 +39,7 @@
         "drupal/chosen_lib": "^3.0",
         "drupal/ckeditor_youtube": "1.x-dev@dev",
         "drupal/clamav": "^2.0",
+        "drupal/coder": "^8.3",
         "drupal/colorbox": "^1.7",
         "drupal/colorbutton": "^1.3",
         "drupal/comment_notify": "^1.0@beta",
@@ -69,14 +71,16 @@
         "drupal/context": "^4.0@beta",
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
+        "drupal/core": "9.4.8",
         "drupal/core-composer-scaffold": "^9.4",
-        "drupal/core-recommended": "^9",
+        "drupal/core-dev": "^9.4",
+        "drupal/core-recommended": "9.4.8",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^2.1",
         "drupal/ctools": "^3.7",
         "drupal/ctools_block": "^3.6",
         "drupal/datalayer": "^1.0@beta",
-        "drupal/devel": "^4.1",
+        "drupal/devel": "^5.0",
         "drupal/devel_entity_updates": "^3.0",
         "drupal/diff": "^1.0@RC",
         "drupal/draggableviews": "^2.0",
@@ -226,12 +230,17 @@
         "jquery/timepicker": "1.11.11 ",
         "jquery/toggles": "4.0.0",
         "jquery/word-and-character-counter": "2.5.1",
+        "mglaman/drupal-check": "^1.4",
         "progress-tracker/progress-tracker": "1.4.0",
         "setasign/fpdf": "^1.8",
         "solarium/solarium": "^6.0.4",
         "swiftmailer/swiftmailer": "^6.0",
         "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3"
+        "webmozart/path-util": "^2.3",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-curl": "*",
+        "ext-pdo": "*"
     },
     "repositories": [
         {
@@ -508,8 +517,5 @@
         },
         "enable-patching": true,
         "patches-file": "composer.patches.json"
-    },
-    "require-dev": {
-        "drupal/core-dev": "^9"
     }
 }

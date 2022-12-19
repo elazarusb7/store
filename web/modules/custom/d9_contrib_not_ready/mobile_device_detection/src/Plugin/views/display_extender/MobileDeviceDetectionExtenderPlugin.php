@@ -102,7 +102,7 @@ class MobileDeviceDetectionExtenderPlugin extends DisplayExtenderPluginBase {
    * Get the selected devices for this display.
    */
   public function getDevices() {
-    $devices = isset($this->options['device_detection']) ? $this->options['device_detection'] : NULL;
+    $devices = $this->options['device_detection'] ?? NULL;
 
     if ($devices && isset($devices['devices'])) {
       $devices = array_filter($devices['devices'], function ($var) {

@@ -17,6 +17,7 @@ use Drupal\Core\Session\AccountInterface;
  * )
  */
 class ShareButtonsBlock extends BlockBase {
+
   /**
    * {@inheritdoc}
    */
@@ -24,9 +25,9 @@ class ShareButtonsBlock extends BlockBase {
     return [
       '#theme' => 'share_buttons',
       '#title' => 'Share Buttons',
-      '#attached' => array(
-        'library' => array('samhsa_theme_block_pep8/samhsa-addthis'),
-      ),
+      '#attached' => [
+        'library' => ['samhsa_theme_block_pep8/samhsa-addthis'],
+      ],
     ];
   }
 
@@ -52,4 +53,5 @@ class ShareButtonsBlock extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['my_block_settings'] = $form_state->getValue('my_block_settings');
   }
+
 }

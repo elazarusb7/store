@@ -2,28 +2,20 @@
 
 /**
  * @file
- * samhsa_pep_stock.install.
+ * Samhsa_pep_stock.install.
  */
-
-use Drupal\Core\Database\Database;
-use Drupal\Core\Site\Settings;
 
 /**
  * Implements hook_install().
  */
 function samhsa_pep_stock_install() {
-    \Drupal::config('samhsa_pep_stock.settings')
-        ->set('physical_count_error_message', TRUE);
+  \Drupal::config('samhsa_pep_stock.settings')
+    ->set('physical_count_error_message', TRUE);
 }
 
 /**
  * Implements hook_uninstall().
  */
-function samhsa_pep_stock_uninstall()
-{
-    Drupal::configFactory()->getEditable('samhsa_pep_stock.settings')->delete();
+function samhsa_pep_stock_uninstall() {
+  Drupal::configFactory()->getEditable('samhsa_pep_stock.settings')->delete();
 }
-
-
-
-

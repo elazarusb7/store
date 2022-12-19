@@ -1,15 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\jbs_commerce_product_recommendation\Form\FeaturedProductForm.
- */
 namespace Drupal\jbs_commerce_featured_product\Form;
 
+use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Exception;
 
+/**
+ *
+ */
 class FeaturedProductForm extends ConfigFormBase {
 
   /**
@@ -27,7 +26,7 @@ class FeaturedProductForm extends ConfigFormBase {
 
     $numberFeatured = $this->config($this->getEditableConfigNames()[0])->get('featured_number');
 
-    $rows = array();
+    $rows = [];
     $columns = ['Featured Products', 'Order'];
 
     $form['edit_config'] = [
@@ -42,7 +41,7 @@ class FeaturedProductForm extends ConfigFormBase {
       '#max' => 100,
       '#step' => 1,
       '#default_value' => $numberFeatured,
-//      '#suffix' => '<br>',
+    // '#suffix' => '<br>',
     ];
     $form['edit_config']['save'] = [
       '#type' => 'submit',
@@ -60,9 +59,9 @@ class FeaturedProductForm extends ConfigFormBase {
     $form['featured_product'] = [
       '#type' => 'table',
       '#header' => $columns,
-//      '#attributes' => [
-//        'id' => 'featured_products',
-//      ],
+    // '#attributes' => [
+    //        'id' => 'featured_products',
+    //      ],
     ];
 
     if (!empty($numberFeatured)) {
@@ -71,7 +70,7 @@ class FeaturedProductForm extends ConfigFormBase {
         $form['featured_product'][$i]['featured'] = [
           '#type' => 'entity_autocomplete',
           '#target_type' => 'commerce_product',
-          '#default_value' => (!empty($featured[$i]) ? \Drupal\commerce_product\Entity\Product::load((int)$featured[$i]['featured']) : NULL),
+          '#default_value' => (!empty($featured[$i]) ? Product::load((int) $featured[$i]['featured']) : NULL),
           '#maxlength' => 1024,
         ];
         $form['featured_product'][$i]['order'] = [
@@ -82,7 +81,7 @@ class FeaturedProductForm extends ConfigFormBase {
       }
     }
     return parent::buildForm($form, $form_state);
-    //return $form;
+    // Return $form;.
   }
 
   /**
@@ -102,7 +101,8 @@ class FeaturedProductForm extends ConfigFormBase {
         ->set('featured', $featured)
         ->save();
       parent::submitForm($form, $form_state);
-    } else {
+    }
+    else {
       \Drupal::messenger()->addError('Error: could not add products to featured, check your input.');
     }
   }
@@ -114,9 +114,12 @@ class FeaturedProductForm extends ConfigFormBase {
     return ['jbs_commerce_featured_product.settings'];
   }
 
+  /**
+   *
+   */
   public function resetForm(array &$form, FormStateInterface $form_state) {
     $original = $this->config($this->getEditableConfigNames()[0])->getOriginal();
-    if ($this->config($this->getEditableConfigNames()[0])->get('default.featured_number') !== null) {
+    if ($this->config($this->getEditableConfigNames()[0])->get('default.featured_number') !== NULL) {
       $this->config($this->getEditableConfigNames()[0])
         ->set('featured_number', $original['default']['featured_number'])
         ->save();
@@ -125,6 +128,9 @@ class FeaturedProductForm extends ConfigFormBase {
     }
   }
 
+  /**
+   *
+   */
   public function setFeatured($featured) {
     $tn = 'commerce_product__field_featured';
     $db = \Drupal::database();
@@ -133,26 +139,27 @@ class FeaturedProductForm extends ConfigFormBase {
         ->fields('t', ['entity_id'])
         ->execute()->fetchAll();
       foreach ($table_values as $f => $feature) {
-        $product = \Drupal\commerce_product\Entity\Product::load($feature->entity_id);
+        $product = Product::load($feature->entity_id);
         unset($product->field_featured);
         $product->save();
       }
 
-      $featured_products = array();
+      $featured_products = [];
       $featured_count = count($featured);
       foreach ($featured as $f => $feature) {
         if (!empty($feature['featured'])) {
-          $product = \Drupal\commerce_product\Entity\Product::load($feature['featured']);
-          $product->set('field_featured', $featured_count - (int)$feature['order'] /*+ 1*/);
+          $product = Product::load($feature['featured']);
+          $product->set('field_featured', $featured_count - (int) $feature['order'] /*+ 1*/);
           $featured_products[] = $product;
         }
       }
       foreach ($featured_products as $p => $product) {
         $product->save();
       }
-      return true;
-    } catch (Exception $e) {
-      return false;
+      return TRUE;
+    }
+    catch (\Exception $e) {
+      return FALSE;
     }
   }
 

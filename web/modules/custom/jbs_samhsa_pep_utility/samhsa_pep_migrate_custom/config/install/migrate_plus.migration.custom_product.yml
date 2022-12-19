@@ -14,9 +14,6 @@ process:
   field_subtitle:
      plugin: get
      source: field_sub_title
-  field_subtitle:
-     plugin: get
-     source: field_sub_title
   field_last_reviewed:
       plugin: iterator
       source: field_last_reviewed
