@@ -58,7 +58,7 @@
         "drupal/commerce_stock": "^1.0",
         "drupal/commerce_store": "^2.24",
         "drupal/commerce_ups": "^3.0",
-        "drupal/computed_field": "^2.0",
+        "drupal/computed_field": "^3.0",
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/config_devel": "^1.8",
         "drupal/config_partial_export": "^1.4",
