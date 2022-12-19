@@ -1,10 +1,12 @@
 <?php
-
 /**
  * @file
  * Provides hooks to the computed_fields module to allowo PHP processing of
  *   virtual entity fields.
  */
+
+use Drupal\commerce_product\Entity\ProductVariation;
+use Drupal\commerce_stock_local\LocalStockChecker;
 
 /**
  * Implements hook_compute().
@@ -26,7 +28,7 @@ function computed_field_field_print_only_out_of_stock_compute($entity_type_manag
   (int) $print_out_of_stock = 0;
 
   if ($entity->field_pep_product_type->value == 'order_only') {
-    // Painstakingly determine number in stock.
+    // Painstakingly determine number in stock
     $product_id = $entity->product_id->value;
     $product_variation_id = array_pop($entity->getVariationIds());
     $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($product_variation_id);
