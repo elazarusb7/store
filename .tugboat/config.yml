@@ -53,6 +53,12 @@ services:
         # SAMHSA_STORE: Our own custom php tweaks
         - cp "${TUGBOAT_ROOT}/.tugboat/php.ini" /usr/local/etc/php/conf.d/samhsa_store.ini
 
+        # Create a Private file folder with an encryption key subfolder
+        - mkdir -p "${TUGBOAT_ROOT}/private/keys" && chown -R www-data "${TUGBOAT_ROOT}/private" && chmod -R 755 "${TUGBOAT_ROOT}/private"
+
+        # Adding an encryption key.
+        - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key 
+
         - composer install
         # Link drush (before trying to use it
         - ln -s "${TUGBOAT_ROOT}/vendor/drush/drush/drush" /usr/local/bin/drush
@@ -78,12 +84,10 @@ services:
         - zcat /tmp/database.sql.gz | drush -y -r $DOCROOT sql-cli
         # Adding a cache rebuild here after the import to fix config issues.
         - drush -r $TUGBOAT_ROOT cache:rebuild
-        # Create a temp admin account
-        - drush -y user:create tugboat
+        # Create a temp admin account 
+        # Adding the mail and password all in one step
+        - drush -y user:create tugboat --mail='tugboat@example.com' --password='tugboat'
         - drush -y user:role:add administrator tugboat
-        - drush -y user:password tugboat tugboat
-        # Store uses email rather than name for login, so we need to set it too
-        - drush sqlq "UPDATE users_field_data SET init='tugboat@example.com',mail='tugboat@example.com' where name = 'tugboat';"
 
       # Commands that build the site. This is where you would add things
       # like config imports or any other drush commands required to

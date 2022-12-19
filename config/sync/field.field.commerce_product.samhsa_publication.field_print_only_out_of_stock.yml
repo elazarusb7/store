@@ -1,0 +1,23 @@
+uuid: 85f0dbed-664d-46d1-8cb3-20f9495d56b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_print_only_out_of_stock
+  module:
+    - computed_field
+id: commerce_product.samhsa_publication.field_print_only_out_of_stock
+field_name: field_print_only_out_of_stock
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Print only out of stock'
+description: 'Automatically generated, hidden field used for hiding print-only items that are out of stock from displaying in views listings. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  prefix: ''
+  suffix: ''
+field_type: computed_integer
