@@ -60,7 +60,7 @@ services:
         - mkdir -p "${TUGBOAT_ROOT}/private/keys" && chown -R www-data "${TUGBOAT_ROOT}/private" && chmod -R 755 "${TUGBOAT_ROOT}/private"
 
         # Adding an encryption key.
-        - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key 
+        - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key
 
         - composer install
         -
@@ -89,7 +89,7 @@ services:
         - zcat /tmp/database.sql.gz | drush -y -r $DOCROOT sql-cli
         # Adding a cache rebuild here after the import to fix config issues.
         - drush -r $TUGBOAT_ROOT cache:rebuild
-        # Create a temp admin account 
+        # Create a temp admin account
         # Adding the mail and password all in one step
         - drush -y user:create tugboat --mail='tugboat@example.com' --password='tugboat'
         - drush -y user:role:add administrator tugboat
@@ -125,7 +125,25 @@ services:
     urls:
       # Create visual diffs of the these URLs using the default options
       - /
-
+      - /?f%5B0%5D=audience%3A4961
+      - /?f%5B0%5D=format%3A5035&f%5B1%5D=format%3A5035&f%5B2%5D=format%3A5035&f%5B3%5D=format%3A5035
+      - /?search_api_fulltext=&items_per_page=10&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961
+      - /?search_api_fulltext=&items_per_page=10&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961&f%5B1%5D=treatment_prevention_and_recovery%3A5477
+      - /?search_api_fulltext=&items_per_page=50&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961&f%5B1%5D=population_group%3A5345&f%5B2%5D=treatment_prevention_and_recovery%3A5477
+      - /?v=issues_conditions_and_disorders
+      - /?v=issues_conditions_and_disorders&f%5B0%5D=issues_conditions_and_disorders%3A5077
+      - /?v=professional_and_research_topics
+      - /?v=series
+      - /?v=substances
+      - /?v=treatment_prevention_and_recovery
+      - /cart
+      - /help
+      - /product/community-engagement-essential-component-substance-use-prevention-system/pep22-06-01-005?referer=from_search_result
+      - /product/crisis-care-building-988-and-beyond-better-mental-health-outcomes/pep22-01-03-001?referer=from_search_result
+      - /product/drug-abuse-warning-network-findings-drug-related-emergency-department-visits-2021/pep22-07-03-002?referer=from_search_result
+      - /user/login
+      - /user/password
+      - /user/register
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.
