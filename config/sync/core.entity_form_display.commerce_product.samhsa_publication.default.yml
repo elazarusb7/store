@@ -26,6 +26,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_office_center
     - field.field.commerce_product.samhsa_publication.field_pep_product_type
     - field.field.commerce_product.samhsa_publication.field_population_group
+    - field.field.commerce_product.samhsa_publication.field_print_only_out_of_stock
     - field.field.commerce_product.samhsa_publication.field_product_owner_email
     - field.field.commerce_product.samhsa_publication.field_product_owner_name
     - field.field.commerce_product.samhsa_publication.field_product_owner_phone
@@ -426,5 +427,6 @@ content:
 hidden:
   field_attachment: true
   field_featured: true
+  field_print_only_out_of_stock: true
   langcode: true
   variations: true

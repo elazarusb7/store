@@ -1135,6 +1135,44 @@ display:
             - saa_field_samhsa_digital_download
             - sku
             - title
+        field_print_only_out_of_stock:
+          id: field_print_only_out_of_stock
+          table: search_api_index_default_solr_index
+          field: field_print_only_out_of_stock
+          relationship: none
+          group_type: group
+          admin_label: 'Print only items that are out of stock'
+          plugin_id: search_api_boolean
+          operator: '='
+          value: '0'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: default
         options:
@@ -1372,6 +1410,44 @@ display:
             - saa_field_samhsa_digital_download
             - sku
             - title
+        field_print_only_out_of_stock:
+          id: field_print_only_out_of_stock
+          table: search_api_index_default_solr_index
+          field: field_print_only_out_of_stock
+          relationship: none
+          group_type: group
+          admin_label: 'Print only items that are out of stock'
+          plugin_id: search_api_boolean
+          operator: '='
+          value: '0'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -2165,6 +2241,44 @@ display:
           plugin_id: search_api_boolean
           operator: '='
           value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_print_only_out_of_stock:
+          id: field_print_only_out_of_stock
+          table: search_api_index_default_solr_index
+          field: field_print_only_out_of_stock
+          relationship: none
+          group_type: group
+          admin_label: 'Print only items that are out of stock'
+          plugin_id: search_api_boolean
+          operator: '='
+          value: '0'
           group: 1
           exposed: false
           expose:
