@@ -9,6 +9,8 @@ dependencies:
     - field.field.commerce_order.samhsa_publication_ob.field_log
     - field.field.commerce_order.samhsa_publication_ob.field_order_source
     - field.field.commerce_order.samhsa_publication_ob.field_order_weight
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request_desc
     - field.field.commerce_order.samhsa_publication_ob.shipments
   module:
     - cck_select_other
@@ -56,6 +58,21 @@ content:
     region: content
     settings:
       other_label: 'Provide Other Source'
+    third_party_settings: {  }
+  field_special_request:
+    type: boolean_checkbox
+    weight: 9
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_special_request_desc:
+    type: string_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   mail:
     type: email_default

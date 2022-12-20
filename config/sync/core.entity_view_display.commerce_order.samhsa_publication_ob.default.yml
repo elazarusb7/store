@@ -9,6 +9,8 @@ dependencies:
     - field.field.commerce_order.samhsa_publication_ob.field_log
     - field.field.commerce_order.samhsa_publication_ob.field_order_source
     - field.field.commerce_order.samhsa_publication_ob.field_order_weight
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request_desc
     - field.field.commerce_order.samhsa_publication_ob.shipments
   module:
     - commerce_order
@@ -65,6 +67,23 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 11
+    region: content
+  field_special_request:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_special_request_desc:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
     region: content
   ip_address:
     type: string
