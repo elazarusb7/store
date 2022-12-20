@@ -12,10 +12,6 @@ dependencies:
     - field.field.commerce_order.samhsa_publication_ob.field_special_request
     - field.field.commerce_order.samhsa_publication_ob.field_special_request_desc
     - field.field.commerce_order.samhsa_publication_ob.shipments
-  module:
-    - cck_select_other
-    - commerce_order
-    - inline_entity_form
 _core:
   default_config_hash: 8A8GxqeOFUWLQpdx8wpAJCM1ALU77LrqmmWRVvj0iVc
 id: commerce_order.samhsa_publication_ob.default
@@ -23,100 +19,35 @@ targetEntityType: commerce_order
 bundle: samhsa_publication_ob
 mode: default
 content:
-  billing_profile:
-    type: commerce_billing_profile
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  cart:
-    type: boolean_checkbox
-    weight: 3
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_justification:
-    type: string_textarea
-    weight: 4
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_log:
-    type: string_textarea
-    weight: 7
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_order_source:
-    type: cck_select_other
-    weight: 5
-    region: content
-    settings:
-      other_label: 'Provide Other Source'
-    third_party_settings: {  }
   field_special_request:
     type: boolean_checkbox
-    weight: 9
+    weight: 0
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_special_request_desc:
     type: string_textarea
-    weight: 10
+    weight: 1
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  mail:
-    type: email_default
-    weight: 8
-    region: content
-    settings:
-      placeholder: ''
-      size: 60
-    third_party_settings: {  }
-  order_items:
-    type: inline_entity_form_complex
-    weight: 2
-    region: content
-    settings:
-      form_mode: default
-      override_labels: true
-      label_singular: 'order item'
-      label_plural: 'order items'
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-    third_party_settings: {  }
-  order_number:
-    type: string_textfield
-    weight: 0
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  state:
-    type: options_select
-    weight: 6
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   adjustments: true
+  billing_profile: true
+  cart: true
   field_date_completed: true
+  field_justification: true
+  field_log: true
+  field_order_source: true
   field_order_weight: true
   ip_address: true
+  mail: true
+  order_items: true
+  order_number: true
   shipments: true
+  state: true
   store_id: true
   uid: true
