@@ -15,6 +15,9 @@
     &.hhs{  
       width: 68px;
       height: 68px;
+      @include breakpoint(0 $tablet) {
+        float: right;
+      } 
     }
   }
   .samhsa-logo, 
@@ -23,5 +26,13 @@
   }
   span.ext{
     display: none;
+  } 
+}
+
+#block-footer-logo {
+  @include breakpoint(0 $tablet) {
+    width: 40%;
+    float: right;
+    margin-top: 0;
   } 
 }
