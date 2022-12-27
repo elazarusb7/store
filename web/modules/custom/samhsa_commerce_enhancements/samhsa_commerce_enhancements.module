@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for SAMHSA Commerce Extensions module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+
+/**
+ * Implements hook_form_alter().
+ */
+// @todo form alter to clean up special request form
+// @todo form hook not working
+//function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+//  dpm($form_id);
+//}

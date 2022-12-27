@@ -1,7 +1,7 @@
-name: SAMHSA Commerce Extensions
+name: SAMHSA Commerce Enancements
 type: module
 description: Enhancements related to the commerce module.
-package: SAMHSA
+package: SAMHSA Commerce
 core_version_requirement: ^9 || ^10
 dependencies:
   - commerce

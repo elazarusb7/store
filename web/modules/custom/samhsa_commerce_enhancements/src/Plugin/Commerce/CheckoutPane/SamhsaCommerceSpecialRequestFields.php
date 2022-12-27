@@ -6,7 +6,7 @@
  *
  * Based loosely on https://docs.drupalcommerce.org/commerce2/developer-guide/checkout/create-custom-checkout-pane#example-5-use-the-entityformdisplay-class-for-pane-form-build-va
  */
-namespace Drupal\samhsa_commerce_extensions\Plugin\Commerce\CheckoutPane;
+namespace Drupal\samhsa_commerce_enhancements\Plugin\Commerce\CheckoutPane;
 
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
