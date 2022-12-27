@@ -5,10 +5,3 @@
   font-style: normal;
   margin-top: 1em;
 }
-
-#block-footer-address {
-  @include breakpoint(0 $tablet) {
-    width: 50%;
-    float: left;
-} 
-}
