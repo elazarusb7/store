@@ -405,4 +405,15 @@ class SamhsaXmlAPI {
     return $query->execute()->fetchField();
   }
 
+  public static function processFulfilledOrder($fileObj) {
+    $fullURL = \Drupal::request()->getSchemeAndHttpHost() . $fileObj->createFileUrl();
+    $f = fopen($fullURL, "r");
+    $out = [];
+    while (!feof($f)) {
+      $out[] = fgetcsv($f)[0];
+    }
+    fclose($f);
+    dsm($out);
+  }
+
 }

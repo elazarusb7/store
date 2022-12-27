@@ -5,3 +5,10 @@ samhsa_xml.orders_xml:
     _title: 'Samhsa Orders XML'
   requirements:
     _permission: 'export orders xml'
+samhsa_xml.fulfilled_orders:
+  path: '/samhsa-orders/process-fulfilled-orders'
+  defaults:
+    _form: '\Drupal\samhsa_xml\Form\ProcessFulfilledOrdersFormController'
+    _title: 'Process Fulfilled Orders'
+  requirements:
+    _permission: 'process fulfilled orders'

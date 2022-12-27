@@ -2,3 +2,7 @@ export orders xml:
   title: 'Export Orders XML'
   description: 'Export Orders XML'
   restrict access: FALSE
+process fulfilled orders:
+  title: 'Process Order Fulfillment'
+  description: 'Import and process fulfilled orders from GPO'
+  restrict access: FALSE
