@@ -16,7 +16,7 @@ class SamhsaTestbedController extends ControllerBase {
 
   public function testbed() {
     // Test code here
-    $csvFid = 7129;
+    $csvFid = 7106;
     $jsonFid = 7130;
     $xmlFid = 7131;
     $fileObj = File::load($csvFid);

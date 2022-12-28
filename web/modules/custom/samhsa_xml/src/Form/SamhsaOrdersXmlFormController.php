@@ -27,7 +27,6 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#type' => 'textfield',
       '#title' => t('Date (YYYY-MM-DD)'),
       '#default_value' => date("Y-m-d", strtotime("yesterday")),
-//      '#default_value' => '2022-11-07',
       '#required' => true,
     );
     $form['actions']['submit'] = [
@@ -56,7 +55,6 @@ class SamhsaOrdersXmlFormController extends FormBase
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $date = $form_state->getValue('date');
-//    $addend = $form_state->getValue('addend');
     SamhsaXmlAPI::generateXML($date);
   }
 }

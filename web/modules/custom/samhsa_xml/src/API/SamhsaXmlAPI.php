@@ -318,7 +318,7 @@ class SamhsaXmlAPI {
           $order->getState()->applyTransitionById('process');
 //          $order->getState()->applyTransitionById('complete');
         }
-//        else if ($currentState === 'process') {
+//        else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
 //          $order->getState()->applyTransitionById('complete');
 //        }
         $order->save();
@@ -422,19 +422,17 @@ class SamhsaXmlAPI {
       $drupalOrderId = $gpoOrderNumber - self::$addend;
       $order = Order::load($drupalOrderId);
       $currentState = $order->getState()->getId();
+      dsm($drupalOrderId);
       dsm($currentState);
 //      if ($currentState === 'pending') {
 //        $order->getState()->applyTransitionById('process');
 //        $order->getState()->applyTransitionById('complete');
 //      }
-//      else if ($currentState === 'process') {
+//      else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
 //        $order->getState()->applyTransitionById('complete');
 //      }
 //      $order->save();
     }
-
-    dsm($gpoOrderNumbersArray);
-    dsm($drupalOrderNumberArray);
   }
 
   /**
