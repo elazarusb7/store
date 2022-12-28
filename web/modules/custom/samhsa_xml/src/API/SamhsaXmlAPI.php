@@ -422,17 +422,24 @@ class SamhsaXmlAPI {
       $drupalOrderId = $gpoOrderNumber - self::$addend;
       $order = Order::load($drupalOrderId);
       $currentState = $order->getState()->getId();
-      dsm($drupalOrderId);
-      dsm($currentState);
-//      if ($currentState === 'pending') {
-//        $order->getState()->applyTransitionById('process');
-//        $order->getState()->applyTransitionById('complete');
-//      }
-//      else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
-//        $order->getState()->applyTransitionById('complete');
-//      }
-//      $order->save();
+//      dsm($drupalOrderId);
+//      dsm($currentState);
+      if ($currentState === 'pending') {
+        $order->getState()->applyTransitionById('process');
+        $order->getState()->applyTransitionById('complete');
+      }
+      else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
+        $order->getState()->applyTransitionById('complete');
+      }
+      $order->save();
     }
+    $messenger = \Drupal::messenger();
+    $messenger->addStatus(t('@count Orders were processed and set to a status of Complete.', ['@count' => count($gpoOrderNumbersArray)]));
+    \Drupal::logger('samhsa_xml')->alert('@count Orders were processed and set to a status of Complete.',
+      [
+        '@count' => count($gpoOrderNumbersArray)
+      ]
+    );
   }
 
   /**

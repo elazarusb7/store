@@ -6,7 +6,6 @@
 
 namespace Drupal\samhsa_xml\Form;
 
-use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
@@ -26,13 +25,13 @@ class ProcessFulfilledOrdersFormController extends FormBase
       );
       $form['info'] = array(
         '#type' => 'markup',
-        '#markup' => '<p style="text-align:right">' . t('This form processes a file of order number that have been fulfilled by GPO and sets their status to "completed"') . '</p>',
+        '#markup' => '<p style="text-align:right">' . t('This form processes a file of GPO order numbers that have been fulfilled by GPO and sets the matching Drupal Commerce Order status to "completed"') . '</p>',
       );
       $form['upload'] = array(
         '#type' => 'managed_file',
         '#size' => 20,
-        '#title' => t('Upload file of fulfilled orders.'),
-        '#description' => t('CSV, JSON or XML'),
+        '#title' => t('Upload CSV file of fulfilled order numbers.'),
+//        '#description' => t('CSV file'),
         '#upload_validators' => $validators,
         '#upload_location' => 'public://fulfilled_orders/',
         '#required' => true,
@@ -40,8 +39,9 @@ class ProcessFulfilledOrdersFormController extends FormBase
       $form['actions']['#type'] = 'actions';
       $form['actions']['submit'] = array(
         '#type' => 'submit',
-        '#value' => $this->t('Upload and process'),
+        '#value' => $this->t('Process'),
         '#button_type' => 'primary',
+        '#description' => $this->t('This CANNOT BE UNDONE!')
       );
 
     return $form;
