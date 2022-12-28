@@ -81,7 +81,6 @@ module:
   file: 0
   file_browser: 0
   filter: 0
-  ga_login: 0
   help: 0
   helper: 0
   history: 0
@@ -171,6 +170,7 @@ module:
   samhsa_pep_user_registration: 0
   samhsa_pep_utility: 0
   samhsa_term_elevation: 0
+  samhsa_testbed: 0
   samhsa_theme_block_pep8: 0
   samhsa_xml: 0
   search_api: 0
