@@ -21,7 +21,7 @@ class ProcessFulfilledOrdersFormController extends FormBase
 
   public function buildForm(array $form, FormStateInterface $form_state) {
     $validators = array(
-      'file_validate_extensions' => array('csv','json','xml'),
+      'file_validate_extensions' => array('csv json xml'),
     );
     $form['info'] = array(
       '#type' => 'markup',
@@ -56,9 +56,10 @@ class ProcessFulfilledOrdersFormController extends FormBase
     $form_file = $form_state->getValue('upload', 0);
     if (isset($form_file[0]) && !empty($form_file[0])) {
       $file = File::load($form_file[0]);
+      dsm($file);
 //      $file->setPermanent();
 //      $file->save();
-      SamhsaXmlAPI::processFulfilledOrder($file);
+//      SamhsaXmlAPI::processFulfilledOrder($file);
     }
   }
 }

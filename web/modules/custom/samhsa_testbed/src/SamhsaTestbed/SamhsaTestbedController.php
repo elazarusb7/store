@@ -16,16 +16,41 @@ class SamhsaTestbedController extends ControllerBase {
 
   public function testbed() {
     // Test code here
-    $fid = 7121;
-    $f = File::load($fid);
-    $fullURL = \Drupal::request()->getSchemeAndHttpHost() . $f->createFileUrl();
+    $csvFid = 7129;
+    $jsonFid = 7130;
+    $xmlFid = 7131;
+    $fileObj = File::load($csvFid);
 
-    $file = fopen($fullURL, "r");
-    $out = [];
-        while (!feof($file)) {
-          $out[] = fgetcsv($file)[0];
-        }
-    dsm($out);
+    SamhsaXmlAPI::processFulfilledOrder($fileObj);
+//    dsm($fileObj);
+
+//    $fullURL = \Drupal::request()->getSchemeAndHttpHost() . $fileObj->createFileUrl();
+//    $mimeType = $fileObj->getMimeType();
+//    $output = [];
+//    if ($mimeType === 'text/csv') {
+//      $f = fopen($fullURL, "r");
+//      while (!feof($f)) {
+//        $output[] = fgetcsv($f)[0];
+//      }
+//      fclose($f);
+//    }
+//    else if ($mimeType === 'application/octet-stream') {
+//      // JSON
+//      $f = file_get_contents($fullURL);
+//      $output = json_decode($f, true);
+//    }
+//    else if ($mimeType === 'application/xml') {
+//      $f = file_get_contents($fullURL);
+//      $new = simplexml_load_string($f);
+//      $con = json_encode($new);
+//      $output = json_decode($con, true)['order'];
+//    }
+//
+//    dsm($output);
+
+//    $array = ['12345','23456','56789'];
+//    $json = json_encode($array);
+//    dsm($json);
 
     $output = 'DEFAULT TEST OUTPUT';
     return array(
