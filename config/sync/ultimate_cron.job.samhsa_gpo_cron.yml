@@ -1,19 +1,20 @@
-uuid: 0065222a-bb89-4852-ba72-59a98a6752e7
+uuid: 8f4983b9-7833-43ea-8b1a-ffb026bb5913
 langcode: en
 status: true
 dependencies:
   module:
-    - dblog
-title: 'Remove expired log messages and flood control events'
-id: dblog_cron
+    - samhsa_gpo
+title: 'Default cron handler'
+id: samhsa_gpo_cron
 weight: 0
-module: dblog
-callback: dblog_cron
+module: samhsa_gpo
+callback: samhsa_gpo_cron
 scheduler:
-  id: simple
+  id: crontab
   configuration:
     rules:
-      - '0+@ 0 * * *'
+      - '0 1 * * *'
+    catch_up: 0
 launcher:
   id: serial
   configuration:
