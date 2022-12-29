@@ -21,7 +21,7 @@ function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $for
     $form['special_request']['#collapsed'] = TRUE;
   }
 
-  // Basically the same form but the array is structured differently :(
+  // Basically the same form as above, but the array is structured differently :(
   if ($form_id === 'commerce_order_default_edit_form') {
     $form['special_request']['#title'] = 'Special Request';
     $form['special_request']['#type'] = 'fieldset';
