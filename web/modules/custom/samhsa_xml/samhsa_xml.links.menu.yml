@@ -1,15 +1,15 @@
-samhsa_xml.generate_xml:
-  title: 'Orders: Generate XML'
-  description: '.'
-  parent: system.admin_config
-  route_name: samhsa_xml.orders_xml
-  weight: 0
-  menu_name: admin
-samhsa_xml.process_fulfilled_orders:
-  title: 'Orders: Process Fulfilled'
-  description: '.'
-  parent: system.admin_config
-  route_name: samhsa_xml.fulfilled_orders
-  weight: 0
-  menu_name: admin
+#samhsa_xml.generate_xml:
+#  title: 'Orders: Generate XML'
+#  description: '.'
+#  parent: system.admin_config
+#  route_name: samhsa_xml.orders_xml
+#  weight: 0
+#  menu_name: admin
+#samhsa_xml.process_fulfilled_orders:
+#  title: 'Orders: Process Fulfilled'
+#  description: '.'
+#  parent: system.admin_config
+#  route_name: samhsa_xml.fulfilled_orders
+#  weight: 0
+#  menu_name: admin
 
