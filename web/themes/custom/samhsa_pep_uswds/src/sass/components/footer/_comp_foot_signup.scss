@@ -65,6 +65,7 @@
                 padding: 0 15px;
                 &:hover{
                     background-color: $dark-gray2;
+                    border: 1px solid $dark-gray2;
                 } 
 
                 @include breakpoint ($max-width-tablet-portrait) {
