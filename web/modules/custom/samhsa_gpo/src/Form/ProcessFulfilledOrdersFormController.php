@@ -40,9 +40,13 @@ class ProcessFulfilledOrdersFormController extends FormBase
       $form['actions']['submit'] = array(
         '#type' => 'submit',
         '#value' => $this->t('Process'),
-        '#button_type' => 'primary',
+//        '#button_type' => 'primary',
         '#description' => $this->t('This CANNOT BE UNDONE!')
       );
+      $form['actions']['warning'] = [
+        '#type' => 'markup',
+        '#markup' => '<p>' . $this->t('This CANNOT BE UNDONE!') . '</p>',
+      ];
 
     return $form;
   }
