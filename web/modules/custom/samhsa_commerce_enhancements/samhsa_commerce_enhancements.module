@@ -20,4 +20,18 @@ function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $for
     $form['special_request']['#collapsible'] = TRUE;
     $form['special_request']['#collapsed'] = TRUE;
   }
+
+  // Basically the same form but the array is structured differently :(
+  if ($form_id === 'commerce_order_default_edit_form') {
+    $form['special_request']['#title'] = 'Special Request';
+    $form['special_request']['#type'] = 'fieldset';
+    $form['special_request']['#weight'] = 0;
+    $form['special_request']['#collapsible'] = TRUE;
+    $form['special_request']['#collapsed'] = TRUE;
+
+    $form['special_request']['field_special_request'] = $form['field_special_request'];
+    $form['special_request']['field_special_request_desc'] = $form['field_special_request_desc'];
+
+    unset($form['field_special_request'], $form['field_special_request_desc']);
+  }
 }
