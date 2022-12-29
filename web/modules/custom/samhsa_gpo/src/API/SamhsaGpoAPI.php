@@ -15,12 +15,11 @@ class SamhsaGpoAPI {
   // NEVER CHANGE THE VALUE OF THIS PROPERTY!
   private static $addend = 8017265; //This is added to the Drupal order ID to generate the GPO order ID.
 
-  public function __construct() {
-  }
+  public function __construct() {}
 
   /**
    *
-   * Get all the drupal order id for a give day.
+   * Get all the drupal order id for a given day.
    * @param $date (YYYY-MM-DD)
    *
    * @return mixed
@@ -31,13 +30,11 @@ class SamhsaGpoAPI {
     $endTime = mktime('23', '59', '59', $dateParts[1], $dateParts[2], $dateParts[0]);
     $connection = \Drupal::database();
     $query = $connection->select('commerce_order', 'ca');
-    $query->condition('ca.created', $startTime, '>');
-    $query->condition('ca.created', $endTime, '<');
-//    $query->range(0,1);
+    $query->condition('ca.created', $startTime, '>=');
+    $query->condition('ca.created', $endTime, '<=');
     $query->fields('ca', ['order_id']);
 
-    $orders = $query->execute()->fetchAllAssoc('order_id');
-    return $orders;
+    return $query->execute()->fetchAllAssoc('order_id');;
   }
 
   // Based on technique explained here. https://stackoverflow.com/questions/486757/how-to-generate-xml-file-dynamically-using-php
@@ -80,7 +77,7 @@ class SamhsaGpoAPI {
         );
       }
       else {
-        $customer = $order->getCustomer();
+//        $customer = $order->getCustomer();
         $profile = $order->getBillingProfile();
 
         // If the order does not have an address, do not process the order.
@@ -130,7 +127,7 @@ class SamhsaGpoAPI {
         }
         $fullPhone = $phone . $ext;
 
-//        $orderDateTime = date('c', $order->getPlacedTime());
+        // We force the format to midnight in spite of when the order was placed because that is what the GPO XML requires
         $orderDateTime = date('Y-m-d', $order->getPlacedTime()) . 'T00:00:00+00:00';
 
         // Build the XML for the order.
@@ -310,6 +307,10 @@ class SamhsaGpoAPI {
       ],
     ]);
     $newXmlNode = $node->save();
+
+    // If the xml file has been created and saved without error.
+    // Loop through the orders and change their status to 'process'
+    // Which the customized system also recognized as "pick_slips_generated"
     if ($newXmlNode) {
       foreach ($orders as $order_id) {
         $order = Order::load($order_id->order_id);
@@ -346,7 +347,7 @@ class SamhsaGpoAPI {
   }
 
   /**
-   * Get's the GPO number stored in Product.
+   * Gets the GPO number stored in Product.
    * There are two strategies
    * 1. Pull the value from a field in the product variant (DISABLED)
    * 2. Pull the value from a field in the main product (ENABLED)
@@ -355,14 +356,16 @@ class SamhsaGpoAPI {
    * But hey! This is what we inherited, so just trying to make the best of it.
    * @param $item
    *
-   * @return void
+   * @return string
    */
-  public static function getGpoNumber($item) {
+  public static function getGpoNumber($item): string {
     if ($item->hasPurchasedEntity()) {
       $purchasedItemId = $item->getPurchasedEntityId();
       $connection = \Drupal::database();
 
       // Strategy 1: accessing data from a new field added to the Variant
+      // Keeping this around because working from the Variant is the correct way to use Commerce
+      // Maybe at some point we'll adopt that approach.
       //      $query = $connection->select('commerce_product_variation__field_gpo_pubcode', 'code');
       //      $query->condition('code.entity_id', $purchasedItemId);
       //      $query->fields('code', ['field_gpo_pubcode_value']);
@@ -399,6 +402,11 @@ class SamhsaGpoAPI {
     return $query->countQuery()->execute()->fetchField();
   }
 
+  /**
+   * @param $order_id
+   *
+   * @return mixed
+   */
   public static function getOrderEmail($order_id) {
     $connection = \Drupal::database();
     $query = $connection->select('commerce_order', 'order');
@@ -417,13 +425,11 @@ class SamhsaGpoAPI {
   public static function processFulfilledOrder($fileObj) {
     $API = new SamhsaGpoAPI();
     $gpoOrderNumbersArray = $API->convertFileToArray($fileObj);
-    $drupalOrderNumberArray = [];
     foreach($gpoOrderNumbersArray as $gpoOrderNumber) {
+      // Convert the GPO order number to the matching Drupal Commerce Order ID.
       $drupalOrderId = $gpoOrderNumber - self::$addend;
       $order = Order::load($drupalOrderId);
       $currentState = $order->getState()->getId();
-//      dsm($drupalOrderId);
-//      dsm($currentState);
       if ($currentState === 'pending') {
         $order->getState()->applyTransitionById('process');
         $order->getState()->applyTransitionById('complete');
