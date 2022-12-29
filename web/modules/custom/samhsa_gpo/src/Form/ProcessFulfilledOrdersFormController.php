@@ -31,7 +31,6 @@ class ProcessFulfilledOrdersFormController extends FormBase
         '#type' => 'managed_file',
         '#size' => 20,
         '#title' => t('Upload CSV file of fulfilled order numbers.'),
-//        '#description' => t('CSV file'),
         '#upload_validators' => $validators,
         '#upload_location' => 'public://fulfilled_orders/',
         '#required' => true,
@@ -39,7 +38,7 @@ class ProcessFulfilledOrdersFormController extends FormBase
       $form['actions']['#type'] = 'actions';
       $form['actions']['submit'] = array(
         '#type' => 'submit',
-        '#value' => $this->t('Process'),
+        '#value' => $this->t('Process these orders'),
         '#description' => $this->t('This CANNOT BE UNDONE!')
       );
       $form['actions']['warning'] = [
@@ -56,6 +55,15 @@ class ProcessFulfilledOrdersFormController extends FormBase
     }
   }
 
+  /**
+   * @param array $form
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *
+   * @return void
+   *
+   * Note that we are not setting the uploaded file to permanent. This means the file will be purged by CRON 6 hours later.
+   * Which is fine. we don't need this file to hang around. Once it's been processed it has no further use.
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_file = $form_state->getValue('upload', 0);
     if (isset($form_file[0]) && !empty($form_file[0])) {
