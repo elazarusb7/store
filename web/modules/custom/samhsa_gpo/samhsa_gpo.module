@@ -2,10 +2,10 @@
 
 use Drupal\samhsa_gpo\API\SamhsaGpoAPI;
 
-//function samhsa_gpo_cron() {
-//  $date = date("Y-m-d", strtotime("yesterday"));
-//  $exportExists = SamhsaGpoAPI::testForExport($date);
-//  if (!$exportExists) {
-//    SamhsaGpoAPI::generateXML($date);
-//  }
-//}
+function samhsa_gpo_cron() {
+  $date = date("Y-m-d", strtotime("yesterday"));
+  $exportExists = SamhsaGpoAPI::testForExport($date);
+  if (!$exportExists) {
+    SamhsaGpoAPI::generateXML($date);
+  }
+}
