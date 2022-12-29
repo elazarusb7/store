@@ -7,12 +7,17 @@
 
 use Drupal\Core\Form\FormStateInterface;
 
-
 /**
  * Implements hook_form_alter().
  */
-// @todo form alter to clean up special request form
-// @todo form hook not working
-//function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-//  dpm($form_id);
-//}
+function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  // Could not get a specific form alter hook to work.
+  // We're just tweaking our special request layout a bit.
+  if ($form_id === 'commerce_checkout_flow_multistep_default') {
+    $form['special_request']['#title'] = 'Special Request';
+    $form['special_request']['#type'] = 'fieldset';
+    $form['special_request']['#weight'] = 0;
+    $form['special_request']['#collapsible'] = TRUE;
+    $form['special_request']['#collapsed'] = TRUE;
+  }
+}
