@@ -171,7 +171,6 @@ module:
   samhsa_pep_user_registration: 0
   samhsa_pep_utility: 0
   samhsa_term_elevation: 0
-  samhsa_testbed: 0
   samhsa_theme_block_pep8: 0
   search_api: 0
   search_api_attachments: 0
