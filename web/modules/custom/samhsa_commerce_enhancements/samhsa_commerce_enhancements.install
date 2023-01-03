@@ -1,0 +1,22 @@
+<?php
+
+
+/**
+ * Implements hook_install().
+ */
+function samhsa_commerce_enhancements_install() {
+
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function samhsa_commerce_enhancements_uninstall() {
+  Drupal::configFactory()
+    ->getEditable('field.storage.commerce_order.field_special_request.yml')
+    ->delete();
+  Drupal::configFactory()
+    ->getEditable('field.storage.commerce_order.field_special_request_desc.yml')
+    ->delete();
+}
