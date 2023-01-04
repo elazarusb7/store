@@ -26,4 +26,14 @@ function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $for
 
     unset($form['field_special_request'], $form['field_special_request_desc']);
   }
+
+  // The exposed filters section of /admin/commerce/orders
+  if ($form['#id'] === 'views-exposed-form-commerce-orders-page-1') {
+    // We can't allow users to select a 'false' value here because objects
+    // may have no actual 'false' value and so the results can be NULL
+    // Only let them select 'special request' == TRUE value which will always be populated
+    // when true.
+    unset($form['field_special_request_value']['#options'][0]);
+  }
+
 }
