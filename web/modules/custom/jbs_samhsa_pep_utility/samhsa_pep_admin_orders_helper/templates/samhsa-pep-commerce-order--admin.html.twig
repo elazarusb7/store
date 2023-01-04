@@ -23,12 +23,13 @@
 
 <div class="layout-order-form clearfix">
   <div class="layout-region layout-region-order-main">
-    {# @todo - this should be chekcing 'order.field_special_request' but it doesn't seem to be populated here. #}
+    {# @todo - this should be checking 'order.field_special_request' but it doesn't seem to be populated here. #}
     {% if order.field_special_request_desc|length > 0 %}
       <div id="special-request-order">
         <h1>This order is a special request</h1>
         {{ order.field_special_request_desc }}
       </div>
+      <br />
     {% endif %}
 
     {{ order.clone_order_form }}
