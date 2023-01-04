@@ -20,16 +20,18 @@
 
 {{ attach_library('commerce_order/form') }}
 {% set order_state = order_entity.getState.getLabel %}
+{# It was a PITA to get the raw value of this: #}
+{% set order_is_special =  order.field_special_request|render|striptags|trim %}
 
 <div class="layout-order-form clearfix">
   <div class="layout-region layout-region-order-main">
-    {# @todo - this should be checking 'order.field_special_request' but it doesn't seem to be populated here. #}
-    {% if order.field_special_request_desc|length > 0 %}
+
+    {% if order_is_special %}
       <div id="special-request-order">
         <h1>This order is a special request</h1>
         {{ order.field_special_request_desc }}
       </div>
-      <br />
+      <br/>
     {% endif %}
 
     {{ order.clone_order_form }}
