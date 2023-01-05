@@ -311,17 +311,18 @@ class SamhsaGpoAPI {
     // If the xml file has been created and saved without error.
     // Loop through the orders and change their status to 'process'
     // Which the customized system also recognized as "pick_slips_generated"
+    // @todo: Remove deprecated lines after the process fulfilled orders functionality is implemented
     if ($newXmlNode) {
       foreach ($orders as $order_id) {
         $order = Order::load($order_id->order_id);
         $currentState = $order->getState()->getId();
         if ($currentState === 'pending') {
           $order->getState()->applyTransitionById('process');
-//          $order->getState()->applyTransitionById('complete');
+          $order->getState()->applyTransitionById('complete'); // deprecated
         }
-//        else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
-//          $order->getState()->applyTransitionById('complete');
-//        }
+        else if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
+          $order->getState()->applyTransitionById('complete'); // deprecated
+        } // deprecated
         $order->save();
       }
     }
