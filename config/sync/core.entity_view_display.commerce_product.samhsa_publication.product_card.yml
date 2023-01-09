@@ -45,6 +45,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_series
     - field.field.commerce_product.samhsa_publication.field_substances
     - field.field.commerce_product.samhsa_publication.field_subtitle
+    - field.field.commerce_product.samhsa_publication.field_summary_for_products
     - field.field.commerce_product.samhsa_publication.field_supplemental_materials
     - field.field.commerce_product.samhsa_publication.field_tags
     - field.field.commerce_product.samhsa_publication.field_thumbnail
@@ -133,6 +134,7 @@ hidden:
   field_series: true
   field_substances: true
   field_subtitle: true
+  field_summary_for_products: true
   field_supplemental_materials: true
   field_tags: true
   field_thumbnail: true
