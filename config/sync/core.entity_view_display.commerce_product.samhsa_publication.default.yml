@@ -369,7 +369,7 @@ content:
     region: content
   field_summary_for_products:
     type: basic_string
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 40
