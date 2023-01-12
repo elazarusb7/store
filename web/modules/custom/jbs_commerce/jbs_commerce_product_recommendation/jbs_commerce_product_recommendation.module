@@ -11,21 +11,34 @@ use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\jbs_commerce_product_recommendation\RecommendationModelFunctions;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_cron().
  */
 function jbs_commerce_product_recommendation_cron(): void {
   $time = time();
-  $updated = \Drupal::config('jbs_commerce_product_recommendation.settings');
+  $config = \Drupal::config('jbs_commerce_product_recommendation.settings');
+  $userHistoryExpire = $config->get('userHistoryExpire') * 86400;
 
-  if ($updated->get('autoUpdate') === 1 && !empty($updated->get('intervalUpdate'))) {
-    if ($time - $updated->get('lastUpdate') > (86400 * $updated->get('intervalUpdate'))) {
-      (new RecommendationModelFunctions)->refreshModel();
+  if ($config->get('autoUpdate') === 1 && !empty($config->get('intervalUpdate'))) {
+    if ($time - $config->get('lastUpdate') > (86400 * $config->get('intervalUpdate'))) {
+      (new \Drupal\jbs_commerce_product_recommendation\RecommendationModelFunctions)->refreshModel();
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('The Recommendation Model has been updated via cron.');
     }
   }
+
+  /**
+   * OCWT-3562 - Remove entries older than specified days because this table can get too large.
+   */
+  if ($userHistoryExpire > 0 ) {
+    $purge_older_than = $time - $userHistoryExpire;
+    \Drupal::database()->delete('product_recommendation__product_events')
+      ->condition('timestamp', $purge_older_than, '<')
+      ->execute();
+  }
+
 }
 
 /**
@@ -130,7 +143,10 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, EntityIn
 /*
  *  Non-Hook Functions
  */
-
+/**
+ * @return bool
+ *  TRUE if path matches /product/%'
+ */
 // Sniffer fatally chokes on is_product_view(), so disable.
 // phpcs:ignore
 function is_product_view(): bool {

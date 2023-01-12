@@ -9,4 +9,4 @@ default:
   autoUpdate: 0
   intervalUpdate: 7
   numberOfRecommendations: 6
-  userHistoryExpire: 21
+userHistoryExpire: 21
