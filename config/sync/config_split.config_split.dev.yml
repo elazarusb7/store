@@ -1,0 +1,24 @@
+uuid: 9d48f842-6d89-460c-a0c5-f0733fef0220
+langcode: en
+status: false
+dependencies: {  }
+id: dev
+label: Development
+description: 'Enables modules intended for development use only. You probably don''t want to enable this in a testing environment. <em>Never enable in a production environment</em>.'
+weight: 0
+folder: ../config/dev
+module:
+  dblog: 0
+  devel: 0
+  devel_generate: 0
+  stage_file_proxy: 0
+theme: {  }
+blacklist:
+  - dblog.settings
+  - views.view.watchdog
+graylist:
+  - search_api.server.common
+  - system.performance
+  - tfa.settings
+graylist_dependents: true
+graylist_skip_equal: true

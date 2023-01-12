@@ -2,8 +2,6 @@
 
 namespace Drupal\mobile_device_detection\Object;
 
-use Symfony\Component\HttpFoundation\RequestStack;
-
 /**
  * MobileDeviceDetection object.
  */
@@ -219,7 +217,7 @@ class MobileDeviceDetection {
         $options = array_merge($this->getAttributes()->get('tablet_devices'));
       case 'deviceDetect':
         device_detect:
-        $device = false;
+        $device = FALSE;
 
         foreach ($options as $value) {
           if (!empty($value)) {

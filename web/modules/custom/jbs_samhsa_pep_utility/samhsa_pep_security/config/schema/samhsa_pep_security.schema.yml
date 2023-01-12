@@ -35,4 +35,3 @@ samhsa_pep_security.settings:
     log_level:
       type: integer
       label: 'Logging level'
-

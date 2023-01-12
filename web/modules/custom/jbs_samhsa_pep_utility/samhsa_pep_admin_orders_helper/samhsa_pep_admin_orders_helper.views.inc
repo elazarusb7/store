@@ -2,7 +2,8 @@
 
 /**
  * @file
- * Contains samhsa_pep_admin_orders_helper\samhsa_pep_admin_orders_helper.views.inc.
+ * Contains
+ *   samhsa_pep_admin_orders_helper\samhsa_pep_admin_orders_helper.views.inc.
  *
  * Provides a custom views field data that isn't tied to any other module.
  */

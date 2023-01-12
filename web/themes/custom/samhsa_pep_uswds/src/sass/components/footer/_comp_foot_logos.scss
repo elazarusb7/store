@@ -1,9 +1,12 @@
 
 //Footer Logos
 .footer-logo{
-  margin-top: 20px;
+  margin-top: 0;
   @include breakpoint ($break-mobile-landscape){
     text-align: right;
+  }
+  @include breakpoint(0 $tablet) {
+    margin-top: 20px;
   }
   .logos{
     display:inline-block;

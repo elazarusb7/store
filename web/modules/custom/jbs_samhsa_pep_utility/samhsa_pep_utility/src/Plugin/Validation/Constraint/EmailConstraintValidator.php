@@ -17,8 +17,9 @@ class EmailConstraintValidator extends ConstraintValidator {
     foreach ($items as $item) {
       // Check if email valid.
       if (!filter_var($item->value, FILTER_VALIDATE_EMAIL)) {
-          $this->context->addViolation($constraint->notValidEmail, ['%value' => $item->value]);
+        $this->context->addViolation($constraint->notValidEmail, ['%value' => $item->value]);
       }
     }
   }
+
 }

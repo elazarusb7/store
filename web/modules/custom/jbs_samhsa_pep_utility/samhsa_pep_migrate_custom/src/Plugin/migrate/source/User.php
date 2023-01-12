@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\Plugin\migrate\source\User.
- */
 
 namespace Drupal\samhsa_pep_migrate_custom\Plugin\migrate\source;
 
@@ -26,7 +22,7 @@ class User extends DrupalSqlBase {
       ->fields('u', array_keys($this->baseFields()))
       ->condition('uid', 1, '>');
     // Vera d7 user id =10, Joseph d7 user id = 1. Do Not Import.
-    //->condition('uid', array(1, 10), 'NOT IN');
+    // ->condition('uid', array(1, 10), 'NOT IN');.
   }
 
   /**
@@ -51,12 +47,12 @@ class User extends DrupalSqlBase {
     FROM field_data_field_first_name 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
       $values[] = $record->field_first_name_value;
-      //$v = $record->field_first_name_value;
-      //drush_print($v);
+      // $v = $record->field_first_name_value;
+      // drush_print($v);
     }
     $row->setSourceProperty('field_first_name', $values);
 
@@ -66,11 +62,11 @@ class User extends DrupalSqlBase {
     FROM field_data_field_last_name 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
-      //$v = $record->field_last_name_value;
-      //drush_print($v);
+      // $v = $record->field_last_name_value;
+      // drush_print($v);
       $values[] = $record->field_last_name_value;
     }
     $row->setSourceProperty('field_last_name', $values);
@@ -81,11 +77,11 @@ class User extends DrupalSqlBase {
     FROM field_data_field_organization 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
-      //$v = $record->field_organization_value;
-      //drush_print($v);
+      // $v = $record->field_organization_value;
+      // drush_print($v);
       $values[] = $record->field_organization_value;
     }
     $row->setSourceProperty('field_organization', $values);
@@ -96,11 +92,11 @@ class User extends DrupalSqlBase {
     FROM field_data_field_phone_number 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
-      //$v = $record->field_phone_number_value;
-      //drush_print($v);
+      // $v = $record->field_phone_number_value;
+      // drush_print($v);
       $values[] = $record->field_phone_number_value;
     }
     $row->setSourceProperty('field_phone_number', $values);
@@ -111,11 +107,11 @@ class User extends DrupalSqlBase {
     FROM field_data_field_rejected_user 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
-      //$v = $record->field_rejected_user_value;
-      //drush_print($v);
+      // $v = $record->field_rejected_user_value;
+      // drush_print($v);
       $values[] = $record->field_rejected_user_value;
     }
     $row->setSourceProperty('field_rejected_user', $values);
@@ -126,11 +122,11 @@ class User extends DrupalSqlBase {
     FROM field_data_field_country_hidden 
     WHERE entity_id = :uid AND bundle = :bundle';
 
-    $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
     $values = [];
     foreach ($result as $record) {
-      //$v = $record->field_country_hidden_value;
-      //drush_print($v);
+      // $v = $record->field_country_hidden_value;
+      // drush_print($v);
       $values[] = $record->field_country_hidden_value;
     }
     $row->setSourceProperty('field_country_hidden', $values);
@@ -148,7 +144,7 @@ class User extends DrupalSqlBase {
     ON fl.field_location_lid = l.lid
     WHERE
       fl.entity_id = :uid AND bundle = :bundle  
-  ', array(':uid' => $uid, ':bundle' => $bundle));
+  ', [':uid' => $uid, ':bundle' => $bundle]);
     foreach ($result as $record) {
       $row->setSourceProperty('city', $record->city);
       $row->setSourceProperty('country', $record->country);
@@ -157,7 +153,7 @@ class User extends DrupalSqlBase {
       $row->setSourceProperty('street', $record->street);
       $row->setSourceProperty('additional', $record->additional);
 
-      //set address field fields
+      // Set address field fields.
       $row->setSourceProperty('address_city', $record->city);
       $row->setSourceProperty('address_country', strtoupper($record->country));
       $row->setSourceProperty('address_postal_code', $record->postal_code);
@@ -167,20 +163,19 @@ class User extends DrupalSqlBase {
 
     }
 
-    //field_date_approved.
+    // field_date_approved.
     $query = 'SELECT field_date_approved_value
       FROM
       field_data_field_date_approved
       WHERE entity_id = :uid AND bundle = :bundle';
-      $result = $this->getDatabase()->query($query, array(':uid' => $uid,':bundle' => $bundle));
-      $values = [];
+    $result = $this->getDatabase()->query($query, [':uid' => $uid, ':bundle' => $bundle]);
+    $values = [];
     foreach ($result as $record) {
       $values[] = date('Y-m-d', strtotime($record->field_date_approved_value));
     }
     $row->setSourceProperty('field_date_approved', $values);
 
     // user_role.
-
     $query = $this->select('users_roles', 'r');
     $query->fields('r', ['rid']);
     $query->condition('r.uid', $uid, '=');
@@ -194,12 +189,12 @@ class User extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function getIds() {
-    return array(
-      'uid' => array(
+    return [
+      'uid' => [
         'type' => 'integer',
         'alias' => 'u',
-      ),
-    );
+      ],
+    ];
   }
 
   /**
@@ -209,7 +204,7 @@ class User extends DrupalSqlBase {
    *   Associative array having field name as key and description as value.
    */
   protected function baseFields() {
-    $fields = array(
+    $fields = [
       'uid' => $this->t('User ID'),
       'name' => $this->t('Username'),
       'pass' => $this->t('Password'),
@@ -224,7 +219,7 @@ class User extends DrupalSqlBase {
       'language' => $this->t('Language'),
       'picture' => $this->t('Picture'),
       'init' => $this->t('Init'),
-    );
+    ];
     return $fields;
 
   }
@@ -244,4 +239,3 @@ class User extends DrupalSqlBase {
   }
 
 }
-

@@ -14,6 +14,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
     - field.field.commerce_product.samhsa_publication.field_google_play
+    - field.field.commerce_product.samhsa_publication.field_gpo_pubcode
     - field.field.commerce_product.samhsa_publication.field_issues_conditions_and_diso
     - field.field.commerce_product.samhsa_publication.field_last_reviewed
     - field.field.commerce_product.samhsa_publication.field_location
@@ -25,6 +26,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_office_center
     - field.field.commerce_product.samhsa_publication.field_pep_product_type
     - field.field.commerce_product.samhsa_publication.field_population_group
+    - field.field.commerce_product.samhsa_publication.field_print_only_out_of_stock
     - field.field.commerce_product.samhsa_publication.field_product_owner_email
     - field.field.commerce_product.samhsa_publication.field_product_owner_name
     - field.field.commerce_product.samhsa_publication.field_product_owner_phone
@@ -143,6 +145,15 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 33
+    region: content
+  field_gpo_pubcode:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 39
     region: content
   field_issues_conditions_and_diso:
     type: entity_reference_label
@@ -401,6 +412,7 @@ hidden:
   field_attachment: true
   field_may_be_interested_in: true
   field_office_center: true
+  field_print_only_out_of_stock: true
   field_qty_reserved: true
   field_supplemental_materials: true
   field_web_card_image: true

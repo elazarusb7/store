@@ -504,7 +504,20 @@ display:
           entity_field: product_id
           plugin_id: standard
           required: false
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<div class="messages messages--warning">Attention: We are moving to a new warehouse and apologize for any shipment delays. This move will allow us to provide better service in the future. Thanks for your patience.</div><br/>'
+            format: full_html
+          tokenize: false
       footer:
         area_text_custom_1:
           id: area_text_custom_1
@@ -526,7 +539,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p><p  class="cart--shipping-notice">International orders - for shipments outside the U.S. or U.S. territories, please send an email to <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> stating you wish to place an international order. Shipping charges may apply. You will receive confirmation of your request including product availability, a shipping estimate, and a payment authorization in a reply email.</p>'
+          content: '<p class="cart--shipping-notice">Products on the store.samhsa.gov site are provided by SAMHSA at no cost to the public. Regular shipping of stocked items is free within the U.S. and U.S. territories. The maximum order quantity for each item appears on the product page. Output of products that are out of stock or designated as “Download only” is the responsibility of the requester.</p>'
           tokenize: false
       display_extenders: {  }
     cache_metadata:

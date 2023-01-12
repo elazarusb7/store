@@ -5,4 +5,4 @@ services:
       - { name: event_subscriber }
   samhsa_pep_utility.pep_utility_functions:
     class: Drupal\samhsa_pep_utility\PepUtilityFunctions
-    arguments: []
+    arguments: [ ]

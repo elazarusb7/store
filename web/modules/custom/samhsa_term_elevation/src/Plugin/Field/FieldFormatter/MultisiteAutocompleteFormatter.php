@@ -26,7 +26,7 @@ class MultisiteAutocompleteFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
         '#type' => 'markup',
-        '#markup' => $item->value
+        '#markup' => $item->value,
       ];
     }
     return $elements;

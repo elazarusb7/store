@@ -1,7 +1,7 @@
 name: Commerce Max Limit Field
 type: module
 description: Provides a Max Limit field for Commerce Product.
-package: Custom
+package: 'SAMHSA Commerce'
 dependencies:
   - commerce
   - commerce:commerce_product

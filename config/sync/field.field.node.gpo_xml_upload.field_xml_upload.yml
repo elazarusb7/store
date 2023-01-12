@@ -1,0 +1,27 @@
+uuid: 85a05ff4-4d2d-46de-973f-71813a0b46d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_xml_upload
+    - node.type.gpo_xml_upload
+  module:
+    - file
+id: node.gpo_xml_upload.field_xml_upload
+field_name: field_xml_upload
+entity_type: node
+bundle: gpo_xml_upload
+label: 'XML Upload'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: gpo-xml
+  file_extensions: xml
+  max_filesize: ''
+  description_field: false
+field_type: file

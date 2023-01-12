@@ -1,22 +1,25 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\jbs_commerce_import_product_data\ImportProductDataFunctions
- */
-
 namespace Drupal\jbs_commerce_import_product_data;
 
+use Drupal\commerce_product\Entity\Product;
+
+/**
+ *
+ */
 class ImportProductDataFunctions implements ImportProductDataFunctionsInterface {
 
+  /**
+   *
+   */
   public function importData() {
     $map_tn = 'commerce_product_variation_field_data';
     $db = \Drupal::database();
 
     try {
       $file = realpath('modules/custom/jbs_commerce/jbs_commerce_import_product_data/src/Products--PublicationCategoryPublicationAudience.20200204.csv');
-      $map = array();
-      $map_titles = array();
+      $map = [];
+      $map_titles = [];
 
       $table_values = $db->select($map_tn, 'fd')
         ->fields('fd', ['sku', 'title', 'product_id'])
@@ -27,33 +30,39 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
         $map_titles[md5($product->title)] = $product->product_id;
       }
 
-      $columns = array();
-      $rows = array();
-      $missing = array();
+      $columns = [];
+      $rows = [];
+      $missing = [];
 
       if (($handle = fopen($file, 'r')) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-          $row = [$data[0], $data[1], $data[4], $data[5], $data[6], $data[7]]; // SKU, Title, Substance Abuse, Mental Health, Practitioner/Professional, General Public
+          // SKU, Title, Substance Abuse, Mental Health, Practitioner/Professional, General Public.
+          $row = [$data[0], $data[1], $data[4], $data[5], $data[6], $data[7]];
           if (empty($columns)) {
             $columns = $row;
-          } else {
+          }
+          else {
             $id = (!empty($map[$row[0]]) ? $map[$row[0]] : $map_titles[md5($row[1])]);
             if (!empty($id)) {
-              $product = \Drupal\commerce_product\Entity\Product::load($id);
-              $checked_pub_category = array();
-              $checked_pub_target_audience = array();
+              $product = Product::load($id);
+              $checked_pub_category = [];
+              $checked_pub_target_audience = [];
 
               if (!empty($row[2])) {
-                $checked_pub_category[] = ['target_id' => '5620']; // Substance Abuse
+                // Substance Abuse.
+                $checked_pub_category[] = ['target_id' => '5620'];
               }
               if (!empty($row[3])) {
-                $checked_pub_category[] = ['target_id' => '5621']; // Mental Health
+                // Mental Health.
+                $checked_pub_category[] = ['target_id' => '5621'];
               }
               if (!empty($row[4])) {
-                $checked_pub_target_audience[] = ['target_id' => '6037']; // Practitioner/Professional
+                // Practitioner/Professional.
+                $checked_pub_target_audience[] = ['target_id' => '6037'];
               }
               if (!empty($row[5])) {
-                $checked_pub_target_audience[] = ['target_id' => '6038']; // General Public
+                // General Public.
+                $checked_pub_target_audience[] = ['target_id' => '6038'];
               }
 
               if (!empty($checked_pub_category) || !empty($checked_pub_target_audience)) {
@@ -63,10 +72,11 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
                 if (!empty($checked_pub_target_audience)) {
                   $product->set('field_pub_target_audience', $checked_pub_target_audience);
                 }
-                //$rows[] = $row;
+                // $rows[] = $row;
                 $product->save();
               }
-            } else {
+            }
+            else {
               $missing[] = $row;
             }
           }
@@ -74,8 +84,10 @@ class ImportProductDataFunctions implements ImportProductDataFunctionsInterface 
       }
       fclose($handle);
       \Drupal::messenger()->addMessage('Data was imported, check the corresponding tables.');
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::messenger()->addWarning('Import failed.');
     }
   }
+
 }

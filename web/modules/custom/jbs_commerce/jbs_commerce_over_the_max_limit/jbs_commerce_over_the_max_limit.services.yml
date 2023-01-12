@@ -1,14 +1,14 @@
 services:
   jbs_commerce_over_the_max_limit.cart_events:
     class: Drupal\jbs_commerce_over_the_max_limit\EventSubscriber\AddToCartEventSubscriber
-    arguments: ['@messenger', '@string_translation']
+    arguments: [ '@messenger', '@string_translation' ]
     tags:
       - { name: event_subscriber }
-#  jbs_commerce_over_the_max_limit.order_events:
-#    class: Drupal\jbs_commerce_over_the_max_limit\EventSubscriber\OrderEventSubscriber
-#    arguments: ['@messenger', '@string_translation']
-#    tags:
-#      - { name: event_subscriber }
+  #  jbs_commerce_over_the_max_limit.order_events:
+  #    class: Drupal\jbs_commerce_over_the_max_limit\EventSubscriber\OrderEventSubscriber
+  #    arguments: ['@messenger', '@string_translation']
+  #    tags:
+  #      - { name: event_subscriber }
   jbs_commerce_over_the_max_limit.maxlimit_util_functions:
-      class: Drupal\jbs_commerce_over_the_max_limit\MaxLimitUtilFunctions
-      arguments: []
+    class: Drupal\jbs_commerce_over_the_max_limit\MaxLimitUtilFunctions
+    arguments: [ ]

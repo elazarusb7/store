@@ -2,6 +2,7 @@
 
 namespace Drupal\samhsa_publications_inventory_ex\Controller;
 
+use Drupal;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,9 +34,7 @@ class SamhsaPublicationInventoryExport extends ControllerBase implements Contain
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager')
-    );
+    return new static($container->get('entity_type.manager'));
   }
 
   /**
@@ -64,7 +63,7 @@ class SamhsaPublicationInventoryExport extends ControllerBase implements Contain
     // Add the header as the first line of the CSV.
     fputcsv($handle, $header);
 
-    $result = \Drupal::database()->query("SELECT commerce_product_variation_field_data.sku AS sku, commerce_product_variation_field_data.title AS title, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_format.field_format_target_id AS format, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_office_center.field_office_center_value AS office_center, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_campaign.field_campaign_value AS campaign, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_publication_date.field_publication_date_value AS publication_date, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_product_owner_name.field_product_owner_name_value AS owner_name, commerce_product_variation__field_available_quantity.field_available_quantity_value AS commerce_product_variation__field_available_quantity_field_a, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_qty_max_order.field_qty_max_order_value AS commerce_product_field_data_commerce_product_variation_field_9, commerce_product_variation_field_data.variation_id AS variation_id, commerce_product_field_data_commerce_product_variation_field_data.status AS commerce_product_field_data_commerce_product_variation_field_10, commerce_product_variation__field_pallet_location.field_pallet_location_value AS commerce_product_variation__field_pallet_location_field_pall, SUM(commerce_order_item_commerce_product_variation_field_data.quantity) AS commerce_order_item_commerce_product_variation_field_data_qu, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.field_pep_product_type_value) AS commerce_product_field_data_commerce_product_variation_field_5, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.delta) AS commerce_product_field_data_commerce_product_variation_field_6, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.langcode) AS commerce_product_field_data_commerce_product_variation_field_7, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.bundle) AS commerce_product_field_data_commerce_product_variation_field_8, MIN(commerce_product_variation_field_data.variation_id) AS variation_id_1, MIN(commerce_product_field_data_commerce_product_variation_field_data.product_id) AS commerce_product_field_data_commerce_product_variation_field_11, MIN(commerce_order_item_commerce_product_variation_field_data.order_item_id) AS commerce_order_item_commerce_product_variation_field_data_or
+    $result = Drupal::database()->query("SELECT commerce_product_variation_field_data.sku AS sku, commerce_product_variation_field_data.title AS title, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_format.field_format_target_id AS format, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_office_center.field_office_center_value AS office_center, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_campaign.field_campaign_value AS campaign, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_publication_date.field_publication_date_value AS publication_date, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_product_owner_name.field_product_owner_name_value AS owner_name, commerce_product_variation__field_available_quantity.field_available_quantity_value AS commerce_product_variation__field_available_quantity_field_a, commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_qty_max_order.field_qty_max_order_value AS commerce_product_field_data_commerce_product_variation_field_9, commerce_product_variation_field_data.variation_id AS variation_id, commerce_product_field_data_commerce_product_variation_field_data.status AS commerce_product_field_data_commerce_product_variation_field_10, commerce_product_variation__field_pallet_location.field_pallet_location_value AS commerce_product_variation__field_pallet_location_field_pall, SUM(commerce_order_item_commerce_product_variation_field_data.quantity) AS commerce_order_item_commerce_product_variation_field_data_qu, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.field_pep_product_type_value) AS commerce_product_field_data_commerce_product_variation_field_5, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.delta) AS commerce_product_field_data_commerce_product_variation_field_6, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.langcode) AS commerce_product_field_data_commerce_product_variation_field_7, MIN(commerce_product_field_data_commerce_product_variation_field_data__commerce_product__field_pep_product_type.bundle) AS commerce_product_field_data_commerce_product_variation_field_8, MIN(commerce_product_variation_field_data.variation_id) AS variation_id_1, MIN(commerce_product_field_data_commerce_product_variation_field_data.product_id) AS commerce_product_field_data_commerce_product_variation_field_11, MIN(commerce_order_item_commerce_product_variation_field_data.order_item_id) AS commerce_order_item_commerce_product_variation_field_data_or
 FROM {commerce_product_variation_field_data} commerce_product_variation_field_data
 LEFT JOIN {commerce_product_field_data} commerce_product_field_data_commerce_product_variation_field_data ON commerce_product_variation_field_data.product_id = commerce_product_field_data_commerce_product_variation_field_data.product_id
 LEFT JOIN {commerce_order_item} commerce_order_item_commerce_product_variation_field_data ON commerce_product_variation_field_data.variation_id = commerce_order_item_commerce_product_variation_field_data.purchased_entity
@@ -81,7 +80,7 @@ LEFT JOIN {commerce_product_variation__9ec3c7b4e5} commerce_product_variation__f
 WHERE (commerce_product_variation_field_data.status = '1') AND (commerce_product_field_data_commerce_product_variation_field_data__commerce_product__stores.stores_target_id = '1')
 GROUP BY sku, title, format, office_center, campaign, publication_date, owner_name, commerce_product_variation__field_available_quantity_field_a, commerce_product_field_data_commerce_product_variation_field_9, commerce_product_variation_field_data.variation_id, commerce_product_field_data_commerce_product_variation_field_10, commerce_product_variation__field_pallet_location_field_pall");
     foreach ($result as $res) {
-      $data = array(
+      $data = [
         $res->sku,
         $res->title,
         $res->format,
@@ -101,9 +100,9 @@ GROUP BY sku, title, format, office_center, campaign, publication_date, owner_na
         $res->variation_id_1,
         $res->commerce_product_field_data_commerce_product_variation_field_11,
         $res->commerce_order_item_commerce_product_variation_field_data_or,
-      );
+      ];
 
-      // Add the data we exported to the next line of the CSV>
+      // Add the data we exported to the next line of the CSV>.
       fputcsv($handle, array_values($data));
     }
     // Reset where we are in the CSV.
@@ -125,7 +124,7 @@ GROUP BY sku, title, format, office_center, campaign, publication_date, owner_na
     $response->headers->set('Content-Type', 'text/csv');
     $response->headers->set('Content-Disposition', 'attachment; filename="samhsa_publications_inventory.csv"');
 
-    // This line physically adds the CSV data we created
+    // This line physically adds the CSV data we created.
     $response->setContent($csv_data);
 
     return $response;

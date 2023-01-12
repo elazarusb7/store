@@ -24,10 +24,11 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $this->entity_type_manager = $entity_type_manager;
   }
 
+  /**
+   *
+   */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager'),
-    );
+    return new static($container->get('entity_type.manager'),);
   }
 
   /**
@@ -41,7 +42,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
    * Adds a submit button which will call the submit handler
    * to run the batch operation.
    */
-  public function buildForm(array $form, FormStateInterface $form_state){
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Genarate'),
@@ -60,18 +61,24 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     $header = $this->csv_header();
     // Append header values.
     if (!file_exists($download_folder)) {
-      mkdir($download_folder, 0777, TRUE);
+      if (!mkdir($download_folder, 0777, TRUE) && !is_dir($download_folder)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $download_folder));
+      }
     }
+
     $fp = fopen($download_folder . '/' . $file_name, 'w');
     fprintf($fp, chr(0xEF) . chr(0xBB) . chr(0xBF));
     fwrite($fp, implode(",", $header) . "\n");
     fclose($fp);
 
-    // Define the Operations variable
+    // Define the Operations variable.
     $operations = [];
 
-    for($i=0; $i<5; $i++) {
-      $operations[] = ['\Drupal\samhsa_publications_inventory_ex\Form\SamhsaPublicationInventoryExportForm::process_batch', [$i, 2]];
+    for ($i = 0; $i < 5; $i++) {
+      $operations[] = [
+        '\Drupal\samhsa_publications_inventory_ex\Form\SamhsaPublicationInventoryExportForm::process_batch',
+        [$i, 2],
+      ];
     }
 
     $batch = [
@@ -82,10 +89,13 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
     batch_set($batch);
   }
 
+  /**
+   *
+   */
   public static function process_batch($ids, $total, &$context) {
     $download_folder = 'public://publication_inventory_export';
     $file_name = 'publication_inventory_export' . date('m-d-Y') . '.csv';
-    $results = array('test');
+    $results = ['test'];
     if (!isset($context['sandbox']['progress'])) {
       $context['sandbox']['progress'] = 0;
       $context['sandbox']['max'] = $total;
@@ -96,7 +106,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
       $context['sandbox']['progress']++;
     }
     fclose($fwp);
-    //check if batch is finished and update progress
+    // Check if batch is finished and update progress.
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = ($context['sandbox']['progress'] >= $context['sandbox']['max']);
     }
@@ -108,12 +118,14 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
    * @param $operations
    */
   public static function process_finished_batch($success, $results, $operations) {
-    if($success) {
-      \Drupal::messenger()->addStatus('Publication Inventory was exported successfully');
+    if ($success) {
+      \Drupal::messenger()
+        ->addStatus('Publication Inventory was exported successfully');
       $uri = 'public://';
-      $path= file_create_url($uri) . 'publication_inventory_export/' . 'publication_inventory_export' . date('m-d-Y') . '.csv';
+      $path = \Drupal::service('file_url_generator')->generateAbsoluteString($uri) . 'publication_inventory_export/' . 'publication_inventory_export' . date('m-d-Y') . '.csv';
       $url = Url::fromUri($path);
-      \Drupal::messenger()->addStatus(t('Download <a href = "@here">here</a>', array("@here" => $url->toUriString())));
+      \Drupal::messenger()
+        ->addStatus(t('Download <a href = "@here">here</a>', ["@here" => $url->toUriString()]));
     }
     else {
       \Drupal::messenger()->addError("An error occured!");
@@ -123,8 +135,8 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
   /**
    * @return string[]
    */
-  function csv_header() {
-    return array(
+  public function csv_header() {
+    return [
       'GOVT PUB NUMBER',
       'TITLE',
       'FORMAT',
@@ -141,7 +153,7 @@ class SamhsaPublicationInventoryExportForm extends FormBase {
       'DISPLAY MODE',
       'PALLETS',
       'LOCATION OF PRODUCT',
-    );
+    ];
   }
 
 }

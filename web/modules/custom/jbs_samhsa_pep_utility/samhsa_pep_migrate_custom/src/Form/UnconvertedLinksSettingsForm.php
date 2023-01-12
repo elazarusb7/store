@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksSettingsForm.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -18,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup samhsa_pep_migrate_custom
  */
 class UnconvertedLinksSettingsForm extends FormBase {
+
   /**
    * Returns a unique string identifying the form.
    *
@@ -39,7 +35,6 @@ class UnconvertedLinksSettingsForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
   }
-
 
   /**
    * Defines the settings form for Unconverted links entities.

@@ -1,13 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_pdf_printing\GeneratePdf.
- */
-
 namespace Drupal\samhsa_pep_pdf_printing;
-
-use Drupal\Core\Database\Database;
 
 /**
  * Class Status.
@@ -68,11 +61,11 @@ class GeneratePdf {
       $order['address_1'],
       $order['address_2'],
       $order['city'] . ', ' . $order['state'] . chr(32) . $order['zip'],*/
-        'first last',
-        'organization',
-        'address_1',
-        'address_2',
-        'Baltimore MD 21136',
+      'first last',
+      'organization',
+      'address_1',
+      'address_2',
+      'Baltimore MD 21136',
     ];
     $result = array_values(array_filter($result, [$this, 'filterLines']));
     return $result;
@@ -116,10 +109,10 @@ class GeneratePdf {
   public function invoice($orders_ids, $is_returned_order = FALSE) {
     $orders = [];
     foreach ($orders_ids as $key => $order_id) {
-        $orders[] = \Drupal::entityTypeManager()->getStorage('commerce_order')->load($order_id);
+      $orders[] = \Drupal::entityTypeManager()->getStorage('commerce_order')->load($order_id);
     }
 
-    $batch = array(
+    $batch = [
       'title' => t('Printing Pick Slips...'),
       'operations' => [
         [
@@ -128,9 +121,8 @@ class GeneratePdf {
         ],
       ],
       'finished' => '\Drupal\samhsa_pep_pdf_printing\PrintInvoices::finishedPrintingInvoicesCallback',
-    );
+    ];
     batch_set($batch);
   }
-
 
 }

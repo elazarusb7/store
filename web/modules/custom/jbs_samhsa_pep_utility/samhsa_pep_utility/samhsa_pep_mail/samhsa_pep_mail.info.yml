@@ -3,6 +3,6 @@ type: module
 description: SAMHSA PEP mail functions
 #core: 8.x
 core_version_requirement: ^8.8 || ^9
-package: SAMHSA PEP Custom
+package: 'SAMHSA PEP Custom'
 dependencies:
   - samhsa_pep_utility

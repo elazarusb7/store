@@ -2,15 +2,14 @@
 
 namespace Drupal\samhsa_pep_anonlogout\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides settings for autologout module.
  */
-class AnonlogoutSettingsForm extends ConfigFormBase
-{
+class AnonlogoutSettingsForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -40,7 +39,7 @@ class AnonlogoutSettingsForm extends ConfigFormBase
       '#description'    => $this->t('The length of inactivity time, in seconds, before session is cleared.'),
     ];
 
-    $form['anonlogout']['redirect_url']  = [
+    $form['anonlogout']['redirect_url'] = [
       '#type'           => 'textfield',
       '#title'          => $this->t('Redirect URL'),
       '#default_value'  => $config->get('redirect_url'),
@@ -48,7 +47,7 @@ class AnonlogoutSettingsForm extends ConfigFormBase
       '#description'    => $this->t('Send users to this URL when session terminates.'),
     ];
 
-    $form['anonlogout']['add_to_cart_message']  = [
+    $form['anonlogout']['add_to_cart_message'] = [
       '#type'           => 'textfield',
       '#title'          => $this->t('Add To Cart message'),
       '#default_value'  => $config->get('add_to_cart_message'),
@@ -59,15 +58,14 @@ class AnonlogoutSettingsForm extends ConfigFormBase
     return parent::buildForm($form, $form_state);
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $values   = $form_state->getValues();
+    $values = $form_state->getValues();
     $this->configFactory()->getEditable('samhsa_pep_anonlogout.settings')
-      ->set('timeout',             $values['timeout'])
-      ->set('redirect_url',        $values['redirect_url'])
+      ->set('timeout', $values['timeout'])
+      ->set('redirect_url', $values['redirect_url'])
       ->set('add_to_cart_message', trim($values['add_to_cart_message']))
       ->save();
 
@@ -82,4 +80,3 @@ class AnonlogoutSettingsForm extends ConfigFormBase
   }
 
 }
-

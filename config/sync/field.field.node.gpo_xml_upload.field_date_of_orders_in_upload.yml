@@ -1,0 +1,24 @@
+uuid: 08682681-c12c-4b78-a424-f9865efc4ac5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_of_orders_in_upload
+    - node.type.gpo_xml_upload
+  module:
+    - datetime
+id: node.gpo_xml_upload.field_date_of_orders_in_upload
+field_name: field_date_of_orders_in_upload
+entity_type: node
+bundle: gpo_xml_upload
+label: 'Date of Orders in Upload'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

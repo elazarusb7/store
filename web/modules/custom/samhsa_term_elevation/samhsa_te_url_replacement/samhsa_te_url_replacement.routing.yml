@@ -4,6 +4,6 @@ samhsa_te_url_replacement.samhsa_te_url_replacement_configuration_form:
     _form: '\Drupal\samhsa_te_url_replacement\Form\ConfigurationForm'
     _title: 'SAMHSA TE URL Replacement Settings'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'administer site configuration'
   options:
     _admin_route: TRUE

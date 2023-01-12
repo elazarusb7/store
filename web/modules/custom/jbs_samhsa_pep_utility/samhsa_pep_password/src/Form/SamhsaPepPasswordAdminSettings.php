@@ -1,7 +1,6 @@
 <?php
 
 namespace Drupal\samhsa_pep_password\Form;
-use Drupal\Component\Render\FormattableMarkup;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -68,10 +67,9 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
       '#title' => $this->t('Select privileged roles'),
       '#options' => $roles,
     ];
-    if (null !== $config->get('admin_roles')) {
+    if (NULL !== $config->get('admin_roles')) {
       $form['password_length']['admin_roles']['#default_value'] = $config->get('admin_roles');
     }
-
 
     $form['password_characters'] = [
       '#type' => 'details',
@@ -159,7 +157,6 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
       '#field_suffix' => $this->t('user(s)'),
     ];
 
-
     $form['password_reuse'] = [
       '#type' => 'details',
       '#open' => TRUE,
@@ -178,7 +175,6 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
       '#size' => 3,
       '#field_suffix' => $this->t('password(s)'),
     ];
-
 
     $form['password_pattern'] = [
       '#type' => 'details',
@@ -203,30 +199,29 @@ class SamhsaPepPasswordAdminSettings extends ConfigFormBase {
     return parent::buildForm($form, $form_state);
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->configFactory()->getEditable('samhsa_pep_password.settings')
-      ->set('length_enforce',         $form_state->getValue('length_enforce'))
-      ->set('length_min_user',        $form_state->getValue('length_min_user'))
-      ->set('length_min_admin',       $form_state->getValue('length_min_admin'))
-      ->set('character_enforce',      $form_state->getValue('character_enforce'))
-      ->set('character_upper_min',    $form_state->getValue('character_upper_min'))
-      ->set('character_lower_min',    $form_state->getValue('character_lower_min'))
-      ->set('character_numeric_min',  $form_state->getValue('character_numeric_min'))
-      ->set('character_special_min',  $form_state->getValue('character_special_min'))
-      ->set('lifetime_min_enforce',   $form_state->getValue('lifetime_min_enforce'))
-      ->set('lifetime_min',           $form_state->getValue('lifetime_min'))
-      ->set('lifetime_max_enforce',   $form_state->getValue('lifetime_max_enforce'))
-      ->set('lifetime_max',           $form_state->getValue('lifetime_max'))
+      ->set('length_enforce', $form_state->getValue('length_enforce'))
+      ->set('length_min_user', $form_state->getValue('length_min_user'))
+      ->set('length_min_admin', $form_state->getValue('length_min_admin'))
+      ->set('character_enforce', $form_state->getValue('character_enforce'))
+      ->set('character_upper_min', $form_state->getValue('character_upper_min'))
+      ->set('character_lower_min', $form_state->getValue('character_lower_min'))
+      ->set('character_numeric_min', $form_state->getValue('character_numeric_min'))
+      ->set('character_special_min', $form_state->getValue('character_special_min'))
+      ->set('lifetime_min_enforce', $form_state->getValue('lifetime_min_enforce'))
+      ->set('lifetime_min', $form_state->getValue('lifetime_min'))
+      ->set('lifetime_max_enforce', $form_state->getValue('lifetime_max_enforce'))
+      ->set('lifetime_max', $form_state->getValue('lifetime_max'))
       ->set('password_reuse_enforce', $form_state->getValue('password_reuse_enforce'))
-      ->set('password_reuse_count',   $form_state->getValue('password_reuse_count'))
+      ->set('password_reuse_count', $form_state->getValue('password_reuse_count'))
       ->set('password_pattern_enforce', $form_state->getValue('password_pattern_enforce'))
       ->set('password_pattern_yield', $form_state->getValue('password_pattern_yield'))
-      ->set('cron_threshold',         $form_state->getValue('cron_threshold'))
-      ->set('admin_roles',            $form_state->getValue('admin_roles'))
+      ->set('cron_threshold', $form_state->getValue('cron_threshold'))
+      ->set('admin_roles', $form_state->getValue('admin_roles'))
       ->save();
 
     parent::submitForm($form, $form_state);

@@ -3,9 +3,8 @@
 namespace Drupal\jbs_commerce_extended_log\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-#use Symfony\Component\EventDispatcher\Event;
+// Use Symfony\Component\EventDispatcher\Event;.
 use Drupal\state_machine\Event\WorkflowTransitionEvent;
-
 
 /**
  * Class OrderLogEvents.
@@ -28,20 +27,20 @@ class OrderLogEvents implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     $events = [
-//      'commerce_order.place.post_transition' => 'onOrderPlace',
       'commerce_order.placebulk.post_transition' => 'onBulkOrderPlace',
       'commerce_order.approve.post_transition' => 'onOrderApproved',
       'commerce_order.process.post_transition' => 'onOrderPickSlipsGenerated',
       'commerce_order.complete.post_transition' => 'onOrderComplete',
       'commerce_order.cancel.post_transition' => 'onOrderCancel',
       'commerce_order.backtopending.post_transition' => 'onOrderBackToPending',
-      ];
+    ];
     return $events;
   }
 
   /**
    * This method is called when the event "place" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
    */
   public function onOrderPlace(WorkflowTransitionEvent $event) {
     // Placeholder for eventual implementation of "place" event.
@@ -49,7 +48,9 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "place" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -65,7 +66,9 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "place" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -79,10 +82,11 @@ class OrderLogEvents implements EventSubscriberInterface {
     jbs_commerce_extended_log_log_the_changes([$change]);
   }
 
-
   /**
    * This method is called when the event "process" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -98,7 +102,9 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "complete" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -114,7 +120,9 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "cancel" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -130,7 +138,9 @@ class OrderLogEvents implements EventSubscriberInterface {
 
   /**
    * This method is called when the event "backtopending" is dispatched.
-   * @param WorkflowTransitionEvent $event
+   *
+   * @param \Drupal\state_machine\Event\WorkflowTransitionEvent $event
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */

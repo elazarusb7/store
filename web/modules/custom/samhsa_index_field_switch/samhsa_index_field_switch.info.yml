@@ -3,4 +3,4 @@ type: module
 description: 'Allows to move values between field during the Solr indexing process.'
 #core: 8.x
 core_version_requirement: ^8.8 || ^9
-package: 'Custom'
+package: 'SAMHSA'

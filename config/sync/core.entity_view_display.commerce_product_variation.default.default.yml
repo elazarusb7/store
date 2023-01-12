@@ -5,6 +5,7 @@ dependencies:
   config:
     - commerce_product.commerce_product_variation_type.default
     - field.field.commerce_product_variation.default.field_available_quantity
+    - field.field.commerce_product_variation.default.field_gpo_pubcode
     - field.field.commerce_product_variation.default.field_location_pallet
     - field.field.commerce_product_variation.default.field_pallet_location
     - field.field.commerce_product_variation.default.weight
@@ -21,6 +22,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_gpo_pubcode:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_pallet_location:
     type: string

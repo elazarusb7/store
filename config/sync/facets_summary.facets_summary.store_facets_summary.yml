@@ -22,6 +22,7 @@ processor_configs:
       build: '30'
     settings:
       link_text: 'Clear all filters'
+      position: before
   show_text_when_empty:
     processor_id: show_text_when_empty
     weights:

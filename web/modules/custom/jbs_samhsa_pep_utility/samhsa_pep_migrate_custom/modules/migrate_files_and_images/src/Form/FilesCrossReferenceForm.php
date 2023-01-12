@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Form\FilesCrossReferenceForm.
- */
-
 namespace Drupal\migrate_files_and_images\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
@@ -16,11 +11,12 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup migrate_files_and_images
  */
 class FilesCrossReferenceForm extends ContentEntityForm {
+
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\migrate_files_and_images\Entity\FilesCrossReference */
+    /** @var \Drupal\migrate_files_and_images\Entity\FilesCrossReference $entity */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -37,21 +33,21 @@ class FilesCrossReferenceForm extends ContentEntityForm {
     switch ($status) {
       case SAVED_NEW:
         \Drupal::messenger()->addMessage($this->t('Created the %label Files cross reference.', [
-            '%label' => $entity->label(),
+          '%label' => $entity->label(),
         ]));
-        //drupal_set_message($this->t('Created the %label Files cross reference.', [
+        // drupal_set_message($this->t('Created the %label Files cross reference.', [
         //  '%label' => $entity->label(),
-        //]));
+        // ]));
         break;
 
       default:
-          \Drupal::messenger()->addMessage($this->t('Saved the %label Files cross reference.', [
-              '%label' => $entity->label(),
-          ]));
+        \Drupal::messenger()->addMessage($this->t('Saved the %label Files cross reference.', [
+          '%label' => $entity->label(),
+        ]));
 
-          //drupal_set_message($this->t('Saved the %label Files cross reference.', [
-          //'%label' => $entity->label(),
-        //]));
+        // drupal_set_message($this->t('Saved the %label Files cross reference.', [
+        // '%label' => $entity->label(),
+        // ]));
     }
     $form_state->setRedirect('entity.files_cross_reference.canonical', ['files_cross_reference' => $entity->id()]);
   }

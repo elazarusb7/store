@@ -11,6 +11,9 @@ class FakeSolrDoc {
 
   protected $fields = [];
 
+  /**
+   *
+   */
   public function __construct($f) {
     $this->fields = $f;
   }

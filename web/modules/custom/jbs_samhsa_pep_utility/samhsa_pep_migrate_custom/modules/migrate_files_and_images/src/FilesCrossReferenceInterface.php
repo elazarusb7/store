@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\FilesCrossReferenceInterface.
- */
-
 namespace Drupal\migrate_files_and_images;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
