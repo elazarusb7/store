@@ -3,7 +3,7 @@
 .region-postscript-fourth{
    h2{
      color: $dark-gray;
-     font-size: 1.6rem;    
+     font-size: 2.8rem;    
    }
    .menu,
    .lang{ 
@@ -28,7 +28,7 @@
          font-size: 1em;
          text-decoration: underline;
          &:hover{
-           color: $red;
+           color: $red-dark;
            text-decoration: none;
          }       
        }
