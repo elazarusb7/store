@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file Contains the code to generate custom drush commands.
+ * @file
+ * Contains the code to generate custom drush commands.
  */
 
 use Drupal\Core\Database\Database;
@@ -9,7 +11,7 @@ use Drupal\Core\Database\Database;
  * Implements hook_drush_command().
  */
 function samhsa_pep_migrate_custom_drush_command() {
-  $items = array();
+  $items = [];
   $items['truncate-ul'] = [
     'description' => 'Truncate Unconverted Links table',
     'arguments' => [],

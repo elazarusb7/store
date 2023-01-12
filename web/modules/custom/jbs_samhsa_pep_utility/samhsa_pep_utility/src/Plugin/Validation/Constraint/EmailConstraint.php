@@ -15,6 +15,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class EmailConstraint extends Constraint {
 
-  // The message that will be shown if the email value is not a valid email address.
+  /**
+   * The message that will be shown if the email value is not a valid email address.
+   */
   public $notValidEmail = 'Email %value is not valid.';
+
 }

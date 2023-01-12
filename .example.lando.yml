@@ -126,6 +126,9 @@ tooling:
     cmd:
       - echo "Clearing all cache tables"
       - ./scripts/cache-nuke.sh
+      # The following composer command will stack trace occassionally for no
+      # known reason. The fix is to run the command from the shell, then rerun
+      # this command.
       - echo "Running composer install"
       - composer install
       - echo "Running configuration import"
@@ -148,17 +151,16 @@ tooling:
     cmd:
       - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
 
-## Linting is not set up for Store yet
-#  lint-code:
-#    service: appserver
-#    description: Run phpcs on custom SAMHSA modules
-#    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal --extensions=\
-#      'php,module,inc,install,test,info,yml' web/modules/custom/
-#  lint-theme:
-#    service: appserver
-#    description: Run phpcs on SAMHSA theme
-#    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal  --ignore=node_modules --extensions=\
-#      'php,module,inc,install,test,profile,theme,scss,info,yml' /app/web/themes/custom/samhsa_uswds_base/
+  lint-code:
+    service: appserver
+    description: Run phpcs on custom SAMHSA modules
+    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal --extensions=\
+      'php,module,inc,install,test,info,yml' web/modules/custom/
+  lint-theme:
+    service: appserver
+    description: Run phpcs on SAMHSA theme
+    cmd: /app/vendor/bin/phpcs -s --standard=DrupalPractice,Drupal  --ignore=node_modules --extensions=\
+      'php,module,inc,install,test,profile,theme,scss,info,yml' /app/web/themes/custom/samhsa_uswds_base/
 #  lint-js:
 #    service: node
 #    description: Eslinting of custom theme and modules

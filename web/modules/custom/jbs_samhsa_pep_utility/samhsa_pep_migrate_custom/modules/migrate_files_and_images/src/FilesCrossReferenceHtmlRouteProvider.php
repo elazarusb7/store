@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\FilesCrossReferenceHtmlRouteProvider.
- */
-
 namespace Drupal\migrate_files_and_images;
 
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -18,6 +13,7 @@ use Symfony\Component\Routing\Route;
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
 class FilesCrossReferenceHtmlRouteProvider extends AdminHtmlRouteProvider {
+
   /**
    * {@inheritdoc}
    */

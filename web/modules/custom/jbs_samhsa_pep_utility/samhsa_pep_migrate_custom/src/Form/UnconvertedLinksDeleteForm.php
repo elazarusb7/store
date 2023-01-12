@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksDeleteForm.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom\Form;
 
 use Drupal\Core\Entity\ContentEntityDeleteForm;

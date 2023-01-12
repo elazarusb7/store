@@ -5,6 +5,7 @@
  * Contains samhsa_index_field_switch.module.
  */
 
+use Drupal\search_api\IndexInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\samhsa_index_field_switch\FieldSwitchTypecasting;
 
@@ -27,9 +28,9 @@ function samhsa_index_field_switch_help($route_name, RouteMatchInterface $route_
 /**
  * Implements hook_search_api_solr_documents_alter().
  */
-function samhsa_index_field_switch_search_api_solr_documents_alter(array &$documents, \Drupal\search_api\IndexInterface $index, array $items) {
+function samhsa_index_field_switch_search_api_solr_documents_alter(array &$documents, IndexInterface $index, array $items) {
 
-  $list =  $config = \Drupal::config('samhsa_index_field_switch.configuration')->get('list');
+  $list = $config = \Drupal::config('samhsa_index_field_switch.configuration')->get('list');
 
   if (!$list) {
     return;
@@ -49,7 +50,8 @@ function samhsa_index_field_switch_search_api_solr_documents_alter(array &$docum
           $typecasting = new FieldSwitchTypecasting($from_field_value, $field_switch['from_field_format'], $field_switch['to_field_format']);
           if (method_exists($typecasting, $method_name)) {
             $converted_value = $typecasting::$method_name();
-          } else {
+          }
+          else {
             $converted_value = $from_field_value;
           }
           $document->setField($to_field, $converted_value);

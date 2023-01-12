@@ -1,12 +1,22 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
+/**
+ * @file
+ */
+
+use Drupal\search_api\Entity\Index;
+use Drupal\Component\Utility\Crypt;
+use Drupal\Core\Url;
+use Drupal\commerce_product\Entity\Product;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\jbs_commerce_product_recommendation\RecommendationModelFunctions;
 use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_cron().
  */
-function jbs_commerce_product_recommendation_cron() {
+function jbs_commerce_product_recommendation_cron(): void {
   $time = time();
   $config = \Drupal::config('jbs_commerce_product_recommendation.settings');
   $userHistoryExpire = $config->get('userHistoryExpire') * 86400;
@@ -14,7 +24,8 @@ function jbs_commerce_product_recommendation_cron() {
   if ($config->get('autoUpdate') === 1 && !empty($config->get('intervalUpdate'))) {
     if ($time - $config->get('lastUpdate') > (86400 * $config->get('intervalUpdate'))) {
       (new \Drupal\jbs_commerce_product_recommendation\RecommendationModelFunctions)->refreshModel();
-      \Drupal::logger('jbs_commerce_product_recommendation')->info('The Recommendation Model has been updated via cron.');
+      \Drupal::logger('jbs_commerce_product_recommendation')
+        ->info('The Recommendation Model has been updated via cron.');
     }
   }
 
@@ -23,7 +34,6 @@ function jbs_commerce_product_recommendation_cron() {
    */
   if ($userHistoryExpire > 0 ) {
     $purge_older_than = $time - $userHistoryExpire;
-
     \Drupal::database()->delete('product_recommendation__product_events')
       ->condition('timestamp', $purge_older_than, '<')
       ->execute();
@@ -34,7 +44,7 @@ function jbs_commerce_product_recommendation_cron() {
 /**
  * Implements hook_entity_view().
  */
-function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+function jbs_commerce_product_recommendation_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
   if (get_class($entity) == 'Drupal\commerce_product\Entity\Product' && is_product_view()) {
 
     $config = \Drupal::config('jbs_commerce_product_recommendation.settings');
@@ -48,53 +58,49 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
 
     track_product($session, $eventsTableName, $pid);
 
-    $manualRecommendations = array();
+    $manualRecommendations = [];
     if (!empty($fieldMayBeInterestedIn)) {
-      $recommendations = array();
+      $recommendations = [];
 
-      // Add manual recommendations
+      // Add manual recommendations.
       if (!empty($entity->get('field_may_be_interested_manual'))) {
-        for ($i = 0; $i < count($entity->get('field_may_be_interested_manual')); $i++) {
+        for ($i = 0, $iMax = count($entity->get('field_may_be_interested_manual')); $i < $iMax; $i++) {
           $manualRecommendations[get_value_from_entity($entity->get('field_may_be_interested_manual'), $i, 'target_id')] = 1.0;
         }
         if (!empty($manualRecommendations)) {
           foreach ($manualRecommendations as $p => $product) {
-            $recommendations[] = \Drupal\commerce_product\Entity\Product::load($p);
+            $recommendations[] = Product::load($p);
           }
           $numberOfRecommendations -= count($entity->get('field_may_be_interested_manual'));
         }
       }
 
-      // Get product pair data from database
+      // Get product pair data from database.
       $pairs = get_products_from_pairs($pairsTableName, $pid, $numberOfRecommendations, $manualRecommendations);
 
-      // If there is no pair data, default to taxonomy search
+      // If there is no pair data, default to taxonomy search.
       if (empty($pairs)) {
         $taxonomyPairs = get_products_from_related_taxonomy($pid, $numberOfRecommendations, $manualRecommendations);
         foreach ($taxonomyPairs as $p => $product) {
-          $recommendations[] = \Drupal\commerce_product\Entity\Product::load($p);
+          $recommendations[] = Product::load($p);
         }
-      } else {
+      }
+      else {
         $pairsReturned = count($pairs);
         foreach ($pairs as $p => $product) {
-          $recommendations[] = \Drupal\commerce_product\Entity\Product::load($p);
+          $recommendations[] = Product::load($p);
         }
         if ($pairsReturned < $numberOfRecommendations) {
           $taxonomyPairs = get_products_from_related_taxonomy($pid, $numberOfRecommendations - $pairsReturned, $manualRecommendations + $pairs);
           foreach ($taxonomyPairs as $p => $product) {
-            $recommendations[] = \Drupal\commerce_product\Entity\Product::load($p);
+            $recommendations[] = Product::load($p);
           }
-//          $results = get_products_from_solr_search($entity, $numberOfRecommendations - $pairsReturned, $manualRecommendations + $pairs);
-//          foreach ($results as $p => $product) {
-//            preg_match_all('/^entity:commerce_product\/(\d+):en$/', $p, $product_id);
-//            $recommendations[] = \Drupal\commerce_product\Entity\Product::load($product_id[1][0]);
-//          }
         }
       }
 
       if (!empty($recommendations)) {
-        $build['field_may_be_interested_manual'] = array();
-        for ($i = 0; $i < count($recommendations); $i++) {
+        $build['field_may_be_interested_manual'] = [];
+        for ($i = 0, $iMax = count($recommendations); $i < $iMax; $i++) {
           if (empty($build['field_may_be_interested_manual'][$i]) && !empty($recommendations[$i])) {
             if (get_value_from_entity($recommendations[$i]->get('status')) == '1') {
               $build['field_may_be_interested_manual'][$i] = [
@@ -102,15 +108,13 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
                 '#title' => get_value_from_entity($recommendations[$i]->get('title')),
                 '#body' => get_value_from_entity($recommendations[$i]->get('body')),
                 '#thumbnail' => get_value_from_entity($recommendations[$i]->get('field_thumbnail'), 0, 'target_id'),
-                '#url' => \Drupal\Core\Url::fromRoute(\Drupal::routeMatch()
-                  ->getRouteName(),
-                  [
-                    'commerce_product' => get_value_from_entity($recommendations[$i]->get('product_id'))
-                  ]
-                ),
+                '#url' => Url::fromRoute(\Drupal::routeMatch()
+                  ->getRouteName(), [
+                    'commerce_product' => get_value_from_entity($recommendations[$i]->get('product_id')),
+                  ]),
                 '#options' => [
                   'entity' => $recommendations[$i],
-                ]
+                ],
               ];
             }
           }
@@ -124,12 +128,12 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
         $build['field_may_be_interested_manual']['#language'] = 'en';
         $build['field_may_be_interested_manual']['#field_name'] = 'field_may_be_interested_manual';
         $build['field_may_be_interested_manual']['#field_type'] = 'entity_reference';
-        $build['field_may_be_interested_manual']['#field_translatable'] = false;
+        $build['field_may_be_interested_manual']['#field_translatable'] = FALSE;
         $build['field_may_be_interested_manual']['#entity_type'] = 'commerce_product';
         $build['field_may_be_interested_manual']['#bundle'] = 'samhsa_publication';
         $build['field_may_be_interested_manual']['#object'] = $entity;
         $build['field_may_be_interested_manual']['#formatter'] = 'entity_reference_label';
-        $build['field_may_be_interested_manual']['#is_multiple'] = true;
+        $build['field_may_be_interested_manual']['#is_multiple'] = TRUE;
         $build['field_may_be_interested_manual']['#weight'] = 21;
       }
     }
@@ -139,32 +143,39 @@ function jbs_commerce_product_recommendation_entity_view(array &$build, \Drupal\
 /*
  *  Non-Hook Functions
  */
-
 /**
  * @return bool
  *  TRUE if path matches /product/%'
  */
-function is_product_view() {
-  return \Drupal::routeMatch()->getRouteName() === 'entity.commerce_product.canonical';
+// Sniffer fatally chokes on is_product_view(), so disable.
+// phpcs:ignore
+function is_product_view(): bool {
+  return \Drupal::routeMatch()->getRouteName() == 'entity.commerce_product.canonical';
 }
 
+/**
+ *
+ */
 function get_value_from_entity($entity_val, $index = 0, $value = 'value') {
-  return !empty($entity_val->getValue()) ? $entity_val->getValue()[$index][$value] : null;
+  return !empty($entity_val->getValue()) ? $entity_val->getValue()[$index][$value] : NULL;
 }
 
+/**
+ *
+ */
 function track_product($session, $eventTableName, $pid) {
   if (!empty($eventTableName) && (!$session->get('previous_product') || $session->get('previous_product') !== $pid)) {
     try {
-      \Drupal::database()->insert($eventTableName)
-        ->fields([
-          'content_type' => 'commerce_product', // placeholder type
-          'content_id' => $pid,
-          'timestamp' => time(),
-          'session_id' => \Drupal\Component\Utility\Crypt::hashBase64(session_id()),
-          'event' => 'click',
-        ])
-        ->execute();
-    } catch (Exception $e) {
+      \Drupal::database()->insert($eventTableName)->fields([
+      // Placeholder type.
+        'content_type' => 'commerce_product',
+        'content_id' => $pid,
+        'timestamp' => time(),
+        'session_id' => Crypt::hashBase64(session_id()),
+        'event' => 'click',
+      ])->execute();
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: could not log event in track_product() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -172,19 +183,20 @@ function track_product($session, $eventTableName, $pid) {
   $session->set('previous_product', $pid);
 }
 
+/**
+ *
+ */
 function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $manualRecommendations) {
-  $pairs = array();
+  $pairs = [];
 
   if (!empty($tableName) && !empty($numberOfRecommendations)) {
     try {
       $query = \Drupal::database()->select($tableName, 't');
       $query->fields('t', ['p1', 'p2', 'score']);
-      $query->condition(
-        $query->orConditionGroup()
-          ->condition('p1', $pid, '=')
-          ->condition('p2', $pid, '=')
-      );
-      // Join and condition below add a filter for only published products
+      $query->condition($query->orConditionGroup()
+        ->condition('p1', $pid, '=')
+        ->condition('p2', $pid, '='));
+      // Join and condition below add a filter for only published products.
       $query->innerJoin('commerce_product_field_data', 'pdata1', 'pdata1.product_id = t.p1');
       $query->innerJoin('commerce_product_field_data', 'pdata2', 'pdata2.product_id = t.p2');
       $query->condition('pdata1.status', 1, '=');
@@ -201,7 +213,8 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
       foreach ($result as $p => $product) {
         $pairs[($product->p1 == $pid ? $product->p2 : $product->p1)] = (float) $product->score;
       }
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: queries failed in get_products_from_pairs() product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -209,25 +222,33 @@ function get_products_from_pairs($tableName, $pid, $numberOfRecommendations, $ma
   return $pairs;
 }
 
+/**
+ *
+ */
 function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $manualRecommendations) {
-  $related = array();
+  $related = [];
   if (!empty($numberOfRecommendations)) {
     $db = \Drupal::database();
-    $commerceTables = ['field_tags', '65ee8dc31d', '662942c867', 'a4cc14b1d5', 'field_publication_category', 'field_substances'];
+    $commerceTables = [
+      'field_tags',
+      '65ee8dc31d',
+      '662942c867',
+      'a4cc14b1d5',
+      'field_publication_category',
+      'field_substances',
+    ];
 
     $ignoreProducts = [];
     foreach ($manualRecommendations as $m => $mr) {
       $ignoreProducts[] = $m;
     }
 
-    $union = (function($commerceTables) {
+    $union = (function ($commerceTables) {
       $prefix = 'commerce_product__';
       $queryString = '';
-      for ($i = 0; $i < count($commerceTables); $i++) {
-          // Testing each product for published status is performed by the JOIN and associated WHERE condition
-          $queryString .= '(SELECT t' . $i . '.* FROM {'. $prefix . $commerceTables[$i] . '} AS t' . $i .
-                          ' LEFT JOIN commerce_product_field_data AS pdata' . $i . ' ON pdata' . $i . '.product_id = t' .$i . '.entity_id ' .
-                          'WHERE pdata' . $i . '.status = 1) ' . ($i < count($commerceTables) - 1 ? 'UNION ALL ' : '');
+      for ($i = 0, $iMax = count($commerceTables); $i < $iMax; $i++) {
+        // Testing each product for published status is performed by the JOIN and associated WHERE condition.
+        $queryString .= '(SELECT t' . $i . '.* FROM {' . $prefix . $commerceTables[$i] . '} AS t' . $i . ' LEFT JOIN commerce_product_field_data AS pdata' . $i . ' ON pdata' . $i . '.product_id = t' . $i . '.entity_id ' . 'WHERE pdata' . $i . '.status = 1) ' . ($i < count($commerceTables) - 1 ? 'UNION ALL ' : '');
       }
       return '(' . $queryString . ') ';
     })($commerceTables);
@@ -235,8 +256,8 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
     try {
       $queryTaxonomies = $db->query('SELECT DISTINCT field_tags_target_id AS taxonomy_term, entity_id FROM (' . t($union) . 'AS taxonomies) WHERE entity_id=:id', [':id' => $pid]);
 
-      $taxonomies = (function($queryTaxonomies) {
-        $result = array();
+      $taxonomies = (function ($queryTaxonomies) {
+        $result = [];
         $response = $queryTaxonomies->fetchAll();
         foreach ($response as $t => $taxonomy) {
           $result[] = $taxonomy->taxonomy_term;
@@ -245,34 +266,26 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
       })($queryTaxonomies);
 
       $queryLanguage = $db->query('SELECT field_pub_lang_value FROM {commerce_product__field_pub_lang} where entity_id=:id', [':id' => $pid]);
-      $language = (function($queryLanguage) {
-        $result = array();
+      $language = (function ($queryLanguage) {
+        $result = [];
         $response = $queryLanguage->fetchAll();
         return (!empty($response) ? $response[0]->field_pub_lang_value : 'EN');
       })($queryLanguage);
 
-      $queryRanking = $db->queryRange(
-        'SELECT entity_id, COUNT(*) AS count FROM ' .
-        '(SELECT entity_id, field_tags_target_id, field_pub_lang_value FROM ' .
-        '(SELECT category.*, (SELECT lang.field_pub_lang_value FROM {commerce_product__field_pub_lang} AS lang ' .
-        'WHERE lang.entity_id=category.entity_id) AS field_pub_lang_value FROM ' .
-        '(' . t($union) . ') AS category) AS combined_result WHERE field_pub_lang_value=:lang OR field_pub_lang_value IS NULL) AS taxonomies ' .
-        'WHERE field_tags_target_id IN (:taxonomies[]) AND entity_id<>:id ' .
-        (!empty($ignoreProducts) ? t('AND entity_id NOT IN (:ignore[])') : t('')) . ' GROUP BY entity_id ORDER BY count DESC',
-        0, $numberOfRecommendations,
-        [
-          ':lang' => $language,
-          ':id' => $pid,
-          ':taxonomies[]' => $taxonomies,
-          ':ignore[]' => $ignoreProducts
-        ]);
+      $queryRanking = $db->queryRange('SELECT entity_id, COUNT(*) AS count FROM ' . '(SELECT entity_id, field_tags_target_id, field_pub_lang_value FROM ' . '(SELECT category.*, (SELECT lang.field_pub_lang_value FROM {commerce_product__field_pub_lang} AS lang ' . 'WHERE lang.entity_id=category.entity_id) AS field_pub_lang_value FROM ' . '(' . t($union) . ') AS category) AS combined_result WHERE field_pub_lang_value=:lang OR field_pub_lang_value IS NULL) AS taxonomies ' . 'WHERE field_tags_target_id IN (:taxonomies[]) AND entity_id<>:id ' . (!empty($ignoreProducts) ? t('AND entity_id NOT IN (:ignore[])') : t('')) . ' GROUP BY entity_id ORDER BY count DESC', 0, $numberOfRecommendations, [
+        ':lang' => $language,
+        ':id' => $pid,
+        ':taxonomies[]' => $taxonomies,
+        ':ignore[]' => $ignoreProducts,
+      ]);
       $result = $queryRanking->fetchAll();
 
       foreach ($result as $p => $product) {
         $related[$product->entity_id] = $product->count;
       }
 
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('Error: queries failed in get_products_from_related_taxonomy() for product with id ' . $pid . '.<br />' . $e->getMessage());
     }
@@ -280,14 +293,19 @@ function get_products_from_related_taxonomy($pid, $numberOfRecommendations, $man
   return $related;
 }
 
+/**
+ *
+ */
 function get_product_titles_from_id($pairs) {
-  $recommendationTitles = \Drupal::database()->select('commerce_product_field_data', 'cd')
+  $recommendationTitles = \Drupal::database()
+    ->select('commerce_product_field_data', 'cd')
     ->fields('cd', ['product_id', 'title'])
     ->condition('product_id', array_keys($pairs), 'IN')
-    ->execute()->fetchAll();
+    ->execute()
+    ->fetchAll();
 
   $titles = array_fill_keys(array_keys($pairs), '');
-  for ($i = 0; $i < count($recommendationTitles); $i++) {
+  for ($i = 0, $iMax = count($recommendationTitles); $i < $iMax; $i++) {
     if (array_key_exists($recommendationTitles[$i]->product_id, $titles)) {
       $titles[$recommendationTitles[$i]->product_id] = $recommendationTitles[$i]->title;
     }
@@ -295,6 +313,9 @@ function get_product_titles_from_id($pairs) {
   return $titles;
 }
 
+/**
+ *
+ */
 function get_products_from_solr_search($entity, $numberOfRecommendations, $manualRecommendations) {
   if (!empty($numberOfRecommendations)) {
     $ignoreProducts = [];
@@ -305,7 +326,7 @@ function get_products_from_solr_search($entity, $numberOfRecommendations, $manua
     $keyword = explode(' ', trim(get_value_from_entity($entity->get('title'))));
 
     try {
-      $index = \Drupal\search_api\Entity\Index::load('default_solr_index');
+      $index = Index::load('default_solr_index');
       $query = $index->query();
       $query->range(1, $numberOfRecommendations);
 
@@ -316,10 +337,11 @@ function get_products_from_solr_search($entity, $numberOfRecommendations, $manua
       $query->keys(array_merge($keyword, ['#conjunction' => 'OR']));
       $query->sort('search_api_relevance', 'DESC');
       return $query->execute()->getResultItems();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       \Drupal::logger('jbs_commerce_product_recommendation')
         ->info('The Solr server is experiencing issues, recommendations may not be displayed');
     }
   }
-  return array();
+  return [];
 }

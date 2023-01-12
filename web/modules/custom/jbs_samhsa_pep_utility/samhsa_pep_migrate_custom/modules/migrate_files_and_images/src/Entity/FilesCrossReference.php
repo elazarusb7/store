@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_files_and_images\Entity\FilesCrossReference.
- */
-
 namespace Drupal\migrate_files_and_images\Entity;
 
+use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -65,14 +61,15 @@ use Drupal\user\UserInterface;
  */
 class FilesCrossReference extends ContentEntityBase implements FilesCrossReferenceInterface {
   use EntityChangedTrait;
+
   /**
    * {@inheritdoc}
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'user_id' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
@@ -146,7 +143,7 @@ class FilesCrossReference extends ContentEntityBase implements FilesCrossReferen
    * {@inheritdoc}
    */
   public function setPublished($published) {
-    $this->set('status', $published ? \Drupal\node\NodeInterface::PUBLISHED : \Drupal\node\NodeInterface::NOT_PUBLISHED);
+    $this->set('status', $published ? NodeInterface::PUBLISHED : NodeInterface::NOT_PUBLISHED);
     return $this;
   }
 
@@ -162,20 +159,20 @@ class FilesCrossReference extends ContentEntityBase implements FilesCrossReferen
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Files cross reference entity.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 256,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -192,7 +189,7 @@ class FilesCrossReference extends ContentEntityBase implements FilesCrossReferen
    * @param string $name
    *   The file name.
    *
-   * @return object/bool $result
+   * @return objectbool
    *   The found record or false.
    */
   public static function loadByName($name) {

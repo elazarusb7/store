@@ -11,4 +11,4 @@ id: samhsa_pep_utility_pick_slip_generated
 label: 'Generate Pick Slip'
 type: commerce_order
 plugin: "samhsa_pep_utility_pick_slip_generated"
-configuration: {  }
+configuration: { }

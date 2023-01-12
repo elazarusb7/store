@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\SetMigratingValuesInterface.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom;
 
 use Drupal\migrate\Row;
@@ -20,25 +15,25 @@ interface SetMigratingValuesInterface {
   /**
    * Populates regular fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
    *     field: field name
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
-   *     idfield: name of the identity field: nid, uid, etc./
+   *     idfield: name of the identity field: nid, uid, etc./.
    */
-  public function simpleField(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function simpleField(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates taxonomy fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -46,29 +41,29 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function entityReference(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function entityReference(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
-    /**
-     * Populates taxonomy fields of the migrating row.
-     *
-     * @param SqlBase $sql_base
-     *   The migrating object.
-     * @param Row $row
-     *   The row extracted from the node query results.
-     * @param array $components
-     *   The components of the query.
-     *     field: field name
-     *     table: table name
-     *     property: alias for the field, as defined in the configuration ymls.
-     */
-    public function termReference(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  /**
+   * Populates taxonomy fields of the migrating row.
+   *
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
+   *   The migrating object.
+   * @param \Drupal\migrate\Row $row
+   *   The row extracted from the node query results.
+   * @param array $components
+   *   The components of the query.
+   *     field: field name
+   *     table: table name
+   *     property: alias for the field, as defined in the configuration ymls.
+   */
+  public function termReference(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates formatted texts fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -76,14 +71,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function formattedText(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function formattedText(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates image fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -91,14 +86,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function images(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function images(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates file fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -106,28 +101,29 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls..
    */
-  public function files_with_display_name(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function files_with_display_name(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
-    /**
-     * Populates file fields of the migrating row.
-     *
-     * @param SqlBase $sql_base
-     *   The migrating object.
-     * @param Row $row
-     *   The row extracted from the node query results.
-     * @param array $components
-     *   The components of the query.
-     *     field: field name
-     *     table: table name
-     *     property: alias for the field, as defined in the configuration ymls..
-     */
-    public function files(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  /**
+   * Populates file fields of the migrating row.
+   *
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
+   *   The migrating object.
+   * @param \Drupal\migrate\Row $row
+   *   The row extracted from the node query results.
+   * @param array $components
+   *   The components of the query.
+   *     field: field name
+   *     table: table name
+   *     property: alias for the field, as defined in the configuration ymls..
+   */
+  public function files(SqlBase $sql_base, Row &$row = NULL, $components = []);
+
   /**
    * Populates link fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -135,14 +131,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function link(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function link(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates date fields of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -150,14 +146,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function dateIso(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function dateIso(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates integer "field_year" of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -165,14 +161,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function dateIsoToYear(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function dateIsoToYear(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates Archive Content field of the migrating row.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -180,14 +176,14 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function yesNoToBool(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function yesNoToBool(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Populates Text area (multiple rows) fields with multi values.
    *
-   * @param SqlBase $sql_base
+   * @param \Drupal\migrate\Plugin\migrate\source\SqlBase $sql_base
    *   The migrating object.
-   * @param Row $row
+   * @param \Drupal\migrate\Row $row
    *   The row extracted from the node query results.
    * @param array $components
    *   The components of the query.
@@ -195,7 +191,7 @@ interface SetMigratingValuesInterface {
    *     table: table name
    *     property: alias for the field, as defined in the configuration ymls.
    */
-  public function multiValueToTextArea(SqlBase $sql_base, Row &$row = NULL, $components = array());
+  public function multiValueToTextArea(SqlBase $sql_base, Row &$row = NULL, $components = []);
 
   /**
    * Consults file_cross_reference table in order to get the new fid.
@@ -208,16 +204,16 @@ interface SetMigratingValuesInterface {
    */
   public function getNewFileId($fid = NULL);
 
-    /**
-     * Get Display name from the field_data_field_samhsa_display_name table.
-     *
-     * @param string $fid
-     *   The D7 fid.
-     *
-     * @return string
-     *   The display_name.
-     */
-    public function getDisplayName(SqlBase $sql_base, $fid = NULL, $components = array());
+  /**
+   * Get Display name from the field_data_field_samhsa_display_name table.
+   *
+   * @param string $fid
+   *   The D7 fid.
+   *
+   * @return string
+   *   The display_name.
+   */
+  public function getDisplayName(SqlBase $sql_base, $fid = NULL, $components = []);
 
   /**
    * Consults file_cross_reference table in order to get the new fid.

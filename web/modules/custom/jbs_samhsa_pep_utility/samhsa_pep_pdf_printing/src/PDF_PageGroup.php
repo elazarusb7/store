@@ -1,63 +1,78 @@
 <?php
-// Written by Larry Stanbery - 20 May 2004
-// Same license as FPDF
-// creates "page groups" -- groups of pages with page numbering
-// total page numbers are represented by aliases of the form {nbX}
 
-class PDF_PageGroup extends FPDF
-{
-    protected $NewPageGroup = false;   // variable indicating whether a new group was requested
-    protected $PageGroups = array();   // variable containing the number of pages of the groups
-    protected $CurrPageGroup;          // variable containing the alias of the current page group
+/**
+ * Written by Larry Stanbery - 20 May 2004
+ * Same license as FPDF
+ * creates "page groups" -- groups of pages with page numbering
+ * total page numbers are represented by aliases of the form {nbX}.
+ */
+class PDF_PageGroup extends FPDF {
+  /**
+   * Variable indicating whether a new group was requested.
+   */
+  protected $NewPageGroup = FALSE;
+  /**
+   * Variable containing the number of pages of the groups.
+   */
+  protected $PageGroups = [];
+  /**
+   * Variable containing the alias of the current page group.
+   */
+  protected $CurrPageGroup;
 
-    // create a new page group; call this before calling AddPage()
-    function StartPageGroup()
-    {
-        $this->NewPageGroup = true;
+  /**
+   * Create a new page group; call this before calling AddPage()
+   */
+  public function StartPageGroup() {
+    $this->NewPageGroup = TRUE;
+  }
+
+  /**
+   * Current page in the group.
+   */
+  public function GroupPageNo() {
+    return $this->PageGroups[$this->CurrPageGroup];
+  }
+
+  /**
+   * Alias of the current page group -- will be replaced by the total number of pages in this group.
+   */
+  public function PageGroupAlias() {
+    return $this->CurrPageGroup;
+  }
+
+  /**
+   *
+   */
+  public function _beginpage($orientation, $size, $rotation) {
+    parent::_beginpage($orientation, $size, $rotation);
+    if ($this->NewPageGroup) {
+      // Start a new group.
+      $n = sizeof($this->PageGroups) + 1;
+      $alias = "{nb$n}";
+      $this->PageGroups[$alias] = 1;
+      $this->CurrPageGroup = $alias;
+      $this->NewPageGroup = FALSE;
     }
-
-    // current page in the group
-    function GroupPageNo()
-    {
-        return $this->PageGroups[$this->CurrPageGroup];
+    elseif ($this->CurrPageGroup) {
+      $this->PageGroups[$this->CurrPageGroup]++;
     }
+  }
 
-    // alias of the current page group -- will be replaced by the total number of pages in this group
-    function PageGroupAlias()
-    {
-        return $this->CurrPageGroup;
-    }
-
-    function _beginpage($orientation, $size, $rotation)
-    {
-        parent::_beginpage($orientation, $size, $rotation);
-        if($this->NewPageGroup)
-        {
-            // start a new group
-            $n = sizeof($this->PageGroups)+1;
-            $alias = "{nb$n}";
-            $this->PageGroups[$alias] = 1;
-            $this->CurrPageGroup = $alias;
-            $this->NewPageGroup = false;
+  /**
+   *
+   */
+  public function _putpages() {
+    $nb = $this->page;
+    if (!empty($this->PageGroups)) {
+      // Do page number replacement.
+      foreach ($this->PageGroups as $k => $v) {
+        for ($n = 1; $n <= $nb; $n++) {
+          $this->pages[$n] = str_replace($k, $v, $this->pages[$n]);
         }
-        elseif($this->CurrPageGroup)
-            $this->PageGroups[$this->CurrPageGroup]++;
+      }
     }
+    parent::_putpages();
+  }
 
-    function _putpages()
-    {
-        $nb = $this->page;
-        if (!empty($this->PageGroups))
-        {
-            // do page number replacement
-            foreach ($this->PageGroups as $k => $v)
-            {
-                for ($n = 1; $n <= $nb; $n++)
-                {
-                    $this->pages[$n] = str_replace($k, $v, $this->pages[$n]);
-                }
-            }
-        }
-        parent::_putpages();
-    }
 }

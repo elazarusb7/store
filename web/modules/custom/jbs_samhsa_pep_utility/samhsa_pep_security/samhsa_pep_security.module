@@ -12,29 +12,32 @@ use Drupal\Core\Url;
 use Drupal\user\Entity\User;
 use Drupal\Core\Datetime\DrupalDateTime;
 
+/**
+ *
+ */
 function getFile() {
-  $test = explode('/',__FILE__) . ': ';
+  $test = explode('/', __FILE__) . ': ';
   return end($test);
 }
 
 /*
  * Hook user_login_form:
  * 1. Add to #validate BEFORE standard functions:
-    -	Get last successful login timestamp and set static variable ($account_login)
-    -	Get last page hit timestamp and set static variable ($account_access)
-    -	If user is currently Active, log attempt in login_security_track table
+-    Get last successful login timestamp and set static variable ($account_login)
+-    Get last page hit timestamp and set static variable ($account_access)
+-    If user is currently Active, log attempt in login_security_track table
 
-   2. Add to #validate AFTER standard functions:
-    -	Test if submitted username is valid (not blank), exit if not
-    -	Clear all expired login attempts for all users (does this have to be here?)
-    -	Test for  $form_state->hasAnyErrors()
-    -	If TRUE then login is invalid
-      o	If invalid AND and #attempts is at or over threshold lock user and throw up notification
-      o	If valid then clear all user’s entries from login_security_track table
+2. Add to #validate AFTER standard functions:
+-    Test if submitted username is valid (not blank), exit if not
+-    Clear all expired login attempts for all users (does this have to be here?)
+-    Test for  $form_state->hasAnyErrors()
+-    If TRUE then login is invalid
+o    If invalid AND and #attempts is at or over threshold lock user and throw up notification
+o    If valid then clear all user’s entries from login_security_track table
 
-   3. Add to #submit AFTER standard functions
-    - display last login and last page access times to user
-*/
+3. Add to #submit AFTER standard functions
+- display last login and last page access times to user
+ */
 
 /**
  * Implements hook_cron().
@@ -47,8 +50,8 @@ function samhsa_pep_security_cron() {
 /**
  * Implements hook_ENTITY_TYPE_update().
  *
- * if modified account is now active, clear login attempts when either
- * saving user profile or setting status field through /admin/people VBO
+ * If modified account is now active, clear login attempts when either
+ * saving user profile or setting status field through /admin/people VBO.
  */
 function samhsa_pep_security_user_update(UserInterface $account) {
   if ($account->isActive()) {
@@ -59,8 +62,7 @@ function samhsa_pep_security_user_update(UserInterface $account) {
 /**
  * Implements hook_form_alter().
  */
-function samhsa_pep_security_form_alter(array &$form, FormStateInterface $form_state, $form_id)
-{
+function samhsa_pep_security_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   if ($form_id == 'user_login_form') {
     // Put login_security first or the capture of the previous login
     // timestamp won't work and core's validation will update to the current
@@ -79,20 +81,18 @@ function samhsa_pep_security_form_alter(array &$form, FormStateInterface $form_s
   }
 }
 
-
 /**
  * Login is not yet invalidated (if invalid)
- *  -	Get last successful login timestamp and set static variable ($account_login)
- *  -	Get last page hit timestamp and set static variable ($account_access)
- *  -	If user is currently Active, log attempt in login_security_track table
+ *  -    Get last successful login timestamp and set static variable ($account_login)
+ *  -    Get last page hit timestamp and set static variable ($account_access)
+ *  -    If user is currently Active, log attempt in login_security_track table
  *
- * @param array              $form
- * @param FormStateInterface $form_state
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function _login_form_validate_pre(array $form, FormStateInterface $form_state)
-{
+function _login_form_validate_pre(array $form, FormStateInterface $form_state) {
 
-  // Expire all old tracked entries for everyone
+  // Expire all old tracked entries for everyone.
   _samhsa_pep_security_remove_events();
 
   $name = $form_state->getValue('name');
@@ -107,13 +107,13 @@ function _login_form_validate_pre(array $form, FormStateInterface $form_state)
     return;
   }
 
-  // check if we are enforcing password lifetimes and if password is expired
+  // Check if we are enforcing password lifetimes and if password is expired.
   $conf_pass = \Drupal::config('samhsa_pep_password.settings');
   if (isset($conf_pass)) {
-    $user = \Drupal\user\Entity\User::load($account->uid);
+    $user = User::load($account->uid);
     $msg = 'lifetime_max_enforce: ' . $conf_pass->get('lifetime_max_enforce') . ", uid: " . $user->id() . '<br />';
     if ($conf_pass->get('lifetime_max_enforce')) {
-      /* @var Drupal\Core\Datetime\DrupalDateTime */
+      /** @var Drupal\Core\Datetime\DrupalDateTime */
       $last_password_reset = new DrupalDateTime($user->get('field_last_password_reset')->getValue()[0]['value']);
       $last_reset_ts = $last_password_reset->getTimestamp();
       $msg .= 'last reset: ' . $last_password_reset->render() . " ($last_reset_ts)<br />";
@@ -142,18 +142,17 @@ function _login_form_validate_pre(array $form, FormStateInterface $form_state)
   _security_add_event($account->uid, $account->name, $ip_address, $variables['@request_time']);
 }
 
-
 /**
- *  Login will be invalidated before we get here (if invalid)
+ * Login will be invalidated before we get here (if invalid)
  *
--	Test if submitted username is valid (not blank), exit if not
--	Clear all expired login attempts for all users (does this have to be here?)
--	Test for $form_state->hasAnyErrors()
--	If TRUE then login is invalid
-o	If invalid AND and #attempts is at or over threshold lock user and throw up notification
-o	If valid then clear all user’s entries from track table
+ * -    Test if submitted username is valid (not blank), exit if not
+ * -    Clear all expired login attempts for all users (does this have to be here?)
+ * -    Test for $form_state->hasAnyErrors()
+ * -    If TRUE then login is invalid
+ * o    If invalid AND and #attempts is at or over threshold lock user and throw up notification
+ * o    If valid then clear all user’s entries from track table.
  *
- * @param array                                $form
+ * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function _login_form_validate_post(array $form, FormStateInterface $form_state) {
@@ -167,8 +166,7 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
   }
 
   // Expire all old tracked entries for everyone
-  //_samhsa_pep_security_remove_events();
-
+  // _samhsa_pep_security_remove_events();
   $variables = _get_variables_by_name($name);
   $conf = \Drupal::config('samhsa_pep_security.settings');
   $isBlocked = FALSE;
@@ -180,14 +178,14 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
         if (_login_user_block_user_name($variables, $form_state)) {
           // The watchdog alert is set to 'user' so it will show with other blocked user messages.
           \Drupal::logger('samhsa_pep_security')->notice('Blocked user @username due to security configuration.', $variables);
-          // throw up a notice that account has been blocked.
-          //$form_state->setErrorByName('void', SafeMarkup::format($conf->get('user_blocked'), $variables));
+          // Throw up a notice that account has been blocked.
+          // $form_state->setErrorByName('void', SafeMarkup::format($conf->get('user_blocked'), $variables));.
           $isBlocked = TRUE;
         }
       }
     }
 
-    // modify standard Drupal login failure notifications
+    // Modify standard Drupal login failure notifications.
     $errors = $form_state->getErrors();
     $password_message = preg_grep("/<a href=\"\/user\/password\?name=$name\">Have you forgotten your password\?<\/a>/", $errors);
     $block_message = preg_grep("/The username <em class=\"placeholder\">$name<\/em> has not been activated or is blocked./", $errors);
@@ -202,7 +200,6 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
         // activated or is blocked.", and any other errors that might be
         // helpful to an attacker it should not reset the attempts message
         // because it is a warning, not an error.
-        //drupal_get_messages('error', TRUE);
         \Drupal::messenger()->deleteByType('error');
       }
 
@@ -231,9 +228,9 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
     }
   }
 
-  // valid login
+  // Valid login.
   else {
-    // login is valid so clear all previous attempts for this user
+    // Login is valid so clear all previous attempts for this user.
     $conn = \Drupal::database();
     $conn->delete('samhsa_pep_security_track')
       ->condition('uid', $variables['@uid'])
@@ -241,11 +238,10 @@ function _login_form_validate_post(array $form, FormStateInterface $form_state) 
   }
 }
 
-
 /**
  * - display last login and last page access times to user (if configured so)
  *
- * @param array                                $form
+ * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function _login_form_validate_submit_post(array $form, FormStateInterface $form_state) {
@@ -287,7 +283,6 @@ function _access_timestamp($access = NULL) {
   return $account_access;
 }
 
-
 /**
  * Save the login attempt in the tracking database: user name nd ip address.
  *
@@ -299,7 +294,7 @@ function _access_timestamp($access = NULL) {
 function _security_add_event($uid, $name, $ip, $timestamp) {
   // Each attempt is kept for future mining of advanced brute forcing like
   // multiple IP or X-Forwarded-for usage and automated track data cleanup.
-  //drupal_set_message('login_security #' . __LINE__ . ': ' . __FUNCTION__);
+  // drupal_set_message('login_security #' . __LINE__ . ': ' . __FUNCTION__);.
   $conn = \Drupal::database();
 
   $conn->insert('samhsa_pep_security_track')
@@ -312,7 +307,6 @@ function _security_add_event($uid, $name, $ip, $timestamp) {
     ->execute();
 }
 
-
 /**
  * Remove tracked events or expire old ones.
  *
@@ -321,15 +315,16 @@ function _security_add_event($uid, $name, $ip, $timestamp) {
  * @param string $host
  *   If specified, IP Address of the name-ip pair to be removed.
  */
-function _samhsa_pep_security_remove_events()
-{
+function _samhsa_pep_security_remove_events() {
   $msg = __FUNCTION__ . "():<br />";
   $numCleared = $numUnblocked = $numUnflooded = 0;
   $conf = \Drupal::config('samhsa_pep_security.settings');
   // Calculate protection time window and remove expired events.
   $variables = _get_variables_by_name();
-  $log_level = (int)$variables['@log_level'];
-  if ($log_level>1) $msg .= 'Variables:<pre>' . print_r($variables, TRUE) . '</pre>';
+  $log_level = (int) $variables['@log_level'];
+  if ($log_level > 1) {
+    $msg .= 'Variables:<pre>' . print_r($variables, TRUE) . '</pre>';
+  }
   $cutoff = $variables['@request_time'] - $conf->get('track_time');
   $msg .= "cutoff: $cutoff from " . $conf->get('track_time') . ' seconds<br />';
   $query = \Drupal::database()->select('samhsa_pep_security_track', 'spst')
@@ -344,7 +339,7 @@ function _samhsa_pep_security_remove_events()
   if ($numBlocks > 0) {
     $msg .= "$numBlocks expired failed logins, removing...<br />";
     foreach ($results as $row) {
-      if ((integer)$row->timestamp < $cutoff) {
+      if ((integer) $row->timestamp < $cutoff) {
         $ids[] = $row->id;
         $flood_ids[$row->uid] = $row->host;
         $msg .= "$row->id $row->status $row->uid $row->name $row->timestamp<br />";
@@ -357,7 +352,7 @@ function _samhsa_pep_security_remove_events()
     $msg .= "deleted $query attempts<br />";
 
     if ($conf->get('clear_flood') && count($flood_ids)) {
-      // clear user's entries from flood table as well
+      // Clear user's entries from flood table as well.
       $msg .= "<br />deleting flood entries...<br />";
       foreach ($flood_ids as $uid => $ip) {
         $uid_ip = $uid . '-' . $ip;
@@ -376,7 +371,7 @@ function _samhsa_pep_security_remove_events()
     $msg .= 'No failed login attempts found<br />';
   }
 
-  // check for users to restore
+  // Check for users to restore.
   $query = \Drupal::database()->select('samhsa_pep_security_lock', 'spsl')
     ->fields('spsl', ['id', 'name', 'timestamp'])
     ->fields('ufd', ['uid', 'status']);
@@ -389,9 +384,9 @@ function _samhsa_pep_security_remove_events()
   if ($numBlocks > 0) {
     $msg .= "$numBlocks blocked users, restoring...<br />";
     foreach ($results as $row) {
-      if ((integer)$row->timestamp < $cutoff) {
+      if ((integer) $row->timestamp < $cutoff) {
         if ($row->status == 0) {
-          // user is locked out, add to restore list
+          // User is locked out, add to restore list.
           $uids[] = $row->uid;
         }
       }
@@ -413,12 +408,12 @@ function _samhsa_pep_security_remove_events()
   }
 
   if ($numCleared + $numUnblocked + $numUnflooded > 0) {
-    // we did something so log everything if enabled
-    if ($log_level>0) \Drupal::logger('samhsa_pep_security')->notice($msg);
+    // We did something so log everything if enabled.
+    if ($log_level > 0) {
+      \Drupal::logger('samhsa_pep_security')->notice($msg);
+    }
   }
 }
-
-
 
 /**
  * Block a user by user name. If no user id then block current user.
@@ -440,7 +435,7 @@ function _login_user_block_user_name($variables, FormStateInterface $form_state)
       if (\Drupal::currentUser()->isAuthenticated()) {
         user_logout();
       }
-      // create an entry in the lock table so we'll know to restore this user
+      // Create an entry in the lock table so we'll know to restore this user.
       $conn = \Drupal::database();
       $conn->insert('samhsa_pep_security_lock')
         ->fields([
@@ -455,18 +450,19 @@ function _login_user_block_user_name($variables, FormStateInterface $form_state)
   return FALSE;
 }
 
-
 /**
  * Restore user.
  *
  * @param string $uid
  *   uid of user to restore, required.
  *
- * @return boolean
+ * @return bool
  *   success or failuer of restore
  */
 function _samhsa_pep_security_restore_user($uid = '') {
-  if ($uid=='') return;
+  if ($uid == '') {
+    return;
+  }
   $account = User::load($uid);
   if ($account) {
     $account->status->setValue(1);
@@ -477,7 +473,6 @@ function _samhsa_pep_security_restore_user($uid = '') {
   }
   return FALSE;
 }
-
 
 /**
  * Helper function to get the variable array for the messages.

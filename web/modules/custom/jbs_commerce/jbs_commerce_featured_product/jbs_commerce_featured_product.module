@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * @file
+ */
 
 /**
  * Implements hook_search_api_solr_query_alter().
  */
-function jbs_commerce_featured_product_search_api_solr_query_alter(\Solarium\Core\Query\QueryInterface $solarium_query, \Drupal\search_api\Query\QueryInterface $query) {
-  if (strpos(\Drupal::routeMatch()->getRouteName(), 'view.solr_search_content') !== false) {
+
+use Drupal\search_api\Query\ResultSetInterface;
+use Solarium\Core\Query\QueryInterface;
+
+/**
+ * Implementation of search_api_solr_query_alter().
+ */
+function jbs_commerce_featured_product_search_api_solr_query_alter(QueryInterface $solarium_query, \Drupal\search_api\Query\QueryInterface $query) {
+  if (strpos(\Drupal::routeMatch()
+      ->getRouteName(), 'view.solr_search_content') !== FALSE) {
     $config = \Drupal::config('jbs_commerce_featured_product.settings');
     $featured = $config->get('featured');
     $session = \Drupal::request()->getSession();
@@ -15,32 +26,7 @@ function jbs_commerce_featured_product_search_api_solr_query_alter(\Solarium\Cor
       $sorts = $solr->getSorts();
       $solarium_query->clearSorts();
       $solarium_query->addSorts(array_merge(['its_field_featured' => 'desc'], $sorts));
-//      $show = 'show_features';
-//      $default = [
-//        'sort_by' => 'field_publication_date',
-//        'sort_order' => 'DESC'
-//      ];
-//      $q = $query;
-//      $input = $q->getOptions()['search_api_view']->getExposedInput();
-//      $offset = $q->getOptions()['offset'];
-//      $featured_count = (function ($featured) {
-//        $count = 0;
-//        foreach ($featured as $f => $feature) {
-//          if (!empty($feature['featured'])) {
-//            $count++;
-//          }
-//        }
-//        return $count;
-//      })($featured);
-//
-//      if (empty($input['search_api_fulltext']) && empty($input['f']) && $input['sort_by'] == ($default['sort_by'] | NULL) && $input['sort_order'] == ($default['sort_order'] | NULL)) {
-//        $session->set($show, TRUE);
-//      }
-//      else {
-//        if (!empty($session->get($show))) {
-//          $session->remove($show);
-//        }
-//      }
+
     }
   }
 }
@@ -48,37 +34,38 @@ function jbs_commerce_featured_product_search_api_solr_query_alter(\Solarium\Cor
 /**
  * Implements hook_search_api_results_alter().
  */
-function jbs_commerce_featured_product_search_api_results_alter(\Drupal\search_api\Query\ResultSetInterface &$results) {
-  if (strpos(\Drupal::routeMatch()->getRouteName(), 'view.solr_search_content') !== false) {
-//    $config = \Drupal::config('jbs_commerce_featured_product.settings');
-//    $featured = $config->get('featured');
-//    if (!empty($featured) && !empty(\Drupal::request()->getSession()->get('show_features'))) {
-//      $search_api_fields_helper = \Drupal::service('search_api.fields_helper');
-//      $index = \Drupal\search_api\Entity\Index::load('default_solr_index');
-//
-//      $featured_query = (function ($query) use ($results) {
-//        return $results->getQuery()->getOption($query);
-//      });
-//      $featured_range = array_slice($featured, $featured_query('offset'), $featured_query('offset') + (int) $featured_query('limit'));
-//
-//      $new_results = [];
-//      $featured_count = count($featured_range);
-//      $resultItems = $results->getResultItems();
-//
-//      if ($featured_count > 0) {
-//        foreach ($featured_range as $f => $feature) {
-//          if (!empty($feature['featured'])) {
-//            $id = 'entity:commerce_product/' . $feature['featured'] . ':en';
-//            $new_item = $search_api_fields_helper->createItem($index, $id, $index->getDataSource('entity:commerce_product'));
-//            $new_results[] = $new_item;
-//          }
-//          else {
-//            $featured_count -= 1;
-//          }
-//        }
-//      }
-//      $new_results += array_slice($resultItems, 0, count($resultItems) - $featured_count);
-//      $results->setResultItems($new_results);
-//    }
+function jbs_commerce_featured_product_search_api_results_alter(ResultSetInterface &$results) {
+  if (strpos(\Drupal::routeMatch()
+      ->getRouteName(), 'view.solr_search_content') !== FALSE) {
+    // $config = \Drupal::config('jbs_commerce_featured_product.settings');
+    //    $featured = $config->get('featured');
+    //    if (!empty($featured) && !empty(\Drupal::request()->getSession()->get('show_features'))) {
+    //      $search_api_fields_helper = \Drupal::service('search_api.fields_helper');
+    //      $index = \Drupal\search_api\Entity\Index::load('default_solr_index');
+    //
+    //      $featured_query = (function ($query) use ($results) {
+    //        return $results->getQuery()->getOption($query);
+    //      });
+    //      $featured_range = array_slice($featured, $featured_query('offset'), $featured_query('offset') + (int) $featured_query('limit'));
+    //
+    //      $new_results = [];
+    //      $featured_count = count($featured_range);
+    //      $resultItems = $results->getResultItems();
+    //
+    //      if ($featured_count > 0) {
+    //        foreach ($featured_range as $f => $feature) {
+    //          if (!empty($feature['featured'])) {
+    //            $id = 'entity:commerce_product/' . $feature['featured'] . ':en';
+    //            $new_item = $search_api_fields_helper->createItem($index, $id, $index->getDataSource('entity:commerce_product'));
+    //            $new_results[] = $new_item;
+    //          }
+    //          else {
+    //            $featured_count -= 1;
+    //          }
+    //        }
+    //      }
+    //      $new_results += array_slice($resultItems, 0, count($resultItems) - $featured_count);
+    //      $results->setResultItems($new_results);
+    //    }
   }
 }

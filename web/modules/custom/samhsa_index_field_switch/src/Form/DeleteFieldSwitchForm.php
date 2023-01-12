@@ -84,4 +84,5 @@ class DeleteFieldSwitchForm extends ConfirmFormBase {
   public function getQuestion() {
     return t('Do you want to delete this field switching?');
   }
+
 }

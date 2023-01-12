@@ -32,4 +32,5 @@ class MaxLimitProcessor extends TypedData {
     }
     $this->maxLimit = $value;
   }
+
 }

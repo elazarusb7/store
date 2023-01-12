@@ -1,38 +1,13 @@
 <ul class="social-links-container">
   <li>Connect with SAMHSA:</li>
-  <li><a class="sprite social-button button-facebook" href="//www.facebook.com/samhsa" onclick="_gaq.push([_trackEvent, Top Social Media, Click, FaceBook]);">Visit the SAMHSA Facebook page</a></li>
-  <li><a class="sprite social-button button-twitter" href="//twitter.com/samhsagov" onclick="_gaq.push([_trackEvent, Top Social Media, Click, Twitter]);">Visit SAMHSA on Twitter</a></li>
-  <li><a class="sprite social-button button-youtube" href="//www.youtube.com/samhsa/" onclick="_gaq.push([_trackEvent, Top Social Media, Click, YouTube]);">Visit the SAMHSA YouTube channel</a></li>
-  <li><a class="sprite social-button button-blog" href="//blog.samhsa.gov/" onclick="_gaq.push([_trackEvent, Top Social Media, Click, Blog]);">Visit the SAMHSA blog</a></li>
+  <li><a class="sprite social-button button-facebook" href="//www.facebook.com/samhsa"
+         onclick="_gaq.push([_trackEvent, 'Top Social Media', 'Click', 'FaceBook']);">Visit the SAMHSA Facebook page</a>
+  </li>
+  <li><a class="sprite social-button button-twitter" href="//twitter.com/samhsagov"
+         onclick="_gaq.push([_trackEvent, 'Top Social Media', 'Click', 'Twitter']);">Visit SAMHSA on Twitter</a></li>
+  <li><a class="sprite social-button button-youtube" href="//www.youtube.com/samhsa/"
+         onclick="_gaq.push([_trackEvent, 'Top Social Media', 'Click', 'YouTube']);">Visit the SAMHSA YouTube channel</a>
+  </li>
+  <li><a class="sprite social-button button-blog" href="//blog.samhsa.gov/"
+         onclick="_gaq.push([_trackEvent, 'Top Social Media', 'Click', 'Blog']);">Visit the SAMHSA blog</a></li>
 </ul>
-
-
-{#
-<!--Twig equivalent of the original D7 markup  -->
-<div{{ attributes.addClass('header-social') }}>
-	<ul>
-		<li class="blog"><a href="//blog.samhsa.gov/"
-			onclick="_gaq.push([_trackEvent, Top Social Media, Click, Blog]);"><span
-				class="accessible-alt">Visit the SAMHSA blog</span></a></li>
-		<li class="youtube"><a href="//www.youtube.com/samhsa/"
-			onclick="_gaq.push([_trackEvent, Top Social Media, Click, YouTube]);"><span
-				class="accessible-alt">Visit the SAMHSA YouTube channel</span></a></li>
-		<li class="twitter"><a href="//www.twitter.com/samhsagov"
-			onclick="_gaq.push([_trackEvent, Top Social Media, Click, Twitter]);"><span
-				class="accessible-alt">Visit SAMHSA on Twitter</span></a></li>
-		<li class="facebook"><a href="//www.facebook.com/samhsa"
-			onclick="_gaq.push([_trackEvent, Top Social Media, Click, FaceBook]);"><span
-			class="accessible-alt">Visit the SAMHSA Facebook page.</span></a></li>
-		<li class="header-social-label">Connect with SAMHSA:&nbsp;</li>
-	</ul>
-</div>
-
-<!-- ***Begin - Charles Monroe 6/21/13. To turn on GSA indexing at this point*** -->
-
-<!--googleoff: all-->
-
-<!-- ***End*** -->
-
-<!-- //Note that Google switch is here because this is the last block in the Header region that is also
-//BEFORE the Mega Menu. If the position of the block is changed this code may need to move! -->
-#}
