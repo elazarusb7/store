@@ -67,8 +67,8 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
                         Your order has been cancelled. If you have any questions or did not request a cancellation, please use the Order # provided above when contacting us.<br /><br />
                         Regards,<br /><br />
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to 
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        If you have questions or comments regarding your order, please send an email to
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
                 ['%ordernumber' => $ordernumber]);
           \Drupal::messenger()->addStatus(t("Order Cancelled"));
@@ -86,13 +86,13 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
           $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Your order has been shipped. You should receive the materials in 10-12 days<br />                       
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br />                       
-                        Note: If you ordered products over the Max Limit, only the authorized quantity has been shipped.<br /><br />  
+                        Your order has been shipped. You should receive the materials in 10-12 days<br />
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br />
+                        Note: If you ordered products over the Max Limit, only the authorized quantity has been shipped.<br /><br />
                         Regards,<br /> <br />
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to 
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        If you have questions or comments regarding your order, please send an email to
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
                 ['%ordernumber' => $ordernumber]);
 
@@ -133,13 +133,13 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Thank you for your order. Since the quantity ordered exceeds the maximum limit, your order will require authorization. You will receive an email shortly with more details.<br /><br />                      
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />                     
-                                    
-                        Regards,<br /> <br />  
-                        SAMHSA Fulfillment Team<br /><br /> 
-                        If you have questions or comments regarding your order, please send an email to 
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        Thank you for your order. Since the quantity ordered exceeds the maximum limit, your order will require authorization. You will receive an email shortly with more details.<br /><br />
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />
+
+                        Regards,<br /> <br />
+                        SAMHSA Fulfillment Team<br /><br />
+                        If you have questions or comments regarding your order, please send an email to
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
           ['%ordernumber' => $ordernumber]);
 
@@ -165,13 +165,13 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Thank you for your order. You should receive the materials in 3-4 weeks.<br /><br />                      
-                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />                       
-                                    
-                        Regards,<br /> 
+                        Thank you for your order. We are moving to a new warehouse and apologize for any shipment delays. This move will allow us to provide better service in the future. Thanks for your patience.<br /><br />
+                        If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />
+
+                        Regards,<br />
                         SAMHSA Fulfillment Team<br /><br />
-                        If you have questions or comments regarding your order, please send an email to 
-                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number. 
+                        If you have questions or comments regarding your order, please send an email to
+                        <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
           ['%ordernumber' => $ordernumber]);
 
