@@ -6,10 +6,12 @@ dependencies:
     - facets.facet.language
   module:
     - facets
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 id: language_2
 theme: samhsa_pep_uswds
 region: sidebar_second
@@ -23,11 +25,6 @@ settings:
   provider: facets
   block_id: language_2
 visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
   request_path:
     id: request_path
     negate: false
