@@ -6,10 +6,12 @@ dependencies:
     - facets.facet.location
   module:
     - facets
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_location_2
 theme: samhsa_pep_admin
 region: header
@@ -23,11 +25,6 @@ settings:
   provider: facets
   block_id: location_2
 visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
   request_path:
     id: request_path
     negate: false

@@ -2,13 +2,11 @@
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#the-build-process-explained
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#why-build-phases-matter
 
-# @todo: Remove all commmented/unneeded config once this is stable
+# @todo: Remove all commmented/unneeded (store) config once this is stable
 
 services:
-
   # What to call the service hosting the site
   php:
-
     # Match versions used on prod: Minimum Apache 2.4.51, php 8.0.x
     image: tugboatqa/php:8.0-apache
 
@@ -23,7 +21,6 @@ services:
 
     # A set of commands to run while building this service
     commands:
-
       # Commands that set up the basic preview infrastructure. This is where we
       # install the tools that need to be present before building the site.
       # Building a "base preview" starts here and completes subsequent phases
@@ -63,7 +60,6 @@ services:
         - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key
 
         - composer install
-        -
         # Link drush (before trying to use it
         - ln -s "${TUGBOAT_ROOT}/vendor/drush/drush/drush" /usr/local/bin/drush
 
@@ -83,7 +79,6 @@ services:
       # already be present.
       # "refresh" starts here and completes subsequent phases
       update:
-
         # Fetch and import database
         - wget $SAMHSA_STORE_DB -O /tmp/database.sql.gz
         - zcat /tmp/database.sql.gz | drush -y -r $DOCROOT sql-cli
@@ -101,7 +96,6 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
-
         # Run composer install again cuz branch may include new stuff.
         - composer install
 
@@ -121,7 +115,7 @@ services:
         - drush -y -r $TUGBOAT_ROOT config:import
 
     # Enable visual diff tests on Tugboat
-    # @todo list of URLs to test
+    # @todo list of URLs to test https://ocwebteam.atlassian.net/browse/OCWT-3678
     urls:
       # Create visual diffs of the these URLs using the default options
       - /
