@@ -1,7 +1,6 @@
 {
   "patches": {
-    "drupal/core": {
-      "Fix getCacheTags error for views": "_patches/2738051-20-1.patch",
+    "drgupal/core": {
       "Date Between Filter inclusive fix": "_patches/date_filter_between_include.patch",
       "Wrong triggering element is detected": "_patches/drupal-8.0-fapi_multibuttons_triggering_element-2546700-39.patch",
       "Customize new account password reset message": "_patches/core_user_new-account-password-msg_20200305.patch",

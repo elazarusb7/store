@@ -12,6 +12,10 @@
         }
     ],
     "require": {
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-pdo": "*",
         "behat/mink-selenium2-driver": "dev-master as 1.3.x-dev",
         "chi-teck/drupal-code-generator": "^2.6",
         "ckeditor/fakeobjects": "4.7.2",
@@ -71,10 +75,10 @@
         "drupal/context": "^4.0@beta",
         "drupal/context_ui": "^4.0@beta",
         "drupal/contextual_range_filter": "^1.0",
-        "drupal/core": "9.4.8",
+        "drupal/core": "9.5.2",
         "drupal/core-composer-scaffold": "^9.4",
         "drupal/core-dev": "^9.4",
-        "drupal/core-recommended": "9.4.8",
+        "drupal/core-recommended": "^9.5.2",
         "drupal/crazyegg": "^1.1",
         "drupal/csv_serialization": "^2.1",
         "drupal/ctools": "^3.7",
@@ -236,11 +240,7 @@
         "solarium/solarium": "^6.0.4",
         "swiftmailer/swiftmailer": "^6.0",
         "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3",
-        "ext-dom": "*",
-        "ext-libxml": "*",
-        "ext-curl": "*",
-        "ext-pdo": "*"
+        "webmozart/path-util": "^2.3"
     },
     "repositories": [
         {
