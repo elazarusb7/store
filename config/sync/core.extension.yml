@@ -142,6 +142,7 @@ module:
   redirect: 0
   responsive_image: 0
   rest: 0
+  samhsa_computed_fields: 0
   samhsa_index_field_switch: 0
   samhsa_pep_admin_orders_helper: 0
   samhsa_pep_anonlogout: 0
