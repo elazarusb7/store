@@ -1926,7 +1926,7 @@ display:
           admin_label: ''
           plugin_id: search_api_field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -1997,8 +1997,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if field_summary_for_products_1|length > 1 %}\r\n{{ field_summary_for_products_1 }} \r\n{% else %}\r\n{{ body }}\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
