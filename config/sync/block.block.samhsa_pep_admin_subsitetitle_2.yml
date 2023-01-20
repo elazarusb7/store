@@ -6,9 +6,11 @@ dependencies:
     - 'block_content:basic:77933e70-a1be-47b5-b3f8-ef8e05ecc8d7'
   module:
     - block_content
-    - mobile_device_detection
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_subsitetitle_2
 theme: samhsa_pep_admin
 region: sidebar_first
@@ -23,9 +25,4 @@ settings:
   status: true
   info: ''
   view_mode: full
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
+visibility: {  }

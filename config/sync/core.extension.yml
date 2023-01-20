@@ -123,7 +123,6 @@ module:
   metatag_views: 0
   migrate_files_and_images: 0
   mimemail: 0
-  mobile_device_detection: 0
   module_filter: 0
   mysql: 0
   node: 0
