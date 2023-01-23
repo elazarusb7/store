@@ -7,7 +7,6 @@ dependencies:
   module:
     - block_class
     - facets_summary
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_admin
@@ -26,11 +25,6 @@ settings:
   label_display: '0'
   provider: facets_summary
 visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
   request_path:
     id: request_path
     negate: false
