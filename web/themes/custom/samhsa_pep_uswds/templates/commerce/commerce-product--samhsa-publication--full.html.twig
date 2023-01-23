@@ -34,11 +34,8 @@
       </div>
     </div>
     <div class="product-page--overview">
-      {% if product.field_summary_for_products|render|striptags|trim|length == 0 %}
-      {{ product.body }}
-      {% else %}
       {{ product.field_summary_for_products }} 
-      {% endif %}
+      {{ product.body }}
       {{ product.field_app_features }}
       {{ product.field_external_video }}
       {{ product.variation_sku }}
