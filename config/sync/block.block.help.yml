@@ -4,9 +4,11 @@ status: true
 dependencies:
   module:
     - help
-    - mobile_device_detection
   theme:
     - samhsa_pep_uswds
+third_party_settings:
+  block_class:
+    classes: null
 id: help
 theme: samhsa_pep_uswds
 region: content
@@ -18,9 +20,4 @@ settings:
   label: Help
   label_display: '0'
   provider: help
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
+visibility: {  }
