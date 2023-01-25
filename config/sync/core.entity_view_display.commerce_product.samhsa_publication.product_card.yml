@@ -41,6 +41,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_related_products
     - field.field.commerce_product.samhsa_publication.field_related_resource_files
     - field.field.commerce_product.samhsa_publication.field_samhsa_digital_download
+    - field.field.commerce_product.samhsa_publication.field_samhsa_external_product
     - field.field.commerce_product.samhsa_publication.field_samhsa_promo_link
     - field.field.commerce_product.samhsa_publication.field_series
     - field.field.commerce_product.samhsa_publication.field_substances
@@ -129,6 +130,7 @@ hidden:
   field_related_resource_files: true
   field_samhsa_digital_download: true
   field_samhsa_digital_upload: true
+  field_samhsa_external_product: true
   field_samhsa_promo_link: true
   field_series: true
   field_substances: true

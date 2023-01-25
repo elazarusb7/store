@@ -40,6 +40,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_related_products
     - field.field.commerce_product.samhsa_publication.field_related_resource_files
     - field.field.commerce_product.samhsa_publication.field_samhsa_digital_download
+    - field.field.commerce_product.samhsa_publication.field_samhsa_external_product
     - field.field.commerce_product.samhsa_publication.field_samhsa_promo_link
     - field.field.commerce_product.samhsa_publication.field_series
     - field.field.commerce_product.samhsa_publication.field_substances
@@ -79,7 +80,7 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -96,7 +97,7 @@ content:
         hide_guidelines: '1'
   field_apple_app_store:
     type: link_default
-    weight: 44
+    weight: 45
     region: content
     settings:
       placeholder_url: ''
@@ -104,13 +105,13 @@ content:
     third_party_settings: {  }
   field_audience:
     type: options_select
-    weight: 30
+    weight: 31
     region: content
     settings: {  }
     third_party_settings: {  }
   field_campaign:
     type: string_textfield
-    weight: 17
+    weight: 18
     region: content
     settings:
       size: 60
@@ -118,7 +119,7 @@ content:
     third_party_settings: {  }
   field_external_video:
     type: entity_reference_autocomplete
-    weight: 42
+    weight: 43
     region: content
     settings:
       match_operator: CONTAINS
@@ -128,13 +129,13 @@ content:
     third_party_settings: {  }
   field_format:
     type: options_select
-    weight: 29
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
   field_google_play:
     type: link_default
-    weight: 43
+    weight: 44
     region: content
     settings:
       placeholder_url: ''
@@ -149,25 +150,25 @@ content:
     third_party_settings: {  }
   field_issues_conditions_and_diso:
     type: options_select
-    weight: 33
+    weight: 34
     region: content
     settings: {  }
     third_party_settings: {  }
   field_last_reviewed:
     type: datetime_default
-    weight: 11
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
   field_location:
     type: options_select
-    weight: 37
+    weight: 38
     region: content
     settings: {  }
     third_party_settings: {  }
   field_may_be_interested_files:
     type: file_generic
-    weight: 19
+    weight: 20
     region: content
     settings:
       progress_indicator: throbber
@@ -176,13 +177,13 @@ content:
         enabled: true
   field_may_be_interested_in:
     type: options_select
-    weight: 18
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   field_may_be_interested_manual:
     type: entity_reference_autocomplete
-    weight: 20
+    weight: 21
     region: content
     settings:
       match_operator: CONTAINS
@@ -192,7 +193,7 @@ content:
     third_party_settings: {  }
   field_metatags:
     type: metatag_firehose
-    weight: 46
+    weight: 47
     region: content
     settings:
       sidebar: true
@@ -200,7 +201,7 @@ content:
     third_party_settings: {  }
   field_microsoft_store:
     type: link_default
-    weight: 45
+    weight: 46
     region: content
     settings:
       placeholder_url: ''
@@ -208,25 +209,25 @@ content:
     third_party_settings: {  }
   field_office_center:
     type: options_select
-    weight: 25
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }
   field_pep_product_type:
     type: options_select
-    weight: 24
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
   field_population_group:
     type: options_select
-    weight: 31
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
   field_product_owner_email:
     type: email_default
-    weight: 13
+    weight: 14
     region: content
     settings:
       placeholder: ''
@@ -234,7 +235,7 @@ content:
     third_party_settings: {  }
   field_product_owner_name:
     type: string_textfield
-    weight: 12
+    weight: 13
     region: content
     settings:
       size: 60
@@ -242,7 +243,7 @@ content:
     third_party_settings: {  }
   field_product_owner_phone:
     type: string_textfield
-    weight: 14
+    weight: 15
     region: content
     settings:
       size: 60
@@ -250,25 +251,25 @@ content:
     third_party_settings: {  }
   field_professional_and_research_:
     type: options_select
-    weight: 35
+    weight: 36
     region: content
     settings: {  }
     third_party_settings: {  }
   field_pub_lang:
     type: options_select
-    weight: 28
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
   field_pub_target_audience:
     type: options_buttons
-    weight: 40
+    weight: 41
     region: content
     settings: {  }
     third_party_settings: {  }
   field_publication_category:
     type: options_buttons
-    weight: 39
+    weight: 40
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -280,21 +281,21 @@ content:
     third_party_settings: {  }
   field_qty_max_order:
     type: number
-    weight: 9
+    weight: 10
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_qty_reserved:
     type: number
-    weight: 8
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_related_products:
     type: link_default
-    weight: 26
+    weight: 27
     region: content
     settings:
       placeholder_url: ''
@@ -302,7 +303,7 @@ content:
     third_party_settings: {  }
   field_related_resource_files:
     type: file_generic
-    weight: 27
+    weight: 28
     region: content
     settings:
       progress_indicator: throbber
@@ -318,9 +319,17 @@ content:
     third_party_settings:
       imce:
         enabled: true
+  field_samhsa_external_product:
+    type: link_default
+    weight: 8
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   field_samhsa_promo_link:
     type: link_default
-    weight: 15
+    weight: 16
     region: content
     settings:
       placeholder_url: ''
@@ -328,13 +337,13 @@ content:
     third_party_settings: {  }
   field_series:
     type: options_select
-    weight: 32
+    weight: 33
     region: content
     settings: {  }
     third_party_settings: {  }
   field_substances:
     type: options_select
-    weight: 36
+    weight: 37
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -348,7 +357,7 @@ content:
     third_party_settings: {  }
   field_supplemental_materials:
     type: file_generic
-    weight: 16
+    weight: 17
     region: content
     settings:
       progress_indicator: throbber
@@ -357,7 +366,7 @@ content:
         enabled: true
   field_tags:
     type: options_select
-    weight: 38
+    weight: 39
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -373,13 +382,13 @@ content:
         enabled: true
   field_treatment_prevention_and_r:
     type: options_select
-    weight: 34
+    weight: 35
     region: content
     settings: {  }
     third_party_settings: {  }
   field_web_card_image:
     type: image_image
-    weight: 47
+    weight: 48
     region: content
     settings:
       progress_indicator: throbber
@@ -389,20 +398,20 @@ content:
         enabled: true
   path:
     type: path
-    weight: 21
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 22
+    weight: 23
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   stores:
     type: options_select
-    weight: 41
+    weight: 42
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -416,7 +425,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 23
+    weight: 24
     region: content
     settings:
       match_operator: CONTAINS

@@ -53,7 +53,12 @@
     <div class="product-page--block product-page--download">
       <h2 class="product-page--block--heading">Download</h2>
       <div class="product-page--block--inner">
-        {{ product.field_samhsa_digital_download }}
+        {% if product.field_samhsa_digital_download['#title'] is not empty %}
+          {{ product.field_samhsa_digital_download }}
+        {% endif %}
+        {% if product.field_samhsa_external_product['#title'] is not empty %}
+          {{ product.field_samhsa_external_product }}
+        {% endif %}
         {% if product.field_google_play['#object'] %}
           <a href="{{ product.field_google_play.0['#url'] }}" class="app-store-badge--google"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from Google Play</span></a>
         {% endif %}
