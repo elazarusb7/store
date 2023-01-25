@@ -268,6 +268,12 @@ class SamhsaGpoAPI {
           $child = $dom->createElement('PUBCODE', $GpoPubNumber);
           $item_node->appendChild($child);
 
+          // The next four lines of code forces 7 products to a quantity of one
+          $gpoNumsToForceQuantity = ['310076', '310077', '310078', '310079', '310081', '310083', '310084'];
+          if (in_array($GpoPubNumber, $gpoNumsToForceQuantity)) {
+            $quantity = 1;
+          }
+
           $child = $dom->createElement('QUANTITY', $quantity);
           $item_node->appendChild($child);
 
