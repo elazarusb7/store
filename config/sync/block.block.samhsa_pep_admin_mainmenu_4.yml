@@ -5,10 +5,12 @@ dependencies:
   config:
     - system.menu.main-menu
   module:
-    - mobile_device_detection
     - superfish
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_mainmenu_4
 theme: samhsa_pep_admin
 region: sidebar_first
@@ -69,9 +71,4 @@ settings:
   custom_list_class: ''
   custom_item_class: ''
   custom_link_class: ''
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
+visibility: {  }

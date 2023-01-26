@@ -4,9 +4,11 @@ status: true
 dependencies:
   module:
     - commerce_cart
-    - mobile_device_detection
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_cart_2
 theme: samhsa_pep_admin
 region: sidebar_first
@@ -19,9 +21,4 @@ settings:
   label_display: '0'
   provider: commerce_cart
   dropdown: true
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
+visibility: {  }
