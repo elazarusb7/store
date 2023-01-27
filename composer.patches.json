@@ -18,9 +18,6 @@
     },
     "drupal/menu_export": {
       "Menu item roles are not exported correctly": "https://www.drupal.org/files/issues/2019-06-26/export-menu-item-roles-3064238-2.patch"
-    },
-    "drupal/mobile_device_detection": {
-      "CUSTOM: Drupal 9 readiness": "_patches/mobile_device_detection_drupal9_readiness.patch"
     }
   }
 }
