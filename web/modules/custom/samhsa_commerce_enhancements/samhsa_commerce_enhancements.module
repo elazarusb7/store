@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for SAMHSA Commerce Extensions module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $form_state, $form_id): void {
+  // Could not get a specific form alter hook to work.
+  // We're just tweaking our special request layout a bit. Commerce forms are
+  // much different from standard Drupal forms.
+  if ($form_id === 'commerce_order_default_edit_form') {
+    $form['special_request']['#title'] = 'Special Request';
+    $form['special_request']['#type'] = 'fieldset';
+    $form['special_request']['#weight'] = 0;
+    $form['special_request']['#collapsible'] = TRUE;
+    $form['special_request']['#collapsed'] = TRUE;
+
+    $form['special_request']['field_special_request'] = $form['field_special_request'];
+    $form['special_request']['field_special_request_desc'] = $form['field_special_request_desc'];
+
+    unset($form['field_special_request'], $form['field_special_request_desc']);
+  }
+
+  // The exposed filters section of /admin/commerce/orders
+  if ($form['#id'] === 'views-exposed-form-commerce-orders-page-1') {
+    // We can't allow users to select a 'false' value here because objects
+    // may have no actual 'false' value and so the results can be NULL
+    // Only let them select 'special request' == TRUE value which will always be populated
+    // when true.
+    unset($form['field_special_request_value']['#options'][0]);
+  }
+
+}
