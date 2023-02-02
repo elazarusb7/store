@@ -2,8 +2,8 @@
 
 namespace Drupal\samhsa_term_elevation\Plugin\views\field;
 
+use Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Random;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 
@@ -67,7 +67,7 @@ class Description extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
 
-    if (!($values->_object instanceof \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument)) {
+    if (!($values->_object instanceof SolrMultisiteDocument)) {
       return 'n/a';
     }
 

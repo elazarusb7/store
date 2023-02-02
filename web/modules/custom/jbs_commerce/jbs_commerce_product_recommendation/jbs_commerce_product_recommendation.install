@@ -34,11 +34,11 @@ function jbs_commerce_product_recommendation_schema() {
         'type' => 'int',
         'not null' => TRUE,
         'description' => "Size of data used to calculate score.",
-      ]
+      ],
     ],
     'indexes' => [
       'p1' => ['p1'],
-      'p2' => ['p2']
+      'p2' => ['p2'],
     ],
     'primary key' => ['p1', 'p2'],
   ];
@@ -48,7 +48,7 @@ function jbs_commerce_product_recommendation_schema() {
       'id' => [
         'type' => 'serial',
         'not null' => TRUE,
-        'description' => 'ID of the event.'
+        'description' => 'ID of the event.',
       ],
       'content_type' => [
         'type' => 'varchar',
@@ -71,14 +71,14 @@ function jbs_commerce_product_recommendation_schema() {
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
-        'description' => "ID of the session in which the event occurred."
+        'description' => "ID of the session in which the event occurred.",
       ],
       'event' => [
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
-        'description' => 'Type of event that occurred'
-      ]
+        'description' => 'Type of event that occurred',
+      ],
     ],
     'indexes' => [
       'content_id' => ['content_id'],
@@ -94,12 +94,12 @@ function jbs_commerce_product_recommendation_schema() {
       'id' => [
         'type' => 'serial',
         'not null' => TRUE,
-        'description' => 'Update ID.'
+        'description' => 'Update ID.',
       ],
       'cutoff' => [
         'type' => 'int',
         'not null' => TRUE,
-        'description' => 'Timestamp cutoff of last model update.'
+        'description' => 'Timestamp cutoff of last model update.',
       ],
       'timestamp' => [
         'type' => 'varchar',
@@ -122,7 +122,7 @@ function jbs_commerce_product_recommendation_schema() {
  */
 function jbs_commerce_product_recommendation_uninstall() {
   Drupal::configFactory()->getEditable('jbs_commerce_product_recommendation.settings')->delete();
-//  if (\Drupal::database()->schema()->tableExists('product_recommendation__product_pairs')) {
-//    \Drupal::database()->schema()->dropTable('product_recommendation__product_pairs');
-//  }
+  // If (\Drupal::database()->schema()->tableExists('product_recommendation__product_pairs')) {
+  //    \Drupal::database()->schema()->dropTable('product_recommendation__product_pairs');
+  //  }
 }

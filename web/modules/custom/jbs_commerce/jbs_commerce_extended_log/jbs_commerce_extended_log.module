@@ -41,7 +41,7 @@ function jbs_commerce_extended_log_entity_presave(EntityInterface $entity) {
     // That's because Commerce takes care of that.
     if (
       $transition_states->from != 'draft' &&
-      !$transition_states->trasitioning
+      !$transition_states->transitioning
     ) {
       // Check if changes have happened in the bundled custom fields.
       if ($changes = _jbs_commerce_extended_log_check_custom_fields_changes($entity)) {
@@ -71,7 +71,7 @@ function jbs_commerce_extended_log_entity_presave(EntityInterface $entity) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_delete(): commerce_order_item
+ * Implements hook_ENTITY_TYPE_delete(): commerce_order_item.
  */
 function jbs_commerce_extended_log_commerce_order_item_delete(EntityInterface $entity) {
   if ($order = $entity->getOrder()) {
@@ -121,7 +121,7 @@ function jbs_commerce_extended_log_log_the_changes(array $changes) {
  * Checks if any value in the custom bundled fields were changed.
  *
  * @param \Drupal\commerce_order\Entity\Order $order
- *  Order object.
+ *   Order object.
  *
  * @return array
  *   Array of \stdClass:
@@ -145,7 +145,7 @@ function _jbs_commerce_extended_log_check_custom_fields_changes(Order $order) {
           $field_definition = $order->getFieldDefinition($field_name)->getFieldStorageDefinition();
           $field_type = $field_definition->getType();
           if ($field_type == 'datetime') {
-            //$user_time_zone = new DateTimeZone(drupal_get_user_timezone());
+            // $user_time_zone = new DateTimeZone(drupal_get_user_timezone());
             $user_time_zone = new DateTimeZone(date_default_timezone_get());
             $gmt_time_zone = new DateTimeZone('GMT');
             $old_date = new DateTime($old_value[0]['value'], $gmt_time_zone);
@@ -162,8 +162,8 @@ function _jbs_commerce_extended_log_check_custom_fields_changes(Order $order) {
           $result = new stdClass();
           $result->logMessage = 'Changed value of field: ' . $order->getFieldDefinition($field_name)->getLabel() . '.';
           $result->fieldName = $field_name;
-          $result->oldValue = isset($old_value[0]['value']) ? $old_value[0]['value'] :  $old_value;
-          $result->newValue = isset($new_value[0]['value']) ? $new_value[0]['value'] :  $new_value;
+          $result->oldValue = $old_value[0]['value'] ?? $old_value;
+          $result->newValue = $new_value[0]['value'] ?? $new_value;
           $result->order = $order;
           $results[] = $result;
         }
@@ -177,7 +177,7 @@ function _jbs_commerce_extended_log_check_custom_fields_changes(Order $order) {
  * Checks if items were added to the Order.
  *
  * @param \Drupal\commerce_order\Entity\Order $order
- *  Order object.
+ *   Order object.
  *
  * @return array
  *   Array of \stdClass:
@@ -197,7 +197,7 @@ function _jbs_commerce_extended_log_check_added_items_changes(Order $order) {
     $old_order_items_list = $old_order->get('order_items')->getValue();
     $old_order_items = [];
     foreach ($old_order_items_list as $item) {
-      if  (@$item['target_id']) {
+      if (@$item['target_id']) {
         if ($order_item = OrderItem::load($item['target_id'])) {
           $old_order_items[$order_item->id()] = $order_item->getTitle();
         }
@@ -210,13 +210,13 @@ function _jbs_commerce_extended_log_check_added_items_changes(Order $order) {
       $new_order_items[$item->id()] = [
         'title' => $item->getTitle(),
         'quantity' => $item->getQuantity(),
-     ];
+      ];
     }
     // Scan for new items.
     foreach ($new_order_items as $new_item_id => $new_item_title) {
       if (!isset($old_order_items[$new_item_id])) {
         $result = new stdClass();
-        $result->logMessage = 'Item added: "' .  $new_item_title['title']. '"';
+        $result->logMessage = 'Item added: "' . $new_item_title['title'] . '"';
         $result->fieldName = 'item';
         $result->oldValue = 'n/a';
         $result->newValue = number_format($new_item_title['quantity']);
@@ -232,7 +232,7 @@ function _jbs_commerce_extended_log_check_added_items_changes(Order $order) {
  * Checks if any change has happened in the order items.
  *
  * @param \Drupal\commerce_order\Entity\OrderItem $item
- *  Order object.
+ *   Order object.
  *
  * @return array
  *   Array of \stdClass:
@@ -264,7 +264,7 @@ function _jbs_commerce_extended_log_check_item_changes(OrderItem $item) {
 /**
  * Gets the order object to which a profile belongs.
  *
- * @param integer $profile_id
+ * @param int $profile_id
  *   The id of the profile.
  *
  * @return Drupal\commerce_order\Entity\Order
@@ -283,8 +283,9 @@ function _jbs_commerce_extended_log_get_order_from_profile($profile_id) {
 /**
  * Checks if any value in the profile fields were changed.
  *
- * @param \Drupal\profile\Entity\Profile $profile .
- *  Order object.
+ * @param \Drupal\profile\Entity\Profile $profile
+ *   .
+ *   Order object.
  *
  * @return array
  *   Array of \stdClass:
@@ -299,7 +300,7 @@ function _jbs_commerce_extended_log_get_order_from_profile($profile_id) {
  * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
  * @throws \Drupal\Core\TypedData\Exception\MissingDataException
  */
-function  _jbs_commerce_extended_log_check_billing_fields_changes(Profile $profile) {
+function _jbs_commerce_extended_log_check_billing_fields_changes(Profile $profile) {
   $results = [];
   // Did some change occur?
   if ($old_profile = @$profile->original) {
@@ -331,8 +332,8 @@ function  _jbs_commerce_extended_log_check_billing_fields_changes(Profile $profi
           $result = new stdClass();
           $result->logMessage = 'Changed value of Address field: ' . $profile->getFieldDefinition($field_name)->getLabel() . '.';
           $result->fieldName = $field_name;
-          $result->oldValue = isset($old_value[0]['value']) ? $old_value[0]['value'] :  $old_value;
-          $result->newValue = isset($new_value[0]['value']) ? $new_value[0]['value'] :  $new_value;
+          $result->oldValue = $old_value[0]['value'] ?? $old_value;
+          $result->newValue = $new_value[0]['value'] ?? $new_value;
           $result->order = $order;
           $result->profile = $profile;
           $results[] = $result;
@@ -347,7 +348,7 @@ function  _jbs_commerce_extended_log_check_billing_fields_changes(Profile $profi
  * Gets the original and new state of the transition.
  *
  * @param \Drupal\commerce_order\Entity\Order $order
- *  Order object.
+ *   Order object.
  *
  * @return object
  *   The original state;
@@ -360,6 +361,6 @@ function _jbs_commerce_extended_log_get_state_transition(Order $order) {
   $result->from = $state->getOriginalId();
   $result->to = $state->getString();
   $result->fromTo = sprintf('%s-%s', $result->from, $result->to);
-  $result->trasitioning = ($result->from  == $result->to) ? FALSE : TRUE;
+  $result->transitioning = ($result->from  == $result->to) ? FALSE : TRUE;
   return $result;
 }

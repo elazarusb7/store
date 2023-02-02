@@ -47,6 +47,7 @@ module:
   commerce_store: 0
   commerce_tax: 0
   commerce_ups: 0
+  computed_field: 0
   config: 0
   config_devel: 0
   config_filter: 0
@@ -97,6 +98,9 @@ module:
   jbs_commerce_over_the_max_limit: 0
   jbs_commerce_product_recommendation: 0
   jquery_ui: 0
+  jquery_ui_datepicker: 0
+  jquery_ui_slider: 0
+  jquery_ui_touch_punch: 0
   key: 0
   language: 0
   link: 0
@@ -119,8 +123,8 @@ module:
   metatag_views: 0
   migrate_files_and_images: 0
   mimemail: 0
-  mobile_device_detection: 0
   module_filter: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -137,6 +141,8 @@ module:
   redirect: 0
   responsive_image: 0
   rest: 0
+  samhsa_commerce_enhancements: 0
+  samhsa_computed_fields: 0
   samhsa_index_field_switch: 0
   samhsa_pep_admin_orders_helper: 0
   samhsa_pep_anonlogout: 0
@@ -167,12 +173,12 @@ module:
   samhsa_pep_utility: 0
   samhsa_term_elevation: 0
   samhsa_theme_block_pep8: 0
+  samhsa_xml: 0
   search_api: 0
   search_api_attachments: 0
   search_api_autocomplete: 0
   search_api_solr: 0
   search_api_solr_autocomplete: 0
-  search_api_solr_defaults: 0
   search_api_spellcheck: 0
   serialization: 0
   shortcut: 0
@@ -195,6 +201,7 @@ module:
   tour: 0
   twig_tweak: 0
   typed_data: 0
+  ultimate_cron: 0
   update: 0
   user: 0
   views_aggregator: 0

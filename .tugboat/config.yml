@@ -2,13 +2,11 @@
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#the-build-process-explained
 # * https://docs.tugboat.qa/building-a-preview/preview-deep-dive/how-previews-work/#why-build-phases-matter
 
-# @todo: Remove all commmented/unneeded config once this is stable
+# @todo: Remove all commmented/unneeded (store) config once this is stable
 
 services:
-
   # What to call the service hosting the site
   php:
-
     # Match versions used on prod: Minimum Apache 2.4.51, php 8.0.x
     image: tugboatqa/php:8.0-apache
 
@@ -23,7 +21,6 @@ services:
 
     # A set of commands to run while building this service
     commands:
-
       # Commands that set up the basic preview infrastructure. This is where we
       # install the tools that need to be present before building the site.
       # Building a "base preview" starts here and completes subsequent phases
@@ -56,8 +53,13 @@ services:
         # SAMHSA_STORE: Our own custom php tweaks
         - cp "${TUGBOAT_ROOT}/.tugboat/php.ini" /usr/local/etc/php/conf.d/samhsa_store.ini
 
-        - composer install
+        # Create a Private file folder with an encryption key subfolder
+        - mkdir -p "${TUGBOAT_ROOT}/private/keys" && chown -R www-data "${TUGBOAT_ROOT}/private" && chmod -R 755 "${TUGBOAT_ROOT}/private"
 
+        # Adding an encryption key.
+        - echo "bRcwuYABgjtCzmEuq2j36l4ievL8rE083Ie7FyAYM7s=" > ${TUGBOAT_ROOT}/private/keys/encrypt.key
+
+        - composer install
         # Link drush (before trying to use it
         - ln -s "${TUGBOAT_ROOT}/vendor/drush/drush/drush" /usr/local/bin/drush
 
@@ -77,16 +79,15 @@ services:
       # already be present.
       # "refresh" starts here and completes subsequent phases
       update:
-
         # Fetch and import database
         - wget $SAMHSA_STORE_DB -O /tmp/database.sql.gz
         - zcat /tmp/database.sql.gz | drush -y -r $DOCROOT sql-cli
         # Adding a cache rebuild here after the import to fix config issues.
         - drush -r $TUGBOAT_ROOT cache:rebuild
         # Create a temp admin account
-        - drush -y user:create tugboat
+        # Adding the mail and password all in one step
+        - drush -y user:create tugboat --mail='tugboat@example.com' --password='tugboat'
         - drush -y user:role:add administrator tugboat
-        - drush -y user:password tugboat tugboat
 
       # Commands that build the site. This is where you would add things
       # like config imports or any other drush commands required to
@@ -95,7 +96,6 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
-
         # Run composer install again cuz branch may include new stuff.
         - composer install
 
@@ -115,13 +115,29 @@ services:
         - drush -y -r $TUGBOAT_ROOT config:import
 
     # Enable visual diff tests on Tugboat
-    # @todo list of URLs to test
+    # @todo list of URLs to test https://ocwebteam.atlassian.net/browse/OCWT-3678
     urls:
       # Create visual diffs of the these URLs using the default options
       - /
-      - /?v=treatment_prevention_and_recovery
+      - /?f%5B0%5D=audience%3A4961
+      - /?f%5B0%5D=format%3A5035&f%5B1%5D=format%3A5035&f%5B2%5D=format%3A5035&f%5B3%5D=format%3A5035
+      - /?search_api_fulltext=&items_per_page=10&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961
+      - /?search_api_fulltext=&items_per_page=10&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961&f%5B1%5D=treatment_prevention_and_recovery%3A5477
+      - /?search_api_fulltext=&items_per_page=50&sort_bef_combine=field_publication_date_ASC&f%5B0%5D=audience%3A4961&f%5B1%5D=population_group%3A5345&f%5B2%5D=treatment_prevention_and_recovery%3A5477
       - /?v=issues_conditions_and_disorders
-
+      - /?v=issues_conditions_and_disorders&f%5B0%5D=issues_conditions_and_disorders%3A5077
+      - /?v=professional_and_research_topics
+      - /?v=series
+      - /?v=substances
+      - /?v=treatment_prevention_and_recovery
+      - /cart
+      - /help
+      - /product/community-engagement-essential-component-substance-use-prevention-system/pep22-06-01-005?referer=from_search_result
+      - /product/crisis-care-building-988-and-beyond-better-mental-health-outcomes/pep22-01-03-001?referer=from_search_result
+      - /product/drug-abuse-warning-network-findings-drug-related-emergency-department-visits-2021/pep22-07-03-002?referer=from_search_result
+      - /user/login
+      - /user/password
+      - /user/register
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.

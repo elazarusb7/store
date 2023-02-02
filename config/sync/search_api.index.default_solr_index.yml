@@ -11,6 +11,7 @@ dependencies:
     - field.storage.commerce_product.field_pub_lang
     - field.storage.commerce_product.field_location
     - field.storage.commerce_product.field_population_group
+    - field.storage.commerce_product.field_print_only_out_of_stock
     - field.storage.commerce_product.field_professional_and_research_
     - field.storage.commerce_product.field_publication_category
     - field.storage.commerce_product.field_publication_date
@@ -129,6 +130,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.commerce_product.field_population_group
+  field_print_only_out_of_stock:
+    label: 'Print only out of stock'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_print_only_out_of_stock
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_print_only_out_of_stock
   field_professional_and_research_:
     label: 'Professional and Research Topics'
     datasource_id: 'entity:commerce_product'
@@ -213,8 +222,6 @@ field_settings:
     dependencies:
       module:
         - commerce_product
-        - commerce_product
-        - commerce_product
   spellcheck:
     label: Spellcheck
     property_path: aggregated_field
@@ -258,6 +265,7 @@ processor_settings:
     weights:
       add_properties: 20
   entity_status: {  }
+  entity_type: {  }
   file_attachments:
     excluded_extensions: 'aif art avi bmp gif ico mov oga ogv png psd ra ram rgb flv'
     number_indexed: 0
@@ -271,6 +279,7 @@ processor_settings:
     prefix: '<strong>'
     suffix: '</strong>'
     excerpt: true
+    excerpt_always: false
     excerpt_length: 256
     exclude_fields: {  }
     highlight: always
@@ -289,4 +298,5 @@ tracker_settings:
 options:
   cron_limit: 50
   index_directly: true
+  track_changes_in_references: true
 server: default_solr_server

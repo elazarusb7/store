@@ -1,12 +1,8 @@
 <?php
-/**
- * @file
- * Contains \Drupal\samhsa_pep_clone_order\Plugin\Block\CloneOrderButtonBLock.
- */
 
 namespace Drupal\samhsa_pep_clone_order\Plugin\Block;
+
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormInterface;
 
 /**
  * Provides a 'clone_order_button_block' block.
@@ -18,24 +14,26 @@ use Drupal\Core\Form\FormInterface;
  * )
  */
 class CloneOrderButtonBLock extends BlockBase {
-    /**
-     * {@inheritdoc}
-     */
-    public function build() {
-        $current_route = \Drupal::routeMatch();
 
-        if(($current_route->getParameters()->get('commerce_order'))) {
-            $entity = $current_route->getParameters()->get('commerce_order');
-            $state = $entity->getState()->getValue()['value'];
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+    $current_route = \Drupal::routeMatch();
 
-            $order_states_clone = \Drupal::config('samhsa_pep_clone_order.settings')
-                ->get('order_states');
+    if (($current_route->getParameters()->get('commerce_order'))) {
+      $entity = $current_route->getParameters()->get('commerce_order');
+      $state = $entity->getState()->getValue()['value'];
 
-            //only show "clone order" button for order in specified order states saved in the config page
-            if (in_array($state, $order_states_clone) && $order_states_clone[$state]) {
-                $form = \Drupal::formBuilder()->getForm('Drupal\samhsa_pep_clone_order\Form\CloneOrderForm');
-            }
-        }
-        return $form;
+      $order_states_clone = \Drupal::config('samhsa_pep_clone_order.settings')
+        ->get('order_states');
+
+      // Only show "clone order" button for order in specified order states saved in the config page.
+      if (in_array($state, $order_states_clone) && $order_states_clone[$state]) {
+        $form = \Drupal::formBuilder()->getForm('Drupal\samhsa_pep_clone_order\Form\CloneOrderForm');
+      }
     }
+    return $form;
+  }
+
 }

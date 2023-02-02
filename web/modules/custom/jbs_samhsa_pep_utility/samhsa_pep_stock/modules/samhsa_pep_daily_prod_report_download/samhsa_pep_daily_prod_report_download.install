@@ -2,26 +2,20 @@
 
 /**
  * @file
- * jbs_commerce_over_the_max_limit.install.
+ * Jbs_commerce_over_the_max_limit.install.
  */
-
-use Drupal\Core\Database\Database;
-use Drupal\Core\Site\Settings;
 
 /**
  * Implements hook_install().
  */
 function samhsa_pep_daily_prod_report_download_install() {
-    // save default configs.
-    //$config = \Drupal::service('config.factory')->getEditable('samhsa_pep_daily_prod_report_download.settings');
+  // Save default configs.
+  // $config = \Drupal::service('config.factory')->getEditable('samhsa_pep_daily_prod_report_download.settings');.
 }
 
 /**
  * Implements hook_uninstall().
  */
 function samhsa_pep_daily_prod_report_download_uninstall() {
-    Drupal::configFactory()->getEditable('samhsa_pep_daily_prod_report_download.settings')->delete();
+  Drupal::configFactory()->getEditable('samhsa_pep_daily_prod_report_download.settings')->delete();
 }
-
-
-

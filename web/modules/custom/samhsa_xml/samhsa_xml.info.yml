@@ -1,0 +1,7 @@
+name: SAMHSA Orders XML
+type: module
+description: Export XML of the Store orders.
+package: 'SAMHSA'
+version: 1.0
+core: 8.x
+core_version_requirement: ^8 || ^9

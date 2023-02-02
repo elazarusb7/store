@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\samhsa_pep_migrate_custom\Form\UnconvertedLinksForm.
- */
-
 namespace Drupal\samhsa_pep_migrate_custom\Form;
 
+use Drupal;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -16,11 +12,12 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup samhsa_pep_migrate_custom
  */
 class UnconvertedLinksForm extends ContentEntityForm {
+
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks */
+    /** @var \Drupal\samhsa_pep_migrate_custom\Entity\UnconvertedLinks $entity */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -36,15 +33,17 @@ class UnconvertedLinksForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        \Drupal::messenger()->addMessage($this->t('Created the %label Unconverted links.', [
-          '%label' => $entity->label(),
-        ]));
+        Drupal::messenger()
+          ->addMessage($this->t('Created the %label Unconverted links.', [
+            '%label' => $entity->label(),
+          ]));
         break;
 
       default:
-        \Drupal::messenger()->addMessage($this->t('Saved the %label Unconverted links.', [
-          '%label' => $entity->label(),
-        ]));
+        Drupal::messenger()
+          ->addMessage($this->t('Saved the %label Unconverted links.', [
+            '%label' => $entity->label(),
+          ]));
     }
     $form_state->setRedirect('entity.unconverted_links.canonical', ['unconverted_links' => $entity->id()]);
   }

@@ -31,22 +31,6 @@ $databases['default']['default'] = [
   'driver' => 'mysql',
 ];
 
-$config['search_api.server.common'] = [
-  'name' => 'Store Common (dev/local/tugboat overridden)',
-  'backend_config' => [
-    'connector' => 'basic_auth',
-    'connector_config' => [
-      'scheme' => 'http',
-      'username' => 'ocwebteam',
-      'password' => 'ramap',
-      'host' => 'solr.ocweb-team.com',
-      'path' => '/',
-      'core' => 'common',
-      'port' => '80',
-    ],
-  ],
-];
-
 $config['search_api.server.default_solr_server'] = [
   'name' => 'Store Solr Server (dev/local/tugboat overridden)',
   'backend_config' => [
@@ -54,7 +38,7 @@ $config['search_api.server.default_solr_server'] = [
     'connector_config' => [
       'scheme' => 'http',
       'username' => 'ocwebteam',
-      'password' => 'ramap',
+      'password' => 'qFZG!j5CF34cR#9',
       'host' => 'solr.ocweb-team.com',
       'path' => '/',
       'core' => 'drupal',
@@ -62,3 +46,6 @@ $config['search_api.server.default_solr_server'] = [
     ],
   ],
 ];
+
+// Adding a private folder
+$settings['file_private_path'] = '../private';

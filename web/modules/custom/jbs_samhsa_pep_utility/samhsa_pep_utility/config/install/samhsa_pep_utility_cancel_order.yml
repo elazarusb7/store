@@ -11,4 +11,4 @@ id: samhsa_pep_utility_cancel_order
 label: 'Cancel Order'
 type: commerce_order
 plugin: "samhsa_pep_utility_cancel_order"
-configuration: {  }
+configuration: { }

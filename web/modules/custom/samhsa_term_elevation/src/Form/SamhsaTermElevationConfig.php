@@ -21,7 +21,7 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
    *
    * @var array
    *
-   * @TODO: get the same id as the plugins.
+   * @todo get the same id as the plugins.
    */
   protected $pluginIds = [];
 
@@ -283,7 +283,7 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form State object=.
    *
-   * @TODO: Include elevation in the results.
+   * @todo Include elevation in the results.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   AjaxResponse object.
@@ -301,13 +301,15 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
   }
 
   /**
-   * Format a flat JSON string to make it more human-readable
+   * Format a flat JSON string to make it more human-readable.
    *
    * @from https://github.com/GerHobbelt/nicejson-php/blob/master/nicejson.php
    *
-   * @param string $json The original JSON string to process
-   *        When the input is not a string it is assumed the input is RAW
+   * @param string $json
+   *   The original JSON string to process
+   *   When the input is not a string it is assumed the input is RAW
    *        and should be converted to JSON first of all.
+   *
    * @return string Indented version of the original JSON string
    */
   private function jsonPrettyPrint($json) {
@@ -317,13 +319,14 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
       }
       $json = json_encode($json);
     }
-    $result      = '';
-    $pos         = 0;               // indentation level
+    $result = '';
+    // Indentation level.
+    $pos         = 0;
     $strLen      = strlen($json);
     $indentStr   = '&nbsp;&nbsp;&nbsp;';
     $newLine     = "\n";
     $prevChar    = '';
-    $outOfQuotes = true;
+    $outOfQuotes = TRUE;
     for ($i = 0; $i < $strLen; $i++) {
       // Speedup: copy blocks of input which don't matter re string detection and formatting.
       $copyLen = strcspn($json, $outOfQuotes ? " \t\r\n\",:[{}]" : "\\\"", $i);
@@ -333,11 +336,12 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
         // and the next round is the first time an 'escape' character can be seen again at the input.
         $prevChar = '';
         $result .= $copyStr;
-        $i += $copyLen - 1;      // correct for the for(;;) loop
+        // Correct for the for(;;) loop.
+        $i += $copyLen - 1;
         continue;
       }
 
-      // Grab the next character in the string
+      // Grab the next character in the string.
       $char = substr($json, $i, 1);
 
       // Are we inside a quoted string encountering an escape sequence?
@@ -352,27 +356,27 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
         $outOfQuotes = !$outOfQuotes;
       }
       // If this character is the end of an element,
-      // output a new line and indent the next line
-      else if ($outOfQuotes && ($char === '}' || $char === ']')) {
+      // output a new line and indent the next line.
+      elseif ($outOfQuotes && ($char === '}' || $char === ']')) {
         $result .= $newLine;
         $pos--;
         for ($j = 0; $j < $pos; $j++) {
           $result .= $indentStr;
         }
       }
-      // eat all non-essential whitespace in the input as we do our own here and it would only mess up our process
-      else if ($outOfQuotes && false !== strpos(" \t\r\n", $char)) {
+      // Eat all non-essential whitespace in the input as we do our own here and it would only mess up our process.
+      elseif ($outOfQuotes && FALSE !== strpos(" \t\r\n", $char)) {
         continue;
       }
-      // Add the character to the result string
+      // Add the character to the result string.
       $result .= $char;
-      // always add a space after a field colon:
+      // Always add a space after a field colon:
       if ($outOfQuotes && $char === ':') {
         $result .= ' ';
       }
       // If the last character was the beginning of an element,
-      // output a new line and indent the next line
-      else if ($outOfQuotes && ($char === ',' || $char === '{' || $char === '[')) {
+      // output a new line and indent the next line.
+      elseif ($outOfQuotes && ($char === ',' || $char === '{' || $char === '[')) {
         $result .= $newLine;
         if ($char === '{' || $char === '[') {
           $pos++;
@@ -385,4 +389,5 @@ class SamhsaTermElevationConfig extends ConfigFormBase {
     }
     return $result;
   }
+
 }

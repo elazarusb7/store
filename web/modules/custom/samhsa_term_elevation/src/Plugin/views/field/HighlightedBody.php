@@ -2,8 +2,8 @@
 
 namespace Drupal\samhsa_term_elevation\Plugin\views\field;
 
+use Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Random;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 
@@ -26,6 +26,7 @@ class HighlightedBody extends FieldPluginBase {
     $config = \Drupal::config('samhsa_term_elevation.config');
     $this->highlightFieldName = $config->get('highlight_id');
   }
+
   /**
    * {@inheritdoc}
    */
@@ -62,7 +63,7 @@ class HighlightedBody extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
 
-    if (!($values->_object instanceof \Drupal\search_api_solr\Plugin\DataType\SolrMultisiteDocument)) {
+    if (!($values->_object instanceof SolrMultisiteDocument)) {
       $result = NULL;
     }
     elseif ($highlight = $values->_item->getExtraData('highlight')) {
@@ -73,7 +74,7 @@ class HighlightedBody extends FieldPluginBase {
       }
       $result = [
         '#type' => 'markup',
-        '#markup' => "<div class='te-highlighted-wrapper'>...$highlighted_snippets...</div>"
+        '#markup' => "<div class='te-highlighted-wrapper'>...$highlighted_snippets...</div>",
       ];
     }
     else {

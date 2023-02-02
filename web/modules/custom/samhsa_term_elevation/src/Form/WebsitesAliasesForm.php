@@ -26,7 +26,7 @@ class WebsitesAliasesForm extends ConfigFormBase {
     $te_config = $this->config('samhsa_term_elevation.config');
     $server_id = $te_config->get('server_id');
     $this->sites = \Drupal::service('samhsa_te_solr_connections')->getMultiSiteComponents($server_id);
-    $a  = 1;
+    $a = 1;
   }
 
   /**

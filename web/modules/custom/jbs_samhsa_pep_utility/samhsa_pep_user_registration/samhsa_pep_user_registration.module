@@ -5,6 +5,7 @@
  * Contains samhsa_pep_user_registration.module.
  */
 
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\user\UserInterface;
@@ -30,27 +31,26 @@ function samhsa_pep_user_registration_help($route_name, RouteMatchInterface $rou
  */
 function samhsa_pep_user_registration_form_user_register_form_alter(
   &$form,
-  \Drupal\Core\Form\FormStateInterface $form_state,
+  FormStateInterface $form_state,
   $form_id
 ) {
   $form['actions']['submit']['#submit'][] = "_samhsa_pep_user_reg_message";
 }
 
 /**
- *  helper function to replace welcome message text for new user registration
- *
+ * Helper function to replace welcome message text for new user registration.
  */
 function _samhsa_pep_user_reg_message($form, FormStateInterface $form_state) {
   $messages = \Drupal::messenger()->all();
   \Drupal::messenger()->deleteAll();
   foreach ($messages['status'] as $msg) {
-    if( $msg == 'A welcome message with further instructions has been sent to your email address.') {
-      // replace with our custom message
-      $newMsg = \Drupal\Core\Render\Markup::create('A welcome message with login instructions has been sent to your email address.');
+    if ($msg == 'A welcome message with further instructions has been sent to your email address.') {
+      // Replace with our custom message.
+      $newMsg = Markup::create('A welcome message with login instructions has been sent to your email address.');
       \Drupal::messenger()->addMessage($newMsg);
     }
     else {
-      // pass all other messages in original state
+      // Pass all other messages in original state.
       \Drupal::messenger()->addMessage($msg);
     }
   }
@@ -69,7 +69,7 @@ function samhsa_pep_user_registration_email_registration_name(UserInterface $acc
  */
 function samhsa_pep_user_registration_form_user_form_alter(
   &$form,
-  \Drupal\Core\Form\FormStateInterface $form_state,
+  FormStateInterface $form_state,
   $form_id
 ) {
   unset($form['field_last_password_reset']);
@@ -78,7 +78,7 @@ function samhsa_pep_user_registration_form_user_form_alter(
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function samhsa_pep_user_registration_form_commerce_checkout_flow_multistep_default_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function samhsa_pep_user_registration_form_commerce_checkout_flow_multistep_default_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form['#step_id'] == 'complete') {
     $form['#after_build'][] = '_samhsa_pep_user_registration_form_commerce_checkout_complete_after_build';
   }
@@ -97,7 +97,7 @@ function samhsa_pep_user_registration_form_commerce_checkout_flow_multistep_defa
  * @return array
  *   Altered form array.
  */
-function _samhsa_pep_user_registration_form_commerce_checkout_complete_after_build($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+function _samhsa_pep_user_registration_form_commerce_checkout_complete_after_build($form, FormStateInterface $form_state) {
   if (isset($form['completion_register']['name'])) {
     $build_info = $form_state->getBuildInfo();
     $order = $build_info['callback_object']->getOrder();
@@ -110,8 +110,11 @@ function _samhsa_pep_user_registration_form_commerce_checkout_complete_after_bui
   return $form;
 }
 
+/**
+ *
+ */
 function samhsa_pep_user_registration_preprocess_menu(&$variables) {
-// Hide particular link for the authenticated user.
+  // Hide particular link for the authenticated user.
   $items = $variables['items'];
 
   foreach ($items as $key => &$item) {

@@ -27,15 +27,16 @@ class PhoneExtensionConstraintValidator extends ConstraintValidator {
 
       // Check ext for all 0.
       if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-        if(\Drupal::service('samhsa_pep_utility.pep_utility_functions')->allCharactersSameAsChar($item->value, '0')){
+        if (\Drupal::service('samhsa_pep_utility.pep_utility_functions')->allCharactersSameAsChar($item->value, '0')) {
           $this->context->addViolation($constraint->allZeros, ['%value' => $item->value]);
         }
 
         // Check ext leading character.
-        if(\Drupal::service('samhsa_pep_utility.pep_utility_functions')->hasLeadingChar($item->value, '0')){
+        if (\Drupal::service('samhsa_pep_utility.pep_utility_functions')->hasLeadingChar($item->value, '0')) {
           $this->context->addViolation($constraint->startWithZero, ['%value' => $item->value]);
         }
       }
     }
   }
+
 }

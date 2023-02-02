@@ -1,7 +1,7 @@
 samhsa_pep_admin_orders_helper.lib:
   version: VERSION
   js:
-    js/samhsa_pep_admin_orders_helper.js: {}
+    js/samhsa_pep_admin_orders_helper.js: { }
   dependencies:
     - core/jquery
     - core/drupalSettings

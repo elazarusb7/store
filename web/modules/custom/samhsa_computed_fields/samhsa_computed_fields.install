@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Samhsa Computed Fields.
+ */
+
+use Drupal\commerce_product\Entity\Product;
+
+/**
+ * Implements hook_update().
+ *  We re-save all rfa nodes so they have the new sort field populated.
+ */
+function samhsa_computed_fields_install() {
+
+  // Get an array of all 'rfa' node IDs.
+  $pids = \Drupal::entityQuery('commerce_product')
+    ->condition('type', 'samhsa_publication')
+    ->accessCheck(FALSE)
+    ->execute();
+
+  // Re-save all the nodes.
+  foreach ($pids as $pid) {
+    // We specifically load only one at a time to preserve host memory.
+    $product = Product::load($pid);
+    $product->save();
+  }
+
+}

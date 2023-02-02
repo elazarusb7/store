@@ -17,6 +17,7 @@ use Drupal\Core\Session\AccountInterface;
  * )
  */
 class LanguageAssistanceBlock extends BlockBase {
+
   /**
    * {@inheritdoc}
    */
@@ -49,4 +50,5 @@ class LanguageAssistanceBlock extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['my_block_settings'] = $form_state->getValue('my_block_settings');
   }
+
 }

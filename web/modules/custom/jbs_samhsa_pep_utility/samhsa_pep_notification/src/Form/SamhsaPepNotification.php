@@ -2,20 +2,20 @@
 
 namespace Drupal\samhsa_pep_notification\Form;
 
+use Drupal\Core\Url;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 
-class SamhsaPepNotification extends FormBase
-{
+/**
+ *
+ */
+class SamhsaPepNotification extends FormBase {
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId()
-  {
+  public function getFormId() {
     return 'samhsa_pep_notification_form';
   }
 
@@ -28,27 +28,27 @@ class SamhsaPepNotification extends FormBase
   }
 
   /**
-   * @param array                                $form
+   * @param array $form
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    * @return array Form
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('samhsa_pep_notification.settings');
 
-    $form['agree'] = array(
+    $form['agree'] = [
       '#prefix' => $config->get('notification_text')['value'],
       '#type'   => 'checkbox',
       '#title'  => $config->get('checkbox_text'),
       '#default_value' => 0,
       '#required' => TRUE,
-    );
+    ];
 
     $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = array(
+    $form['actions']['submit'] = [
       '#type'  => 'submit',
       '#value' => $config->get('submit'),
       '#button_type' => 'primary',
-    );
+    ];
 
     return $form;
   }
@@ -91,17 +91,17 @@ class SamhsaPepNotification extends FormBase
       return FALSE;
     }
 
-    //drupal_set_message($this->t($this->config('samhsa_pep_notification.settings')->get('success')));
+    // drupal_set_message($this->t($this->config('samhsa_pep_notification.settings')->get('success')));.
     \Drupal::messenger()->addMessage($this->t($this->config('samhsa_pep_notification.settings')->get('success')));
     $msg = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->showRequiredTfaMsg($uid);
-    if(strlen($msg) > 0){
-      \Drupal::messenger()->addMessage($msg,'error');
+    if (strlen($msg) > 0) {
+      \Drupal::messenger()->addMessage($msg, 'error');
     }
 
-    $form_state->setRebuild(false);
+    $form_state->setRebuild(FALSE);
     $url = $this->getRedirectionUrl();
-    if($url) {
-        $form_state->setRedirectUrl($url);
+    if ($url) {
+      $form_state->setRedirectUrl($url);
     }
   }
 
@@ -126,27 +126,29 @@ class SamhsaPepNotification extends FormBase
       }
     }
 
-    // default redirection
+    // Default redirection.
     $redirection_url = '/';
     $current_user_roles = \Drupal::currentUser()->getRoles();
     if (isset($current_user_roles[1])) {
       $redirection_url = $redirection_paths[$current_user_roles[1]];
     }
     else {
-      // check for items in cart
-      /* @var Drupal\commerce_order\Entity\Order */
+      // Check for items in cart.
+      /** @var Drupal\commerce_order\Entity\Order */
       $cart = \Drupal::service('commerce_cart.cart_provider')
         ->getCarts();
       if (count($cart)) {
-        // we have items in a cart so redirect after accepting notification to cart
+        // We have items in a cart so redirect after accepting notification to cart.
         $order_id = key($cart);
         $redirection_url = "/checkout/$order_id/order_information";
       }
     }
-    if($redirection_url) {
-        return \Drupal\Core\Url::fromUserInput($redirection_url);
-    } else {
-        return \Drupal\Core\Url::fromUserInput('/user');
+    if ($redirection_url) {
+      return Url::fromUserInput($redirection_url);
+    }
+    else {
+      return Url::fromUserInput('/user');
     }
   }
+
 }

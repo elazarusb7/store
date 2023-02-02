@@ -6,10 +6,12 @@ dependencies:
     - 'block_content:basic:01856660-d057-4308-9d90-f4e75adf8303'
   module:
     - block_content
-    - mobile_device_detection
     - system
   theme:
     - seven
+third_party_settings:
+  block_class:
+    classes: null
 id: publicationstocktransactionsreport
 theme: seven
 region: highlighted
@@ -30,8 +32,3 @@ visibility:
     negate: false
     context_mapping: {  }
     pages: /admin/commerce/config/stock/transactions2
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }

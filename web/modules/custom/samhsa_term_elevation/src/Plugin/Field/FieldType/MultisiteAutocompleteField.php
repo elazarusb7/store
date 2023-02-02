@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\samhsa_term_elevation\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;

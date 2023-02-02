@@ -1,0 +1,2095 @@
+
+FILE: ...t_ready/mobile_device_detection/mobile_device_detection.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 1 | WARNING | Remove "project" from the info file, it will be added
+   |         | by drupal.org packaging automatically
+   |         | (Drupal.InfoFiles.AutoAddedKeys.Project)
+ 1 | WARNING | Remove "datestamp" from the info file, it will be
+   |         | added by drupal.org packaging automatically
+   |         | (Drupal.InfoFiles.AutoAddedKeys.Timestamp)
+ 1 | WARNING | Remove "version" from the info file, it will be added
+   |         | by drupal.org packaging automatically
+   |         | (Drupal.InfoFiles.AutoAddedKeys.Version)
+----------------------------------------------------------------------
+
+
+FILE: ...s_commerce_featured_product/jbs_commerce_featured_product.module
+----------------------------------------------------------------------
+FOUND 11 ERRORS AND 8 WARNINGS AFFECTING 17 LINES
+----------------------------------------------------------------------
+  3 | ERROR   | [ ] Missing short description in doc comment
+    |         |     (Drupal.Commenting.DocComment.MissingShort)
+ 17 | ERROR   | [ ] Namespaced classes/interfaces/traits should be
+    |         |     referenced with use statements
+    |         |     (Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing)
+ 19 | ERROR   | [x] Object operator not indented correctly; expected
+    |         |     4 spaces but found 6
+    |         |     (Drupal.WhiteSpace.ObjectOperatorIndent.Indent)
+ 22 | WARNING | [ ] Unused variable $session.
+    |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 39 | ERROR   | [x] Object operator not indented correctly; expected
+    |         |     4 spaces but found 6
+    |         |     (Drupal.WhiteSpace.ObjectOperatorIndent.Indent)
+ 41 | ERROR   | [ ] Comment indentation error, expected only 1
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 42 | WARNING | [ ] Line exceeds 80 characters; contains 100
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 43 | WARNING | [ ] Line exceeds 80 characters; contains 85
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 43 | ERROR   | [ ] Comment indentation error, expected only 4
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 44 | WARNING | [ ] Line exceeds 80 characters; contains 81
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 47 | ERROR   | [ ] Comment indentation error, expected only 6
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 49 | WARNING | [ ] Line exceeds 80 characters; contains 140
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 56 | ERROR   | [ ] Comment indentation error, expected only 6
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 57 | ERROR   | [ ] Comment indentation error, expected only 8
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 58 | WARNING | [ ] Line exceeds 80 characters; contains 82
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 58 | ERROR   | [ ] Comment indentation error, expected only 10
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 59 | WARNING | [ ] Line exceeds 80 characters; contains 131
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+ 63 | ERROR   | [ ] Comment indentation error, expected only 10
+    |         |     spaces
+    |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 67 | WARNING | [ ] Line exceeds 80 characters; contains 96
+    |         |     characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+----------------------------------------------------------------------
+
+
+FILE: ...mmerce_over_the_max_limit/jbs_commerce_over_the_max_limit.module
+----------------------------------------------------------------------
+FOUND 19 ERRORS AND 26 WARNINGS AFFECTING 37 LINES
+----------------------------------------------------------------------
+  25 | WARNING | [ ] Format should be "* Implements hook_foo().", "*
+     |         |     Implements hook_foo_BAR_ID_bar() for
+     |         |     xyz_bar().",, "* Implements
+     |         |     hook_foo_BAR_ID_bar() for xyz-bar.html.twig.",
+     |         |     "* Implements hook_foo_BAR_ID_bar() for
+     |         |     xyz-bar.tpl.php.", or "* Implements
+     |         |     hook_foo_BAR_ID_bar() for block templates."
+     |         |     (Drupal.Commenting.HookComment.HookCommentFormat)
+ 120 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 122 | ERROR   | [ ] Comment indentation error, expected only 4
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 123 | WARNING | [ ] Line exceeds 80 characters; contains 98
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 123 | ERROR   | [ ] Comment indentation error, expected only 10
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 143 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 146 | WARNING | [ ] Unused variable $state.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 169 | WARNING | [ ] Line exceeds 80 characters; contains 83
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 178 | WARNING | [ ] There must be no blank line following an inline
+     |         |     comment
+     |         |     (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+ 202 | WARNING | [ ] Unused variable $context.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 209 | WARNING | [ ] Unused variable $maxlimit.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 211 | WARNING | [ ] Line exceeds 80 characters; contains 90
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 211 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 213 | WARNING | [ ] Line exceeds 80 characters; contains 109
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 213 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 215 | WARNING | [ ] Line exceeds 80 characters; contains 96
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 215 | ERROR   | [ ] Comment indentation error, expected only 6
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 220 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 221 | ERROR   | [ ] Comment indentation error, expected only 8
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 256 | ERROR   | [x] Object operator not indented correctly; expected
+     |         |     4 spaces but found 6
+     |         |     (Drupal.WhiteSpace.ObjectOperatorIndent.Indent)
+ 272 | WARNING | [ ] There must be no blank line following an inline
+     |         |     comment
+     |         |     (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+ 274 | ERROR   | [ ] Missing short description in doc comment
+     |         |     (Drupal.Commenting.DocComment.MissingShort)
+ 276 | ERROR   | [ ] Missing parameter comment
+     |         |     (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 276 | ERROR   | [ ] Doc comment for parameter $item does not match
+     |         |     actual variable name $purchased_entity
+     |         |     (Drupal.Commenting.FunctionComment.ParamNameNoMatch)
+ 277 | ERROR   | [ ] Missing parameter comment
+     |         |     (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 277 | ERROR   | [ ] Doc comment for parameter $item does not match
+     |         |     actual variable name $purchased_entity
+     |         |     (Drupal.Commenting.FunctionComment.ParamNameNoMatch)
+ 278 | ERROR   | [ ] Missing parameter comment
+     |         |     (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 278 | ERROR   | [ ] Superfluous parameter comment
+     |         |     (Drupal.Commenting.FunctionComment.ExtraParamComment)
+ 281 | ERROR   | [ ] Description for the @return value must be on the
+     |         |     next line
+     |         |     (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 345 | WARNING | [ ] Unused variable $order_context.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 349 | WARNING | [ ] Unused variable $id.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 355 | WARNING | [ ] Unused variable $name.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 363 | WARNING | [ ] Only string literals should be passed to t()
+     |         |     where possible
+     |         |     (Drupal.Semantics.FunctionT.NotLiteralString)
+ 441 | WARNING | [ ] There must be no blank line following an inline
+     |         |     comment
+     |         |     (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+ 478 | WARNING | [ ] Unused variable $name.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 492 | WARNING | [ ] Only string literals should be passed to t()
+     |         |     where possible
+     |         |     (Drupal.Semantics.FunctionT.NotLiteralString)
+ 496 | WARNING | [ ] There must be no blank line following an inline
+     |         |     comment
+     |         |     (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+ 539 | WARNING | [ ] Unused variable $name.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 540 | WARNING | [ ] Unused variable $label.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 547 | WARNING | [ ] Unused variable $context.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 551 | WARNING | [ ] Line exceeds 80 characters; contains 112
+     |         |     characters (Drupal.Files.LineLength.TooLong)
+ 551 | ERROR   | [ ] Comment indentation error, expected only 1
+     |         |     spaces
+     |         |     (Drupal.Commenting.InlineComment.SpacingBefore)
+ 555 | WARNING | [ ] Only string literals should be passed to t()
+     |         |     where possible
+     |         |     (Drupal.Semantics.FunctionT.NotLiteralString)
+ 560 | WARNING | [ ] There must be no blank line following an inline
+     |         |     comment
+     |         |     (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+ 573 | WARNING | [ ] Unused variable $triggering_element.
+     |         |     (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+----------------------------------------------------------------------
+
+
+FILE: ...ce_over_the_max_limit/modules/field/field_qty_max_limit.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...roduct_recommendation/jbs_commerce_product_recommendation.module
+----------------------------------------------------------------------
+FOUND 13 ERRORS AND 8 WARNINGS AFFECTING 20 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+ 140 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 143 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "get_value_from_entity" but expected
+     |         | "jbs_commerce_product_recommendation_get_value_from_entity"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 147 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 150 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "track_product" but expected
+     |         | "jbs_commerce_product_recommendation_track_product"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 170 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 173 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "get_products_from_pairs" but expected
+     |         | "jbs_commerce_product_recommendation_get_products_from_pairs"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 197 | WARNING | Unused variable $p.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 209 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 212 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "get_products_from_related_taxonomy" but expected
+     |         | "jbs_commerce_product_recommendation_get_products_from_related_taxonomy"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 234 | WARNING | Line exceeds 80 characters; contains 109
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 241 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+ 246 | WARNING | Unused variable $t.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 254 | WARNING | Unused variable $result.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 259 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+ 259 | WARNING | Do not pass empty strings to t()
+     |         | (Drupal.Semantics.FunctionT.EmptyString)
+ 267 | WARNING | Unused variable $p.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 280 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 283 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "get_product_titles_from_id" but expected
+     |         | "jbs_commerce_product_recommendation_get_product_titles_from_id"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 300 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 303 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "get_products_from_solr_search" but expected
+     |         | "jbs_commerce_product_recommendation_get_products_from_solr_search"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+----------------------------------------------------------------------
+
+
+FILE: ...oduct_recommendation/jbs_commerce_product_recommendation.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AND 1 WARNING AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 125 | WARNING | Line exceeds 80 characters; contains 95
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 126 | ERROR   | Comment indentation error, expected only 1
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+----------------------------------------------------------------------
+
+
+FILE: ...merce/jbs_commerce_extended_log/jbs_commerce_extended_log.module
+----------------------------------------------------------------------
+FOUND 1 ERROR AND 2 WARNINGS AFFECTING 3 LINES
+----------------------------------------------------------------------
+  18 | WARNING | Format should be "* Implements hook_foo().", "*
+     |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",,
+     |         | "* Implements hook_foo_BAR_ID_bar() for
+     |         | xyz-bar.html.twig.", "* Implements
+     |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+     |         | Implements hook_foo_BAR_ID_bar() for block
+     |         | templates."
+     |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+  74 | WARNING | Format should be "* Implements hook_foo().", "*
+     |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",,
+     |         | "* Implements hook_foo_BAR_ID_bar() for
+     |         | xyz-bar.html.twig.", "* Implements
+     |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+     |         | Implements hook_foo_BAR_ID_bar() for block
+     |         | templates."
+     |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+ 287 | ERROR   | Parameter comment must start with a capital
+     |         | letter
+     |         | (Drupal.Commenting.FunctionComment.ParamCommentNotCapital)
+----------------------------------------------------------------------
+
+
+FILE: ...lications_inventory_ex/samhsa_publications_inventory_ex.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 7 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: .../custom/samhsa_theme_block_pep8/samhsa_theme_block_pep8.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 9 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...es/custom/samhsa_theme_block_pep8/samhsa_theme_block_pep8.module
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 3 | ERROR | Missing short description in doc comment
+   |       | (Drupal.Commenting.DocComment.MissingShort)
+ 7 | ERROR | Doc comment is empty
+   |       | (Drupal.Commenting.DocComment.Empty)
+----------------------------------------------------------------------
+
+
+FILE: ...pep_utility/samhsa_pep_migrate_custom/unconverted_links.page.inc
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 24 | WARNING | Unused variable $unconverted_links.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: .../modules/migrate_files_and_images/files_cross_reference.page.inc
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 24 | WARNING | Unused variable $files_cross_reference.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: ...ility/samhsa_pep_migrate_custom/samhsa_pep_migrate_custom.module
+----------------------------------------------------------------------
+FOUND 3 ERRORS AND 3 WARNINGS AFFECTING 5 LINES
+----------------------------------------------------------------------
+  5 | WARNING | Line exceeds 80 characters; contains 186
+    |         | characters (Drupal.Files.LineLength.TooLong)
+  5 | ERROR   | Doc comment short description must end with a full
+    |         | stop (Drupal.Commenting.DocComment.ShortFullStop)
+ 13 | ERROR   | Comment indentation error, expected only 1 spaces
+    |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+ 16 | WARNING | Line exceeds 80 characters; contains 188
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 17 | ERROR   | Comment indentation error, expected only 1 spaces
+    |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+ 18 | WARNING | There must be no blank line following an inline
+    |         | comment
+    |         | (DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter)
+----------------------------------------------------------------------
+
+
+FILE: ...ity/samhsa_pep_migrate_custom/samhsa_pep_migrate_custom.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 8 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+ 9 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...om/jbs_samhsa_pep_utility/samhsa_pep_cart/samhsa_pep_cart.module
+----------------------------------------------------------------------
+FOUND 4 ERRORS AND 2 WARNINGS AFFECTING 6 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+  64 | WARNING | Line exceeds 80 characters; contains 867
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  68 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+  71 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_cart_return_to_browsing" but expected
+     |         | "samhsa_pep_cart__cart_return_to_browsing"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  83 | ERROR   | The array declaration extends to column 94 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 109 | WARNING | Line exceeds 80 characters; contains 115
+     |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...ity/samhsa_pep_my_account_page/samhsa_pep_my_account_page.module
+----------------------------------------------------------------------
+FOUND 4 ERRORS AND 2 WARNINGS AFFECTING 6 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+ 126 | ERROR   | The array declaration extends to column 110 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 162 | WARNING | Line exceeds 80 characters; contains 94
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 174 | ERROR   | Doc comment for parameter $uid does not match actual
+     |         | variable name $user_id
+     |         | (Drupal.Commenting.FunctionComment.ParamNameNoMatch)
+ 194 | WARNING | Unused variable $days_left.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 243 | ERROR   | Type hint "integernull" missing for $uid
+     |         | (Drupal.Commenting.FunctionComment.TypeHintMissing)
+----------------------------------------------------------------------
+
+
+FILE: ...hsa_pep_utility/samhsa_pep_shipping/samhsa_pep_shipping.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...amhsa_pep_utility/samhsa_pep_shipping/samhsa_pep_shipping.module
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 5 WARNINGS AFFECTING 5 LINES
+----------------------------------------------------------------------
+ 15 | WARNING | Format should be "* Implements hook_foo().", "*
+    |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",, "*
+    |         | Implements hook_foo_BAR_ID_bar() for
+    |         | xyz-bar.html.twig.", "* Implements
+    |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+    |         | Implements hook_foo_BAR_ID_bar() for block
+    |         | templates."
+    |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+ 45 | WARNING | Unused variable $order_weight.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 56 | WARNING | Format should be "* Implements hook_foo().", "*
+    |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",, "*
+    |         | Implements hook_foo_BAR_ID_bar() for
+    |         | xyz-bar.html.twig.", "* Implements
+    |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+    |         | Implements hook_foo_BAR_ID_bar() for block
+    |         | templates."
+    |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+ 72 | WARNING | Line exceeds 80 characters; contains 81
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 90 | WARNING | Do not pass empty strings to t()
+    |         | (Drupal.Semantics.FunctionT.EmptyString)
+----------------------------------------------------------------------
+
+
+FILE: ...sallow_order_deletion/samhsa_pep_disallow_order_deletion.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...isallow_order_deletion/samhsa_pep_disallow_order_deletion.module
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 35 | WARNING | Line exceeds 80 characters; contains 81
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 52 | WARNING | Line exceeds 80 characters; contains 102
+    |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...mhsa_pep_user_registration/samhsa_pep_user_registration.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 5 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...samhsa_pep_user_registration/samhsa_pep_user_registration.module
+----------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 3 LINES
+----------------------------------------------------------------------
+  43 | ERROR | All functions defined in a module file must be
+     |       | prefixed with the module's name, found
+     |       | "_samhsa_pep_user_reg_message" but expected
+     |       | "samhsa_pep_user_registration__samhsa_pep_user_reg_message"
+     |       | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 100 | ERROR | Type hint "array" missing for $form
+     |       | (Drupal.Commenting.FunctionComment.TypeHintMissing)
+ 113 | ERROR | Doc comment is empty
+     |       | (Drupal.Commenting.DocComment.Empty)
+----------------------------------------------------------------------
+
+
+FILE: ...y/samhsa_pep_product_redirect/samhsa_pep_product_redirect.module
+----------------------------------------------------------------------
+FOUND 19 ERRORS AND 7 WARNINGS AFFECTING 20 LINES
+----------------------------------------------------------------------
+  32 | WARNING | Line exceeds 80 characters; contains 84
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  38 | WARNING | Line exceeds 80 characters; contains 85
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  61 | WARNING | Line exceeds 80 characters; contains 92
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 118 | WARNING | Line exceeds 80 characters; contains 92
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 194 | WARNING | Line exceeds 80 characters; contains 102
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 227 | ERROR   | sizeof() is a function name alias, use count()
+     |         | instead
+     |         | (Drupal.Semantics.FunctionAlias.FunctionAlias)
+ 259 | ERROR   | sizeof() is a function name alias, use count()
+     |         | instead
+     |         | (Drupal.Semantics.FunctionAlias.FunctionAlias)
+ 264 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 267 | ERROR   | Invalid function name, expected lookup_to_redirects
+     |         | but found lookupToRedirects
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+ 267 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "lookupToRedirects" but expected
+     |         | "samhsa_pep_product_redirect_lookupToRedirects"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 286 | WARNING | Line exceeds 80 characters; contains 87
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 293 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 296 | ERROR   | Invalid function name, expected
+     |         | lookup_from_redirects but found
+     |         | lookupFromRedirects
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+ 296 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "lookupFromRedirects" but expected
+     |         | "samhsa_pep_product_redirect_lookupFromRedirects"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 315 | WARNING | Line exceeds 80 characters; contains 85
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 324 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_redirect_from_list_table" but expected
+     |         | "samhsa_pep_product_redirect__redirect_from_list_table"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 334 | ERROR   | The array declaration extends to column 170 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 334 | ERROR   | The array declaration extends to column 169 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 338 | ERROR   | The array declaration extends to column 172 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 338 | ERROR   | The array declaration extends to column 171 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 359 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 362 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_redirect_to_list_table" but expected
+     |         | "samhsa_pep_product_redirect__redirect_to_list_table"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 381 | ERROR   | The array declaration extends to column 170 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 381 | ERROR   | The array declaration extends to column 169 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 385 | ERROR   | The array declaration extends to column 172 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 385 | ERROR   | The array declaration extends to column 171 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+----------------------------------------------------------------------
+
+
+FILE: ...samhsa_pep_product_redirect/samhsa_pep_product_redirect.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...lity/samhsa_pep_pdf_printing/samhsa_pep_pdf_printing.routing.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+----------------------------------------------------------------------
+  7 | WARNING | The administration page callback should probably use
+    |         | "administer site configuration" - which implies the
+    |         | user can change something - rather than "access
+    |         | administration pages" which is about viewing but not
+    |         | changing configurations.
+    |         | (DrupalPractice.Yaml.RoutingAccess.PermissionFound)
+ 17 | WARNING | The administration page callback should probably use
+    |         | "administer site configuration" - which implies the
+    |         | user can change something - rather than "access
+    |         | administration pages" which is about viewing but not
+    |         | changing configurations.
+    |         | (DrupalPractice.Yaml.RoutingAccess.PermissionFound)
+----------------------------------------------------------------------
+
+
+FILE: ..._utility/samhsa_pep_pdf_printing/samhsa_pep_pdf_printing.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: .../jbs_samhsa_pep_utility/samhsa_pep_stock/samhsa_pep_stock.module
+----------------------------------------------------------------------
+FOUND 39 ERRORS AND 48 WARNINGS AFFECTING 78 LINES
+----------------------------------------------------------------------
+    3 | ERROR   | Missing short description in doc comment
+      |         | (Drupal.Commenting.DocComment.MissingShort)
+   73 | WARNING | Line exceeds 80 characters; contains 99
+      |         | characters (Drupal.Files.LineLength.TooLong)
+   78 | WARNING | Line exceeds 80 characters; contains 96
+      |         | characters (Drupal.Files.LineLength.TooLong)
+   85 | WARNING | Line exceeds 80 characters; contains 111
+      |         | characters (Drupal.Files.LineLength.TooLong)
+   86 | ERROR   | The array declaration extends to column 97 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+   92 | ERROR   | Concatenating translatable strings is not allowed,
+      |         | use placeholders instead and only one string
+      |         | literal (Drupal.Semantics.FunctionT.Concat)
+  100 | ERROR   | Concatenating translatable strings is not allowed,
+      |         | use placeholders instead and only one string
+      |         | literal (Drupal.Semantics.FunctionT.Concat)
+  110 | WARNING | Line exceeds 80 characters; contains 108
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  115 | WARNING | Unused variable $markup_pallets.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  121 | WARNING | Unused variable $markup_pallets.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  126 | WARNING | Unused variable $markup_pallets.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  138 | WARNING | Unused variable $title.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  180 | WARNING | #description values usually have to run through t()
+      |         | for translation
+      |         | (DrupalPractice.General.DescriptionT.DescriptionT)
+  227 | WARNING | Line exceeds 80 characters; contains 146
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  227 | ERROR   | Comment indentation error, expected only 1
+      |         | spaces
+      |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+  253 | WARNING | Line exceeds 80 characters; contains 198
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  253 | ERROR   | Comment indentation error, expected only 1
+      |         | spaces
+      |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+  262 | WARNING | Line exceeds 80 characters; contains 89
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  269 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_form_submit" but expected
+      |         | "samhsa_pep_stock__commerce_form_submit"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  273 | WARNING | Unused variable $user_name.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  277 | WARNING | Unused variable $transaction_note.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  312 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_commerce_order_item_validate" but
+      |         | expected
+      |         | "samhsa_pep_stock__commerce_commerce_order_item_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  315 | WARNING | Unused variable $over_the_limit.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  330 | WARNING | Line exceeds 80 characters; contains 84
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  337 | WARNING | Unused variable $vid.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  347 | WARNING | Line exceeds 80 characters; contains 105
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  389 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "transaction_qty_form_validate" but expected
+      |         | "samhsa_pep_stock_transaction_qty_form_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  409 | WARNING | Only string literals should be passed to t() where
+      |         | possible
+      |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  422 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "samhsa_pep_helper_embed_view" but expected
+      |         | "samhsa_pep_stock_samhsa_pep_helper_embed_view"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  442 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "samhsa_pep_helper_view_result" but expected
+      |         | "samhsa_pep_stock_samhsa_pep_helper_view_result"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  443 | WARNING | Unused variable $result.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  459 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_stock_transaction_form_validate" but
+      |         | expected
+      |         | "samhsa_pep_stock__commerce_stock_transaction_form_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  463 | WARNING | Unused variable $user_name.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  467 | WARNING | Unused variable $transaction_qty.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  510 | WARNING | Line exceeds 80 characters; contains 84
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  514 | WARNING | Line exceeds 80 characters; contains 94
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  515 | WARNING | Line exceeds 80 characters; contains 95
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  516 | WARNING | Line exceeds 80 characters; contains 93
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  517 | WARNING | Line exceeds 80 characters; contains 94
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  520 | WARNING | Hook implementations should not duplicate @param
+      |         | documentation
+      |         | (Drupal.Commenting.HookComment.HookParamDoc)
+  520 | ERROR   | Missing parameter comment
+      |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+  535 | WARNING | Unused variable $sku.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  536 | WARNING | Line exceeds 80 characters; contains 98
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  559 | WARNING | Unused variable $sku.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  560 | WARNING | Line exceeds 80 characters; contains 98
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  604 | ERROR   | Missing short description in doc comment
+      |         | (Drupal.Commenting.DocComment.MissingShort)
+  606 | ERROR   | Missing parameter type
+      |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+  609 | ERROR   | Return type "multi-dimentional array" must not
+      |         | contain spaces
+      |         | (Drupal.Commenting.FunctionComment.ReturnTypeSpaces)
+  612 | ERROR   | Invalid function name, expected
+      |         | lookup_publication_pallets but found
+      |         | lookupPublicationPallets
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  612 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "lookupPublicationPallets" but expected
+      |         | "samhsa_pep_stock_lookupPublicationPallets"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  655 | WARNING | Unused variable $user_name.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  665 | WARNING | Unused variable $product_id.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  690 | ERROR   | The array declaration extends to column 233 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  713 | ERROR   | The array declaration extends to column 206 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  764 | ERROR   | Invalid function name, expected release_pallets but
+      |         | found releasePallets
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  764 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "releasePallets" but expected
+      |         | "samhsa_pep_stock_releasePallets"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  766 | WARNING | Unused variable $field.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  767 | WARNING | Unused variable $key.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  798 | WARNING | Unused variable $user_name.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  808 | WARNING | Line exceeds 80 characters; contains 95
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  810 | WARNING | Line exceeds 80 characters; contains 146
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  811 | WARNING | Line exceeds 80 characters; contains 96
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  843 | ERROR   | The array declaration extends to column 206 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  852 | ERROR   | Missing short description in doc comment
+      |         | (Drupal.Commenting.DocComment.MissingShort)
+  860 | ERROR   | Invalid function name, expected
+      |         | get_pallets_count_per_prod but found
+      |         | getPalletsCountPerProd
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  860 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "getPalletsCountPerProd" but expected
+      |         | "samhsa_pep_stock_getPalletsCountPerProd"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  860 | ERROR   | Type hint "array" missing for $pallets_used
+      |         | (Drupal.Commenting.FunctionComment.TypeHintMissing)
+  870 | ERROR   | Missing short description in doc comment
+      |         | (Drupal.Commenting.DocComment.MissingShort)
+  872 | ERROR   | Missing parameter type
+      |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+  878 | ERROR   | Invalid function name, expected
+      |         | get_prod_count_per_pallet but found
+      |         | getProdCountPerPallet
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  878 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "getProdCountPerPallet" but expected
+      |         | "samhsa_pep_stock_getProdCountPerPallet"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  896 | WARNING | Line exceeds 80 characters; contains 83
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  903 | WARNING | Line exceeds 80 characters; contains 81
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  910 | WARNING | Line exceeds 80 characters; contains 93
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  914 | WARNING | Line exceeds 80 characters; contains 93
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  925 | WARNING | Line exceeds 80 characters; contains 167
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  937 | ERROR   | Missing short description in doc comment
+      |         | (Drupal.Commenting.DocComment.MissingShort)
+  939 | ERROR   | Missing parameter type
+      |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+  945 | ERROR   | Invalid function name, expected
+      |         | get_move_stock_status_message but found
+      |         | getMoveStockStatusMessage
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  945 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "getMoveStockStatusMessage" but expected
+      |         | "samhsa_pep_stock_getMoveStockStatusMessage"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  983 | WARNING | Line exceeds 80 characters; contains 85
+      |         | characters (Drupal.Files.LineLength.TooLong)
+ 1014 | ERROR   | Doc comment is empty
+      |         | (Drupal.Commenting.DocComment.Empty)
+ 1021 | ERROR   | Doc comment is empty
+      |         | (Drupal.Commenting.DocComment.Empty)
+ 1028 | ERROR   | Doc comment is empty
+      |         | (Drupal.Commenting.DocComment.Empty)
+ 1031 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_add_uid_to_transaction_comment" but expected
+      |         | "samhsa_pep_stock__add_uid_to_transaction_comment"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 1032 | WARNING | Unused variable $entity_id.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 1035 | WARNING | Unused variable $entity_type.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: ...od_report_download/samhsa_pep_daily_prod_report_download.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...rod_report_download/samhsa_pep_daily_prod_report_download.module
+----------------------------------------------------------------------
+FOUND 7 ERRORS AND 6 WARNINGS AFFECTING 13 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+  55 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_rpt_download_execute" but expected
+     |         | "samhsa_pep_daily_prod_report_download__rpt_download_execute"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 148 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+ 150 | ERROR   | Parameter comment must start with a capital
+     |         | letter
+     |         | (Drupal.Commenting.FunctionComment.ParamCommentNotCapital)
+ 156 | ERROR   | Parameter comment must start with a capital
+     |         | letter
+     |         | (Drupal.Commenting.FunctionComment.ParamCommentNotCapital)
+ 158 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 160 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "file_force_contents" but expected
+     |         | "samhsa_pep_daily_prod_report_download_file_force_contents"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 178 | WARNING | Line exceeds 80 characters; contains 104
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 179 | WARNING | Line exceeds 80 characters; contains 95
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 185 | WARNING | Line exceeds 80 characters; contains 86
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 188 | WARNING | Line exceeds 80 characters; contains 90
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 215 | WARNING | Line exceeds 80 characters; contains 86
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 248 | WARNING | Unused variable $key.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: ..._utility/samhsa_pep_notification/samhsa_pep_notification.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 3 | ERROR | Missing short description in doc comment
+   |       | (Drupal.Commenting.DocComment.MissingShort)
+----------------------------------------------------------------------
+
+
+FILE: ...p_utility/samhsa_pep_notification/samhsa_pep_notification.module
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 7 | WARNING | Line exceeds 80 characters; contains 85 characters
+   |         | (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...utility/samhsa_pep_no_copy_paste/samhsa_pep_no_copy_paste.module
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 3 | ERROR | Missing short description in doc comment
+   |       | (Drupal.Commenting.DocComment.MissingShort)
+----------------------------------------------------------------------
+
+
+FILE: ..._samhsa_pep_utility/samhsa_pep_utility/samhsa_pep_utility.module
+----------------------------------------------------------------------
+FOUND 3 ERRORS AND 8 WARNINGS AFFECTING 11 LINES
+----------------------------------------------------------------------
+  76 | WARNING | Line exceeds 80 characters; contains 99
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  78 | WARNING | Line exceeds 80 characters; contains 108
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  81 | WARNING | Line exceeds 80 characters; contains 102
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 145 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 172 | ERROR   | The array declaration extends to column 137 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 178 | ERROR   | The array declaration extends to column 133 (the
+     |         | limit is 80). The array content should be split up
+     |         | over multiple lines
+     |         | (Drupal.Arrays.Array.LongLineDeclaration)
+ 198 | WARNING | Unused variable $language.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 202 | WARNING | Line exceeds 80 characters; contains 107
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 253 | WARNING | Line exceeds 80 characters; contains 81
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 279 | WARNING | Line exceeds 80 characters; contains 390
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 296 | WARNING | Line exceeds 80 characters; contains 82
+     |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...samhsa_pep_utility/samhsa_pep_utility/samhsa_pep_utility.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...tility/samhsa_pep_utility/samhsa_pep_mail/samhsa_pep_mail.module
+----------------------------------------------------------------------
+FOUND 1 ERROR AND 2 WARNINGS AFFECTING 3 LINES
+----------------------------------------------------------------------
+ 13 | ERROR   | All functions defined in a module file must be
+    |         | prefixed with the module's name, found "send_mail"
+    |         | but expected "samhsa_pep_mail_send_mail"
+    |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 28 | WARNING | Unused variable $send.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 49 | WARNING | Translatable strings must not begin or end with white
+    |         | spaces, use placeholders with t() for variables
+    |         | (Drupal.Semantics.FunctionT.WhiteSpace)
+----------------------------------------------------------------------
+
+
+FILE: ...lity/samhsa_pep_utility/samhsa_pep_mail/samhsa_pep_mail.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 8 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...mhsa_pep_order_items_helper/samhsa_pep_order_items_helper.module
+----------------------------------------------------------------------
+FOUND 5 ERRORS AND 13 WARNINGS AFFECTING 18 LINES
+----------------------------------------------------------------------
+  44 | WARNING | Line exceeds 80 characters; contains 87
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  58 | WARNING | Line exceeds 80 characters; contains 86
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  63 | WARNING | Unused variable $title.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  72 | WARNING | Format should be "* Implements hook_foo().", "*
+     |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",,
+     |         | "* Implements hook_foo_BAR_ID_bar() for
+     |         | xyz-bar.html.twig.", "* Implements
+     |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+     |         | Implements hook_foo_BAR_ID_bar() for block
+     |         | templates."
+     |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+  77 | WARNING | Line exceeds 80 characters; contains 118
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  79 | WARNING | Unused variable $variation_title_sku.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  83 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  86 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  99 | WARNING | Line exceeds 80 characters; contains 108
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 120 | WARNING | Line exceeds 80 characters; contains 100
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 140 | WARNING | Line exceeds 80 characters; contains 86
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 156 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_rewrite_errors" but expected
+     |         | "samhsa_pep_order_items_helper__rewrite_errors"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 195 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_cart" but expected
+     |         | "samhsa_pep_order_items_helper__validate_cart"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 200 | WARNING | Unused variable $key.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 221 | WARNING | Line exceeds 80 characters; contains 103
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 235 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+ 245 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 247 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+----------------------------------------------------------------------
+
+
+FILE: ...samhsa_pep_product_inventory/samhsa_pep_product_inventory.module
+----------------------------------------------------------------------
+FOUND 8 ERRORS AND 6 WARNINGS AFFECTING 12 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+  49 | WARNING | Line exceeds 80 characters; contains 105
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  50 | WARNING | Line exceeds 80 characters; contains 90
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  76 | WARNING | Format should be "* Implements hook_foo().", "*
+     |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",,
+     |         | "* Implements hook_foo_BAR_ID_bar() for
+     |         | xyz-bar.html.twig.", "* Implements
+     |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+     |         | Implements hook_foo_BAR_ID_bar() for block
+     |         | templates."
+     |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+  78 | WARNING | Line exceeds 80 characters; contains 99
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  83 | WARNING | Line exceeds 80 characters; contains 90
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 103 | ERROR   | Doc comment short description must end with a full
+     |         | stop
+     |         | (Drupal.Commenting.DocComment.ShortFullStop)
+ 103 | ERROR   | Doc comment short description must be on a single
+     |         | line, further text should be a separate
+     |         | paragraph
+     |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+ 105 | ERROR   | Invalid function name, expected
+     |         | _get_reporting_period but found
+     |         | _getReportingPeriod
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+ 105 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_getReportingPeriod" but expected
+     |         | "samhsa_pep_product_inventory__getReportingPeriod"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 118 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_get_ordered_qty" but expected
+     |         | "samhsa_pep_product_inventory__get_ordered_qty"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 138 | WARNING | Line exceeds 80 characters; contains 83
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 140 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_get_shipped_qty" but expected
+     |         | "samhsa_pep_product_inventory__get_shipped_qty"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 162 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_custom_product_inventory_exposed_admin_order_validate"
+     |         | but expected
+     |         | "samhsa_pep_product_inventory__custom_product_inventory_exposed_admin_order_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+----------------------------------------------------------------------
+
+
+FILE: ...mhsa_pep_utility/samhsa_pep_password/samhsa_pep_password.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 3 | ERROR | Missing short description in doc comment
+   |       | (Drupal.Commenting.DocComment.MissingShort)
+----------------------------------------------------------------------
+
+
+FILE: ...amhsa_pep_utility/samhsa_pep_password/samhsa_pep_password.module
+----------------------------------------------------------------------
+FOUND 47 ERRORS AND 8 WARNINGS AFFECTING 46 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+  26 | ERROR   | Comment indentation error, expected only 1
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+  27 | ERROR   | Comment indentation error, expected only 2
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+  34 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+  37 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_expire_password" but expected
+     |         | "samhsa_pep_password__expire_password"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  61 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+  61 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+  62 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+  64 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_password_validate" but expected
+     |         | "samhsa_pep_password__password_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  72 | ERROR   | Comment indentation error, expected only 1
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+ 124 | WARNING | Line exceeds 80 characters; contains 81
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 130 | ERROR   | sizeof() is a function name alias, use count()
+     |         | instead
+     |         | (Drupal.Semantics.FunctionAlias.FunctionAlias)
+ 131 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+ 140 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 140 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 141 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 143 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_password_submit" but expected
+     |         | "samhsa_pep_password__password_submit"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 172 | WARNING | Line exceeds 80 characters; contains 84
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 183 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 183 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 184 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 184 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 185 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 185 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 187 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 189 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_pattern" but expected
+     |         | "samhsa_pep_password__validate_pattern"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 205 | WARNING | Line exceeds 80 characters; contains 111
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 215 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 217 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 219 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 221 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_lifetime" but expected
+     |         | "samhsa_pep_password__validate_lifetime"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 236 | WARNING | Line exceeds 80 characters; contains 91
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 237 | WARNING | Line exceeds 80 characters; contains 105
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 239 | ERROR   | Comment indentation error, expected only 1
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+ 243 | ERROR   | Comment indentation error, expected only 1
+     |         | spaces
+     |         | (Drupal.Commenting.InlineComment.SpacingBefore)
+ 256 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 258 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 261 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 263 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_length" but expected
+     |         | "samhsa_pep_password__validate_length"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 276 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 279 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 281 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_characters" but expected
+     |         | "samhsa_pep_password__validate_characters"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 335 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 337 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 337 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 338 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 338 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 340 | ERROR   | Description for the @return value must be on the
+     |         | next line
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 342 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_reuse" but expected
+     |         | "samhsa_pep_password__validate_reuse"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 355 | WARNING | Unused variable $msg.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 389 | ERROR   | The $_POST super global must not be accessed
+     |         | directly; inject the request_stack service and use
+     |         | $stack->getCurrentRequest()->request->get('pass')
+     |         | instead
+     |         | (DrupalPractice.Variables.GetRequestData.SuperglobalAccessedWithVar)
+ 389 | ERROR   | The $_POST super global must not be accessed
+     |         | directly; inject the request_stack service and use
+     |         | $stack->getCurrentRequest()->request->get('pass')
+     |         | instead
+     |         | (DrupalPractice.Variables.GetRequestData.SuperglobalAccessedWithVar)
+ 389 | ERROR   | The $_POST super global must not be accessed
+     |         | directly; inject the request_stack service and use
+     |         | $stack->getCurrentRequest()->request->get('pass_logged')
+     |         | instead
+     |         | (DrupalPractice.Variables.GetRequestData.SuperglobalAccessedWithVar)
+ 398 | WARNING | Unused variable $rows.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 403 | ERROR   | The $_POST super global must not be accessed
+     |         | directly; inject the request_stack service and use
+     |         | $stack->getCurrentRequest()->request->get('pass_logged')
+     |         | instead
+     |         | (DrupalPractice.Variables.GetRequestData.SuperglobalAccessedWithVar)
+----------------------------------------------------------------------
+
+
+FILE: ...amhsa_pep_utility/samhsa_pep_checkout/samhsa_pep_checkout.module
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+  3 | ERROR | Missing short description in doc comment
+    |       | (Drupal.Commenting.DocComment.MissingShort)
+ 14 | ERROR | Doc comment is empty
+    |       | (Drupal.Commenting.DocComment.Empty)
+----------------------------------------------------------------------
+
+
+FILE: ...ity/samhsa_pep_product_display/samhsa_pep_product_display.module
+----------------------------------------------------------------------
+FOUND 14 ERRORS AND 15 WARNINGS AFFECTING 21 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+  17 | WARNING | Global constants should not be used, move it to a
+     |         | class or interface
+     |         | (DrupalPractice.Constants.GlobalDefine.GlobalConstant)
+  17 | WARNING | All constants defined by a module must be prefixed
+     |         | with the module's name, expected
+     |         | "SAMHSA_PEP_PRODUCT_DISPLAY_INTEGER_MAX_VALUE" but
+     |         | found "INTEGER_MAX_VALUE"
+     |         | (Drupal.Semantics.ConstantName.ConstantStart)
+  18 | WARNING | Global constants should not be used, move it to a
+     |         | class or interface
+     |         | (DrupalPractice.Constants.GlobalDefine.GlobalConstant)
+  18 | WARNING | All constants defined by a module must be prefixed
+     |         | with the module's name, expected
+     |         | "SAMHSA_PEP_PRODUCT_DISPLAY_FILE_UNPUBLISH" but
+     |         | found "FILE_UNPUBLISH"
+     |         | (Drupal.Semantics.ConstantName.ConstantStart)
+  19 | WARNING | Global constants should not be used, move it to a
+     |         | class or interface
+     |         | (DrupalPractice.Constants.GlobalDefine.GlobalConstant)
+  19 | WARNING | All constants defined by a module must be prefixed
+     |         | with the module's name, expected
+     |         | "SAMHSA_PEP_PRODUCT_DISPLAY_ACTION_UNPUBLISH" but
+     |         | found "ACTION_UNPUBLISH"
+     |         | (Drupal.Semantics.ConstantName.ConstantStart)
+  20 | WARNING | Global constants should not be used, move it to a
+     |         | class or interface
+     |         | (DrupalPractice.Constants.GlobalDefine.GlobalConstant)
+  20 | WARNING | All constants defined by a module must be prefixed
+     |         | with the module's name, expected
+     |         | "SAMHSA_PEP_PRODUCT_DISPLAY_ACTION_PUBLISH" but
+     |         | found "ACTION_PUBLISH"
+     |         | (Drupal.Semantics.ConstantName.ConstantStart)
+  81 | WARNING | Unused variable $variant.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  84 | WARNING | Unused variable $variant.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 109 | WARNING | Line exceeds 80 characters; contains 89
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 166 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_validate_samhsa_product" but expected
+     |         | "samhsa_pep_product_display__validate_samhsa_product"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 172 | WARNING | Translatable strings must not begin or end with
+     |         | white spaces, use placeholders with t() for
+     |         | variables
+     |         | (Drupal.Semantics.FunctionT.WhiteSpace)
+ 172 | ERROR   | Concatenating translatable strings is not allowed,
+     |         | use placeholders instead and only one string
+     |         | literal (Drupal.Semantics.FunctionT.Concat)
+ 181 | WARNING | Translatable strings must not begin or end with
+     |         | white spaces, use placeholders with t() for
+     |         | variables
+     |         | (Drupal.Semantics.FunctionT.WhiteSpace)
+ 181 | ERROR   | Concatenating translatable strings is not allowed,
+     |         | use placeholders instead and only one string
+     |         | literal (Drupal.Semantics.FunctionT.Concat)
+ 219 | ERROR   | Doc comment short description must end with a full
+     |         | stop
+     |         | (Drupal.Commenting.DocComment.ShortFullStop)
+ 219 | ERROR   | Doc comment short description must be on a single
+     |         | line, further text should be a separate
+     |         | paragraph
+     |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+ 221 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 222 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 224 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 227 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_publish_unpublish_downloads" but expected
+     |         | "samhsa_pep_product_display__publish_unpublish_downloads"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 227 | ERROR   | Type hint
+     |         | "Drupal\file\Plugin\Field\FieldType\FileFieldItemList"
+     |         | missing for $field
+     |         | (Drupal.Commenting.FunctionComment.TypeHintMissing)
+ 289 | ERROR   | Concatenating translatable strings is not allowed,
+     |         | use placeholders instead and only one string
+     |         | literal (Drupal.Semantics.FunctionT.Concat)
+ 311 | ERROR   | Concatenating translatable strings is not allowed,
+     |         | use placeholders instead and only one string
+     |         | literal (Drupal.Semantics.FunctionT.Concat)
+ 331 | ERROR   | Concatenating translatable strings is not allowed,
+     |         | use placeholders instead and only one string
+     |         | literal (Drupal.Semantics.FunctionT.Concat)
+ 335 | WARNING | Only string literals should be passed to t() where
+     |         | possible
+     |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+ 379 | WARNING | Line exceeds 80 characters; contains 119
+     |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...ty/samhsa_pep_product_display/samhsa_pep_product_display.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AND 7 WARNINGS AFFECTING 8 LINES
+----------------------------------------------------------------------
+  3 | ERROR   | Missing short description in doc comment
+    |         | (Drupal.Commenting.DocComment.MissingShort)
+ 11 | WARNING | Line exceeds 80 characters; contains 106
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 12 | WARNING | Line exceeds 80 characters; contains 112
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 18 | WARNING | Line exceeds 80 characters; contains 100
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 19 | WARNING | Line exceeds 80 characters; contains 106
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 53 | WARNING | Unused variable $result.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 96 | WARNING | Line exceeds 80 characters; contains 126
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 97 | WARNING | Line exceeds 80 characters; contains 149
+    |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...es_workflow/samhsa_pep_order_states_workflow.views_execution.inc
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 25 | WARNING | Unused variable $key.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: ...order_states_workflow/samhsa_pep_order_states_workflow.views.inc
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | ERROR | Doc comment short description must be on a single line,
+   |       | further text should be a separate paragraph
+   |       | (Drupal.Commenting.DocComment.ShortSingleLine)
+----------------------------------------------------------------------
+
+
+FILE: ...ility/samhsa_pep_taxonomy_tags/samhsa_pep_taxonomy_tags.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...lity/samhsa_pep_taxonomy_tags/samhsa_pep_taxonomy_tags.drush.inc
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+  3 | ERROR | Missing short description in doc comment
+    |       | (Drupal.Commenting.DocComment.MissingShort)
+ 22 | ERROR | Doc comment short description must be on a single line,
+    |       | further text should be a separate paragraph
+    |       | (Drupal.Commenting.DocComment.ShortSingleLine)
+----------------------------------------------------------------------
+
+
+FILE: ...pep_utility/samhsa_pep_clone_order/samhsa_pep_clone_order.module
+----------------------------------------------------------------------
+FOUND 3 ERRORS AND 3 WARNINGS AFFECTING 6 LINES
+----------------------------------------------------------------------
+ 30 | ERROR   | Doc comment is empty
+    |         | (Drupal.Commenting.DocComment.Empty)
+ 34 | WARNING | Unused variable $entity.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 35 | WARNING | Unused variable $breadcrumbs.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 79 | ERROR   | Doc comment is empty
+    |         | (Drupal.Commenting.DocComment.Empty)
+ 82 | ERROR   | All functions defined in a module file must be
+    |         | prefixed with the module's name, found
+    |         | "samhsa_pep_order_clone_form" but expected
+    |         | "samhsa_pep_clone_order_samhsa_pep_order_clone_form"
+    |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 95 | WARNING | Only string literals should be passed to t() where
+    |         | possible
+    |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+----------------------------------------------------------------------
+
+
+FILE: ...ep_utility/samhsa_pep_clone_order/samhsa_pep_clone_order.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...p_utility/samhsa_pep_clone_order/samhsa_pep_clone_order.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 8 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...amhsa_pep_utility/samhsa_pep_plugins/samhsa_pep_plugins.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 2 WARNINGS AFFECTING 2 LINES
+----------------------------------------------------------------------
+ 8 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+ 9 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...tility/samhsa_pep_plugins/samhsa_pep_plugins.views_execution.inc
+----------------------------------------------------------------------
+FOUND 2 ERRORS AND 3 WARNINGS AFFECTING 4 LINES
+----------------------------------------------------------------------
+  8 | ERROR   | Doc comment short description must end with a full
+    |         | stop (Drupal.Commenting.DocComment.ShortFullStop)
+  8 | ERROR   | Doc comment short description must be on a single
+    |         | line, further text should be a separate paragraph
+    |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+ 17 | WARNING | Line exceeds 80 characters; contains 83
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 48 | WARNING | Line exceeds 80 characters; contains 89
+    |         | characters (Drupal.Files.LineLength.TooLong)
+ 60 | WARNING | Line exceeds 80 characters; contains 88
+    |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...mhsa_pep_utility/samhsa_pep_plugins/samhsa_pep_plugins.views.inc
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | ERROR | Doc comment short description must be on a single line,
+   |       | further text should be a separate paragraph
+   |       | (Drupal.Commenting.DocComment.ShortSingleLine)
+----------------------------------------------------------------------
+
+
+FILE: ...sa_pep_admin_orders_helper/samhsa_pep_admin_orders_helper.module
+----------------------------------------------------------------------
+FOUND 15 ERRORS AND 26 WARNINGS AFFECTING 38 LINES
+----------------------------------------------------------------------
+   74 | WARNING | Translatable strings must not begin or end with
+      |         | white spaces, use placeholders with t() for
+      |         | variables
+      |         | (Drupal.Semantics.FunctionT.WhiteSpace)
+   74 | ERROR   | Concatenating translatable strings is not allowed,
+      |         | use placeholders instead and only one string
+      |         | literal (Drupal.Semantics.FunctionT.Concat)
+   94 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_order_form_submit" but expected
+      |         | "samhsa_pep_admin_orders_helper__commerce_order_form_submit"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+   99 | WARNING | Line exceeds 80 characters; contains 84
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  106 | WARNING | Line exceeds 80 characters; contains 95
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  122 | ERROR   | Doc comment is empty
+      |         | (Drupal.Commenting.DocComment.Empty)
+  125 | ERROR   | Invalid function name, expected
+      |         | get_proposed_shipment but found
+      |         | getProposedShipment
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  125 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "getProposedShipment" but expected
+      |         | "samhsa_pep_admin_orders_helper_getProposedShipment"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  163 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_shipping_form_submit" but expected
+      |         | "samhsa_pep_admin_orders_helper__commerce_shipping_form_submit"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  165 | WARNING | Unused variable $weight.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  171 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_custom_exposed_admin_order_validate" but expected
+      |         | "samhsa_pep_admin_orders_helper__custom_exposed_admin_order_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  240 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_order_form_validate" but expected
+      |         | "samhsa_pep_admin_orders_helper__commerce_order_form_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  241 | WARNING | Unused variable $input.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  244 | WARNING | Unused variable $order_id.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  245 | WARNING | Unused variable $order.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  257 | WARNING | Line exceeds 80 characters; contains 83
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  297 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_vbo_form_validate" but expected
+      |         | "samhsa_pep_admin_orders_helper__vbo_form_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  377 | WARNING | Unused variable $order_id.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  400 | ERROR   | All functions defined in a module file must be
+      |         | prefixed with the module's name, found
+      |         | "_commerce_order_add_form_validate" but expected
+      |         | "samhsa_pep_admin_orders_helper__commerce_order_add_form_validate"
+      |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  489 | WARNING | Only string literals should be passed to t() where
+      |         | possible
+      |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  506 | WARNING | Only string literals should be passed to t() where
+      |         | possible
+      |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  528 | WARNING | Unused variable $route_match.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  529 | WARNING | Line exceeds 80 characters; contains 83
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  566 | WARNING | Unused variable $sku.
+      |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+  568 | WARNING | Line exceeds 80 characters; contains 102
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  608 | WARNING | Only string literals should be passed to t() where
+      |         | possible
+      |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  623 | WARNING | Line exceeds 80 characters; contains 89
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  632 | WARNING | Line exceeds 80 characters; contains 106
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  633 | WARNING | Line exceeds 80 characters; contains 132
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  639 | WARNING | Line exceeds 80 characters; contains 88
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  640 | WARNING | Line exceeds 80 characters; contains 115
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  641 | WARNING | Line exceeds 80 characters; contains 93
+      |         | characters (Drupal.Files.LineLength.TooLong)
+  663 | WARNING | Only string literals should be passed to t() where
+      |         | possible
+      |         | (Drupal.Semantics.FunctionT.NotLiteralString)
+  686 | ERROR   | The array declaration extends to column 103 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  695 | ERROR   | The array declaration extends to column 85 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  700 | ERROR   | The array declaration extends to column 85 (the
+      |         | limit is 80). The array content should be split up
+      |         | over multiple lines
+      |         | (Drupal.Arrays.Array.LongLineDeclaration)
+  745 | WARNING | Format should be "* Implements hook_foo().", "*
+      |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",,
+      |         | "* Implements hook_foo_BAR_ID_bar() for
+      |         | xyz-bar.html.twig.", "* Implements
+      |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+      |         | Implements hook_foo_BAR_ID_bar() for block
+      |         | templates."
+      |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+  746 | ERROR   | Doc comment short description must end with a full
+      |         | stop
+      |         | (Drupal.Commenting.DocComment.ShortFullStop)
+  746 | ERROR   | Doc comment short description must be on a single
+      |         | line, further text should be a separate
+      |         | paragraph
+      |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+  916 | WARNING | Line exceeds 80 characters; contains 99
+      |         | characters (Drupal.Files.LineLength.TooLong)
+ 1030 | WARNING | Line exceeds 80 characters; contains 82
+      |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ..._pep_admin_orders_helper/samhsa_pep_admin_orders_helper.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
+----------------------------------------------------------------------
+  8 | WARNING | All dependencies must be prefixed with the project
+    |         | name, for example "drupal:"
+    |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+  9 | WARNING | All dependencies must be prefixed with the project
+    |         | name, for example "drupal:"
+    |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+ 10 | WARNING | All dependencies must be prefixed with the project
+    |         | name, for example "drupal:"
+    |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...pep_admin_orders_helper/samhsa_pep_admin_orders_helper.views.inc
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | ERROR | Doc comment short description must be on a single line,
+   |       | further text should be a separate paragraph
+   |       | (Drupal.Commenting.DocComment.ShortSingleLine)
+----------------------------------------------------------------------
+
+
+FILE: ...mhsa_pep_justification_pane/samhsa_pep_justification_pane.module
+----------------------------------------------------------------------
+FOUND 1 ERROR AND 1 WARNING AFFECTING 2 LINES
+----------------------------------------------------------------------
+  3 | ERROR   | Missing short description in doc comment
+    |         | (Drupal.Commenting.DocComment.MissingShort)
+ 51 | WARNING | Line exceeds 80 characters; contains 93
+    |         | characters (Drupal.Files.LineLength.TooLong)
+----------------------------------------------------------------------
+
+
+FILE: ...hsa_pep_justification_pane/samhsa_pep_justification_pane.install
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 11 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...hsa_pep_utility/samhsa_pep_security/samhsa_pep_security.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...amhsa_pep_utility/samhsa_pep_security/samhsa_pep_security.module
+----------------------------------------------------------------------
+FOUND 24 ERRORS AND 9 WARNINGS AFFECTING 31 LINES
+----------------------------------------------------------------------
+  15 | ERROR   | Doc comment is empty
+     |         | (Drupal.Commenting.DocComment.Empty)
+  18 | ERROR   | Invalid function name, expected get_file but found
+     |         | getFile
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidName)
+  18 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found "getFile" but
+     |         | expected "samhsa_pep_security_getFile"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+  26 | WARNING | Line exceeds 80 characters; contains 81
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  35 | WARNING | Line exceeds 80 characters; contains 93
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  86 | WARNING | Line exceeds 80 characters; contains 85
+     |         | characters (Drupal.Files.LineLength.TooLong)
+  88 | ERROR   | Doc comment short description must end with a full
+     |         | stop
+     |         | (Drupal.Commenting.DocComment.ShortFullStop)
+  88 | ERROR   | Doc comment short description must be on a single
+     |         | line, further text should be a separate
+     |         | paragraph
+     |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+  90 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+  91 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+  93 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_login_form_validate_pre" but expected
+     |         | "samhsa_pep_security__login_form_validate_pre"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 149 | WARNING | Line exceeds 80 characters; contains 83
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 152 | WARNING | Line exceeds 80 characters; contains 96
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 155 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 156 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 158 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_login_form_validate_post" but expected
+     |         | "samhsa_pep_security__login_form_validate_post"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 179 | WARNING | Line exceeds 80 characters; contains 98
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 182 | WARNING | Line exceeds 80 characters; contains 110
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 194 | WARNING | Line exceeds 80 characters; contains 81
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 242 | ERROR   | Doc comment short description must start with a
+     |         | capital letter
+     |         | (Drupal.Commenting.DocComment.ShortNotCapital)
+ 244 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 245 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 247 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_login_form_validate_submit_post" but expected
+     |         | "samhsa_pep_security__login_form_validate_submit_post"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 267 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_login_timestamp" but expected
+     |         | "samhsa_pep_security__login_timestamp"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 278 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_access_timestamp" but expected
+     |         | "samhsa_pep_security__access_timestamp"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 294 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_security_add_event" but expected
+     |         | "samhsa_pep_security__security_add_event"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 313 | ERROR   | Doc comment for parameter $name does not match
+     |         | actual variable name <undefined>
+     |         | (Drupal.Commenting.FunctionComment.ParamNameNoMatch)
+ 315 | ERROR   | Superfluous parameter comment
+     |         | (Drupal.Commenting.FunctionComment.ExtraParamComment)
+ 421 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_login_user_block_user_name" but expected
+     |         | "samhsa_pep_security__login_user_block_user_name"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 422 | WARNING | Unused variable $conf.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 457 | ERROR   | Parameter comment must start with a capital
+     |         | letter
+     |         | (Drupal.Commenting.FunctionComment.ParamCommentNotCapital)
+ 464 | ERROR   | Function return type is not void, but function is
+     |         | returning void here
+     |         | (Drupal.Commenting.FunctionComment.InvalidReturnNotVoid)
+ 480 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_get_variables_by_name" but expected
+     |         | "samhsa_pep_security__get_variables_by_name"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+----------------------------------------------------------------------
+
+
+FILE: ...y/samhsa_pep_customer_profile/samhsa_pep_customer_profile.module
+----------------------------------------------------------------------
+FOUND 6 ERRORS AND 3 WARNINGS AFFECTING 9 LINES
+----------------------------------------------------------------------
+   3 | ERROR   | Missing short description in doc comment
+     |         | (Drupal.Commenting.DocComment.MissingShort)
+ 111 | WARNING | Line exceeds 80 characters; contains 222
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 121 | WARNING | Line exceeds 80 characters; contains 222
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 127 | WARNING | Line exceeds 80 characters; contains 95
+     |         | characters (Drupal.Files.LineLength.TooLong)
+ 149 | ERROR   | Doc comment short description must start with a
+     |         | capital letter
+     |         | (Drupal.Commenting.DocComment.ShortNotCapital)
+ 153 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_user_form_email_validate" but expected
+     |         | "samhsa_pep_customer_profile__user_form_email_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 164 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_order_information_form_validate" but expected
+     |         | "samhsa_pep_customer_profile__order_information_form_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 181 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_order_information_form_complete_validate" but
+     |         | expected
+     |         | "samhsa_pep_customer_profile__order_information_form_complete_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 192 | ERROR   | All functions defined in a module file must be
+     |         | prefixed with the module's name, found
+     |         | "_profile_form_validate" but expected
+     |         | "samhsa_pep_customer_profile__profile_form_validate"
+     |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+----------------------------------------------------------------------
+
+
+FILE: ...ules/custom/samhsa_term_elevation/samhsa_term_elevation.page.inc
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 24 | WARNING | Unused variable $samhsa_term_elevation.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: ...dules/custom/samhsa_term_elevation/samhsa_term_elevation.install
+----------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+----------------------------------------------------------------------
+  3 | ERROR | Missing short description in doc comment
+    |       | (Drupal.Commenting.DocComment.MissingShort)
+ 19 | ERROR | Empty installation hooks are not necessary
+    |       | (Drupal.Semantics.EmptyInstall.EmptyInstall)
+----------------------------------------------------------------------
+
+
+FILE: ...ion/samhsa_te_url_replacement/samhsa_te_url_replacement.info.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 8 | WARNING | All dependencies must be prefixed with the project
+   |         | name, for example "drupal:"
+   |         | (DrupalPractice.InfoFiles.NamespacedDependency.NonNamespaced)
+----------------------------------------------------------------------
+
+
+FILE: ...ation/samhsa_te_url_replacement/samhsa_te_url_replacement.module
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 45 | ERROR | unserialize() is insecure unless allowed classes are
+    |       | limited. Use a safe format like JSON or use the
+    |       | allowed_classes option.
+    |       | (DrupalPractice.FunctionCalls.InsecureUnserialize.InsecureUnserialize)
+----------------------------------------------------------------------
+
+
+FILE: ...les/custom/samhsa_term_elevation/samhsa_term_elevation.views.inc
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 6 | ERROR | Doc comment short description must be on a single line,
+   |       | further text should be a separate paragraph
+   |       | (Drupal.Commenting.DocComment.ShortSingleLine)
+----------------------------------------------------------------------
+
+
+FILE: ...odules/custom/samhsa_term_elevation/samhsa_term_elevation.module
+----------------------------------------------------------------------
+FOUND 10 ERRORS AND 5 WARNINGS AFFECTING 14 LINES
+----------------------------------------------------------------------
+  36 | ERROR   | Namespaced classes/interfaces/traits should be
+     |         | referenced with use statements
+     |         | (Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing)
+ 100 | WARNING | Unused variable $elevation_data.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 136 | ERROR   | Namespaced classes/interfaces/traits should be
+     |         | referenced with use statements
+     |         | (Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing)
+ 176 | ERROR   | Type hint "array" missing for $texts
+     |         | (Drupal.Commenting.FunctionComment.TypeHintMissing)
+ 198 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 234 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 236 | ERROR   | Description for the @return value is missing
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 251 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 251 | ERROR   | Missing parameter type
+     |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 290 | ERROR   | Missing parameter comment
+     |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 292 | ERROR   | Description for the @return value is missing
+     |         | (Drupal.Commenting.FunctionComment.MissingReturnComment)
+ 327 | WARNING | Unused variable $key.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 348 | WARNING | Unused variable $item_key.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 349 | WARNING | Unused variable $row_key.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+ 377 | WARNING | Unused variable $name.
+     |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+
+FILE: .../samhsa_index_field_switch/samhsa_index_field_switch.routing.yml
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 4 WARNINGS AFFECTING 4 LINES
+----------------------------------------------------------------------
+  7 | WARNING | The administration page callback should probably use
+    |         | "administer site configuration" - which implies the
+    |         | user can change something - rather than "access
+    |         | administration pages" which is about viewing but not
+    |         | changing configurations.
+    |         | (DrupalPractice.Yaml.RoutingAccess.PermissionFound)
+ 17 | WARNING | Open page callback found, please add a comment before
+    |         | the line why there is no access restriction
+    |         | (DrupalPractice.Yaml.RoutingAccess.OpenCallback)
+ 25 | WARNING | Open page callback found, please add a comment before
+    |         | the line why there is no access restriction
+    |         | (DrupalPractice.Yaml.RoutingAccess.OpenCallback)
+ 33 | WARNING | Open page callback found, please add a comment before
+    |         | the line why there is no access restriction
+    |         | (DrupalPractice.Yaml.RoutingAccess.OpenCallback)
+----------------------------------------------------------------------
+
+
+FILE: ...ules/custom/samhsa_computed_fields/samhsa_computed_fields.module
+----------------------------------------------------------------------
+FOUND 11 ERRORS AND 2 WARNINGS AFFECTING 9 LINES
+----------------------------------------------------------------------
+  6 | ERROR   | Doc comment short description must be on a single
+    |         | line, further text should be a separate paragraph
+    |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+ 10 | WARNING | Format should be "* Implements hook_foo().", "*
+    |         | Implements hook_foo_BAR_ID_bar() for xyz_bar().",, "*
+    |         | Implements hook_foo_BAR_ID_bar() for
+    |         | xyz-bar.html.twig.", "* Implements
+    |         | hook_foo_BAR_ID_bar() for xyz-bar.tpl.php.", or "*
+    |         | Implements hook_foo_BAR_ID_bar() for block
+    |         | templates."
+    |         | (Drupal.Commenting.HookComment.HookCommentFormat)
+ 11 | ERROR   | Doc comment short description must be on a single
+    |         | line, further text should be a separate paragraph
+    |         | (Drupal.Commenting.DocComment.ShortSingleLine)
+ 16 | ERROR   | Missing parameter comment
+    |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 16 | ERROR   | Missing parameter type
+    |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 17 | ERROR   | Missing parameter comment
+    |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 17 | ERROR   | Missing parameter type
+    |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 18 | ERROR   | Missing parameter comment
+    |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 18 | ERROR   | Missing parameter type
+    |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 19 | ERROR   | Missing parameter comment
+    |         | (Drupal.Commenting.FunctionComment.MissingParamComment)
+ 19 | ERROR   | Missing parameter type
+    |         | (Drupal.Commenting.FunctionComment.MissingParamType)
+ 24 | ERROR   | All functions defined in a module file must be
+    |         | prefixed with the module's name, found
+    |         | "computed_field_field_print_only_out_of_stock_compute"
+    |         | but expected
+    |         | "samhsa_computed_fields_computed_field_field_print_only_out_of_stock_compute"
+    |         | (Drupal.NamingConventions.ValidFunctionName.InvalidPrefix)
+ 30 | WARNING | Unused variable $product_id.
+    |         | (DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable)
+----------------------------------------------------------------------
+
+Time: 5.36 secs; Memory: 24MB
+

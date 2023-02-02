@@ -1,16 +1,9 @@
 <?php
-/**
- * @file
- * Contains \Drupal\samhsa_pep_plugins\Plugin\views\field\ProductPalletsCountField.
- */
 
 namespace Drupal\samhsa_pep_plugins\Plugin\views\field;
 
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
-use Drupal\Core\Url;
-use Drupal\Component\Serialization\Json;
-use Drupal\node\Entity;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -23,10 +16,10 @@ use Drupal\Core\Form\FormStateInterface;
 class ProductPalletsCountField extends FieldPluginBase {
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function usesGroupBy() {
-      return FALSE;
+    return FALSE;
   }
 
   /**
@@ -36,22 +29,22 @@ class ProductPalletsCountField extends FieldPluginBase {
     // Leave empty to avoid a query on this field.
   }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function defineOptions() {
-        $options = parent::defineOptions();
+  /**
+   * {@inheritdoc}
+   */
+  protected function defineOptions() {
+    $options = parent::defineOptions();
 
-        $options['hide_alter_empty'] = ['default' => FALSE];
-        return $options;
-    }
+    $options['hide_alter_empty'] = ['default' => FALSE];
+    return $options;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-        parent::buildOptionsForm($form, $form_state);
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    parent::buildOptionsForm($form, $form_state);
+  }
 
   /**
    * @{inheritdoc}
@@ -60,7 +53,7 @@ class ProductPalletsCountField extends FieldPluginBase {
     $entity = $values->_entity;
     $pallets = \Drupal::service('samhsa_pep_stock.pep_stock_utility')->lookupPublicationPallets($entity->id());
     $pallets_count = getPalletsCountPerProd($pallets);
-    
+
     return $pallets_count;
   }
 

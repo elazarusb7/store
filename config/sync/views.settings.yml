@@ -1,21 +1,20 @@
 _core:
   default_config_hash: RaRd9EIcwA4u3qCSRLL8EnCicbda1kV__ASmVbyehvQ
 display_extenders:
-  - mobile_device_detection
-  - metatag_display_extender
+  1: metatag_display_extender
 skip_cache: true
 sql_signature: false
 ui:
   show:
     additional_queries: false
-    advanced_column: false
-    default_display: false
+    advanced_column: true
+    default_display: true
     performance_statistics: false
     preview_information: true
     sql_query:
-      enabled: false
-      where: above
-    display_embed: false
+      enabled: true
+      where: below
+    display_embed: true
     master_display: false
   always_live_preview: true
   exposed_filter_any_label: old_any

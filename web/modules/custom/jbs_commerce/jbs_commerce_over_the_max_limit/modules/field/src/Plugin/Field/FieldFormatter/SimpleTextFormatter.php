@@ -27,7 +27,7 @@ class SimpleTextFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
-        // We create a render array to produce the desired markup,
+        // We create a render array to produce the desired markup,.
         '#type' => 'html_tag',
         '#tag' => 'p',
         '#value' => round($item->value),
