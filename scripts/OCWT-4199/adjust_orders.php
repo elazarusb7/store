@@ -30,8 +30,6 @@ while (($data = fgetcsv($fh)) !== FALSE) {
   ];
 }
 
-// Above should be working, below is not working
-
 // Run query to gather all orders we want to possibly correct
 $database = \Drupal::database();
 
@@ -53,7 +51,6 @@ $query = $database->query($sql, [
 
 $results = $query->fetchAll();
 $total_orders = count($results);
-
 
 // Check each individual order item for excessive items
 foreach ($results as $result) {
@@ -79,11 +76,7 @@ foreach ($results as $result) {
   $items_to_packages = ceil($quantity_ordered / $product_package_quantity);
 
   // If the order quantity is too high, reduce it to max allowed
-  if ($items_to_packages >= $product_max_packages) {
-    $revised_quantity_ordered = $product_max_packages;
-  } else {
-    $revised_quantity_ordered = $items_to_packages;
-  }
+  $revised_quantity_ordered = min($items_to_packages, $product_max_packages);
 
   // Set order item to  $revised_quantity_ordered
   $sql = <<<EOD
