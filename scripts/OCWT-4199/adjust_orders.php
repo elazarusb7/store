@@ -8,6 +8,9 @@
  *
  */
 
+$modified_orders = 0;
+$total_orders = 0;
+
 // Date range of orders we will modify
 $date_range_begin = '2022-09-10 00:00:00';
 $date_range_end = '2023-02-03 00:00:00';
@@ -49,6 +52,8 @@ $query = $database->query($sql, [
 ]);
 
 $results = $query->fetchAll();
+$total_orders = count($results);
+
 
 // Check each individual order item for excessive items
 foreach ($results as $result) {
@@ -59,6 +64,8 @@ foreach ($results as $result) {
   if (!isset($limit_data[$sku])) {
     continue;
   }
+
+  $modified_orders += 1;
 
   $quantity_ordered = $result->quantity;
   $order_item_id = $result->order_item_id;
@@ -95,3 +102,5 @@ EOD;
   print "Order ID: $order_id SKU: $sku Original quantity: $quantity_ordered New quantity: $revised_quantity_ordered\n";
 
 }
+
+print "\n\nFinished\n\nReviewed $total_orders order items and modified $modified_orders\n\n";
