@@ -6,6 +6,8 @@
  *
  * This script is to be run via drush: drush php:script ./adjust_orders.php
  *
+ * To capture the output as a log file, run: drush: drush php:script ./adjust_orders.php | tee adjustments.tsv
+ *
  */
 
 $modified_orders = 0;
@@ -92,7 +94,7 @@ EOD;
   ]);
 
   // TODO: some sort of logging here
-  print "Order ID: $order_id SKU: $sku Original quantity: $quantity_ordered New quantity: $revised_quantity_ordered\n";
+  print "Order ID: $order_id\tSKU: $sku\tPackage quantity: $product_package_quantity\tOriginal quantity: $quantity_ordered\tNew quantity: $revised_quantity_ordered\n";
 
 }
 
