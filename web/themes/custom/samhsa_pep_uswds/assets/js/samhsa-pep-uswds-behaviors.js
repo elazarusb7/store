@@ -181,3 +181,13 @@ jQuery.fn.superfishA11yHelper = function (options) {
 
 }
 jQuery('#superfish-main-menu').superfishA11yHelper();
+
+// REPLACE SVG.EXT ICON WITH FONT AWESOME SVG ICON
+jQuery(document).ready(function($) {
+  $("a.ext").append(
+     "<span class='exitDisclaimer'><a href='https://www.samhsa.gov/disclaimer' aria-label='Link to SAMHSA Exit Disclaimer'><i class='fas fa-external-link-alt' ></i></a></span>"
+      );
+             
+   $("svg.ext").remove();
+ });
+ 

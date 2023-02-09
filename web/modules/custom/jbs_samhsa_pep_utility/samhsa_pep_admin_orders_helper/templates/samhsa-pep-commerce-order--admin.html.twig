@@ -20,23 +20,34 @@
 
 {{ attach_library('commerce_order/form') }}
 {% set order_state = order_entity.getState.getLabel %}
+{# It was a PITA to get the raw value of this: #}
+{% set order_is_special =  order.field_special_request|render|striptags|trim %}
 
 <div class="layout-order-form clearfix">
   <div class="layout-region layout-region-order-main">
+
+    {% if order_is_special %}
+      <div id="special-request-order">
+        <h1>This order is a special request</h1>
+        {{ order.field_special_request_desc }}
+      </div>
+      <br/>
+    {% endif %}
+
     {{ order.clone_order_form }}
     {{ order.order_items }}
 
     {% if order.justification|length > 0 %}
-      <div class = "field__label">{% trans %}Quantity Justification{% endtrans %}</div>
+      <div class="field__label">{% trans %}Quantity Justification{% endtrans %}</div>
       {{ order.justification }}
     {% endif %}
     {% if order.order_source|length > 0 %}
-      <div class = "field__label">{% trans %}Order Source{% endtrans %}</div>
+      <div class="field__label">{% trans %}Order Source{% endtrans %}</div>
       {{ order.order_source }}
     {% endif %}
     {% if order.order_weight > 0 %}
-       <div class = "field__label">{% trans %}Order weight{% endtrans %}</div>
-       {{ order.order_weight }}
+      <div class="field__label">{% trans %}Order weight{% endtrans %}</div>
+      {{ order.order_weight }}
     {% endif %}
     {% if order.activity %}
       <h5>{% trans %}Order Log{% endtrans %}</h5>
@@ -92,14 +103,14 @@
         </details>
       {% endif %}
       {# If the order has possible transitions, render the field for transition buttons. #}
-      {# hide transition buttons per customer's request SPD-349#}
+      {# hide transition buttons per customer's request SPD-349 #}
       {#
-       {% if order_entity.getState.getTransitions is not empty %}
-         <div class="entity-meta__header">
-           {{ order.state }}
-         </div>
-       {% endif %}
+      {% if order_entity.getState.getTransitions is not empty %}
+        <div class="entity-meta__header">
+          {{ order.state }}
+        </div>
+      {% endif %}
       #}
-</div>
-</div>
+    </div>
+  </div>
 </div>
