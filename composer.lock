@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4d4a759450d78563d603c5da4e1236d",
+    "content-hash": "57090f2975b463f8f1746c3596af6405",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2262,7 +2262,7 @@
         },
         {
             "name": "dflydev/dot-access-configuration",
-            "version": "dev-master",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dflydev/dflydev-dot-access-configuration.git",
@@ -2287,7 +2287,6 @@
             "suggest": {
                 "symfony/yaml": "Required for using the YAML Configuration Builders"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -5078,10 +5077,6 @@
             ],
             "authors": [
                 {
-                    "name": "Centarro",
-                    "homepage": "https://www.drupal.org/user/3661446"
-                },
-                {
                     "name": "amateescu",
                     "homepage": "https://www.drupal.org/user/729614"
                 },
@@ -5092,6 +5087,10 @@
                 {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
                 },
                 {
                     "name": "jsacksick",
@@ -8177,6 +8176,10 @@
                     "homepage": "https://www.drupal.org/user/3580850"
                 },
                 {
+                    "name": "NickDickinsonWilde",
+                    "homepage": "https://www.drupal.org/user/3094661"
+                },
+                {
                     "name": "RenatoG",
                     "homepage": "https://www.drupal.org/user/3326031"
                 },
@@ -9543,16 +9546,16 @@
             ],
             "authors": [
                 {
-                    "name": "Sutharsan",
-                    "homepage": "https://www.drupal.org/user/73854"
-                },
-                {
                     "name": "joycelam",
                     "homepage": "https://www.drupal.org/user/3543385"
                 },
                 {
                     "name": "marcvangend",
                     "homepage": "https://www.drupal.org/user/158153"
+                },
+                {
+                    "name": "Sutharsan",
+                    "homepage": "https://www.drupal.org/user/73854"
                 }
             ],
             "description": "Display fields of the current entity as blocks.",
@@ -9920,6 +9923,60 @@
             "homepage": "https://www.drupal.org/project/flood_control",
             "support": {
                 "source": "https://git.drupalcode.org/project/flood_control"
+            }
+        },
+        {
+            "name": "drupal/fontawesome",
+            "version": "2.24.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fontawesome.git",
+                "reference": "8.x-2.24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fontawesome-8.x-2.24.zip",
+                "reference": "8.x-2.24",
+                "shasum": "a705e1181c056118ad39cf2fc6f63b62e300cc72"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.24",
+                    "datestamp": "1666211201",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel.Moberly",
+                    "homepage": "https://www.drupal.org/user/1160788"
+                },
+                {
+                    "name": "truls1502",
+                    "homepage": "https://www.drupal.org/user/325866"
+                }
+            ],
+            "description": "The web's most popular icon set and toolkit.",
+            "homepage": "https://www.drupal.org/project/fontawesome",
+            "support": {
+                "source": "https://git.drupalcode.org/project/fontawesome",
+                "issues": "https://drupal.org/project/issues/fontawesome"
             }
         },
         {
@@ -10454,18 +10511,6 @@
             ],
             "authors": [
                 {
-                    "name": "Spleshka",
-                    "homepage": "https://www.drupal.org/user/810676"
-                },
-                {
-                    "name": "Stanislav Mixnovich",
-                    "homepage": "https://www.drupal.org/user/2859977"
-                },
-                {
-                    "name": "WorldFallz",
-                    "homepage": "https://www.drupal.org/user/155304"
-                },
-                {
                     "name": "chilic",
                     "homepage": "https://www.drupal.org/user/651738"
                 },
@@ -10478,8 +10523,20 @@
                     "homepage": "https://www.drupal.org/user/350381"
                 },
                 {
+                    "name": "Spleshka",
+                    "homepage": "https://www.drupal.org/user/810676"
+                },
+                {
+                    "name": "Stanislav Mixnovich",
+                    "homepage": "https://www.drupal.org/user/2859977"
+                },
+                {
                     "name": "tatarbj",
                     "homepage": "https://www.drupal.org/user/649590"
+                },
+                {
+                    "name": "WorldFallz",
+                    "homepage": "https://www.drupal.org/user/155304"
                 }
             ],
             "description": "The Improved Multi Select module improve UX by replacing default multi-select boxes with two panel list and search box.",
@@ -12181,14 +12238,6 @@
                     "homepage": "https://www.drupal.org/user/1009514"
                 },
                 {
-                    "name": "luiscarvalho",
-                    "homepage": "https://www.drupal.org/user/3670693"
-                },
-                {
-                    "name": "maikelfinck",
-                    "homepage": "https://www.drupal.org/user/3232037"
-                },
-                {
                     "name": "paulocs",
                     "homepage": "https://www.drupal.org/user/3640109"
                 },
@@ -13041,16 +13090,16 @@
                     "homepage": "https://www.drupal.org/user/86106"
                 },
                 {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
+                {
                     "name": "czigor",
                     "homepage": "https://www.drupal.org/user/826222"
                 },
                 {
                     "name": "jsacksick",
                     "homepage": "https://www.drupal.org/user/972218"
-                },
-                {
-                    "name": "mglaman",
-                    "homepage": "https://www.drupal.org/user/2416470"
                 },
                 {
                     "name": "rszrama",
@@ -14544,6 +14593,10 @@
                 {
                     "name": "japerry",
                     "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
                 },
                 {
                     "name": "josesanmartin",
@@ -16735,10 +16788,6 @@
                     "homepage": "https://www.drupal.org/user/3094661"
                 },
                 {
-                    "name": "aaron",
-                    "homepage": "https://www.drupal.org/user/33420"
-                },
-                {
                     "name": "redndahead",
                     "homepage": "https://www.drupal.org/user/160320"
                 },
@@ -17030,7 +17079,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1663772820",
+                    "datestamp": "1672772011",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
