@@ -9,10 +9,11 @@ dependencies:
     - field.field.commerce_order.samhsa_publication_ob.field_log
     - field.field.commerce_order.samhsa_publication_ob.field_order_source
     - field.field.commerce_order.samhsa_publication_ob.field_order_weight
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request
+    - field.field.commerce_order.samhsa_publication_ob.field_special_request_desc
     - field.field.commerce_order.samhsa_publication_ob.shipments
   module:
-    - cck_select_other
-    - commerce_order
+    - entity_reference_revisions
     - inline_entity_form
 _core:
   default_config_hash: 8A8GxqeOFUWLQpdx8wpAJCM1ALU77LrqmmWRVvj0iVc
@@ -22,10 +23,14 @@ bundle: samhsa_publication_ob
 mode: default
 content:
   billing_profile:
-    type: commerce_billing_profile
+    type: entity_reference_revisions_autocomplete
     weight: 1
     region: content
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   cart:
     type: boolean_checkbox
@@ -51,11 +56,25 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_order_source:
-    type: cck_select_other
+    type: options_select
     weight: 5
     region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_special_request:
+    type: boolean_checkbox
+    weight: 9
+    region: content
     settings:
-      other_label: 'Provide Other Source'
+      display_label: true
+    third_party_settings: {  }
+  field_special_request_desc:
+    type: string_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   mail:
     type: email_default
@@ -71,15 +90,16 @@ content:
     region: content
     settings:
       form_mode: default
-      override_labels: true
-      label_singular: 'order item'
-      label_plural: 'order items'
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
       allow_new: true
       allow_existing: false
       match_operator: CONTAINS
       allow_duplicate: false
       collapsible: false
       collapsed: false
+      revision: false
     third_party_settings: {  }
   order_number:
     type: string_textfield
