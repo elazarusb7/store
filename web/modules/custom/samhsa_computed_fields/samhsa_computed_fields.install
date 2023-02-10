@@ -20,8 +20,9 @@ function samhsa_computed_fields_install() {
     ->execute();
 
   // Re-save all the nodes.
-  $products = Product::loadMultiple($pids);
-  foreach ($products as $product) {
+  foreach ($pids as $pid) {
+    // We specifically load only one at a time to preserve host memory.
+    $product = Product::load($pid);
     $product->save();
   }
 

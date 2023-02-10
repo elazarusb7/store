@@ -42,7 +42,7 @@ function samhsa_pep_shipping_preprocess_commerce_order(array &$variables) {
   $order = $variables['order_entity'];
   $variables['order_entity'] = $order;
 
-  if ($order_weight = $order->field_order_weight) {
+  if (!empty($order->field_order_weight->getValue())) {
     $unit_value = $order->field_order_weight->getValue('unit');
     $unit = array_shift($unit_value)['unit'];
     $weight = $order->field_order_weight->getValue('number');

@@ -125,7 +125,7 @@ jQuery.fn.superfishA11yHelper = function (options) {
           //Take href values and create a string with the last path of the path
           $hrefsToLabels = $mainMenuHrefs.substr($mainMenuHrefs.indexOf("/") + 1).replace('/www.samhsa.gov/', '').replace(/\//g, ' ').replace('-', ' ');
           //create aria-labelledby attribute and insert the string above at the value
-          jQuery(this).attr('aria-labelledby', $hrefsToLabels);
+          //jQuery(this).attr('aria-labelledby', $hrefsToLabels);
         });
         
         //console.log("My HREF is", $hrefsToLabels);
@@ -181,3 +181,13 @@ jQuery.fn.superfishA11yHelper = function (options) {
 
 }
 jQuery('#superfish-main-menu').superfishA11yHelper();
+
+// REPLACE SVG.EXT ICON WITH FONT AWESOME SVG ICON
+jQuery(document).ready(function($) {
+  $("a.ext").append(
+     "<span class='exitDisclaimer'><a href='https://www.samhsa.gov/disclaimer' aria-label='Link to SAMHSA Exit Disclaimer'><i class='fas fa-external-link-alt' ></i></a></span>"
+      );
+             
+   $("svg.ext").remove();
+ });
+ 

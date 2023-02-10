@@ -41,11 +41,14 @@ function samhsa_pep_checkout_form_commerce_checkout_flow_multistep_default_alter
   elseif ($form['#step_id'] == 'review') {
     $form['review']['shipping_information']['#title'] = t('Shipping Information');
     if (isset($form['review']['billing_information'])) {
-      $form['review']['payment_information']['#title'] = t('Contact Information');
+      $form['review']['payment_information']['#title'] = t('Contact Information 1');
     }
-    if (isset($form['review']['contact_information'])) {
-      $form['review']['contact_information']['#title'] = t('Contact Email');
-    }
+    // BUG: The following displays an empty fieldset on the form, so unset it.
+    //    if (isset($form['review']['contact_information'])) {
+    //      $form['review']['contact_information']['#title'] = t('Contact Email');
+    //    }
+    unset ($form['review']['contact_information']);
+
     $form['actions']['next']['#value'] = t('Place order');
     // unset($form['actions']['next']['#suffix']);.
   }

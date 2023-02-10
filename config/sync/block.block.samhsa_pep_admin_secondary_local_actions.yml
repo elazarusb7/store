@@ -2,10 +2,11 @@ uuid: bafc872c-39de-4e1b-86fd-cf1cef4ecb7a
 langcode: en
 status: true
 dependencies:
-  module:
-    - mobile_device_detection
   theme:
     - samhsa_pep_admin
+third_party_settings:
+  block_class:
+    classes: null
 id: samhsa_pep_admin_secondary_local_actions
 theme: samhsa_pep_admin
 region: pre_content
@@ -19,8 +20,4 @@ settings:
   provider: core
   primary: false
   secondary: true
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    devices: {  }
+visibility: {  }

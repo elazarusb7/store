@@ -81,6 +81,7 @@ module:
   file: 0
   file_browser: 0
   filter: 0
+  fontawesome: 0
   ga_login: 0
   help: 0
   helper: 0
@@ -123,7 +124,6 @@ module:
   metatag_views: 0
   migrate_files_and_images: 0
   mimemail: 0
-  mobile_device_detection: 0
   module_filter: 0
   mysql: 0
   node: 0
@@ -143,6 +143,8 @@ module:
   responsive_image: 0
   rest: 0
   samhsa_gpo: 0
+  samhsa_commerce_enhancements: 0
+  samhsa_computed_fields: 0
   samhsa_index_field_switch: 0
   samhsa_pep_admin_orders_helper: 0
   samhsa_pep_anonlogout: 0

@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - block_class
-    - mobile_device_detection
     - system
   theme:
     - samhsa_pep_uswds
@@ -27,9 +26,4 @@ settings:
   use_site_logo: true
   use_site_name: true
   use_site_slogan: false
-visibility:
-  mobile_device_detection_condition_plugin:
-    id: mobile_device_detection_condition_plugin
-    negate: null
-    context_mapping: {  }
-    devices: {  }
+visibility: {  }
