@@ -3,9 +3,18 @@
 use Drupal\samhsa_gpo\API\SamhsaGpoAPI;
 
 function samhsa_gpo_cron() {
-  $date = date("Y-m-d", strtotime("yesterday"));
-  $exportExists = SamhsaGpoAPI::testForExport($date);
+//  $date = date("Y-m-d", strtotime("yesterday"));
+  $date = '2023-02-09';
+
+  // Export Special Requests if any
+  $exportExists = SamhsaGpoAPI::testForExport($date, 1);
   if (!$exportExists) {
-    SamhsaGpoAPI::generateXML($date);
+    SamhsaGpoAPI::generateXML($date, 1);
+  }
+
+  // Export regular orders
+  $exportExists = SamhsaGpoAPI::testForExport($date, 0);
+  if (!$exportExists) {
+    SamhsaGpoAPI::generateXML($date, 0);
   }
 }

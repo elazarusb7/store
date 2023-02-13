@@ -29,9 +29,9 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#default_value' => date("Y-m-d", strtotime("yesterday")),
       '#required' => true,
     );
-    $form['special_orders'] = array(
+    $form['special_requests'] = array(
       '#type' => 'checkbox',
-      '#title' => 'Special Orders'
+      '#title' => 'Special Requests'
     );
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -47,10 +47,10 @@ class SamhsaOrdersXmlFormController extends FormBase
     if ($submittedDateTS < strtotime($cutoffDate)) {
       $form_state->setErrorByName('date', $this->t('Dates prior to @cutoffDate cannot be exported.', ['@cutoffDate' => $cutoffDate]));
     }
-//    $exportExists = SamhsaGpoAPI::testForExport($form_state->getValue('date'));
-//    if ($exportExists) {
-//      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
-//    }
+    $exportExists = SamhsaGpoAPI::testForExport($form_state->getValue('date'), $form_state->getValue('special_requests'));
+    if ($exportExists) {
+      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
+    }
     $todayTS = strtotime(date('Y-m-d', time()));
     if ($submittedDateTS >= $todayTS) {
       $form_state->setErrorByName('date', $this->t('You can\'t export orders from today on. Only from yesterday or before are allowed.', ['@cutoffDate' => $cutoffDate]));
@@ -59,7 +59,7 @@ class SamhsaOrdersXmlFormController extends FormBase
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $date = $form_state->getValue('date');
-    $special_orders = $form_state->getValue('special_orders');
-    SamhsaGpoAPI::generateXML($date, $special_orders);
+    $special_requests = $form_state->getValue('special_requests');
+    SamhsaGpoAPI::generateXML($date, $special_requests);
   }
 }
