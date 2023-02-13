@@ -26,7 +26,7 @@ class SamhsaOrdersXmlFormController extends FormBase
     $form['date'] = array(
       '#type' => 'textfield',
       '#title' => t('Date (YYYY-MM-DD)'),
-      '#default_value' => date("Y-m-d", strtotime("yesterday")),
+      '#default_value' => '2023-02-09', //date("Y-m-d", strtotime("yesterday")),
       '#required' => true,
     );
     $form['special_requests'] = array(
