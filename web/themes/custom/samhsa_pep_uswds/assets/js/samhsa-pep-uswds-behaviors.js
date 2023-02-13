@@ -92,6 +92,9 @@
                 .addClass('active');
         }*/
 // More Like this section responsive tabs
+      
+      $("#usasearch_sayt").find("ul#ui-id-1").attr("id", "ui-id-11");
+      
     });
 
 var coll = document.getElementsByClassName("collapse-region");
