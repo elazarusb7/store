@@ -24,7 +24,7 @@ class SamhsaGpoAPI {
    *
    * @return mixed
    */
-  public static function loadOrderIds($date) {
+  public static function loadOrderIds($date, $special_orders) {
     $dateParts = explode('-', $date);
     $startTime = mktime('00', '00', '00', $dateParts[1], $dateParts[2], $dateParts[0]);
     $endTime = mktime('23', '59', '59', $dateParts[1], $dateParts[2], $dateParts[0]);
@@ -47,7 +47,7 @@ class SamhsaGpoAPI {
    * @throws \DOMException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function generateXML($date) {
+  public static function generateXML($date, $special_orders) {
     $ordersExported = 0;
     $orders = SamhsaGpoAPI::loadOrderIds($date);
     $dom = new DOMDocument();
@@ -293,14 +293,23 @@ class SamhsaGpoAPI {
 
     // Create file object from remote URL.
     $data = file_get_contents('/tmp/orders_temp.xml');
+    if($special_orders) {
+      $filename = 'special-orders--' . $date . '.xml';
+      $node_title = 'Orders Export -- Special Order: ' . $date;
+    }
+    else {
+      $filename = 'orders--' . $date . '.xml';
+      $node_title = 'Orders Export: ' . $date;
+    }
     $file = \Drupal::service('file.repository')
-      ->writeData($data, 'private://gpo-xml/orders--' . $date . '.xml');
+      ->writeData($data, 'private://gpo-xml/' . $filename);
 
     // Create node object with attached file.
     $node = Node::create([
       'type' => 'gpo_xml_upload',
-      'title' => 'Orders Export: ' . $date,
+      'title' => $node_title,
       'field_date_of_orders_in_upload' => $date,
+      'field_special_order' => $special_orders,
       'field_xml_upload' => [
         'target_id' => $file->id(),
         'display' => TRUE,

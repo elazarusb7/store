@@ -5,11 +5,11 @@ samhsa_gpo.generate_xml:
   route_name: samhsa_gpo.orders_xml
   weight: 0
   menu_name: admin
-samhsa_gpo.process_fulfilled_orders:
-  title: 'Orders: Process Fulfilled'
-  description: '.'
-  parent: system.admin_config
-  route_name: samhsa_gpo.fulfilled_orders
-  weight: 0
-  menu_name: admin
+#samhsa_gpo.process_fulfilled_orders:
+#  title: 'Orders: Process Fulfilled'
+#  description: '.'
+#  parent: system.admin_config
+#  route_name: samhsa_gpo.fulfilled_orders
+#  weight: 0
+#  menu_name: admin
 
