@@ -56,8 +56,17 @@
         {% if product.field_samhsa_digital_download['#title'] is not empty %}
           {{ product.field_samhsa_digital_download }}
         {% endif %}
-        {% if product.field_samhsa_external_product['#title'] is not empty %}
-          {{ product.field_samhsa_external_product }}
+        {% if '.pdf' in product.field_samhsa_external_product.0['#url']|render %}
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.0['#url'] }}">
+              {{ product.field_samhsa_external_product.0['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.0['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.0['#context'].value ~ ')' }}</span>
+          {% endif %}
+            </a>
+          </span>
+        {% elseif product.field_samhsa_external_product['#title'] is not empty %}
+          <div class="ext-pdf-size">{{ product.field_samhsa_external_product }}</div>
         {% endif %}
         {% if product.field_google_play['#object'] %}
           <a href="{{ product.field_google_play.0['#url'] }}" class="app-store-badge--google"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from Google Play</span></a>

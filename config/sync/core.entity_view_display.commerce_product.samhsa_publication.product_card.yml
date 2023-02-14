@@ -11,6 +11,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_attachment
     - field.field.commerce_product.samhsa_publication.field_audience
     - field.field.commerce_product.samhsa_publication.field_campaign
+    - field.field.commerce_product.samhsa_publication.field_external_pdf_file_size
     - field.field.commerce_product.samhsa_publication.field_external_video
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
@@ -100,6 +101,7 @@ hidden:
   field_attachment: true
   field_audience: true
   field_campaign: true
+  field_external_pdf_file_size: true
   field_external_video: true
   field_featured: true
   field_format: true

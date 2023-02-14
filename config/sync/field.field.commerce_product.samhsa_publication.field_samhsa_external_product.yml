@@ -12,7 +12,7 @@ field_name: field_samhsa_external_product
 entity_type: commerce_product
 bundle: samhsa_publication
 label: 'SAMHSA External Product'
-description: '<i>To be used when linking to external links/pdfs</i>'
+description: '<i>To be used when linking to External PDFs/links</i>'
 required: false
 translatable: false
 default_value: {  }

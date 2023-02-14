@@ -10,6 +10,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_attachment
     - field.field.commerce_product.samhsa_publication.field_audience
     - field.field.commerce_product.samhsa_publication.field_campaign
+    - field.field.commerce_product.samhsa_publication.field_external_pdf_file_size
     - field.field.commerce_product.samhsa_publication.field_external_video
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
@@ -108,6 +109,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 16
+    region: content
+  field_external_pdf_file_size:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 41
     region: content
   field_external_video:
     type: entity_reference_entity_view
@@ -335,11 +344,11 @@ content:
     type: link
     label: hidden
     settings:
-      trim_length: 80
+      trim_length: 255
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
+      target: '0'
     third_party_settings: {  }
     weight: 5
     region: content
