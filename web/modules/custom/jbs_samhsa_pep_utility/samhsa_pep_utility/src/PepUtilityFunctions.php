@@ -129,17 +129,6 @@ class PepUtilityFunctions implements PepUtilityFunctionsInterface {
   /**
    * {@inheritdoc}
    */
-  public function getOrderSource($order = NULL) {
-    $order_source = $order->get('field_order_source')->value;
-    // Get the allowed values directly from the field_order_source field.
-    $allowed_values = $order->get('field_order_source')->getSetting('allowed_values');
-    // Return value or other text.
-    return array_key_exists($order_source, $allowed_values) ? $allowed_values[$order_source] : $order_source;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function allCharactersSameAsChar($string = NULL, $char = 0) {
     /*$n = strlen($string);
     for ($i = 1; $i < $n; $i++)
