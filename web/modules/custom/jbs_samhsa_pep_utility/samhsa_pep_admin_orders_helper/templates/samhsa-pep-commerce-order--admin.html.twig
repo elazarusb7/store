@@ -41,10 +41,6 @@
       <div class="field__label">{% trans %}Quantity Justification{% endtrans %}</div>
       {{ order.justification }}
     {% endif %}
-    {% if order.order_source|length > 0 %}
-      <div class="field__label">{% trans %}Order Source{% endtrans %}</div>
-      {{ order.order_source }}
-    {% endif %}
     {% if order.order_weight > 0 %}
       <div class="field__label">{% trans %}Order weight{% endtrans %}</div>
       {{ order.order_weight }}
