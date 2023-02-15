@@ -11,8 +11,8 @@ id: commerce_order.samhsa_publication_ob.field_order_source
 field_name: field_order_source
 entity_type: commerce_order
 bundle: samhsa_publication_ob
-label: 'Source of the Order'
-description: ''
+label: 'Source of the Order (deprecated)'
+description: 'THIS FIELD HAS BEEN REPLACED WITH THE SPECIAL REQUEST FIELDS AND CAN BE CAREFULLY DELETED.'
 required: true
 translatable: false
 default_value: {  }

@@ -11,8 +11,8 @@ id: commerce_order.default.field_order_source
 field_name: field_order_source
 entity_type: commerce_order
 bundle: default
-label: 'Source of the Order'
-description: ''
+label: 'Source of the Order (deprecated)'
+description: 'THIS FIELD HAS BEEN REPLACED WITH THE SPECIAL REQUEST FIELDS AND CAN BE CAREFULLY DELETED.'
 required: true
 translatable: true
 default_value: {  }
