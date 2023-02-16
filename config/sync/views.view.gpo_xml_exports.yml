@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_date_of_orders_in_upload
+    - field.storage.node.field_special_request
     - field.storage.node.field_xml_upload
     - node.type.gpo_xml_upload
     - system.menu.admin
@@ -163,6 +164,71 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_special_request:
+          id: field_special_request
+          table: node__field_special_request
+          field: field_special_request
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: custom
+            format_custom_false: ''
+            format_custom_true: 'Special Request'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_xml_upload:
           id: field_xml_upload
           table: node__field_xml_upload
@@ -175,7 +241,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="{{ field_xml_upload }}" target="_blank" download>{{ field_date_of_orders_in_upload }} - Orders XML Export</a>'
+            text: '<a href="{{ field_xml_upload }}" target="_blank" download>{{ field_date_of_orders_in_upload }} - {{ field_special_request }} Orders XML Export</a>'
             make_link: false
             path: ''
             absolute: false
@@ -429,6 +495,50 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_special_request_value:
+          id: field_special_request_value
+          table: node__field_special_request
+          field: field_special_request_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Special Request'
+            description: ''
+            use_operator: false
+            operator: field_special_request_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_special_request_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              warehouse_manager: '0'
+              warehouse_clerk: '0'
+              site_manager: '0'
+              warehouse_manager_gpo: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -501,6 +611,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_date_of_orders_in_upload'
+        - 'config:field.storage.node.field_special_request'
         - 'config:field.storage.node.field_xml_upload'
   page_1:
     id: page_1
@@ -534,4 +645,5 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_date_of_orders_in_upload'
+        - 'config:field.storage.node.field_special_request'
         - 'config:field.storage.node.field_xml_upload'

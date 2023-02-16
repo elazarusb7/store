@@ -1,6 +1,6 @@
 name: SAMHSA Orders XML
 type: module
-description: Export XML of the Store orders.
+description: Export XML of the Store orders. DEPRECATED! Remove in a follow on deployment
 package: 'SAMHSA'
 version: 1.0
 core: 8.x

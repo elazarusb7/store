@@ -80,6 +80,9 @@
                 animationClasses : { classin : 'dl-animate-in-2', classout : 'dl-animate-out-2' }
             });
             $( ".mobile-only" ).parent().addClass( "mobile-only" );
+
+            $("#usasearch_sayt").find("ul#ui-id-1").attr("id", "ui-id-11");
+            
         });
 // execute menu active path
         /*var path = window.location.pathname.split('/');
@@ -92,6 +95,9 @@
                 .addClass('active');
         }*/
 // More Like this section responsive tabs
+      
+      
+      
     });
 
 var coll = document.getElementsByClassName("collapse-region");
