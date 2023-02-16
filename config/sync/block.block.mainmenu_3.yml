@@ -8,9 +8,6 @@ dependencies:
     - menu_block
   theme:
     - samhsa_pep_uswds
-third_party_settings:
-  block_class:
-    classes: null
 id: mainmenu_3
 theme: samhsa_pep_uswds
 region: header

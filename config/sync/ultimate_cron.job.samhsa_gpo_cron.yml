@@ -1,19 +1,19 @@
-uuid: 1867369d-9e9a-4893-b7d9-b418049bf1e3
+uuid: 8f4983b9-7833-43ea-8b1a-ffb026bb5913
 langcode: en
-status: true
+status: false
 dependencies:
   module:
-    - samhsa_xml
+    - samhsa_gpo
 title: 'Default cron handler'
-id: samhsa_xml_cron
+id: samhsa_gpo_cron
 weight: 0
-module: samhsa_xml
-callback: samhsa_xml_cron
+module: samhsa_gpo
+callback: samhsa_gpo_cron
 scheduler:
   id: crontab
   configuration:
     rules:
-      - '0 2 * * *'
+      - '0 1 * * *'
     catch_up: 0
 launcher:
   id: serial

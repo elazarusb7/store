@@ -4,9 +4,6 @@ status: true
 dependencies:
   theme:
     - samhsa_pep_admin
-third_party_settings:
-  block_class:
-    classes: null
 id: samhsa_pep_admin_secondary_local_actions
 theme: samhsa_pep_admin
 region: pre_content
