@@ -1,0 +1,19 @@
+<?php
+
+use Drupal\samhsa_gpo\API\SamhsaGpoAPI;
+
+function samhsa_gpo_cron() {
+  $date = date("Y-m-d", strtotime("yesterday"));
+
+  // Export Special Requests if any
+  $exportExists = SamhsaGpoAPI::testForExport($date, 1);
+  if (!$exportExists) {
+    SamhsaGpoAPI::generateXML($date, 1);
+  }
+
+  // Export regular orders
+  $exportExists = SamhsaGpoAPI::testForExport($date, 0);
+  if (!$exportExists) {
+    SamhsaGpoAPI::generateXML($date, 0);
+  }
+}

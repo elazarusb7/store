@@ -1,0 +1,23 @@
+uuid: 1b0353f2-e2dd-4a2a-9df2-98ea37d7a677
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_special_request
+    - node.type.gpo_xml_upload
+id: node.gpo_xml_upload.field_special_request
+field_name: field_special_request
+entity_type: node
+bundle: gpo_xml_upload
+label: 'Special Request'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

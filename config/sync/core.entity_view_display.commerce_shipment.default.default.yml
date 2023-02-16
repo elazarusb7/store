@@ -55,6 +55,7 @@ content:
     region: content
 hidden:
   amount: true
+  original_amount: true
   package_type: true
   search_api_excerpt: true
   state: true

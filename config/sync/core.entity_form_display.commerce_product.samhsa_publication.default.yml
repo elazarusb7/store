@@ -46,6 +46,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_series
     - field.field.commerce_product.samhsa_publication.field_substances
     - field.field.commerce_product.samhsa_publication.field_subtitle
+    - field.field.commerce_product.samhsa_publication.field_summary_for_products
     - field.field.commerce_product.samhsa_publication.field_supplemental_materials
     - field.field.commerce_product.samhsa_publication.field_tags
     - field.field.commerce_product.samhsa_publication.field_thumbnail
@@ -71,7 +72,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 4
+    weight: 5
     region: content
     settings:
       rows: 9
@@ -87,7 +88,7 @@ content:
     third_party_settings: {  }
   field_app_features:
     type: text_textarea
-    weight: 5
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -284,7 +285,7 @@ content:
     third_party_settings: {  }
   field_publication_date:
     type: datetime_default
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -321,7 +322,7 @@ content:
         enabled: true
   field_samhsa_digital_download:
     type: file_generic
-    weight: 7
+    weight: 8
     region: content
     settings:
       progress_indicator: throbber
@@ -362,6 +363,14 @@ content:
     region: content
     settings:
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_summary_for_products:
+    type: string_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_supplemental_materials:
