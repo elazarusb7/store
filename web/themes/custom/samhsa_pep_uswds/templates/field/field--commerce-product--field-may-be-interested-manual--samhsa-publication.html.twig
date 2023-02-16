@@ -60,10 +60,10 @@
     <div class="product-card views-row field__item" data-respond>
     {% if item.content['#thumbnail'] %}
       <div class="product-image--wrapper views-field-field-thumbnail">
-        <a href="{{ item.content['#url'] }}">{{ drupal_image(item.content['#thumbnail'], 'product_page_image', responsive=true) }}</a>
+        <a href="{{ item.content['#url'] }}" aria-label="thumbnail for {{ item.content['#title'] }} link">{{ drupal_image(item.content['#thumbnail'], 'product_page_image', responsive=true) }}</a>
       </div>
     {% endif %}
-    <h3 class="field-content views-field-field-title"><a href="{{ item.content['#url'] }}">{{ item.content['#title'] }}</a></h3>
+    <h3 class="field-content views-field-field-title"><a href="{{ item.content['#url'] }}" aria-label="{{ item.content['#title'] }}">{{ item.content['#title'] }}</a></h3>
     <div class="views-field-field-excerpt--wrapper">
       {% if item.content['#thumbnail'] %}
         <div class="views-field views-field-field-thumbnail-1">
