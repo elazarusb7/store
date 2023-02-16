@@ -7,9 +7,6 @@ dependencies:
     - views_exposed_filter_blocks
   theme:
     - samhsa_pep_admin
-third_party_settings:
-  block_class:
-    classes: null
 id: samhsa_pep_admin_viewsexposedfilterblock_2
 theme: samhsa_pep_admin
 region: sidebar_first

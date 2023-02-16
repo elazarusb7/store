@@ -1,0 +1,4 @@
+This module provides various GPO related functionality. It will ultimately contain all the code for automatic interaction with GPO. But as of this writing it provides two semi-manual processes.
+
+1. It generates an XML file per GPO's specifications of pending orders for consumption by their system. There is a file for each day. There is a form for doing this manually and also an automated process triggered by CRON and runs in the morning hours that always generates a file for the previous day. There is a view that lists these files for download. Any orders that are processed into an XML file are set to a status of "process" or "pick_slip_generated", both are the same.
+2. It provides a form that consumes and processes a CSV file of GPO order numbers that have been fulfilled. (it can also accommodate JSON and XML if necessary). When processed it sets all matching Drupal Commerce orders to a status of "complete"

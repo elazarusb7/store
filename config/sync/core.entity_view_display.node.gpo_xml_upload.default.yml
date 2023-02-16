@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.gpo_xml_upload.field_date_of_orders_in_upload
+    - field.field.node.gpo_xml_upload.field_special_request
     - field.field.node.gpo_xml_upload.field_xml_upload
     - node.type.gpo_xml_upload
   module:
@@ -22,6 +23,16 @@ content:
       format_type: medium
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_special_request:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   field_xml_upload: true

@@ -8,9 +8,6 @@ dependencies:
     - superfish
   theme:
     - samhsa_pep_admin
-third_party_settings:
-  block_class:
-    classes: null
 id: samhsa_pep_admin_mainmenu_4
 theme: samhsa_pep_admin
 region: sidebar_first
