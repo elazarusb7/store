@@ -9,9 +9,6 @@ dependencies:
     - system
   theme:
     - samhsa_pep_uswds
-third_party_settings:
-  block_class:
-    classes: null
 id: populationgroup_2
 theme: samhsa_pep_uswds
 region: sidebar_second

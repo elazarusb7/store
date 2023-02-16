@@ -1,0 +1,14 @@
+samhsa_gpo.orders_xml:
+  path: '/samhsa-gpo/orders-xml-export'
+  defaults:
+    _form: '\Drupal\samhsa_gpo\Form\SamhsaOrdersXmlFormController'
+    _title: 'Samhsa Orders XML'
+  requirements:
+    _permission: 'export orders xml'
+samhsa_gpo.fulfilled_orders:
+  path: '/samhsa-gpo/process-fulfilled-orders'
+  defaults:
+    _form: '\Drupal\samhsa_gpo\Form\ProcessFulfilledOrdersFormController'
+    _title: 'Process Fulfilled Orders'
+  requirements:
+    _permission: 'process fulfilled orders'
