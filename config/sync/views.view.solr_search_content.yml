@@ -10,6 +10,7 @@ dependencies:
     - field.storage.commerce_product.field_publication_date
     - field.storage.commerce_product.field_samhsa_digital_download
     - field.storage.commerce_product.field_substances
+    - field.storage.commerce_product.field_summary_for_products
     - field.storage.commerce_product.field_thumbnail
     - field.storage.commerce_product.field_treatment_prevention_and_r
     - responsive_image.styles.product_page_image
@@ -1762,6 +1763,8 @@ display:
           fields:
             - field_thumbnail_1
             - field_publication_date
+            - field_summary_for_products
+            - field_summary_for_products_1
             - body
             - search_api_excerpt_1
           wrapper: div
@@ -1914,6 +1917,75 @@ display:
             multi_separator: ', '
           fields:
             - search_api_excerpt_1
+        field_summary_for_products_1:
+          id: field_summary_for_products_1
+          table: search_api_index_default_solr_index
+          field: field_summary_for_products
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: false
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: true
+            multi_type: separator
+            multi_separator: ', '
         body:
           id: body
           table: search_api_index_default_solr_index
@@ -1925,8 +1997,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if field_summary_for_products_1|length > 1 %}\r\n{{ field_summary_for_products_1 }} \r\n{% else %}\r\n{{ body }}\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -2348,6 +2420,7 @@ display:
       tags:
         - 'config:field.storage.commerce_product.body'
         - 'config:field.storage.commerce_product.field_publication_date'
+        - 'config:field.storage.commerce_product.field_summary_for_products'
         - 'config:field.storage.commerce_product.field_thumbnail'
         - 'config:search_api.index.default_solr_index'
       cacheable: false
