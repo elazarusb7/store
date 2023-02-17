@@ -54,6 +54,6 @@
 
 {% for item in items %}
      {% if not ('.pdf' in item.content['#url']|render) %}
-        <li class="pub-download-list ext-pdf-size" {{ item.attributes.addClass('field__item') }}>{{ item.content }}</li>
+        <li class="pub-download-list ext-pdf-size" {{ item.attributes.addClass('field__item') }}>{{ item.content }}</li> 
      {% endif %}
 {% endfor %}

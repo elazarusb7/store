@@ -57,7 +57,7 @@
         {% if product.field_samhsa_digital_download['#title'] is not empty %}
           {{ product.field_samhsa_digital_download }}
         {% endif %}
-        {% if '.pdf' in product.field_samhsa_external_product.0['#url']|render %}
+        {% if '.pdf' in product.field_samhsa_external_product.0['#url']|render %} 
           <span class="file file--mime-application-pdf file--application-pdf">
             <a class="ext-pdf" href="{{ product.field_samhsa_external_product.0['#url'] }}">
               {{ product.field_samhsa_external_product.0['#title']}}<br> 
