@@ -165,7 +165,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
-                        Thank you for your order. We are moving to a new warehouse and apologize for any shipment delays. This move will allow us to provide better service in the future. Thanks for your patience.<br /><br />
+                        Thank you for your order. SAMHSA publications recently moved to a new warehouse and we are working to fulfill the existing backlog of orders. We apologize for delays. You will receive an email notification as soon as your order has been mailed. Thank you for your patience.<br /><br />
                         If you have any questions about your order, please use the Order # provided above when contacting us.<br /><br />
 
                         Regards,<br />
