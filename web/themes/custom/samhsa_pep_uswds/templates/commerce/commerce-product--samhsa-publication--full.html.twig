@@ -54,7 +54,61 @@
     <div class="product-page--block product-page--download">
       <h2 class="product-page--block--heading">Download</h2>
       <div class="product-page--block--inner">
-        {{ product.field_samhsa_digital_download }}
+        {% if product.field_samhsa_digital_download['#title'] is not empty %}
+          {{ product.field_samhsa_digital_download }}
+        {% endif %}
+        {% if '.pdf' in product.field_samhsa_external_product.0['#url']|render %} 
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.0['#url'] }}">
+              {{ product.field_samhsa_external_product.0['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.0['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.0['#context'].value ~ ')' }}</span>
+            </a>
+          </span>
+          {% endif %}
+        {% endif %}
+        {% if '.pdf' in product.field_samhsa_external_product.1['#url']|render %}
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.1['#url'] }}">
+              {{ product.field_samhsa_external_product.1['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.1['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.1['#context'].value ~ ')' }}</span>
+            </a>
+          </span>
+          {% endif %}
+        {% endif %}
+        {% if '.pdf' in product.field_samhsa_external_product.2['#url']|render %}
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.2['#url'] }}">
+              {{ product.field_samhsa_external_product.2['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.2['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.2['#context'].value ~ ')' }}</span>
+            </a>
+          </span>
+          {% endif %}
+        {% endif %}
+        {% if '.pdf' in product.field_samhsa_external_product.3['#url']|render %}
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.3['#url'] }}">
+              {{ product.field_samhsa_external_product.3['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.3['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.3['#context'].value ~ ')' }}</span>
+            </a>
+          </span>
+          {% endif %}
+        {% endif %}
+        {% if '.pdf' in product.field_samhsa_external_product.4['#url']|render %}
+          <span class="file file--mime-application-pdf file--application-pdf">
+            <a class="ext-pdf" href="{{ product.field_samhsa_external_product.4['#url'] }}">
+              {{ product.field_samhsa_external_product.4['#title']}}<br> 
+          {% if product.field_external_pdf_file_size.4['#context'].value is not empty %}  
+              <span class="file--mime-size">{{'(' ~ product.field_external_pdf_file_size.4['#context'].value ~ ')' }}</span>
+            </a>
+          </span>
+          {% endif %}
+        {% else %}
+        {{ product.field_samhsa_external_product }}
+        {% endif %}
         {% if product.field_google_play['#object'] %}
           <a href="{{ product.field_google_play.0['#url'] }}" class="app-store-badge--google"><span class="visuallyhidden">Download {{ product.title.0['#context'].value }} from Google Play</span></a>
         {% endif %}
