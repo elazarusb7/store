@@ -35,6 +35,8 @@ class SamhsaGpoAPI {
     $connection = \Drupal::database();
     $query = $connection->select('commerce_order', 'ca');
     if ($timeStamp >= $timeStampFeb9_23) {
+      // Reliable special order data only exists from Feb 9th on.
+      // So we only take that into consideration in the query if the date is on or after that date.
       $query->join('commerce_order__field_special_request', 'sr', '(sr.entity_id = ca.order_id)');
       $query->condition('sr.field_special_request_value', $special_orders);
     }
