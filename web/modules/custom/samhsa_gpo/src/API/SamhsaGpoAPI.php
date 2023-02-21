@@ -6,6 +6,7 @@
 
 namespace Drupal\samhsa_gpo\API;
 
+use DateTime;
 use DOMDocument;
 use Drupal\commerce_order\Entity\Order;
 use Drupal\node\Entity\Node;
@@ -25,13 +26,18 @@ class SamhsaGpoAPI {
    * @return mixed
    */
   public static function loadOrderIds($date, $special_orders) {
+    $timeStamp = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' 00:00:00')->getTimestamp();
+    $timeStampFeb9_23 = 1675918800;
+
     $dateParts = explode('-', $date);
     $startTime = mktime('00', '00', '00', $dateParts[1], $dateParts[2], $dateParts[0]);
     $endTime = mktime('23', '59', '59', $dateParts[1], $dateParts[2], $dateParts[0]);
     $connection = \Drupal::database();
     $query = $connection->select('commerce_order', 'ca');
-    $query->join('commerce_order__field_special_request', 'sr', '(sr.entity_id = ca.order_id)');
-    $query->condition('sr.field_special_request_value', $special_orders);
+    if ($timeStamp >= $timeStampFeb9_23) {
+      $query->join('commerce_order__field_special_request', 'sr', '(sr.entity_id = ca.order_id)');
+      $query->condition('sr.field_special_request_value', $special_orders);
+    }
     $query->condition('ca.placed', $startTime, '>=');
     $query->condition('ca.placed', $endTime, '<=');
     $query->fields('ca', ['order_id']);
