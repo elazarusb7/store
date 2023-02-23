@@ -6,9 +6,6 @@ dependencies:
     - help
   theme:
     - samhsa_pep_uswds
-third_party_settings:
-  block_class:
-    classes: null
 id: help
 theme: samhsa_pep_uswds
 region: content

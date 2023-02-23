@@ -80,6 +80,9 @@
                 animationClasses : { classin : 'dl-animate-in-2', classout : 'dl-animate-out-2' }
             });
             $( ".mobile-only" ).parent().addClass( "mobile-only" );
+
+            $("#usasearch_sayt").find("ul#ui-id-1").attr("id", "ui-id-11");
+            
         });
 // execute menu active path
         /*var path = window.location.pathname.split('/');
@@ -92,6 +95,9 @@
                 .addClass('active');
         }*/
 // More Like this section responsive tabs
+      
+      
+      
     });
 
 var coll = document.getElementsByClassName("collapse-region");
@@ -184,10 +190,15 @@ jQuery('#superfish-main-menu').superfishA11yHelper();
 
 // REPLACE SVG.EXT ICON WITH FONT AWESOME SVG ICON
 jQuery(document).ready(function($) {
-  $("a.ext").append(
+  $("a.ext").not( "a.ext-pdf.ext" ).append(
      "<span class='exitDisclaimer'><a href='https://www.samhsa.gov/disclaimer' aria-label='Link to SAMHSA Exit Disclaimer'><i class='fas fa-external-link-alt' ></i></a></span>"
       );
              
    $("svg.ext").remove();
+
+   $("a.ext span.file--mime-size").append(
+    "<span class='exitDisclaimer'><a href='https://www.samhsa.gov/disclaimer' aria-label='Link to SAMHSA Exit Disclaimer'><i class='fas fa-external-link-alt' ></i></a></span>"
+     );
+  
  });
  
