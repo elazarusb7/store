@@ -158,6 +158,7 @@ module:
   samhsa_pep_mail: 0
   samhsa_pep_my_account_page: 0
   samhsa_pep_no_copy_paste: 0
+  samhsa_pep_notification: 0
   samhsa_pep_order_items_helper: 0
   samhsa_pep_order_states_workflow: 0
   samhsa_pep_password: 0
