@@ -7,9 +7,6 @@ dependencies:
     - system
   theme:
     - samhsa_pep_uswds
-third_party_settings:
-  block_class:
-    classes: null
 id: storenavigation_2
 theme: samhsa_pep_uswds
 region: preface_third

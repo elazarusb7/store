@@ -11,6 +11,7 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_attachment
     - field.field.commerce_product.samhsa_publication.field_audience
     - field.field.commerce_product.samhsa_publication.field_campaign
+    - field.field.commerce_product.samhsa_publication.field_external_pdf_file_size
     - field.field.commerce_product.samhsa_publication.field_external_video
     - field.field.commerce_product.samhsa_publication.field_featured
     - field.field.commerce_product.samhsa_publication.field_format
@@ -41,10 +42,12 @@ dependencies:
     - field.field.commerce_product.samhsa_publication.field_related_products
     - field.field.commerce_product.samhsa_publication.field_related_resource_files
     - field.field.commerce_product.samhsa_publication.field_samhsa_digital_download
+    - field.field.commerce_product.samhsa_publication.field_samhsa_external_product
     - field.field.commerce_product.samhsa_publication.field_samhsa_promo_link
     - field.field.commerce_product.samhsa_publication.field_series
     - field.field.commerce_product.samhsa_publication.field_substances
     - field.field.commerce_product.samhsa_publication.field_subtitle
+    - field.field.commerce_product.samhsa_publication.field_summary_for_products
     - field.field.commerce_product.samhsa_publication.field_supplemental_materials
     - field.field.commerce_product.samhsa_publication.field_tags
     - field.field.commerce_product.samhsa_publication.field_thumbnail
@@ -99,6 +102,7 @@ hidden:
   field_attachment: true
   field_audience: true
   field_campaign: true
+  field_external_pdf_file_size: true
   field_external_video: true
   field_featured: true
   field_format: true
@@ -129,10 +133,12 @@ hidden:
   field_related_resource_files: true
   field_samhsa_digital_download: true
   field_samhsa_digital_upload: true
+  field_samhsa_external_product: true
   field_samhsa_promo_link: true
   field_series: true
   field_substances: true
   field_subtitle: true
+  field_summary_for_products: true
   field_supplemental_materials: true
   field_tags: true
   field_thumbnail: true

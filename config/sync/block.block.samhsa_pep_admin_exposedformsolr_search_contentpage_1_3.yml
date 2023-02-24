@@ -9,9 +9,6 @@ dependencies:
     - views
   theme:
     - samhsa_pep_admin
-third_party_settings:
-  block_class:
-    classes: null
 id: samhsa_pep_admin_exposedformsolr_search_contentpage_1_3
 theme: samhsa_pep_admin
 region: content

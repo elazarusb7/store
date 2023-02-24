@@ -1,0 +1,23 @@
+uuid: fecdc2c4-9c5e-4d3b-ba05-c3e2789ef055
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - field_permissions
+    - link
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: commerce_product.field_samhsa_external_product
+field_name: field_samhsa_external_product
+entity_type: commerce_product
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
