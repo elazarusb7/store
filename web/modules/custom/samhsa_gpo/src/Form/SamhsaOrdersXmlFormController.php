@@ -33,6 +33,15 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#type' => 'checkbox',
       '#title' => 'Special Requests'
     );
+    $form['product_type'] = array(
+      '#type' => 'select',
+      '#title' => 'Order Type',
+      '#options' => [
+        'all' => 'All',
+        '988' => '988 Only'
+      ],
+      '#default_value' => 'all',
+    );
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => t('Generate XML'),
@@ -60,6 +69,7 @@ class SamhsaOrdersXmlFormController extends FormBase
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $date = $form_state->getValue('date');
     $special_requests = $form_state->getValue('special_requests');
-    SamhsaGpoAPI::generateXML($date, $special_requests);
+    $product_type = $form_state->getValue('product_type');
+    SamhsaGpoAPI::generateXML($date, $special_requests, $product_type);
   }
 }
