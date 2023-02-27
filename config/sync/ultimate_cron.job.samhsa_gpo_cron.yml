@@ -1,0 +1,30 @@
+uuid: 8f4983b9-7833-43ea-8b1a-ffb026bb5913
+langcode: en
+status: false
+dependencies:
+  module:
+    - samhsa_gpo
+title: 'Default cron handler'
+id: samhsa_gpo_cron
+weight: 0
+module: samhsa_gpo
+callback: samhsa_gpo_cron
+scheduler:
+  id: crontab
+  configuration:
+    rules:
+      - '0 1 * * *'
+    catch_up: 0
+launcher:
+  id: serial
+  configuration:
+    timeouts:
+      lock_timeout: 3600
+    launcher:
+      thread: 0
+logger:
+  id: database
+  configuration:
+    method: '3'
+    expire: 1209600
+    retain: 1000

@@ -19,6 +19,7 @@ dependencies:
     - field.storage.commerce_product.field_samhsa_digital_download
     - field.storage.commerce_product.field_series
     - field.storage.commerce_product.field_substances
+    - field.storage.commerce_product.field_summary_for_products
     - field.storage.commerce_product.field_treatment_prevention_and_r
     - search_api.server.default_solr_server
   module:
@@ -202,6 +203,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.commerce_product.field_substances
+  field_summary_for_products:
+    label: 'Summary for Product'
+    datasource_id: 'entity:commerce_product'
+    property_path: field_summary_for_products
+    type: text
+    dependencies:
+      config:
+        - field.storage.commerce_product.field_summary_for_products
   field_treatment_prevention_and_r:
     label: 'Treatment, Prevention and Recovery'
     datasource_id: 'entity:commerce_product'

@@ -515,7 +515,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<div class="messages messages--warning">Attention: We are moving to a new warehouse and apologize for any shipment delays. This move will allow us to provide better service in the future. Thanks for your patience.</div><br/>'
+            value: '<div class="messages messages--warning">Attention: SAMHSA publications recently moved to a new warehouse and we are working to fulfill the existing backlog of orders. We apologize for delays. You will receive an email notification as soon as your order has been mailed. Thank you for your patience.</div><br/>'
             format: full_html
           tokenize: false
       footer:
