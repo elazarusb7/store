@@ -58,9 +58,9 @@ class SamhsaOrdersXmlFormController extends FormBase
       $form_state->setErrorByName('date', $this->t('Dates prior to @cutoffDate cannot be exported.', ['@cutoffDate' => $cutoffDate]));
     }
     $exportExists = SamhsaGpoAPI::testForExport($form_state->getValue('date'), $form_state->getValue('special_requests'));
-    if ($exportExists) {
-      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
-    }
+//    if ($exportExists) {
+//      $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
+//    }
     $todayTS = strtotime(date('Y-m-d', time()));
     if ($submittedDateTS >= $todayTS) {
       $form_state->setErrorByName('date', $this->t('You can\'t export orders from today on. Only from yesterday or before are allowed.', ['@cutoffDate' => $cutoffDate]));

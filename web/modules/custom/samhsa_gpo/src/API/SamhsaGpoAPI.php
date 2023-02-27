@@ -93,6 +93,7 @@ class SamhsaGpoAPI {
       $unprocessedOrders = 0;
 
       $root = $dom->createElement('CpCpl');
+
       foreach ($orders as $order_id) {
         $orderAdded = FALSE;
         $is988order = FALSE;
@@ -291,19 +292,20 @@ class SamhsaGpoAPI {
           // Now build the XML nodes for the ordered items.
           $itemSeq = 1;
           $items = $order->getItems();
+
+          // Determine if this is a 988 order
+          foreach ($items as $item) {
+            $PepNumber = SamhsaGpoAPI::getPepNumber($item);
+            $is988order = TRUE;
+            if (!in_array($PepNumber, self::$products_988)) {
+              $is988order = FALSE;
+              break;
+            }
+          }
+
           foreach ($items as $item) {
             $GpoPubNumber = SamhsaGpoAPI::getGpoNumber($item);
             $PepNumber = SamhsaGpoAPI::getPepNumber($item);
-
-            if ($product_type === '988') {
-              if (!in_array($PepNumber, self::$products_988)) {
-                $is988order = FALSE;
-                break;
-              }
-              else {
-                $is988order = TRUE;
-              }
-            }
 
             $quantity = floor($item->getQuantity());
 
@@ -348,7 +350,7 @@ class SamhsaGpoAPI {
                 $root->appendChild($item_node);
               }
             }
-            else if ($product_type === 'non-999') {
+            else if ($product_type === 'non-988') {
               if (!$is988order) {
                 if (!$orderAdded) {
                   $root->appendChild($order_node);
@@ -358,6 +360,14 @@ class SamhsaGpoAPI {
                 $root->appendChild($item_node);
               }
             }
+            else if ($product_type === 'all') {
+              if (!$orderAdded) {
+                $root->appendChild($order_node);
+                $orderAdded = TRUE;
+              }
+              // Add the product to the root node
+              $root->appendChild($item_node);
+            }
 
             $itemSeq++;
           }
@@ -366,16 +376,16 @@ class SamhsaGpoAPI {
         $fileNameBase = 'orders--';
         $nodeTitleBase = 'Orders Export: ';
         if ($product_type === '988') {
+          $fileNameBase = 'orders-988--';
+          $nodeTitleBase = 'Orders 988 Export: ';
           if ($is988order) {
-            $fileNameBase = 'orders-988--';
-            $nodeTitleBase = 'Orders 988 Export: ';
             $ordersExported = $ordersExported + 1;
           }
         }
         else if ($product_type === 'non-988') {
+          $fileNameBase = 'orders-non988--';
+          $nodeTitleBase = 'Orders Non-988 Export: ';
           if (!$is988order) {
-            $fileNameBase = 'orders-non988--';
-            $nodeTitleBase = 'Orders Non-988 Export: ';
             $ordersExported = $ordersExported + 1;
           }
         }
@@ -403,17 +413,17 @@ class SamhsaGpoAPI {
         ->writeData($data, 'private://gpo-xml/' . $filename);
 
       // Create node object with attached file.
-//      $node = Node::create([
-//        'type' => 'gpo_xml_upload',
-//        'title' => $node_title,
-//        'field_date_of_orders_in_upload' => $date,
-//        'field_special_request' => $special_orders,
-//        'field_xml_upload' => [
-//          'target_id' => $file->id(),
-//          'display' => TRUE,
-//        ],
-//      ]);
-//      $newXmlNode = $node->save();
+      $node = Node::create([
+        'type' => 'gpo_xml_upload',
+        'title' => $node_title,
+        'field_date_of_orders_in_upload' => $date,
+        'field_special_request' => $special_orders,
+        'field_xml_upload' => [
+          'target_id' => $file->id(),
+          'display' => TRUE,
+        ],
+      ]);
+      $newXmlNode = $node->save();
 
       // If the xml file has been created and saved without error.
       // Loop through the orders and change their status to 'process'
@@ -423,7 +433,7 @@ class SamhsaGpoAPI {
         foreach ($orders as $order_id) {
           $order = Order::load($order_id->order_id);
           $currentState = $order->getState()->getId();
-          $order->getState()->applyTransitionById('process');
+//          $order->getState()->applyTransitionById('process');
           if ($currentState === 'pending') {
 //            $order->getState()->applyTransitionById('process');
 //            $order->getState()->applyTransitionById('complete'); // deprecated
