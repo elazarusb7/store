@@ -38,6 +38,7 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#title' => 'Order Type',
       '#options' => [
         'all' => 'All',
+        'non-988' => 'Non 988 only',
         '988' => '988 Only'
       ],
       '#default_value' => 'all',
