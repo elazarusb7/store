@@ -673,7 +673,7 @@ display:
           admin_label: ''
           plugin_id: boolean
           operator: '='
-          value: '0'
+          value: All
           group: 1
           exposed: true
           expose:
@@ -685,7 +685,7 @@ display:
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_xml_downloaded_value
-            required: true
+            required: false
             remember: false
             multiple: false
             remember_roles:
