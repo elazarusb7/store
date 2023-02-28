@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.gpo_xml_upload.field_xml_downloaded
     - field.storage.node.field_date_of_orders_in_upload
     - field.storage.node.field_special_request
     - field.storage.node.field_xml_upload
@@ -19,6 +20,7 @@ dependencies:
     - file
     - node
     - user
+    - views_entity_form_field
 id: gpo_xml_exports
 label: 'GPO XML Exports'
 module: views
@@ -35,6 +37,63 @@ display:
     display_options:
       title: 'GPO XML Order Exports'
       fields:
+        form_field_field_xml_downloaded:
+          id: form_field_field_xml_downloaded
+          table: node_field_data
+          field: form_field_field_xml_downloaded
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: entity_form_field
+          label: Downloaded
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin:
+            hide_title: 1
+            hide_description: 1
+            type: boolean_checkbox
+            settings:
+              display_label: 1
+            third_party_settings: {  }
         title:
           id: title
           table: node_field_data
@@ -358,6 +417,71 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_special_request_1:
+          id: field_special_request_1
+          table: node__field_special_request
+          field: field_special_request
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Special Request'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: custom
+            format_custom_false: ''
+            format_custom_true: 'True'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: mini
         options:
@@ -441,6 +565,7 @@ display:
           plugin_id: bundle
           value:
             gpo_xml_upload: gpo_xml_upload
+          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -539,6 +664,54 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_xml_downloaded_value:
+          id: field_xml_downloaded_value
+          table: node__field_xml_downloaded
+          field: field_xml_downloaded_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          operator: '='
+          value: '0'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: Downloaded
+            description: ''
+            use_operator: false
+            operator: field_xml_downloaded_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_xml_downloaded_value
+            required: true
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              warehouse_manager: '0'
+              warehouse_clerk: '0'
+              site_manager: '0'
+              warehouse_manager_gpo: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
@@ -597,7 +770,20 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'After downloading an XML, check the "Downloaded" box and click "Save at the bottom of the page.'
+            format: basic_html
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -607,11 +793,14 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.field.node.gpo_xml_upload.field_xml_downloaded'
         - 'config:field.storage.node.field_date_of_orders_in_upload'
         - 'config:field.storage.node.field_special_request'
+        - 'config:field.storage.node.field_xml_downloaded'
         - 'config:field.storage.node.field_xml_upload'
   page_1:
     id: page_1
@@ -641,9 +830,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.field.node.gpo_xml_upload.field_xml_downloaded'
         - 'config:field.storage.node.field_date_of_orders_in_upload'
         - 'config:field.storage.node.field_special_request'
+        - 'config:field.storage.node.field_xml_downloaded'
         - 'config:field.storage.node.field_xml_upload'

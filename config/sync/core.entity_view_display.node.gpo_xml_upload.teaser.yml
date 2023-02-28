@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.gpo_xml_upload.field_date_of_orders_in_upload
     - field.field.node.gpo_xml_upload.field_special_request
+    - field.field.node.gpo_xml_upload.field_xml_downloaded
     - field.field.node.gpo_xml_upload.field_xml_upload
     - node.type.gpo_xml_upload
   module:
@@ -23,6 +24,7 @@ content:
 hidden:
   field_date_of_orders_in_upload: true
   field_special_request: true
+  field_xml_downloaded: true
   field_xml_upload: true
   langcode: true
   search_api_excerpt: true
