@@ -1,0 +1,19 @@
+uuid: 5c7d065c-52d1-45a2-85d1-606e6db3d2fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.samhsa_publication
+    - field.storage.commerce_product.field_summary_for_products
+id: commerce_product.samhsa_publication.field_summary_for_products
+field_name: field_summary_for_products
+entity_type: commerce_product
+bundle: samhsa_publication
+label: 'Summary for Product'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

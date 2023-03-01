@@ -33,7 +33,7 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: content
   completed:
     type: timestamp
@@ -68,19 +68,12 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
-  field_order_source:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
-    region: content
   field_order_weight:
     type: physical_measurement_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: content
   field_special_request:
     type: boolean
@@ -90,14 +83,14 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: content
   field_special_request_desc:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: content
   ip_address:
     type: string
@@ -156,6 +149,7 @@ content:
 hidden:
   billing_profile: true
   changed: true
+  field_order_source: true
   search_api_excerpt: true
   shipments: true
   store_id: true
