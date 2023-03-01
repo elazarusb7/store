@@ -1,11 +1,12 @@
-uuid: af0916ab-4425-449d-a213-48e851f517df
+uuid: 9cd1808a-4191-4c00-8bb0-b2208bc032e2
 langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.commerce_order.field_special_request
     - field.storage.commerce_order_item.field_is_over_the_limit
-    - field.storage.commerce_order_item.field_requested_quantity
     - field.storage.commerce_order_item.field_was_over_the_limit
+    - field.storage.commerce_product.field_gpo_pubcode
     - system.menu.admin
     - user.role.administrator
     - user.role.site_manager
@@ -18,6 +19,7 @@ dependencies:
     - commerce_product
     - commerce_shipping
     - csv_serialization
+    - options
     - profile
     - rest
     - serialization
@@ -25,8 +27,9 @@ dependencies:
     - user
     - views_autocomplete_filters
     - views_data_export
-id: order_information_report
-label: 'Order Information Report'
+    - views_simple_math_field
+id: order_product_report
+label: 'Order/Product Report'
 module: views
 description: ''
 tag: ''
@@ -39,7 +42,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Order Information Report'
+      title: 'Order and Product Report'
       fields:
         placed:
           id: placed
@@ -108,6 +111,81 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_views_simple_math_field:
+          id: field_views_simple_math_field
+          table: views_simple_math_field
+          field: field_views_simple_math_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field_views_simple_math_field
+          label: 'GPO Order Code'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          fieldset_one:
+            data_field:
+              order_number: order_number
+              placed: 0
+              order_id: 0
+              field_gpo_pubcode_1: 0
+              sku: 0
+              title: 0
+              field_requested_quantity: 0
+              quantity: 0
+              field_is_over_the_limit: 0
+              field_was_over_the_limit: 0
+              address_locality: 0
+              address_administrative_area: 0
+              state: 0
+              field_special_request: 0
+            formula: '@order_number + 8017265'
+          mute_logs: false
+          set_precision: 0
+          precision: '0'
+          decimal: .
+          separator: ''
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
         order_number:
           id: order_number
           table: commerce_order
@@ -238,6 +316,70 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_gpo_pubcode_1:
+          id: field_gpo_pubcode_1
+          table: commerce_product__field_gpo_pubcode
+          field: field_gpo_pubcode
+          relationship: product_id
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'GPO Pubcode'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         sku:
           id: sku
           table: commerce_product_variation_field_data
@@ -358,70 +500,6 @@ display:
           type: string
           settings:
             link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_requested_quantity:
-          id: field_requested_quantity
-          table: commerce_order_item__field_requested_quantity
-          field: field_requested_quantity
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Requested Quantity'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -730,6 +808,135 @@ display:
           empty_zero: false
           hide_alter_empty: true
           display_name: true
+        state:
+          id: state
+          table: commerce_order
+          field: state
+          relationship: order_id
+          group_type: group
+          admin_label: ''
+          entity_type: commerce_order
+          entity_field: state
+          plugin_id: field
+          label: 'Order Status'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_special_request:
+          id: field_special_request
+          table: commerce_order__field_special_request
+          field: field_special_request
+          relationship: order_id
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Special Request'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: yes-no
+            format_custom_false: ''
+            format_custom_true: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
@@ -1223,9 +1430,10 @@ display:
         - url.query_args
         - user.roles
       tags:
+        - 'config:field.storage.commerce_order.field_special_request'
         - 'config:field.storage.commerce_order_item.field_is_over_the_limit'
-        - 'config:field.storage.commerce_order_item.field_requested_quantity'
         - 'config:field.storage.commerce_order_item.field_was_over_the_limit'
+        - 'config:field.storage.commerce_product.field_gpo_pubcode'
   data_export_1:
     id: data_export_1
     display_title: 'Data export'
@@ -1250,15 +1458,17 @@ display:
             encoding: utf8
             utf8_bom: '0'
       display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
         mobile_device_detection: {  }
-        metatag_display_extender: {  }
-      path: admin/order-information-report/export
+      path: admin/order-product-report/export
       auth:
         - cookie
       displays:
         page_1: page_1
         default: '0'
-      filename: 'Order-Information-Report-[date:custom:Y-m-d-H-i-s].csv'
+      filename: 'Order-Product-Report-[date:custom:Y-m-d-H-i-s].csv'
       automatic_download: false
       export_method: batch
       export_batch_size: 500
@@ -1275,9 +1485,10 @@ display:
         - url
         - user.roles
       tags:
+        - 'config:field.storage.commerce_order.field_special_request'
         - 'config:field.storage.commerce_order_item.field_is_over_the_limit'
-        - 'config:field.storage.commerce_order_item.field_requested_quantity'
         - 'config:field.storage.commerce_order_item.field_was_over_the_limit'
+        - 'config:field.storage.commerce_product.field_gpo_pubcode'
   page_1:
     id: page_1
     display_title: Page
@@ -1293,10 +1504,10 @@ display:
           metatags: {  }
           tokenize: false
         mobile_device_detection: {  }
-      path: admin/order-information-report
+      path: admin/order-product-report
       menu:
         type: normal
-        title: 'Order Information Report'
+        title: 'Order Product Report'
         description: ''
         weight: 0
         expanded: false
@@ -1312,6 +1523,7 @@ display:
         - url.query_args
         - user.roles
       tags:
+        - 'config:field.storage.commerce_order.field_special_request'
         - 'config:field.storage.commerce_order_item.field_is_over_the_limit'
-        - 'config:field.storage.commerce_order_item.field_requested_quantity'
         - 'config:field.storage.commerce_order_item.field_was_over_the_limit'
+        - 'config:field.storage.commerce_product.field_gpo_pubcode'
