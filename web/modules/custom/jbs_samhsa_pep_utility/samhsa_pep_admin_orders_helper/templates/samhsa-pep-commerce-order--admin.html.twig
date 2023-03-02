@@ -20,16 +20,18 @@
 
 {{ attach_library('commerce_order/form') }}
 {% set order_state = order_entity.getState.getLabel %}
-{# It was a PITA to get the raw value of this: #}
-{% set order_is_special =  order.field_special_request|render|striptags|trim %}
+{# It was a PITA to get the raw value of this. Could not find a way to extract the 1/0 value that is in the DB: #}
+{% set order_is_special =  order.field_special_request.0['#markup'] %}
 
 <div class="layout-order-form clearfix">
   <div class="layout-region layout-region-order-main">
 
-    {% if order_is_special %}
+    {% if order_is_special == 'Yes' %}
       <div id="special-request-order">
         <h1>This order is a special request</h1>
-        {{ order.field_special_request_desc }}
+        <blockquote>
+          {{ order.field_special_request_desc }}
+        </blockquote>
       </div>
       <br/>
     {% endif %}
@@ -40,10 +42,6 @@
     {% if order.justification|length > 0 %}
       <div class="field__label">{% trans %}Quantity Justification{% endtrans %}</div>
       {{ order.justification }}
-    {% endif %}
-    {% if order.order_source|length > 0 %}
-      <div class="field__label">{% trans %}Order Source{% endtrans %}</div>
-      {{ order.order_source }}
     {% endif %}
     {% if order.order_weight > 0 %}
       <div class="field__label">{% trans %}Order weight{% endtrans %}</div>
@@ -102,15 +100,6 @@
           </div>
         </details>
       {% endif %}
-      {# If the order has possible transitions, render the field for transition buttons. #}
-      {# hide transition buttons per customer's request SPD-349 #}
-      {#
-      {% if order_entity.getState.getTransitions is not empty %}
-        <div class="entity-meta__header">
-          {{ order.state }}
-        </div>
-      {% endif %}
-      #}
     </div>
   </div>
 </div>
