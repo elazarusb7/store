@@ -63,7 +63,6 @@ class PepCloneOrderFunctions implements PepCloneOrderFunctionsInterface {
       'uid' => $customer,
       'billing_profile' => $billing_profile,
       'placed' => time(),
-      'field_order_source' => $entity->get('field_order_source')->value,
       'field_justification' => $entity->get('field_justification')->value,
       'field_log' => 'This order cloned from ' . $entity->id(),
       'order_items' => $line_items,
