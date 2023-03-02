@@ -872,6 +872,70 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        mail:
+          id: mail
+          table: commerce_order
+          field: mail
+          relationship: order_id
+          group_type: group
+          admin_label: ''
+          entity_type: commerce_order
+          entity_field: mail
+          plugin_id: field
+          label: 'Contact Email'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_special_request:
           id: field_special_request
           table: commerce_order__field_special_request
@@ -1224,13 +1288,13 @@ display:
             field_gpo_pubcode_1: field_gpo_pubcode_1
             sku: sku
             title: title
-            field_requested_quantity: field_requested_quantity
             quantity: quantity
             field_is_over_the_limit: field_is_over_the_limit
             field_was_over_the_limit: field_was_over_the_limit
             address_locality: address_locality
             address_administrative_area: address_administrative_area
             state: state
+            mail: mail
             field_special_request: field_special_request
           default: placed
           info:
@@ -1277,21 +1341,14 @@ display:
               empty_column: false
               responsive: ''
             title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_requested_quantity:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             quantity:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1312,21 +1369,28 @@ display:
               empty_column: false
               responsive: ''
             address_locality:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             address_administrative_area:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             state:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            mail:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
