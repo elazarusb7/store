@@ -398,7 +398,7 @@ class SamhsaGpoAPI {
    */
   public static function sanitizeXML($str):string {
     $src = ['"', '&', "'", '<', '>'];
-    $replace = ['&quot;', '&amp;', '&apos;', '&lt;', '&gt;'];
+    $replace = ['&#34;', '&#38;', '&#39;', '&#60;', '&#62;'];
     return str_replace($src, $replace, $str);
   }
 
