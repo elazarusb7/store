@@ -170,25 +170,25 @@ class SamhsaGpoAPI {
           $child = $dom->createElement('CUSTOMERTYPECODE', '31');
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('FIRST', $fName);
+          $child = $dom->createElement('FIRST', SamhsaGpoAPI::sanitizeXML($fName));
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('LAST', $lName);
+          $child = $dom->createElement('LAST', SamhsaGpoAPI::sanitizeXML($lName));
           $order_node->appendChild($child);
 
           $child = $dom->createElement('SUFFIX', $suffix);
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('COMPANY', $company);
+          $child = $dom->createElement('COMPANY', SamhsaGpoAPI::sanitizeXML($company));
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('STREET1', $street1);
+          $child = $dom->createElement('STREET1', SamhsaGpoAPI::sanitizeXML($street1));
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('STREET2', $street2);
+          $child = $dom->createElement('STREET2', SamhsaGpoAPI::sanitizeXML($street2));
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('CITY', $city);
+          $child = $dom->createElement('CITY', SamhsaGpoAPI::sanitizeXML($city));
           $order_node->appendChild($child);
 
           $child = $dom->createElement('ST', $state);
@@ -197,7 +197,7 @@ class SamhsaGpoAPI {
           $child = $dom->createElement('ZIP', $zip);
           $order_node->appendChild($child);
 
-          $child = $dom->createElement('COUNTRY', $country);
+          $child = $dom->createElement('COUNTRY', SamhsaGpoAPI::sanitizeXML($country));
           $order_node->appendChild($child);
 
           $child = $dom->createElement('PHONE', $fullPhone);
@@ -386,6 +386,20 @@ class SamhsaGpoAPI {
       $messenger->addStatus(t('No @type Orders for @date are present', ['@type' => $type, '@date' => $date]));
     }
 
+  }
+
+  /**
+   * @param $str
+   *
+   * @return string
+   * These are the 5 official special characters in XML and need to be converted to entities
+   * Any compliant XML parser should be able to recognize these entities.
+   * https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#List_of_predefined_entities_in_XML
+   */
+  public static function sanitizeXML($str):string {
+    $src = ['"', '&', "'", '<', '>'];
+    $replace = ['&#34;', '&#38;', '&#39;', '&#60;', '&#62;'];
+    return str_replace($src, $replace, $str);
   }
 
   /**
