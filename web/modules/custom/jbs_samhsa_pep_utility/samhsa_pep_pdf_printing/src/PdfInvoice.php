@@ -164,17 +164,6 @@ class PdfInvoice {
       // $received = date("l jS \of F Y h:i:s A", $order->getPlacedTime());
       $received = date("m/d/Y H:i:s A", $order->getPlacedTime());
 
-      if (!empty(\Drupal::hasService('samhsa_pep_utility.pep_utility_functions'))) {
-
-        $GLOBALS["order_info"] = [
-          $order->id(),
-          \Drupal::service('samhsa_pep_utility.pep_utility_functions')
-            ->getOrderSource($order),
-          $created,
-          '',
-        ];
-      }
-
       $this->coverPage($pdf, $order);
 
       $pdf->StartPageGroup();

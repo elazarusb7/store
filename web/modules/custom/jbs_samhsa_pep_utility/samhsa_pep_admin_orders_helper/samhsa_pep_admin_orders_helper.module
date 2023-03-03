@@ -266,13 +266,6 @@ function _commerce_order_form_validate(&$form, FormStateInterface $form_state) {
     $form_state->setErrorByName('field_log', 'Reason for Change is required. Please provide a reason for the edit.');
   }
 
-  // field_order_source.
-  $source = array_shift($values['field_order_source']);
-
-  if (empty($source['value']) || $source['value'] == '_none') {
-    $form_state->setErrorByName('field_order_source', 'Source of the order is required.');
-  }
-
   if ($errors = $form_state->getErrors()) {
     if (isset($errors['order_items][form][inline_entity_form][actions][ief_add_save']) ||
       isset($errors['order_items][form][inline_entity_form][quantity][0][value'])) {
@@ -904,8 +897,6 @@ function samhsa_pep_admin_orders_helper_preprocess_commerce_order(array &$variab
     $customer_information = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getCustomerDefaultProfileAddress($order);
     $variables['order']['customer_information'] = $customer_information;
 
-    $order_source = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->getOrderSource($order);
-    $variables['order']['order_source'] = $order_source;
   }
   $moduleHandler = \Drupal::service('module_handler');
   if ($moduleHandler->moduleExists('samhsa_pep_clone_order')) {

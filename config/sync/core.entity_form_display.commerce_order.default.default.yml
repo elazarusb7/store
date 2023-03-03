@@ -13,7 +13,6 @@ dependencies:
     - field.field.commerce_order.default.field_special_request_desc
     - field.field.commerce_order.default.shipments
   module:
-    - cck_select_other
     - commerce_order
     - inline_entity_form
 id: commerce_order.default.default
@@ -44,29 +43,22 @@ content:
     third_party_settings: {  }
   field_log:
     type: string_textarea
-    weight: 7
+    weight: 6
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_order_source:
-    type: cck_select_other
-    weight: 5
-    region: content
-    settings:
-      other_label: 'Provide Other Source'
-    third_party_settings: {  }
   field_special_request:
     type: boolean_checkbox
-    weight: 9
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_special_request_desc:
     type: string_textarea
-    weight: 10
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -74,7 +66,7 @@ content:
     third_party_settings: {  }
   mail:
     type: email_default
-    weight: 8
+    weight: 7
     region: content
     settings:
       placeholder: ''
@@ -107,13 +99,14 @@ content:
     third_party_settings: {  }
   state:
     type: options_select
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   adjustments: true
   field_date_completed: true
+  field_order_source: true
   field_order_weight: true
   ip_address: true
   shipments: true

@@ -70,16 +70,6 @@ interface PepUtilityFunctionsInterface {
 
   /**
    *
-   * @param $order
-   *   The Commerce Order.
-   *
-   * @return order source string
-   *   The order source string.
-   */
-  public function getOrderSource($order = NULL);
-
-  /**
-   *
    * @param $string
    *   String to check.
    * @param %char
