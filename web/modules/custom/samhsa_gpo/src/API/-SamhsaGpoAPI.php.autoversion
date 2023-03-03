@@ -16,39 +16,17 @@ class SamhsaGpoAPI {
   // NEVER CHANGE THE VALUE OF THIS PROPERTY!
   private static $addend = 8017265; //This is added to the Drupal order ID to generate the GPO order ID.
 
-  // Array of PEP numbers for 988 products
-  private static $products_988 = [
-    'PEP22-08-03-001',
-    'PEP22-08-03-002',
-    'PEP22-08-03-003',
-    'PEP22-08-03-004',
-    'PEP22-08-03-005',
-    'PEP22-08-03-006',
-    'PEP22-08-03-007',
-    'PEP22-08-03-008',
-    'PEP22-08-03-009',
-    'PEP22-08-03-010',
-    'PEP22-08-03-011',
-    'PEP22-08-03-012',
-    'PEP22-08-03-013',
-    'PEP22-08-03-014',
-    'PEP22-08-03-015',
-    'PEP22-08-03-016',
-  ];
-
   public function __construct() {}
 
   /**
    *
    * Get all the drupal order id for a given day.
-   *
    * @param $date (YYYY-MM-DD)
    *
    * @return mixed
    */
   public static function loadOrderIds($date, $special_orders) {
-    $timeStamp = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' 00:00:00')
-      ->getTimestamp();
+    $timeStamp = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' 00:00:00')->getTimestamp();
     $timeStampFeb9_23 = 1675918800;
 
     $dateParts = explode('-', $date);
@@ -73,14 +51,13 @@ class SamhsaGpoAPI {
 
   /**
    * Generate the XML output
-   *
    * @param $date (YYYY-MM-DD)
    *
    * @return void
    * @throws \DOMException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function generateXML($date, $special_orders, $product_type) {
+  public static function generateXML($date, $special_orders) {
     $ordersExported = 0;
     $orders = SamhsaGpoAPI::loadOrderIds($date, $special_orders);
     if (count($orders)) {
@@ -93,29 +70,26 @@ class SamhsaGpoAPI {
       $unprocessedOrders = 0;
 
       $root = $dom->createElement('CpCpl');
-
       foreach ($orders as $order_id) {
-        $orderAdded = FALSE;
-        $is988order = FALSE;
         $skip = FALSE;
         // Gather the data for the order.
         $order = Order::load($order_id->order_id);
 
         // If the order has been canceled, do not process the order.
         $currentState = $order->getState()->getId();
-        if ($currentState === 'cancel' || $currentState === 'draft' || $currentState === 'complete') {
+        if ($currentState === 'cancel' || $currentState === 'draft') {
           $skip = TRUE;
           $unprocessedOrders = $unprocessedOrders + 1;
           // Log this skipped order
-          \Drupal::logger('samhsa_gpo')
-            ->alert('The Order @order_id was not processed into the XML because it has a status of @status.',
-              [
-                '@order_id' => $order_id->order_id,
-                '@status' => $currentState,
-              ]
-            );
+          \Drupal::logger('samhsa_gpo')->alert('The Order @order_id was not processed into the XML because it has a status of @status.',
+            [
+              '@order_id' => $order_id->order_id,
+              '@status' => $currentState,
+            ]
+          );
         }
         else {
+          //        $customer = $order->getCustomer();
           $profile = $order->getBillingProfile();
 
           // If the order does not have an address, do not process the order.
@@ -127,12 +101,11 @@ class SamhsaGpoAPI {
             $skip = TRUE;
             $unprocessedOrders = $unprocessedOrders + 1;
             // Log this skipped order
-            \Drupal::logger('samhsa_gpo')
-              ->alert('The Order @order_id was not processed into the XML because it has no mailing address.',
-                [
-                  '@order_id' => $order_id->order_id,
-                ]
-              );
+            \Drupal::logger('samhsa_gpo')->alert('The Order @order_id was not processed into the XML because it has no mailing address.',
+              [
+                '@order_id' => $order_id->order_id,
+              ]
+            );
           }
         }
 
@@ -158,13 +131,11 @@ class SamhsaGpoAPI {
           $email = SamhsaGpoAPI::getOrderEmail($order_id->order_id);
           if ($profile && $profile->hasField('field_phone_number') && isset($profile->get('field_phone_number')
                 ->getValue()[0]['value'])) {
-            $phone = $profile->get('field_phone_number')
-              ->getValue()[0]['value'];
+            $phone = $profile->get('field_phone_number')->getValue()[0]['value'];
           }
           if ($profile && $profile->hasField('field_phone_extension') && isset($profile->get('field_phone_extension')
                 ->getValue()[0]['value'])) {
-            $ext = ' ext:' . $profile->get('field_phone_extension')
-                ->getValue()[0]['value'];
+            $ext = ' ext:' . $profile->get('field_phone_extension')->getValue()[0]['value'];
           }
           $fullPhone = $phone . $ext;
 
@@ -286,26 +257,13 @@ class SamhsaGpoAPI {
           $child = $dom->createElement('AGENTID', '');
           $order_node->appendChild($child);
 
-          // Moved this down below so the status of the order can be tested for 988 first.
-//          $root->appendChild($order_node);
+          $root->appendChild($order_node);
 
           // Now build the XML nodes for the ordered items.
           $itemSeq = 1;
           $items = $order->getItems();
-
-          // Determine if this is a 988 order
-          foreach ($items as $item) {
-            $PepNumber = SamhsaGpoAPI::getPepNumber($item);
-            $is988order = TRUE;
-            if (!in_array($PepNumber, self::$products_988)) {
-              $is988order = FALSE;
-              break;
-            }
-          }
-
           foreach ($items as $item) {
             $GpoPubNumber = SamhsaGpoAPI::getGpoNumber($item);
-
             $quantity = floor($item->getQuantity());
 
             $item_node = $dom->createElement('Cpl');
@@ -334,104 +292,42 @@ class SamhsaGpoAPI {
             $child = $dom->createElement('TOTPRICE', '0.00');
             $item_node->appendChild($child);
 
-            if ($product_type === '988') {
-              if ($is988order) {
-                if (!$orderAdded) {
-                  $root->appendChild($order_node);
-                  $orderAdded = TRUE;
-                }
-                // Add the product to the root node
-                $root->appendChild($item_node);
-              }
-            }
-            else if ($product_type === 'non-988') {
-              if (!$is988order) {
-                if (!$orderAdded) {
-                  $root->appendChild($order_node);
-                  $orderAdded = TRUE;
-                }
-                // Add the product to the root node
-                $root->appendChild($item_node);
-              }
-            }
-            else if ($product_type === 'all') {
-              if (!$orderAdded) {
-                $root->appendChild($order_node);
-                $orderAdded = TRUE;
-              }
-              // Add the product to the root node
-              $root->appendChild($item_node);
-            }
+            $root->appendChild($item_node);
 
             $itemSeq++;
           }
-        }
-
-        if ($product_type === '988') {
-          if ($is988order) {
-            $ordersExported = $ordersExported + 1;
-          }
-        }
-        else if ($product_type === 'non-988') {
-          if (!$is988order) {
-            $ordersExported = $ordersExported + 1;
-          }
-        }
-        else if ($product_type === 'all') {
           $ordersExported = $ordersExported + 1;
         }
 
-        $dom->appendChild($root);
-
       }
-
+      $dom->appendChild($root);
       $dom->save($xml_file_name);
 
       // Create file object from remote URL.
       $data = file_get_contents('/tmp/orders_temp.xml');
-
-      if ($special_orders) {
-        $fileNameBase = 'orders--special-requests--';
-        $nodeTitleBase = 'Orders -- Special Request -- ';
+      if($special_orders) {
+        $filename = 'orders-special-requests--' . $date . '.xml';
+        $node_title = 'Orders Export -- Special Request: ' . $date;
       }
       else {
-        $fileNameBase = 'orders--';
-        $nodeTitleBase = 'Orders -- ';
+        $filename = 'orders--' . $date . '.xml';
+        $node_title = 'Orders Export: ' . $date;
       }
-      if ($product_type === '988') {
-        $fileNameBase .= '988--';
-        $nodeTitleBase .= '988 -- ';
-      }
-      else if ($product_type === 'non-988') {
-        $fileNameBase .= 'NON-988--';
-        $nodeTitleBase .= 'NON-988 -- ';
-      }
-      else if ($product_type === 'all') {
-        $fileNameBase .= 'all--';
-        $nodeTitleBase .= 'all -- ';
-      }
-
-      $filename = $fileNameBase . $date . '.xml';
-      $node_title = $nodeTitleBase . $date;
-
       $file = \Drupal::service('file.repository')
         ->writeData($data, 'private://gpo-xml/' . $filename);
 
       // Create node object with attached file.
-      if ($ordersExported >= 1) {
-        $node = Node::create([
-          'type' => 'gpo_xml_upload',
-          'title' => $node_title,
-          'field_date_of_orders_in_upload' => $date,
-          'field_special_request' => $special_orders,
-          'field_xml_upload' => [
-            'target_id' => $file->id(),
-            'display' => TRUE,
-          ],
-        ]);
-        $newXmlNode = $node->save();
-      }
-
+          $node = Node::create([
+            'type' => 'gpo_xml_upload',
+            'title' => $node_title,
+            'field_date_of_orders_in_upload' => $date,
+            'field_special_request' => $special_orders,
+            'field_xml_upload' => [
+              'target_id' => $file->id(),
+              'display' => TRUE,
+            ],
+          ]);
+          $newXmlNode = $node->save();
 
       // If the xml file has been created and saved without error.
       // Loop through the orders and change their status to 'process'
@@ -441,15 +337,12 @@ class SamhsaGpoAPI {
         foreach ($orders as $order_id) {
           $order = Order::load($order_id->order_id);
           $currentState = $order->getState()->getId();
-//          $order->getState()->applyTransitionById('process');
           if ($currentState === 'pending') {
-//            $order->getState()->applyTransitionById('process');
-//            $order->getState()->applyTransitionById('complete'); // deprecated
+            $order->getState()->applyTransitionById('process');
+            $order->getState()->applyTransitionById('complete'); // deprecated
           }
-          else {
-            if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
-//              $order->getState()->applyTransitionById('complete'); // deprecated
-            }
+          else if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
+            $order->getState()->applyTransitionById('complete'); // deprecated
           } // deprecated
           $order->save();
         }
@@ -459,44 +352,26 @@ class SamhsaGpoAPI {
         $type = 'Special Request';
       }
       else {
-        switch ($product_type) {
-          case 'non-988':
-            $type = 'Non 988';
-            break;
-          case '988':
-            $type = '988';
-            break;
-          default:
-            $type = 'Standard';
-        }
+        $type = 'Standard';
       }
       $messenger = \Drupal::messenger();
-      $messenger->addStatus(t('@count @type Orders for @date exported to XML', [
-        '@count' => $ordersExported,
-        '@type' => $type,
-        '@date' => $date,
-      ]));
-      \Drupal::logger('samhsa_gpo')
-        ->info('@count @type Orders for @date exported to XML.',
+      $messenger->addStatus(t('@count @type Orders for @date exported to XML', ['@count' => $ordersExported, '@type' => $type, '@date' => $date]));
+      \Drupal::logger('samhsa_gpo')->info('@count @type Orders for @date exported to XML.',
+        [
+          '@count' => $ordersExported,
+          '@type' => $type,
+          '@date' => $date
+        ]
+      );
+      if ($unprocessedOrders) {
+        $messenger->addStatus(t('@count @type Orders for @date were not processed because they were not compliant with the export requirements.', ['@count' => $unprocessedOrders, '@type' => $type]));
+        \Drupal::logger('samhsa_gpo')->alert('@count @type Orders were not processed because they were not compliant with the export requirements.',
           [
-            '@count' => $ordersExported,
+            '@count' => $unprocessedOrders,
             '@type' => $type,
-            '@date' => $date,
+            '@date' => $date
           ]
         );
-      if ($unprocessedOrders) {
-        $messenger->addStatus(t('@count @type Orders for @date were not processed because they were not compliant with the export requirements.', [
-          '@count' => $unprocessedOrders,
-          '@type' => $type,
-        ]));
-        \Drupal::logger('samhsa_gpo')
-          ->alert('@count @type Orders were not processed because they were not compliant with the export requirements.',
-            [
-              '@count' => $unprocessedOrders,
-              '@type' => $type,
-              '@date' => $date,
-            ]
-          );
       }
     }
     else {
@@ -508,10 +383,7 @@ class SamhsaGpoAPI {
         $type = 'Standard';
       }
       $messenger = \Drupal::messenger();
-      $messenger->addStatus(t('No @type Orders for @date are present', [
-        '@type' => $type,
-        '@date' => $date,
-      ]));
+      $messenger->addStatus(t('No @type Orders for @date are present', ['@type' => $type, '@date' => $date]));
     }
 
   }
@@ -536,10 +408,8 @@ class SamhsaGpoAPI {
    * 1. Pull the value from a field in the product variant (DISABLED)
    * 2. Pull the value from a field in the main product (ENABLED)
    *
-   * The 2nd technique is a bit of a hack because it's best practice to put
-   * data like this into variants. But hey! This is what we inherited, so just
-   * trying to make the best of it.
-   *
+   * The 2nd technique is a bit of a hack because it's best practice to put data like this into variants.
+   * But hey! This is what we inherited, so just trying to make the best of it.
    * @param $item
    *
    * @return string
@@ -576,69 +446,18 @@ class SamhsaGpoAPI {
   }
 
   /**
-   * Gets the SKU (pep id) stored in Product variation.
-   *
-   * @param $item
-   *
-   * @return string
-   */
-  public static function getPepNumber($item): string {
-    if ($item->hasPurchasedEntity()) {
-      $purchasedItemId = $item->getPurchasedEntityId();
-      $connection = \Drupal::database();
-
-      // Strategy 1: accessing data from a new field added to the Variant
-      // Keeping this around because working from the Variant is the correct way to use Commerce
-      // Maybe at some point we'll adopt that approach.
-      $query = $connection->select('commerce_product_variation_field_data', 'pep');
-      $query->condition('pep.variation_id', $purchasedItemId);
-      $query->fields('pep', ['sku']);
-
-      return $query->execute()->fetchAll()[0]->sku;
-    }
-  }
-
-  /**
    * Tests to see if an export for a given date already exists.
-   *
    * @param $date (YYYY-MM-DD)
    *
    * @return mixed
    */
-  public static function testForExport($date, $special_request, $product_type) {
+  public static function testForExport($date, $special_request = 0) {
     $connection = \Drupal::database();
     $query = $connection->select('node__field_date_of_orders_in_upload', 'date');
     $query->join('node__field_special_request', 'sr', '(sr.entity_id = date.entity_id)');
-    $query->join('node_field_data', 'fd', '(fd.nid = date.entity_id)');
     $query->condition('date.field_date_of_orders_in_upload_value', $date);
-    $query->fields('fd', ['title']);
-    $query->fields('sr', ['field_special_request_value']);
-    $results = $query->execute()->fetchAll();
-
-    $exportExists = 0;
-    foreach($results as $result) {
-      if ($special_request) {
-        if ($result->field_special_request_value) {
-          $exportExists = 1;
-        }
-      }
-      else if ($product_type === '988') {
-        if (substr($result->title, 0, 13) === 'Orders -- 988') {
-          $exportExists = 1;
-        }
-      }
-      else if ($product_type === 'non-988') {
-        if (substr($result->title, 0, 17) === 'Orders -- NON-988') {
-          $exportExists = 1;
-        }
-      }
-      else if ($product_type === 'all') {
-        if (substr($result->title, 0, 13) === 'Orders -- all') {
-          $exportExists = 1;
-        }
-      }
-    }
-    return $exportExists;
+    $query->condition('sr.field_special_request_value', $special_request);
+    return $query->countQuery()->execute()->fetchField();
   }
 
   /**
@@ -664,30 +483,27 @@ class SamhsaGpoAPI {
   public static function processFulfilledOrder($fileObj) {
     $API = new SamhsaGpoAPI();
     $gpoOrderNumbersArray = $API->convertFileToArray($fileObj);
-    foreach ($gpoOrderNumbersArray as $gpoOrderNumber) {
+    foreach($gpoOrderNumbersArray as $gpoOrderNumber) {
       // Convert the GPO order number to the matching Drupal Commerce Order ID.
       $drupalOrderId = $gpoOrderNumber - self::$addend;
       $order = Order::load($drupalOrderId);
       $currentState = $order->getState()->getId();
       if ($currentState === 'pending') {
-//        $order->getState()->applyTransitionById('process');
-//        $order->getState()->applyTransitionById('complete');
+        $order->getState()->applyTransitionById('process');
+        $order->getState()->applyTransitionById('complete');
       }
-      else {
-        if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
-//          $order->getState()->applyTransitionById('complete');
-        }
+      else if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
+        $order->getState()->applyTransitionById('complete');
       }
       $order->save();
     }
     $messenger = \Drupal::messenger();
     $messenger->addStatus(t('@count Orders were processed and set to a status of Complete.', ['@count' => count($gpoOrderNumbersArray)]));
-    \Drupal::logger('samhsa_gpo')
-      ->alert('@count Orders were processed and set to a status of Complete.',
-        [
-          '@count' => count($gpoOrderNumbersArray),
-        ]
-      );
+    \Drupal::logger('samhsa_gpo')->alert('@count Orders were processed and set to a status of Complete.',
+      [
+        '@count' => count($gpoOrderNumbersArray)
+      ]
+    );
   }
 
   /**
@@ -698,8 +514,7 @@ class SamhsaGpoAPI {
    * Converts csv, json or xml file to an PHP array. Auto detects file type.
    */
   public function convertFileToArray($fileObj): array {
-    $fullURL = \Drupal::request()
-        ->getSchemeAndHttpHost() . $fileObj->createFileUrl();
+    $fullURL = \Drupal::request()->getSchemeAndHttpHost() . $fileObj->createFileUrl();
     $mimeType = $fileObj->getMimeType();
     $output = [];
     if ($mimeType === 'text/csv') {
@@ -709,21 +524,17 @@ class SamhsaGpoAPI {
       }
       fclose($f);
     }
-    else {
-      if ($mimeType === 'application/octet-stream') {
-        // JSON
-        $f = file_get_contents($fullURL);
-        $output = json_decode($f, TRUE);
-      }
-      else {
-        if ($mimeType === 'application/xml') {
-          // XML
-          $f = file_get_contents($fullURL);
-          $new = simplexml_load_string($f);
-          $con = json_encode($new);
-          $output = json_decode($con, TRUE)['order'];
-        }
-      }
+    else if ($mimeType === 'application/octet-stream') {
+      // JSON
+      $f = file_get_contents($fullURL);
+      $output = json_decode($f, true);
+    }
+    else if ($mimeType === 'application/xml') {
+      // XML
+      $f = file_get_contents($fullURL);
+      $new = simplexml_load_string($f);
+      $con = json_encode($new);
+      $output = json_decode($con, true)['order'];
     }
     return $output;
   }
