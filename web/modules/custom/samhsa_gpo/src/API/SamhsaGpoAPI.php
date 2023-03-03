@@ -670,12 +670,12 @@ class SamhsaGpoAPI {
       $order = Order::load($drupalOrderId);
       $currentState = $order->getState()->getId();
       if ($currentState === 'pending') {
-//        $order->getState()->applyTransitionById('process');
-//        $order->getState()->applyTransitionById('complete');
+        $order->getState()->applyTransitionById('process');
+        $order->getState()->applyTransitionById('complete');
       }
       else {
         if ($currentState === 'process' || $currentState === 'pick_slips_generated') {
-//          $order->getState()->applyTransitionById('complete');
+          $order->getState()->applyTransitionById('complete');
         }
       }
       $order->save();
