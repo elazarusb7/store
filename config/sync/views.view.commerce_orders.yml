@@ -7747,7 +7747,7 @@ display:
           admin_label: ''
           plugin_id: views_bulk_operations_bulk_form
           label: 'Views bulk operations'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -7793,17 +7793,10 @@ display:
           buttons: true
           action_title: Action
           clear_on_exposed: false
+          force_selection_info: false
           selected_actions:
-            comment_delete_action: 0
-            'entity_delete_action:commerce_order': 0
-            samhsa_pep_utility_complete_order: 0
-            samhsa_pep_utility_pending: 0
-            samhsa_pep_utility_cancel_order: 0
-            samhsa_pep_utility_pick_slip_generated: 0
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:commerce_order': 0
-            'entity:delete_action:commerce_order': 0
+            2:
+              action_id: samhsa_pep_utility_pending
           preconfiguration:
             samhsa_pep_utility_pending:
               label_override: ''
