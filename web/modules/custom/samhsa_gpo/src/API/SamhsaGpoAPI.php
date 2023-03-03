@@ -441,14 +441,14 @@ class SamhsaGpoAPI {
         foreach ($orders as $order_id) {
           $order = Order::load($order_id->order_id);
           $currentState = $order->getState()->getId();
-//          $order->getState()->applyTransitionById('process');
+          $order->getState()->applyTransitionById('process');
           if ($currentState === 'pending') {
-//            $order->getState()->applyTransitionById('process');
-//            $order->getState()->applyTransitionById('complete'); // deprecated
+            $order->getState()->applyTransitionById('process');
+            $order->getState()->applyTransitionById('complete'); // deprecated
           }
           else {
             if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
-//              $order->getState()->applyTransitionById('complete'); // deprecated
+              $order->getState()->applyTransitionById('complete'); // deprecated
             }
           } // deprecated
           $order->save();
