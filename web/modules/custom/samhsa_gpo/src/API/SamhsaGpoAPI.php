@@ -441,7 +441,6 @@ class SamhsaGpoAPI {
         foreach ($orders as $order_id) {
           $order = Order::load($order_id->order_id);
           $currentState = $order->getState()->getId();
-          $order->getState()->applyTransitionById('process');
           if ($currentState === 'pending') {
             $order->getState()->applyTransitionById('process');
             $order->getState()->applyTransitionById('complete'); // deprecated
