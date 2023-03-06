@@ -80,9 +80,16 @@ class SamhsaGpoAPI {
    * @throws \DOMException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public static function generateXML($date, $special_orders, $product_type) {
+  public static function generateXML($date, $product_type) {
+    if ($product_type === 'special_request') {
+      $special_orders = 1;
+    }
+    else {
+      $special_orders = 0;
+    }
     $ordersExported = 0;
     $orders = SamhsaGpoAPI::loadOrderIds($date, $special_orders);
+    $ordersIDsForStateChange = [];
     if (count($orders)) {
       $dom = new DOMDocument();
 
@@ -339,6 +346,7 @@ class SamhsaGpoAPI {
                 if (!$orderAdded) {
                   $root->appendChild($order_node);
                   $orderAdded = TRUE;
+                  $ordersIDsForStateChange[] = $order_id;
                 }
                 // Add the product to the root node
                 $root->appendChild($item_node);
@@ -349,6 +357,7 @@ class SamhsaGpoAPI {
                 if (!$orderAdded) {
                   $root->appendChild($order_node);
                   $orderAdded = TRUE;
+                  $ordersIDsForStateChange[] = $order_id;
                 }
                 // Add the product to the root node
                 $root->appendChild($item_node);
@@ -358,6 +367,7 @@ class SamhsaGpoAPI {
               if (!$orderAdded) {
                 $root->appendChild($order_node);
                 $orderAdded = TRUE;
+                $ordersIDsForStateChange[] = $order_id;
               }
               // Add the product to the root node
               $root->appendChild($item_node);
@@ -393,6 +403,8 @@ class SamhsaGpoAPI {
       if ($special_orders) {
         $fileNameBase = 'orders--special-requests--';
         $nodeTitleBase = 'Orders -- Special Request -- ';
+        $ordersIDsForStateChange[] = $order_id;
+        $ordersExported = $ordersExported + 1;
       }
       else {
         $fileNameBase = 'orders--';
@@ -418,40 +430,41 @@ class SamhsaGpoAPI {
         ->writeData($data, 'private://gpo-xml/' . $filename);
 
       // Create node object with attached file.
-      if ($ordersExported >= 1) {
-        $node = Node::create([
-          'type' => 'gpo_xml_upload',
-          'title' => $node_title,
-          'field_date_of_orders_in_upload' => $date,
-          'field_special_request' => $special_orders,
-          'field_xml_upload' => [
-            'target_id' => $file->id(),
-            'display' => TRUE,
-          ],
-        ]);
-        $newXmlNode = $node->save();
-      }
+//      if ($ordersExported >= 1) {
+//        $node = Node::create([
+//          'type' => 'gpo_xml_upload',
+//          'title' => $node_title,
+//          'field_date_of_orders_in_upload' => $date,
+//          'field_special_request' => $special_orders,
+//          'field_xml_upload' => [
+//            'target_id' => $file->id(),
+//            'display' => TRUE,
+//          ],
+//        ]);
+//        $newXmlNode = $node->save();
+//      }
 
 
       // If the xml file has been created and saved without error.
       // Loop through the orders and change their status to 'process'
       // Which the customized system also recognized as "pick_slips_generated"
       // @todo: Remove deprecated lines after the process fulfilled orders functionality is implemented
-      if ($newXmlNode) {
-        foreach ($orders as $order_id) {
-          $order = Order::load($order_id->order_id);
-          $currentState = $order->getState()->getId();
-          if ($currentState === 'pending') {
-            $order->getState()->applyTransitionById('process');
-            $order->getState()->applyTransitionById('complete'); // deprecated
-          }
-          else {
-            if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
-              $order->getState()->applyTransitionById('complete'); // deprecated
-            }
-          } // deprecated
-          $order->save();
-        }
+      if (!$newXmlNode) {
+        SamhsaGpoAPI::setOrderStatus($ordersIDsForStateChange);
+//        foreach ($orders as $order_id) {
+//          $order = Order::load($order_id->order_id);
+//          $currentState = $order->getState()->getId();
+//          if ($currentState === 'pending') {
+//            $order->getState()->applyTransitionById('process');
+//            $order->getState()->applyTransitionById('complete'); // deprecated
+//          }
+//          else {
+//            if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
+//              $order->getState()->applyTransitionById('complete'); // deprecated
+//            }
+//          } // deprecated
+//          $order->save();
+//        }
       }
 
       if ($special_orders) {
@@ -511,6 +524,25 @@ class SamhsaGpoAPI {
         '@type' => $type,
         '@date' => $date,
       ]));
+    }
+
+  }
+
+  public static function setOrderStatus($orderIds) {
+    dsm(count($orderIds));
+    foreach ($orderIds as $order_id) {
+      $order = Order::load($order_id->order_id);
+      $currentState = $order->getState()->getId();
+      if ($currentState === 'pending') {
+//        $order->getState()->applyTransitionById('process');
+//        $order->getState()->applyTransitionById('complete'); // deprecated
+      }
+      else {
+        if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
+//          $order->getState()->applyTransitionById('complete'); // deprecated
+        }
+      } // deprecated
+      $order->save();
     }
 
   }
@@ -604,7 +636,13 @@ class SamhsaGpoAPI {
    *
    * @return mixed
    */
-  public static function testForExport($date, $special_request, $product_type) {
+  public static function testForExport($date, $product_type) {
+    if ($product_type === 'special_request') {
+      $special_request = 1;
+    }
+    else {
+      $special_request = 0;
+    }
     $connection = \Drupal::database();
     $query = $connection->select('node__field_date_of_orders_in_upload', 'date');
     $query->join('node__field_special_request', 'sr', '(sr.entity_id = date.entity_id)');

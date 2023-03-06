@@ -6,14 +6,14 @@ function samhsa_gpo_cron() {
   $date = date("Y-m-d", strtotime("yesterday"));
 
   // Export Special Requests if any
-  $exportExists = SamhsaGpoAPI::testForExport($date, 1);
+  $exportExists = SamhsaGpoAPI::testForExport($date, 'special_request');
   if (!$exportExists) {
-    SamhsaGpoAPI::generateXML($date, 1);
+    SamhsaGpoAPI::generateXML($date,'special_request');
   }
 
   // Export regular orders
-  $exportExists = SamhsaGpoAPI::testForExport($date, 0);
+  $exportExists = SamhsaGpoAPI::testForExport($date, 'all');
   if (!$exportExists) {
-    SamhsaGpoAPI::generateXML($date, 0);
+    SamhsaGpoAPI::generateXML($date, 'all');
   }
 }

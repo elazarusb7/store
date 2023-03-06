@@ -29,20 +29,16 @@ class SamhsaOrdersXmlFormController extends FormBase
       '#default_value' => date("Y-m-d", strtotime("yesterday")),
       '#required' => true,
     );
-    $form['special_requests'] = array(
-      '#type' => 'checkbox',
-      '#title' => 'Special Requests'
-    );
     $form['product_type'] = array(
       '#type' => 'select',
       '#title' => 'Order Type',
       '#options' => [
-        'all' => 'All',
+        'all' => 'All but Special Requests',
+        'special_request' => 'Special Requests only',
         'non-988' => 'Non 988 only',
         '988' => '988 Only'
       ],
       '#default_value' => 'all',
-      '#description' => t('If "Special Requests" is selected the Order type setting will be ignored. "All" will always be returned.')
     );
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -58,7 +54,7 @@ class SamhsaOrdersXmlFormController extends FormBase
     if ($submittedDateTS < strtotime($cutoffDate)) {
       $form_state->setErrorByName('date', $this->t('Dates prior to @cutoffDate cannot be exported.', ['@cutoffDate' => $cutoffDate]));
     }
-    $exportExists = SamhsaGpoAPI::testForExport($form_state->getValue('date'), $form_state->getValue('special_requests'), $form_state->getValue('product_type'));
+    $exportExists = SamhsaGpoAPI::testForExport($form_state->getValue('date'), $form_state->getValue('product_type'));
     if ($exportExists) {
       $form_state->setErrorByName('date', $this->t('An export for this date already exists.'));
     }
@@ -70,7 +66,6 @@ class SamhsaOrdersXmlFormController extends FormBase
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $date = $form_state->getValue('date');
-    $special_requests = $form_state->getValue('special_requests');
     if ($special_requests == 1) {
       $product_type = 'all';
     }
@@ -78,6 +73,6 @@ class SamhsaOrdersXmlFormController extends FormBase
       $product_type = $form_state->getValue('product_type');
     }
 
-    SamhsaGpoAPI::generateXML($date, $special_requests, $product_type);
+    SamhsaGpoAPI::generateXML($date, $product_type);
   }
 }
