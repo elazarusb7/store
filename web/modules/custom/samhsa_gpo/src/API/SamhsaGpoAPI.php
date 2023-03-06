@@ -372,6 +372,15 @@ class SamhsaGpoAPI {
               // Add the product to the root node
               $root->appendChild($item_node);
             }
+            else if ($product_type === 'special_request') {
+              if (!$orderAdded) {
+                $root->appendChild($order_node);
+                $orderAdded = TRUE;
+                $ordersIDsForStateChange[] = $order_id;
+              }
+              // Add the product to the root node
+              $root->appendChild($item_node);
+            }
 
             $itemSeq++;
           }
@@ -403,7 +412,6 @@ class SamhsaGpoAPI {
       if ($special_orders) {
         $fileNameBase = 'orders--special-requests--';
         $nodeTitleBase = 'Orders -- Special Request -- ';
-        $ordersIDsForStateChange[] = $order_id;
         $ordersExported = $ordersExported + 1;
       }
       else {
@@ -430,41 +438,27 @@ class SamhsaGpoAPI {
         ->writeData($data, 'private://gpo-xml/' . $filename);
 
       // Create node object with attached file.
-//      if ($ordersExported >= 1) {
-//        $node = Node::create([
-//          'type' => 'gpo_xml_upload',
-//          'title' => $node_title,
-//          'field_date_of_orders_in_upload' => $date,
-//          'field_special_request' => $special_orders,
-//          'field_xml_upload' => [
-//            'target_id' => $file->id(),
-//            'display' => TRUE,
-//          ],
-//        ]);
-//        $newXmlNode = $node->save();
-//      }
+      if ($ordersExported >= 1) {
+        $node = Node::create([
+          'type' => 'gpo_xml_upload',
+          'title' => $node_title,
+          'field_date_of_orders_in_upload' => $date,
+          'field_special_request' => $special_orders,
+          'field_xml_upload' => [
+            'target_id' => $file->id(),
+            'display' => TRUE,
+          ],
+        ]);
+        $newXmlNode = $node->save();
+      }
 
 
       // If the xml file has been created and saved without error.
       // Loop through the orders and change their status to 'process'
       // Which the customized system also recognized as "pick_slips_generated"
       // @todo: Remove deprecated lines after the process fulfilled orders functionality is implemented
-      if (!$newXmlNode) {
+      if ($newXmlNode) {
         SamhsaGpoAPI::setOrderStatus($ordersIDsForStateChange);
-//        foreach ($orders as $order_id) {
-//          $order = Order::load($order_id->order_id);
-//          $currentState = $order->getState()->getId();
-//          if ($currentState === 'pending') {
-//            $order->getState()->applyTransitionById('process');
-//            $order->getState()->applyTransitionById('complete'); // deprecated
-//          }
-//          else {
-//            if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
-//              $order->getState()->applyTransitionById('complete'); // deprecated
-//            }
-//          } // deprecated
-//          $order->save();
-//        }
       }
 
       if ($special_orders) {
@@ -525,21 +519,19 @@ class SamhsaGpoAPI {
         '@date' => $date,
       ]));
     }
-
   }
 
   public static function setOrderStatus($orderIds) {
-    dsm(count($orderIds));
     foreach ($orderIds as $order_id) {
       $order = Order::load($order_id->order_id);
       $currentState = $order->getState()->getId();
       if ($currentState === 'pending') {
-//        $order->getState()->applyTransitionById('process');
-//        $order->getState()->applyTransitionById('complete'); // deprecated
+        $order->getState()->applyTransitionById('process');
+        $order->getState()->applyTransitionById('complete'); // deprecated
       }
       else {
         if ($currentState === 'process' || $currentState === 'pick_slips_generated') { // deprecated
-//          $order->getState()->applyTransitionById('complete'); // deprecated
+          $order->getState()->applyTransitionById('complete'); // deprecated
         }
       } // deprecated
       $order->save();
@@ -617,10 +609,6 @@ class SamhsaGpoAPI {
     if ($item->hasPurchasedEntity()) {
       $purchasedItemId = $item->getPurchasedEntityId();
       $connection = \Drupal::database();
-
-      // Strategy 1: accessing data from a new field added to the Variant
-      // Keeping this around because working from the Variant is the correct way to use Commerce
-      // Maybe at some point we'll adopt that approach.
       $query = $connection->select('commerce_product_variation_field_data', 'pep');
       $query->condition('pep.variation_id', $purchasedItemId);
       $query->fields('pep', ['sku']);

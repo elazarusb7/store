@@ -39,6 +39,7 @@ class SamhsaOrdersXmlFormController extends FormBase
         '988' => '988 Only'
       ],
       '#default_value' => 'all',
+      '#description' => t('988 filters will NOT include special requests')
     );
     $form['actions']['submit'] = [
       '#type' => 'submit',
