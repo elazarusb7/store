@@ -81,7 +81,9 @@
             });
             $( ".mobile-only" ).parent().addClass( "mobile-only" );
 
-            setTimeout(() => { $("#usasearch_sayt").find("ul.ui-menu").attr("id", "ui-id-01"); }, 1000);
+            setTimeout(() => { $("#usasearch_sayt").find("ul.ui-menu").attr("id", "ui-id-01"); $("#views-exposed-form-solr-search-content-page-1").find("input#edit-search-api-fulltext--2").attr("id", "edit-search-api-fulltext--21"); 
+                              $("#views-exposed-form-solr-search-content-page-1").find("select#edit-sort-bef-combine--2").attr("id", "edit-sort-bef-combine--21"); 
+                              $("#views-exposed-form-solr-search-content-page-1").find("div#edit-actions--2").attr("id", "edit-actions--21"); $("#views-exposed-form-solr-search-content-page-1").find("label[for='edit-sort-bef-combine--2']").attr("for", "edit-sort-bef-combine--21");  }, 1000);
             $("#views-exposed-form-solr-search-content-page-1").on("DOMSubtreeModified", () => { $("input#edit-search-api-fulltext--2").attr("id", "edit-search-api-fulltext--21"); 
                  $("select#edit-sort-bef-combine--2").attr("id", "edit-sort-bef-combine--21"); $("div#edit-actions--2").attr("id", "edit-actions--21"); 
                  $("label[for='edit-sort-bef-combine--2']").attr("for", "edit-sort-bef-combine--21"); });
