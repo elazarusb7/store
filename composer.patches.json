@@ -21,9 +21,6 @@
     },
     "drupal/views_fieldsets": {
       "AJAX error : Call to a member function get() on null":"https://www.drupal.org/files/issues/2020-10-23/views_fieldsets-ajax_error-3112466-3.patch"
-    },
-    "drupal/views_bulk_operations": {
-      "Error Call to a member function isAllowed": "https://www.drupal.org/files/issues/2023-01-19/display_access_denied_reason-3246212-22.patch"
     }
   }
 }
