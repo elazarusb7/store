@@ -29,7 +29,7 @@ dependencies:
     - views_data_export
     - views_simple_math_field
 id: order_product_report
-label: 'Order/Product Report'
+label: 'Orders (by Product) Report'
 module: views
 description: ''
 tag: ''
@@ -42,7 +42,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Order and Product Report'
+      title: 'Orders (by Product) Report'
       fields:
         placed:
           id: placed
@@ -1472,7 +1472,17 @@ display:
           plugin_id: standard
           required: false
       use_ajax: false
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: "<div class=\"oir-footer-row\">\r\nDisplaying @start - @end of @total\r\n<div>"
       footer:
         result:
           id: result
@@ -1571,9 +1581,9 @@ display:
       path: admin/order-product-report
       menu:
         type: normal
-        title: 'Order Product Report'
+        title: 'Orders (by Product) Report'
         description: ''
-        weight: 0
+        weight: -9
         expanded: false
         menu_name: admin
         parent: commerce_reports.overview

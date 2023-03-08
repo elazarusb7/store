@@ -16,7 +16,7 @@ dependencies:
     - user
     - views_data_export
 id: export_order_emails
-label: 'Export Order Emails'
+label: 'Orders (Pending Email Addresses) Report'
 module: views
 description: ''
 tag: ''
@@ -323,6 +323,8 @@ display:
         default: '0'
       filename: 'Order-Pending-Emails-Report-[date:custom:Y-m-d-H-i-s].csv'
       automatic_download: false
+      export_method: batch
+      export_batch_size: 500
       store_in_public_file_directory: true
       custom_redirect_path: false
       redirect_to_display: none
@@ -349,9 +351,9 @@ display:
       path: admin/order-pending-emails-report
       menu:
         type: normal
-        title: 'Order Pending Emails Report'
+        title: 'Orders (Pending Email Addresses) Report'
         description: ''
-        weight: 0
+        weight: -9
         expanded: false
         menu_name: admin
         parent: commerce_reports.overview
