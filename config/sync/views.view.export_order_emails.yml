@@ -16,7 +16,7 @@ dependencies:
     - user
     - views_data_export
 id: export_order_emails
-label: 'Export Order Emails'
+label: 'Orders (Pending Email Addresses) Report'
 module: views
 description: ''
 tag: ''
@@ -275,7 +275,12 @@ display:
           query_tags: {  }
       relationships: {  }
       group_by: true
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
       footer: {  }
       display_extenders:
         mobile_device_detection: {  }
@@ -323,6 +328,8 @@ display:
         default: '0'
       filename: 'Order-Pending-Emails-Report-[date:custom:Y-m-d-H-i-s].csv'
       automatic_download: false
+      export_method: batch
+      export_batch_size: 500
       store_in_public_file_directory: true
       custom_redirect_path: false
       redirect_to_display: none
@@ -342,6 +349,22 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        header: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<div>=TEXTJOIN(", ",TRUE,A)</div>'
+            format: basic_html
+          tokenize: false
       display_extenders:
         metatag_display_extender:
           metatags: {  }
@@ -349,9 +372,9 @@ display:
       path: admin/order-pending-emails-report
       menu:
         type: normal
-        title: 'Order Pending Emails Report'
+        title: 'Orders (Pending Email Addresses) Report'
         description: ''
-        weight: 0
+        weight: -9
         expanded: false
         menu_name: admin
         parent: commerce_reports.overview

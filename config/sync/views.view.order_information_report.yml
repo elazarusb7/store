@@ -1298,7 +1298,7 @@ display:
         type: normal
         title: 'Order Information Report'
         description: ''
-        weight: 0
+        weight: -10
         expanded: false
         menu_name: admin
         parent: commerce_reports.overview
