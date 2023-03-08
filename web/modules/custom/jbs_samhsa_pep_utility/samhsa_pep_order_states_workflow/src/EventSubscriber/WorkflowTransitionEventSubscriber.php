@@ -58,6 +58,7 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
         case 'canceled':
           // Send email notification.
           // Fetch owner email.
+          /*
           $to = $entity->getEmail();
           $ordernumber = $entity->id();
           $subject = "Order Cancellation.";
@@ -71,15 +72,20 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
                         <a href = 'mailto:order@samhsa.hhs.gov'>order@samhsa.hhs.gov</a> with your order number.
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
                 ['%ordernumber' => $ordernumber]);
+          */
           \Drupal::messenger()->addStatus(t("Order Cancelled"));
+          /*
           if (function_exists('send_mail')) {
             send_mail($entity, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, FALSE);
           }
+          */
+          // OCWT-4265 Disabling Email. Only Showing message on screen.
           break;
 
         case 'completed':
           // Send email notification.
           // Fetch owner email.
+          /*
           $to = $entity->getEmail();
           $ordernumber = $entity->id();
           $subject = "Order Shipped.";
@@ -96,10 +102,14 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
                         For all other questions or comments, please contact <a href = 'mailto:SAMHSAInfo@SAMHSA.hhs.gov'>SAMHSAInfo@SAMHSA.hhs.gov</a>.",
                 ['%ordernumber' => $ordernumber]);
 
+          */
           \Drupal::messenger()->addStatus("Order Shipped");
+          /*
           if (function_exists('send_mail')) {
             send_mail($entity, 'samhsa_pep', 'order_state', $subject, $message, $ordernumber, $to, FALSE);
           }
+          */
+          // OCWT-4265 Disabling Email. Only Showing message on screen.
           break;
 
         case 'onhold':
@@ -129,7 +139,8 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
     // Fetch owner email.
     $to = $order->getEmail();
     $ordernumber = $order->id();
-    $subject = "Order Submitted.";
+    $subject = "Order #".$ordernumber." has been placed.";
+    // OCWT-4508 Order number has been added to the subject
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />
@@ -161,7 +172,8 @@ class WorkflowTransitionEventSubscriber implements EventSubscriberInterface {
     // Fetch owner email.
     $to = $entity->getEmail();
     $ordernumber = $entity->id();
-    $subject = "Order Submitted.";
+    $subject = "Order #".$ordernumber." has been placed.";
+    // OCWT-4508 Order number has been added to the subject
 
     $message = new FormattableMarkup("Order # %ordernumber<br /><br />
                         Dear customer,<br /><br />

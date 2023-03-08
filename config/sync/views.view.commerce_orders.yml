@@ -21,6 +21,7 @@ dependencies:
     - user
     - views_autocomplete_filters
     - views_bulk_operations
+    - views_simple_math_field
 _core:
   default_config_hash: PRSLswK4LenKNkwTZsCffFgO1ytW5MWZ4br-_aQWdj8
 id: commerce_orders
@@ -1742,8 +1743,10 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             order_number: order_number
             order_id: order_id
+            order_id_1: order_id_1
             placed: placed
             changed: changed
             address_given_name: address_given_name
@@ -1757,8 +1760,15 @@ display:
             mail: uid
             total_price__number: total_price__number
             operations: operations
+            field_order_weight: field_order_weight
+            dropbutton: dropbutton
           default: placed
           info:
+            views_bulk_operations_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             order_number:
               sortable: true
               default_sort_order: asc
@@ -1768,6 +1778,13 @@ display:
               responsive: ''
             order_id:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            order_id_1:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1858,6 +1875,20 @@ display:
               empty_column: false
               responsive: ''
             operations:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_order_weight:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            dropbutton:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -1989,6 +2020,86 @@ display:
           selected_actions:
             1:
               action_id: samhsa_pep_utility_pending
+        field_views_simple_math_field:
+          id: field_views_simple_math_field
+          table: views_simple_math_field
+          field: field_views_simple_math_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field_views_simple_math_field
+          label: 'GPO Order Code'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          fieldset_one:
+            data_field:
+              order_number: order_number
+              views_bulk_operations_bulk_form: 0
+              order_id: 0
+              order_id_1: 0
+              placed: 0
+              changed: 0
+              address_given_name: 0
+              address_family_name: 0
+              address_locality: 0
+              address_administrative_area: 0
+              state: 0
+              type: 0
+              store_id: 0
+              uid: 0
+              mail: 0
+              total_price__number: 0
+              operations: 0
+              field_order_weight: 0
+              dropbutton: 0
+            formula: '@order_number + 8017265'
+          mute_logs: false
+          set_precision: 0
+          precision: '0'
+          decimal: .
+          separator: ''
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
         order_number:
           id: order_number
           table: commerce_order
@@ -3094,6 +3205,9 @@ display:
         fields: false
       display_description: ''
       display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
         mobile_device_detection: {  }
       path: admin/commerce/orders/list
       menu:
@@ -7747,7 +7861,7 @@ display:
           admin_label: ''
           plugin_id: views_bulk_operations_bulk_form
           label: 'Views bulk operations'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -7793,17 +7907,10 @@ display:
           buttons: true
           action_title: Action
           clear_on_exposed: false
+          force_selection_info: false
           selected_actions:
-            comment_delete_action: 0
-            'entity_delete_action:commerce_order': 0
-            samhsa_pep_utility_complete_order: 0
-            samhsa_pep_utility_pending: 0
-            samhsa_pep_utility_cancel_order: 0
-            samhsa_pep_utility_pick_slip_generated: 0
-            views_bulk_operations_delete_entity: 0
-            pathauto_update_alias: 0
-            'entity:save_action:commerce_order': 0
-            'entity:delete_action:commerce_order': 0
+            2:
+              action_id: samhsa_pep_utility_pending
           preconfiguration:
             samhsa_pep_utility_pending:
               label_override: ''

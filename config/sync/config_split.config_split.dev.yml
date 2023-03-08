@@ -12,6 +12,7 @@ module:
   devel: 0
   devel_generate: 0
   stage_file_proxy: 0
+  maillog: 0
 theme: {  }
 blacklist:
   - dblog.settings
@@ -20,5 +21,7 @@ graylist:
   - search_api.server.common
   - system.performance
   - tfa.settings
+  - mailsystem.settings
+  - system.mail
 graylist_dependents: true
 graylist_skip_equal: true
