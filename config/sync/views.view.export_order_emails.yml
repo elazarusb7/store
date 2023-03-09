@@ -5,6 +5,7 @@ dependencies:
   config:
     - commerce_order.commerce_order_type.default
     - commerce_order.commerce_order_type.samhsa_publication_ob
+    - system.menu.admin
     - user.role.administrator
   module:
     - commerce
@@ -15,7 +16,7 @@ dependencies:
     - user
     - views_data_export
 id: export_order_emails
-label: 'Export Order Emails'
+label: 'Orders (Pending Email Addresses) Report'
 module: views
 description: ''
 tag: ''
@@ -193,40 +194,46 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        created:
-          id: created
+        placed:
+          id: placed
           table: commerce_order
-          field: created
+          field: placed
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: commerce_order
-          entity_field: created
+          entity_field: placed
           plugin_id: date
-          operator: '>='
+          operator: between
           value:
             min: ''
             max: ''
-            value: '2022-08-23 12:49:00'
+            value: ''
             type: date
           group: 1
-          exposed: false
+          exposed: true
           expose:
-            operator_id: ''
-            label: ''
+            operator_id: placed_op
+            label: 'Placed Date'
             description: ''
             use_operator: false
-            operator: ''
+            operator: placed_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: ''
+            identifier: placed
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
+              anonymous: '0'
+              administrator: '0'
+              warehouse_manager: '0'
+              warehouse_clerk: '0'
+              site_manager: '0'
+              warehouse_manager_gpo: '0'
+            min_placeholder: '2022-01-01'
+            max_placeholder: '2022-01-01'
             placeholder: ''
           is_grouped: false
           group_info:
@@ -240,6 +247,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
         options:
@@ -264,7 +275,12 @@ display:
           query_tags: {  }
       relationships: {  }
       group_by: true
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
       footer: {  }
       display_extenders:
         mobile_device_detection: {  }
@@ -276,6 +292,99 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.roles
+      tags: {  }
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: admin/order-pending-emails-report/export
+      auth:
+        - cookie
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: 'Order-Pending-Emails-Report-[date:custom:Y-m-d-H-i-s].csv'
+      automatic_download: false
+      export_method: batch
+      export_batch_size: 500
+      store_in_public_file_directory: true
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user.roles
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      defaults:
+        header: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<div>=TEXTJOIN(", ",TRUE,A)</div>'
+            format: basic_html
+          tokenize: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: admin/order-pending-emails-report
+      menu:
+        type: normal
+        title: 'Orders (Pending Email Addresses) Report'
+        description: ''
+        weight: -9
+        expanded: false
+        menu_name: admin
+        parent: commerce_reports.overview
+        context: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
         - url.query_args
         - user.roles
       tags: {  }
@@ -283,7 +392,7 @@ display:
     id: rest_export_1
     display_title: 'REST export'
     display_plugin: rest_export
-    position: 1
+    position: 3
     display_options:
       pager:
         type: none
@@ -325,5 +434,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
+        - url
         - user.roles
       tags: {  }
