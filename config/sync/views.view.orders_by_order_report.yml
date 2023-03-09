@@ -1,33 +1,31 @@
-uuid: 15e9e97d-931d-491f-a768-cc4881acb80b
+uuid: 5591dad7-4947-4cdf-bc19-c48f889c6c60
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.gpo_xml_upload.field_xml_downloaded
-    - field.storage.node.field_date_of_orders_in_upload
-    - field.storage.node.field_special_request
-    - field.storage.node.field_xml_upload
-    - node.type.gpo_xml_upload
     - system.menu.admin
     - user.role.administrator
-    - user.role.authenticated
     - user.role.site_manager
     - user.role.warehouse_clerk
     - user.role.warehouse_manager
-    - user.role.warehouse_manager_gpo
   module:
-    - datetime
-    - file
-    - node
+    - commerce_order
+    - csv_serialization
+    - options
+    - rest
+    - serialization
+    - state_machine
     - user
-    - views_entity_form_field
-id: gpo_xml_exports
-label: 'GPO XML Exports'
+    - views_autocomplete_filters
+    - views_data_export
+    - views_simple_math_field
+id: orders_by_order_report
+label: 'Orders (by Order) Report'
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: commerce_order
+base_field: order_id
 display:
   default:
     id: default
@@ -35,333 +33,20 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'GPO XML Order Exports'
+      title: 'Orders (by Order) Report'
       fields:
-        form_field_field_xml_downloaded:
-          id: form_field_field_xml_downloaded
-          table: node_field_data
-          field: form_field_field_xml_downloaded
+        placed:
+          id: placed
+          table: commerce_order
+          field: placed
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_form_field
-          label: Downloaded
+          entity_type: commerce_order
+          entity_field: placed
+          plugin_id: field
+          label: Placed
           exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          plugin:
-            hide_title: 1
-            hide_description: 1
-            type: boolean_checkbox
-            settings:
-              display_label: 1
-            third_party_settings: {  }
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-          label: Title
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: false
-            ellipsis: false
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_date_of_orders_in_upload:
-          id: field_date_of_orders_in_upload
-          table: node__field_date_of_orders_in_upload
-          field: field_date_of_orders_in_upload
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'XML Orders Date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: html_date
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_special_request:
-          id: field_special_request
-          table: node__field_special_request
-          field: field_special_request
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: custom
-            format_custom_false: ''
-            format_custom_true: 'Special Request'
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_xml_upload:
-          id: field_xml_upload
-          table: node__field_xml_upload
-          field: field_xml_upload
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'XML Upload'
-          exclude: false
-          alter:
-            alter_text: true
-            text: '<a href="{{ field_xml_upload }}" target="_blank" download>{{ title }}</a>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: display
-          type: file_url_plain
-          settings: {  }
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: field
-          label: 'Uploaded Date'
-          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -404,8 +89,8 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: html_date
-            custom_date_format: ''
+            date_format: custom
+            custom_date_format: m/d/Y
             timezone: ''
           group_column: value
           group_columns: {  }
@@ -417,15 +102,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_special_request_1:
-          id: field_special_request_1
-          table: node__field_special_request
-          field: field_special_request
+        field_views_simple_math_field:
+          id: field_views_simple_math_field
+          table: views_simple_math_field
+          field: field_views_simple_math_field
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
-          label: 'Special Request'
+          plugin_id: field_views_simple_math_field
+          label: 'GPO Order Code'
           exclude: false
           alter:
             alter_text: false
@@ -458,7 +143,72 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          fieldset_one:
+            data_field:
+              order_number: order_number
+              placed: 0
+            formula: '@order_number + 8017265'
+          mute_logs: false
+          set_precision: 0
+          precision: '0'
+          decimal: .
+          separator: ''
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+        order_number:
+          id: order_number
+          table: commerce_order
+          field: order_number
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: null
+          entity_field: order_number
+          plugin_id: field
+          label: 'Order number'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -467,11 +217,72 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: boolean
-          settings:
-            format: custom
-            format_custom_false: ''
-            format_custom_true: 'True'
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        state:
+          id: state
+          table: commerce_order
+          field: state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: commerce_order
+          entity_field: state
+          plugin_id: field
+          label: State
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -486,7 +297,7 @@ display:
         type: mini
         options:
           offset: 0
-          items_per_page: 25
+          items_per_page: 50
           total_pages: null
           id: 0
           tags:
@@ -514,70 +325,43 @@ display:
         type: role
         options:
           role:
-            authenticated: authenticated
             administrator: administrator
             warehouse_manager: warehouse_manager
             warehouse_clerk: warehouse_clerk
             site_manager: site_manager
-            warehouse_manager_gpo: warehouse_manager_gpo
       cache:
-        type: tag
+        type: none
         options: {  }
       empty: {  }
       sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        order_number:
+          id: order_number
+          table: commerce_order
+          field: order_number
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
+          entity_type: commerce_order
+          entity_field: order_number
+          plugin_id: standard
+          order: ASC
           expose:
             label: ''
             field_identifier: ''
           exposed: false
-          granularity: second
       arguments: {  }
       filters:
-        status:
-          id: status
-          table: node_field_data
-          field: status
-          entity_type: node
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
-          group: 1
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          value:
-            gpo_xml_upload: gpo_xml_upload
-          group: 1
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-        field_date_of_orders_in_upload_value:
-          id: field_date_of_orders_in_upload_value
-          table: node__field_date_of_orders_in_upload
-          field: field_date_of_orders_in_upload_value
+        placed:
+          id: placed
+          table: commerce_order
+          field: placed
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: datetime
-          operator: '='
+          entity_type: commerce_order
+          entity_field: placed
+          plugin_id: date
+          operator: between
           value:
             min: ''
             max: ''
@@ -586,14 +370,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_date_of_orders_in_upload_value_op
-            label: 'Date of Orders in Upload'
+            operator_id: placed_op
+            label: Placed
             description: ''
-            use_operator: true
-            operator: field_date_of_orders_in_upload_value_op
+            use_operator: false
+            operator: placed_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_date_of_orders_in_upload_value
+            identifier: placed
             required: false
             remember: false
             multiple: false
@@ -607,7 +391,7 @@ display:
               warehouse_manager_gpo: '0'
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: CCYY-MM-DD
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -620,27 +404,30 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_special_request_value:
-          id: field_special_request_value
-          table: node__field_special_request
-          field: field_special_request_value
+        state:
+          id: state
+          table: commerce_order
+          field: state
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
-          operator: '='
-          value: All
+          entity_type: commerce_order
+          entity_field: state
+          plugin_id: state_machine_state
+          operator: in
+          value:
+            pending: pending
           group: 1
           exposed: true
           expose:
-            operator_id: ''
-            label: 'Special Request'
+            operator_id: state_op
+            label: State
             description: ''
             use_operator: false
-            operator: field_special_request_value_op
+            operator: state_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_special_request_value
+            identifier: state
             required: false
             remember: false
             multiple: false
@@ -652,6 +439,7 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
               warehouse_manager_gpo: '0'
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -664,27 +452,29 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_xml_downloaded_value:
-          id: field_xml_downloaded_value
-          table: node__field_xml_downloaded
-          field: field_xml_downloaded_value
+        order_number:
+          id: order_number
+          table: commerce_order
+          field: order_number
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
+          entity_type: commerce_order
+          entity_field: order_number
+          plugin_id: views_autocomplete_filters_string
           operator: '='
-          value: All
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: ''
-            label: Downloaded
+            operator_id: order_number_op
+            label: 'Order number'
             description: ''
             use_operator: false
-            operator: field_xml_downloaded_value_op
+            operator: order_number_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_xml_downloaded_value
+            identifier: order_number
             required: false
             remember: false
             multiple: false
@@ -696,6 +486,14 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
               warehouse_manager_gpo: '0'
+            placeholder: ''
+            autocomplete_filter: 0
+            autocomplete_min_chars: '0'
+            autocomplete_items: '10'
+            autocomplete_field: order_number
+            autocomplete_raw_suggestion: 1
+            autocomplete_raw_dropdown: 1
+            autocomplete_dependent: 0
           is_grouped: false
           group_info:
             label: ''
@@ -719,35 +517,35 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            title: title
-            field_date_of_orders_in_upload: field_date_of_orders_in_upload
-            field_xml_upload: field_xml_upload
-            created: created
-          default: '-1'
+            placed: placed
+            field_views_simple_math_field: field_views_simple_math_field
+            order_number: order_number
+            state: state
+          default: placed
           info:
-            title:
+            placed:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_date_of_orders_in_upload:
+            field_views_simple_math_field:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            order_number:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_xml_upload:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            created:
-              sortable: true
+            state:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -771,20 +569,27 @@ display:
           query_tags: {  }
       relationships: {  }
       header:
-        area:
-          id: area
+        result:
+          id: result
           table: views
-          field: area
+          field: result
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
+          plugin_id: result
           empty: false
-          content:
-            value: 'After downloading an XML, check the "Downloaded" box and click "Save at the bottom of the page.'
-            format: basic_html
-          tokenize: false
-      footer: {  }
+          content: "<div class=\"oir-footer-row\">\r\nDisplaying @start - @end of @total\r\n<div>"
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: "<div class=\"oir-footer-row\">\r\nDisplaying @start - @end of @total\r\n<div>"
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -793,35 +598,75 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
-        - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.field.node.gpo_xml_upload.field_xml_downloaded'
-        - 'config:field.storage.node.field_date_of_orders_in_upload'
-        - 'config:field.storage.node.field_special_request'
-        - 'config:field.storage.node.field_xml_downloaded'
-        - 'config:field.storage.node.field_xml_upload'
-  page_1:
-    id: page_1
+      tags: {  }
+  data_export_2:
+    id: data_export_2
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: admin/order-order-report/export
+      auth:
+        - cookie
+      displays:
+        page_2: page_2
+        default: '0'
+      filename: 'Order-Order-Report-[date:custom:Y-m-d-H-i-s].csv'
+      automatic_download: false
+      export_method: batch
+      export_batch_size: 500
+      store_in_public_file_directory: true
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user.roles
+      tags: {  }
+  page_2:
+    id: page_2
     display_title: Page
     display_plugin: page
     position: 1
     display_options:
+      display_description: ''
       display_extenders:
-        mobile_device_detection: {  }
         metatag_display_extender:
           metatags: {  }
           tokenize: false
-      path: admin/commerce/orders/gpo-xml-order-exports
+      path: admin/order-order-report
       menu:
         type: normal
-        title: 'GPO XML Order Exports'
+        title: 'Orders (by Order) Report'
         description: ''
-        weight: 0
+        weight: -9
         expanded: false
         menu_name: admin
-        parent: entity.commerce_order.collection
+        parent: commerce_reports.overview
         context: '0'
     cache_metadata:
       max-age: -1
@@ -830,12 +675,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
-        - 'user.node_grants:view'
         - user.roles
-      tags:
-        - 'config:field.field.node.gpo_xml_upload.field_xml_downloaded'
-        - 'config:field.storage.node.field_date_of_orders_in_upload'
-        - 'config:field.storage.node.field_special_request'
-        - 'config:field.storage.node.field_xml_downloaded'
-        - 'config:field.storage.node.field_xml_upload'
+      tags: {  }
