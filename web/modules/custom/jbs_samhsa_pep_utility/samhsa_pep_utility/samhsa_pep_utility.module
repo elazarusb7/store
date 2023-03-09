@@ -55,7 +55,8 @@ function samhsa_pep_utility_mail($key, &$message, $params) {
  */
 function samhsa_pep_utility_mail_alter(&$message) {
   if ($message['id'] == 'commerce_order_receipt') {
-    $message['subject'] = 'Order Submitted.';
+    // $message['subject'] = 'Order Submitted.';
+    // OCWT-4265 Why are we doing this?
   }
   else {
     if ($message['id'] === "samhsa_pep_order_state" || $message['key'] === 'rules_action_mail_rules_send_email') {
