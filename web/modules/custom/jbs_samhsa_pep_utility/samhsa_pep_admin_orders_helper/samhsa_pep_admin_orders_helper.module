@@ -194,7 +194,11 @@ function _custom_exposed_admin_order_validate(&$form, FormStateInterface $form_s
     }
 
     if (isset($values['placed']['min']) && isset($values['placed']['max'])) {
-      if ($values['placed']['min'] > $values['placed']['max']) {
+      ## [OCWT-4500] Need to convert to number before doing a numeric comparison
+      $start_date = strtotime($values['placed']['min']);
+      $end_date = strtotime($values['placed']['max']);
+
+      if ($start_date > $end_date) {
         $form_state->setErrorByName('placed', 'Start Date cannot be a date after End Date.');
       }
     }
@@ -221,16 +225,16 @@ function _custom_exposed_admin_order_validate(&$form, FormStateInterface $form_s
       }
 
       if (isset($values['changed']['min']) && isset($values['changed']['max'])) {
-        if ($values['changed']['min'] > $values['changed']['max']) {
+        ## [OCWT-4500] Need to convert to number before doing a numeric comparison
+        $start_date = strtotime($values['changed']['min']);
+        $end_date = strtotime($values['changed']['max']);
+
+        if ($start_date > $end_date) {
           $form_state->setErrorByName('changed', 'Start Date cannot be a date after End Date.');
         }
       }
-    }
 
-    /*$filter_count = \Drupal::service('samhsa_pep_utility.pep_utility_functions')->checkFilters($values);
-    if ($filter_count == 0) {
-    \Drupal::messenger()->addMessage(t('No filters selected.'));
-    }*/
+    }
   }
 }
 
