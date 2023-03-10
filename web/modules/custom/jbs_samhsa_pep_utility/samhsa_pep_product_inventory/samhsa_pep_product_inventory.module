@@ -184,7 +184,11 @@ function _custom_product_inventory_exposed_admin_order_validate(&$form, FormStat
     }
 
     if (isset($values['placed']['min']) && isset($values['placed']['max'])) {
-      if (strtotime($values['placed']['min']) > strtotime($values['placed']['max'])) {
+      ## [OCWT-4500] Need to convert to number before doing a numeric comparison
+      $start_date = strtotime($values['placed']['min']);
+      $end_date = strtotime($values['placed']['max']);
+
+      if ($start_date > $end_date) {
         $form_state->setErrorByName('placed', 'Start Date cannot be a date after End Date.');
       }
     }
