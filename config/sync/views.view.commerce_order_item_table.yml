@@ -571,8 +571,8 @@ display:
           label: 'Over The Limit?'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{# Boolean formatter above does not work properly. Have to do it this way: #}\r\n{{ (field_is_over_the_limit__value == 1) ? ' Yes ' : ' No ' }}\r\n"
             make_link: false
             path: ''
             absolute: false
