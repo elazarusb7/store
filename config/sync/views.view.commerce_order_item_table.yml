@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.storage.commerce_order_item.field_comments
-    - field.storage.commerce_order_item.field_is_over_the_limit
     - field.storage.commerce_order_item.field_requested_quantity
     - field.storage.commerce_product.field_qty_max_order
     - field.storage.commerce_product.field_thumbnail
@@ -167,6 +166,74 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        quantity:
+          id: quantity
+          table: commerce_order_item
+          field: quantity
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: commerce_order_item
+          entity_field: quantity
+          plugin_id: field
+          label: Quantity
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ''
+            decimal_separator: .
+            scale: 0
+            prefix_suffix: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_qty_max_order:
           id: field_qty_max_order
           table: commerce_product__field_qty_max_order
@@ -231,74 +298,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        quantity:
-          id: quantity
-          table: commerce_order_item
-          field: quantity
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: commerce_order_item
-          entity_field: quantity
-          plugin_id: field
-          label: Quantity
-          exclude: false
-          alter:
-            alter_text: true
-            text: '{{ quantity }} <span class="u--no-wrap">(Max: {{ field_qty_max_order }})</span>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_decimal
-          settings:
-            thousand_separator: ''
-            decimal_separator: .
-            scale: 0
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_requested_quantity:
           id: field_requested_quantity
           table: commerce_order_item__field_requested_quantity
@@ -308,7 +307,7 @@ display:
           admin_label: ''
           plugin_id: field
           label: 'Requested Quantity'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -363,6 +362,55 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        nothing_1:
+          id: nothing_1
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: 'Requested Quantity displayed'
+          plugin_id: custom
+          label: 'Requested Quantity'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ quantity }} <span class="u--no-wrap">(Max: {{ field_qty_max_order }})</span>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
         title:
           id: title
           table: commerce_order_item
@@ -560,19 +608,19 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_is_over_the_limit:
-          id: field_is_over_the_limit
-          table: commerce_order_item__field_is_over_the_limit
-          field: field_is_over_the_limit
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
-          label: 'Over The Limit?'
+          plugin_id: custom
+          label: 'Over the Limit?'
           exclude: false
           alter:
             alter_text: true
-            text: "{# Boolean formatter above does not work properly. Have to do it this way: #}\r\n{{ (field_is_over_the_limit__value == 1) ? ' Yes ' : ' No ' }}\r\n"
+            text: "{# Our field_is_over_the_limit__value does not work, so calculate this value using other fields. #}\r\n{{ (quantity  > field_qty_max_order ) ? ' Yes ' : ' No ' }}"
             make_link: false
             path: ''
             absolute: false
@@ -608,23 +656,7 @@ display:
           empty: ''
           hide_empty: false
           empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: unicode-yes-no
-            format_custom_false: ''
-            format_custom_true: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          hide_alter_empty: false
         field_comments:
           id: field_comments
           table: commerce_order_item__field_comments
@@ -850,7 +882,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.commerce_order_item.field_comments'
-        - 'config:field.storage.commerce_order_item.field_is_over_the_limit'
         - 'config:field.storage.commerce_order_item.field_requested_quantity'
         - 'config:field.storage.commerce_product.field_qty_max_order'
         - 'config:field.storage.commerce_product.field_thumbnail'
