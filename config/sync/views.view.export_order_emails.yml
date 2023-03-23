@@ -232,8 +232,8 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
               warehouse_manager_gpo: '0'
-            min_placeholder: '2022-01-01'
-            max_placeholder: '2022-01-01'
+            min_placeholder: mm/dd/yyyy
+            max_placeholder: mm/dd/yyyy
             placeholder: ''
           is_grouped: false
           group_info:
