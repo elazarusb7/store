@@ -96,7 +96,7 @@ function samhsa_pep_customer_profile_form_alter(&$form, FormStateInterface $form
             $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0]['#options']['1--default'] =
                             t('%service, %shipping_time', [
                               '%service' => $arg_explode[0],
-                              '%shipping_time' => Markup::create('<str>3-4 weeks shipping time</strong>ong'),
+                              '%shipping_time' => Markup::create(''),
                             ]);
           }
         }
