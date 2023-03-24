@@ -214,7 +214,7 @@ display:
           exposed: true
           expose:
             operator_id: placed_op
-            label: 'Placed Date'
+            label: 'Placed Dates'
             description: ''
             use_operator: false
             operator: placed_op
