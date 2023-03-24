@@ -2020,12 +2020,6 @@ display:
           selected_actions:
             1:
               action_id: samhsa_pep_utility_pending
-            2:
-              action_id: samhsa_pep_utility_complete_order
-            3:
-              action_id: samhsa_pep_utility_cancel_order
-            4:
-              action_id: views_bulk_operations_delete_entity
         field_views_simple_math_field:
           id: field_views_simple_math_field
           table: views_simple_math_field
