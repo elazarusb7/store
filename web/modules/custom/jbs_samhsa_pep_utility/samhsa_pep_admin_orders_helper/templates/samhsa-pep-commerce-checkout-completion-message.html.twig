@@ -86,15 +86,10 @@
       {% endif %}
 
     </div>
-    <div class="order-summary--info">
-      {% block additional_information %}
-      {{ 'Please contact <a href="mailto:order@samhsa.hhs.gov">order@samhsa.hhs.gov</a> for more questions about your order. Please use Order ID @number for reference.'|t({'@number': order_entity.getOrderNumber}) }}
-      {% endblock %}
-    </div>
     {% endif %}
     </div>
   {% if return_to_browsing %}
-  <div class="checkout-complete__link--front">
+  <div class="checkout-complete__link--front" style="margin-top:20px;">
     {{ return_to_browsing }}
   </div>
   {% endif %}
