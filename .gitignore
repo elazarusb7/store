@@ -31,6 +31,7 @@ private/*
 
 # Ignore scaffolding files
 web/.gitignore
+web/.ht.router.php
 web/modules/.gitignore
 web/profiles/.gitignore
 web/sites/.gitignore
