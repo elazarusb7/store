@@ -24,7 +24,7 @@ config:
   ## Not sure if this is needed
   framework: drupal9
   ## This value needs quotes for unknown reasons
-  php: '8.0'
+  php: '8.1'
   ## Enabling xdebug does work, but it causes warning messages because lando
   ## inserts outdated xdebug configuration.
   ## IMPORTANT: If you enable Xdebug here, YOU MUST use Composer 2 below. Xdebug
