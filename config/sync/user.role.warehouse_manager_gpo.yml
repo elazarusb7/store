@@ -2,14 +2,18 @@ uuid: e600a3de-bee3-487b-a647-3f4c1afac4e1
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.gpo_xml_upload
   module:
     - commerce
     - field_permissions
+    - node
 id: warehouse_manager_gpo
 label: 'Warehouse Manager GPO'
 weight: 6
 is_admin: null
 permissions:
   - 'access commerce administration pages'
+  - 'edit any gpo_xml_upload content'
   - 'view field_xml_upload'
   - 'view own field_xml_upload'
