@@ -19,7 +19,7 @@ $total_orders = 0;
 
 // Date range of orders we will modify
 $date_range_begin = '2022-09-29 00:00:00';
-$date_range_end = '2023-04-05 00:00:00';
+$date_range_end = '2023-04-14 00:00:00';
 
 // Run query to gather all orders we want to possibly correct
 $database = \Drupal::database();
@@ -108,8 +108,8 @@ foreach ($results as $result) {
   $order_item_id = $result->order_item_id;
   $order_id = $result->order_id;
 
-  if ($quantity_ordered > 25) {
-    $revised_quantity_ordered = 25;
+  if ($quantity_ordered > 10) {
+    $revised_quantity_ordered = 10;
   }
   else {
     continue;
