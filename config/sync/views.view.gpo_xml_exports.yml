@@ -10,10 +10,6 @@ dependencies:
     - node.type.gpo_xml_upload
     - system.menu.admin
     - user.role.administrator
-    - user.role.authenticated
-    - user.role.site_manager
-    - user.role.warehouse_clerk
-    - user.role.warehouse_manager
     - user.role.warehouse_manager_gpo
   module:
     - datetime
@@ -514,16 +510,25 @@ display:
         type: role
         options:
           role:
-            authenticated: authenticated
             administrator: administrator
-            warehouse_manager: warehouse_manager
-            warehouse_clerk: warehouse_clerk
-            site_manager: site_manager
             warehouse_manager_gpo: warehouse_manager_gpo
       cache:
         type: tag
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'There are no resuls that match your search'
+            format: basic_html
+          tokenize: false
       sorts:
         created:
           id: created
@@ -605,8 +610,8 @@ display:
               warehouse_clerk: '0'
               site_manager: '0'
               warehouse_manager_gpo: '0'
-            min_placeholder: ''
-            max_placeholder: ''
+            min_placeholder: CCYY-MM-DD
+            max_placeholder: CCYY-MM-DD
             placeholder: CCYY-MM-DD
           is_grouped: false
           group_info:
@@ -809,10 +814,10 @@ display:
     position: 1
     display_options:
       display_extenders:
-        mobile_device_detection: {  }
         metatag_display_extender:
           metatags: {  }
           tokenize: false
+        mobile_device_detection: {  }
       path: admin/commerce/orders/gpo-xml-order-exports
       menu:
         type: normal
