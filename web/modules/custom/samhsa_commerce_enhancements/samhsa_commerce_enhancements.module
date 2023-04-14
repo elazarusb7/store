@@ -37,3 +37,29 @@ function samhsa_commerce_enhancements_form_alter(&$form, FormStateInterface $for
   }
 
 }
+
+/**
+ * Implements hook_requirements().
+ *
+ * Throwing this hook in here because it's too small for its own module :)
+ *
+ * @param string $phase The phase in which requirements are checked
+ * @return array $requirements Requirements and their severity
+ */
+function samhsa_commerce_enhancements_requirements($phase) {
+  $requirements = [];
+
+  $requirements['samhsa_commerce_enhancements_git_branch'] = [
+    'title' => t('Git Branch'),
+    'description' => `git rev-parse --abbrev-ref HEAD` ?: 'Not Available',
+    'severity' => REQUIREMENT_INFO,
+  ];
+
+  $requirements['samhsa_commerce_enhancements_git_commit_hash'] = [
+    'title' => t('Git Commit Hash'),
+    'description' => `git rev-parse HEAD` ?: 'Not Available',
+    'severity' => REQUIREMENT_INFO,
+  ];
+
+  return $requirements;
+}
