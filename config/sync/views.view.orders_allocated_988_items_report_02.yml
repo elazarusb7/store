@@ -252,8 +252,8 @@ display:
             inline: false
             separator: ''
           summary:
-            sort_order: desc
-            number_of_records: 1
+            sort_order: asc
+            number_of_records: 0
             format: unformatted_summary
           specify_validation: false
           validate:
