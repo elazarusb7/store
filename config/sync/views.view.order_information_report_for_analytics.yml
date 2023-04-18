@@ -989,7 +989,7 @@ display:
           entity_type: commerce_order_item
           entity_field: order_id
           plugin_id: standard
-          required: true
+          required: false
         commerce_product_variation:
           id: commerce_product_variation
           table: commerce_order_item
@@ -999,7 +999,7 @@ display:
           admin_label: 'Product variation'
           entity_type: commerce_order_item
           plugin_id: standard
-          required: true
+          required: false
         shipments:
           id: shipments
           table: commerce_order__shipments
