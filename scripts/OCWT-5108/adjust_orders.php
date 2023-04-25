@@ -33,7 +33,7 @@ $database = \Drupal::database();
 
 // To do small batches for testing purposes, just add a 'LIMIT 20' to this query
 $sql = <<<EOD
-  SELECT co.order_item_id, co.order_id, co.quantity
+  SELECT co.order_item_id, co.order_id, pv.sku, co.quantity
   FROM commerce_order_item co
   JOIN commerce_product_variation_field_data pv ON co.purchased_entity = pv.variation_id
   WHERE pv.sku IN (
@@ -62,6 +62,7 @@ $total_orders = count($results);
 // Check each individual order item for excessive items
 foreach ($results as $result) {
 
+  $sku = $result->sku;
   $quantity_ordered = $result->quantity;
   $order_item_id = $result->order_item_id;
   $order_id = $result->order_id;
@@ -91,7 +92,7 @@ EOD;
   ]);
 
   // TODO: some sort of logging here
-  print "Order ID: $order_id\tSKU: $target_sku\tOriginal quantity: $quantity_ordered\tNew quantity: $revised_quantity_ordered\n";
+  print "Order ID: $order_id\tSKU: $sku\tOriginal quantity: $quantity_ordered\tNew quantity: $revised_quantity_ordered\n";
 
 }
 
