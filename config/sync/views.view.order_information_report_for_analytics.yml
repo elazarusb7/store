@@ -636,7 +636,7 @@ display:
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
-              reset_button_always_show: false
+              reset_button_always_show: true
             filter:
               placed:
                 plugin_id: bef_datepicker
@@ -904,15 +904,24 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            order_number: order_number
             placed: placed
+            order_number: order_number
+            order_id: order_id
             sku: sku
             title: title
             quantity: quantity
+            state: state
             address_locality: address_locality
             address_administrative_area: address_administrative_area
           default: placed
           info:
+            placed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             order_number:
               sortable: true
               default_sort_order: asc
@@ -920,8 +929,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            placed:
-              sortable: true
+            order_id:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -942,6 +951,13 @@ display:
               empty_column: false
               responsive: ''
             quantity:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            state:
               sortable: false
               default_sort_order: asc
               align: ''
