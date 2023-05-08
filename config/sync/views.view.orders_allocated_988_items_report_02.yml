@@ -108,7 +108,7 @@ display:
           table: commerce_order_item
           field: title
           relationship: none
-          group_type: group
+          group_type: count
           admin_label: ''
           entity_type: null
           entity_field: title
@@ -159,15 +159,23 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns:
+            value: value
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ''
           field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
       pager:
         type: full
         options:
@@ -609,6 +617,7 @@ display:
     display_plugin: data_export
     position: 2
     display_options:
+      arguments: {  }
       style:
         type: data_export
         options:
@@ -623,6 +632,10 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
+      defaults:
+        group_by: false
+        arguments: false
+      group_by: true
       display_extenders:
         metatag_display_extender:
           metatags: {  }
