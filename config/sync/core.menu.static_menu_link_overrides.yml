@@ -20,8 +20,8 @@ definitions:
     expanded: false
     enabled: true
   'commerce_reports:sales_report':
+    enabled: false
     menu_name: admin
     parent: commerce_reports.overview
     weight: 4
     expanded: false
-    enabled: true
