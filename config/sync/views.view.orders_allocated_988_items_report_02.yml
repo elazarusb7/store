@@ -13,12 +13,17 @@ dependencies:
     - commerce_order
     - commerce_product
     - commerce_shipping
+    - csv_serialization
+    - options
     - profile
+    - rest
+    - serialization
     - state_machine
     - user
     - views_autocomplete_filters
+    - views_data_export
 id: orders_allocated_988_items_report_02
-label: 'Orders (Allocated 988 items) Report'
+label: 'Products (Allocated) Report'
 module: views
 description: ''
 tag: ''
@@ -31,7 +36,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Orders (988 allocated) Report'
+      title: 'Products (Allocated) Report'
       fields:
         sku:
           id: sku
@@ -103,7 +108,7 @@ display:
           table: commerce_order_item
           field: title
           relationship: none
-          group_type: group
+          group_type: count
           admin_label: ''
           entity_type: null
           entity_field: title
@@ -154,20 +159,28 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns:
+            value: value
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ''
           field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: 0
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
       pager:
         type: full
         options:
           offset: 0
-          items_per_page: 25
+          items_per_page: 100
           total_pages: null
           id: 0
           tags:
@@ -369,18 +382,18 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        sku:
-          id: sku
-          table: commerce_product_variation_field_data
-          field: sku
-          relationship: commerce_product_variation
+        field_pep_product_type_value:
+          id: field_pep_product_type_value
+          table: commerce_product__field_pep_product_type
+          field: field_pep_product_type_value
+          relationship: product_id
           group_type: group
           admin_label: ''
-          entity_type: commerce_product_variation
-          entity_field: sku
-          plugin_id: views_autocomplete_filters_string
-          operator: starts
-          value: PEP22-08-03-0
+          plugin_id: list_field
+          operator: or
+          value:
+            download_only: download_only
+            download_order: download_order
           group: 1
           exposed: false
           expose:
@@ -397,11 +410,59 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        sku:
+          id: sku
+          table: commerce_product_variation_field_data
+          field: sku
+          relationship: commerce_product_variation
+          group_type: group
+          admin_label: ''
+          entity_type: commerce_product_variation
+          entity_field: sku
+          plugin_id: views_autocomplete_filters_string
+          operator: starts
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: sku_op
+            label: 'Publication ID'
+            description: ''
+            use_operator: false
+            operator: sku_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: sku
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              warehouse_manager: '0'
+              warehouse_clerk: '0'
+              site_manager: '0'
+              warehouse_manager_gpo: '0'
             placeholder: ''
             autocomplete_filter: 0
             autocomplete_min_chars: '0'
             autocomplete_items: '10'
-            autocomplete_field: ''
+            autocomplete_field: sku
             autocomplete_raw_suggestion: 1
             autocomplete_raw_dropdown: 1
             autocomplete_dependent: 0
@@ -525,7 +586,17 @@ display:
           plugin_id: standard
           required: false
       use_ajax: false
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: true
+          content: 'Displaying @start - @end of @total'
       footer: {  }
       display_extenders:
         metatag_display_extender:
@@ -538,6 +609,54 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.roles
+      tags: {  }
+  data_export_1:
+    id: data_export_1
+    display_title: 'Data export'
+    display_plugin: data_export
+    position: 2
+    display_options:
+      arguments: {  }
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+      defaults:
+        group_by: false
+        arguments: false
+      group_by: true
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: admin/products-allocated/export
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: 'products-allocated_[date:custom:Y-m-d--H_i_s].csv'
+      automatic_download: false
+      store_in_public_file_directory: false
+      custom_redirect_path: false
+      redirect_to_display: page_1
+      include_query_params: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - user.roles
       tags: {  }
   page_1:
@@ -558,7 +677,7 @@ display:
       path: admin/order-988-allocated-report
       menu:
         type: normal
-        title: 'Orders (988 Allocations) Report'
+        title: 'Products (Allocated) Report'
         description: ''
         weight: -9
         expanded: false
