@@ -24,4 +24,4 @@ definitions:
     parent: commerce_reports.overview
     weight: 4
     expanded: false
-    enabled: true
+    enabled: false

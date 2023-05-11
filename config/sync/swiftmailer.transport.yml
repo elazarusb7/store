@@ -1,14 +1,14 @@
 _core:
   default_config_hash: 0dJfQivKgyEp-S8D6gSRTBbpRFApE3VkpltnPMBQ5OY
 transport: smtp
-smtp_host: smtp.ees.hhs.gov
-smtp_port: 25
-smtp_encryption: '0'
+smtp_host: email-smtp.us-east-1.amazonaws.com
+smtp_port: 587
+smtp_encryption: tls
 sendmail_path: /usr/sbin/sendmail
 sendmail_mode: bs
 smtp_credential_provider: swiftmailer
 smtp_credentials:
   swiftmailer:
-    username: ''
-    password: null
+    username: AKIA3GKDG4OAQNMV27XC
+    password: BDepGmODu1oJE5FtM9upvespaKZ20uKSgVQdoDROf1DZ
 spool_directory: ''
