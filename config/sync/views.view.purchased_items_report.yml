@@ -456,6 +456,7 @@ display:
         title: 'Purchased items report'
         description: ''
         weight: 3
+        enabled: false
         expanded: false
         menu_name: admin
         parent: commerce_reports.overview
