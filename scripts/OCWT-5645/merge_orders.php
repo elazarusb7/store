@@ -11,9 +11,11 @@
  */
 
 // Set to false to avoid doing all actual write queries
-define('LIVE_RUN', FALSE);
+define('LIVE_RUN', TRUE);
 
-$logfile_contents = [];
+// Log file
+global $fp;
+$fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
 
 // Date range of orders we will modify
 $date_range_begin = '2022-09-29 00:00:00';
@@ -47,7 +49,7 @@ $query = $database->query($sql, [
 $results      = $query->fetchAll();
 $total_orders = count($results);
 
-$logfile_contents[] = ['Info', "Working with $total_orders total orders."];
+fputcsv($fp, ['Info', "Working with $total_orders total orders."]);
 
 // Reorder order data based on user email
 foreach ($results as $result) {
@@ -70,7 +72,7 @@ if ($mergeable_orders_count === 0) {
   exit("No duplicate orders found, exiting.\n");
 }
 else {
-  $logfile_contents[] = ['Info', "Mergable order count: $mergeable_orders_count\n"];
+  fputcsv($fp, ['Info', "Mergable order count: $mergeable_orders_count"]);
 }
 
 //
@@ -88,8 +90,8 @@ foreach ($user_orders as $orders_key => $values) {
   $orders_to_cancel = $all_order_ids;
   unset($all_order_ids);
 
-  $logfile_contents[] = ['Preparing to merge', "Merging the items from these orders: " . implode(", ",
-      $orders_to_cancel) . " into order id $merged_order_id\n"];
+  fputcsv($fp, ['Preparing to merge', "Merging the items from these orders: " . implode(", ",
+      $orders_to_cancel) . " into order id $merged_order_id"]);
 
   $mergeable_order_data = _merge_user_orders($values, $merged_order_id);
 
@@ -97,12 +99,6 @@ foreach ($user_orders as $orders_key => $values) {
   _cancel_orders($orders_to_cancel);
 }
 
-// Our poor man's logging
-
-$fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
-foreach ($logfile_contents as $fields) {
-  fputcsv($fp, $fields);
-}
 fclose($fp);
 
 /*
@@ -110,7 +106,7 @@ fclose($fp);
  * with quantities summed.
  */
 function _merge_user_orders(array $order_data, int $merged_order_id): array {
-  global $logfile_contents;
+  global $fp;
 
   $mergeable_order_data = [];
   $normalized_orders    = [];
@@ -125,11 +121,11 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
   foreach ($normalized_orders as $order_values) {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
-      $logfile_contents[] = ['Order item merged', "Order ID: $merged_order_id\nProduct ID: $order_values->purchased_entity\nQuantity: $order_values->quantity\n"];
+      fputcsv($fp, ['Order item merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
-      $logfile_contents[] = ['Order item add', "Order ID: $merged_order_id\nProduct ID: $order_values->purchased_entity\nQuantity: $order_values->quantity\n"];
+      fputcsv($fp, ['Order item add', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
   }
 
@@ -141,8 +137,7 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
  * corresponding rows in the commerce_order_item table
  */
 function _update_merged_order_items(array $order_data, int $merged_order_id): void {
-  global $logfile_contents;
-
+  global $fp;
 
   // Create a new uuid so new entries have one
   $uuid_service = \Drupal::service('uuid');
@@ -194,13 +189,13 @@ EOD;
       ]);
     }
 
-    $logfile_contents[] = ['Saving merged order item', "Order ID: $merged_order_id\nProduct ID: $values->purchased_entity\nQuantity: $values->quantity\n"];
+    fputcsv($fp, ['Saving merged order item', "Order ID: $merged_order_id Product ID: $values->purchased_entity Quantity: $values->quantity"]);
 
   }
 }
 
 function _cancel_orders(array $order_ids): void {
-  global $logfile_contents, $uuid_service;
+  global $fp;
 
   $cancel_order_sql = <<<EOD
     UPDATE commerce_order
@@ -209,7 +204,7 @@ function _cancel_orders(array $order_ids): void {
 EOD;
 
   foreach ($order_ids as $order_id) {
-    $logfile_contents[] = ['Order cancellation', "Order #$order_id 'canceled'\n"];
+    fputcsv($fp, ['Order cancellation', "Order #$order_id 'canceled'"]);
 
     $database = \Drupal::database();
 
