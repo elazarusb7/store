@@ -10,7 +10,10 @@
  *
  */
 
-$logfile_contents = ['Order', 'Action', 'Description'];
+// Set to false to avoid doing all actual write queries
+define('LIVE_RUN', FALSE);
+
+$logfile_contents = [];
 
 // Date range of orders we will modify
 $date_range_begin = '2022-09-29 00:00:00';
@@ -33,7 +36,7 @@ $sql = <<<EOD
   AND co.created < UNIX_TIMESTAMP(:date_range_end)
   AND co.state IN ('pending')
   ORDER BY co.mail ASC, co.order_id ASC
-  limit 100
+  limit 10000
 EOD;
 
 $query = $database->query($sql, [
@@ -43,6 +46,8 @@ $query = $database->query($sql, [
 
 $results      = $query->fetchAll();
 $total_orders = count($results);
+
+$logfile_contents[] = ['Info', "Working with $total_orders total orders."];
 
 // Reorder order data based on user email
 foreach ($results as $result) {
@@ -59,8 +64,13 @@ foreach ($user_orders as $orders_key => $values) {
   }
 }
 
-if (count($user_orders) === 0) {
+$mergeable_orders_count = count($user_orders);
+
+if ($mergeable_orders_count === 0) {
   exit("No duplicate orders found, exiting.\n");
+}
+else {
+  $logfile_contents[] = ['Info', "Mergable order count: $mergeable_orders_count\n"];
 }
 
 //
@@ -78,14 +88,22 @@ foreach ($user_orders as $orders_key => $values) {
   $orders_to_cancel = $all_order_ids;
   unset($all_order_ids);
 
-  $logfile_contents[] = ['Info', "Merging the items from these orders: " . implode(",", $orders_to_cancel) . "...\nInto
-  order id $merged_order_id\n"];
+  $logfile_contents[] = ['Preparing to merge', "Merging the items from these orders: " . implode(", ",
+      $orders_to_cancel) . " into order id $merged_order_id\n"];
 
   $mergeable_order_data = _merge_user_orders($values, $merged_order_id);
 
   _update_merged_order_items($mergeable_order_data, $merged_order_id);
   _cancel_orders($orders_to_cancel);
 }
+
+// Our poor man's logging
+
+$fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
+foreach ($logfile_contents as $fields) {
+  fputcsv($fp, $fields);
+}
+fclose($fp);
 
 /*
  * Takes order items nested in multiple orders and merges then into one order
@@ -117,18 +135,6 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
 
   return $mergeable_order_data;
 }
-
-// Our poor man's logging
-$i = 0;
-
-$fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
-foreach ($logfile_contents as $fields) {
-  // Push a counter at the beginning
-  $i++;
-  array_unshift($i, $fields);
-  fputcsv($fp, $fields);
-}
-fclose($fp);
 
 /**
  * Takes the cleaned up order data that has been merged and updates the
@@ -167,26 +173,28 @@ EOD;
     $database = \Drupal::database();
     $uuid     = $uuid_service->generate();
 
-    $query = $database->query($order_item_sql, [
-      ':order_item_id' => $values->order_item_id,
-      ':type' => $values->type,
-      ':uuid' => $uuid,
-      ':order_id' => $merged_order_id,
-      ':purchased_entity' => $values->purchased_entity,
-      ':title' => $values->title,
-      ':quantity' => $values->quantity,
-      ':unit_price__number' => $values->unit_price__number,
-      ':unit_price__currency_code' => $values->unit_price__currency_code,
-      ':overridden_unit_price' => $values->overridden_unit_price,
-      ':total_price__number' => $values->total_price__number,
-      ':total_price__currency_code' => $values->total_price__currency_code,
-      ':uses_legacy_adjustments' => $values->uses_legacy_adjustments,
-      ':data' => $values->data,
-      ':created' => $values->created,
-      ':locked' => $values->locked
-    ]);
+    if (LIVE_RUN) {
+      $query = $database->query($order_item_sql, [
+        ':order_item_id' => $values->order_item_id,
+        ':type' => $values->type,
+        ':uuid' => $uuid,
+        ':order_id' => $merged_order_id,
+        ':purchased_entity' => $values->purchased_entity,
+        ':title' => $values->title,
+        ':quantity' => $values->quantity,
+        ':unit_price__number' => $values->unit_price__number,
+        ':unit_price__currency_code' => $values->unit_price__currency_code,
+        ':overridden_unit_price' => $values->overridden_unit_price,
+        ':total_price__number' => $values->total_price__number,
+        ':total_price__currency_code' => $values->total_price__currency_code,
+        ':uses_legacy_adjustments' => $values->uses_legacy_adjustments,
+        ':data' => $values->data,
+        ':created' => $values->created,
+        ':locked' => $values->locked
+      ]);
+    }
 
-    $logfile_contents[] = ['Merging product into order', "Order ID: $merged_order_id\nProduct ID: $values->purchased_entity\nQuantity: $values->quantity\n"];
+    $logfile_contents[] = ['Saving merged order item', "Order ID: $merged_order_id\nProduct ID: $values->purchased_entity\nQuantity: $values->quantity\n"];
 
   }
 }
@@ -205,9 +213,11 @@ EOD;
 
     $database = \Drupal::database();
 
-    $database->query($cancel_order_sql, [
-      ':order_number' => $order_id
-    ]);
+    if (LIVE_RUN) {
+      $database->query($cancel_order_sql, [
+        ':order_number' => $order_id
+      ]);
+    }
   }
 
 }
