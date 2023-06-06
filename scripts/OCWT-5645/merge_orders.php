@@ -52,7 +52,7 @@ $query = $database->query($sql, [
 $results      = $query->fetchAll();
 $total_orders = count($results);
 
-fputcsv($fp, ['NA', 'Info', "Working with $total_orders total orders."]);
+fputcsv($fp, [0, 'Info', "Working with $total_orders total orders."]);
 
 // Reorder order data based on user email
 foreach ($results as $result) {
@@ -75,7 +75,7 @@ if ($mergeable_orders_count === 0) {
   exit("No duplicate orders found, exiting.\n");
 }
 else {
-  fputcsv($fp, ['N/A', 'Info', "Mergable order count: $mergeable_orders_count"]);
+  fputcsv($fp, [0, 'Info', "Mergable order count: $mergeable_orders_count"]);
 }
 
 //
@@ -124,11 +124,11 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
   foreach ($normalized_orders as $order_values) {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
-      fputcsv($fp, [$merged_order_id, 'Order item merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Data merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
-      fputcsv($fp, [$merged_order_id, 'Order item add', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Data added', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
   }
 
@@ -163,7 +163,7 @@ function _update_merged_order_items(array $order_data, int $merged_order_id): vo
      `uses_legacy_adjustments` = :uses_legacy_adjustments,
      `data` = :data,
      `created` = :created,
-     `changed` = UNIX_TIMESTAMP(),
+     `changed` = :changed,
      `locked` = :locked
 EOD;
 
@@ -188,6 +188,7 @@ EOD;
         ':uses_legacy_adjustments' => $values->uses_legacy_adjustments,
         ':data' => $values->data,
         ':created' => $values->created,
+        ':changed' => time(),
         ':locked' => $values->locked
       ]);
     }
