@@ -17,6 +17,9 @@ define('LIVE_RUN', TRUE);
 global $fp;
 $fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
 
+// File heaer
+fputcsv($fp, ['Order ID', 'Action', 'Details']);
+
 // Date range of orders we will modify
 $date_range_begin = '2022-09-29 00:00:00';
 // End date is for testing and possibly batching. It's not required for the task itself.
@@ -38,7 +41,7 @@ $sql = <<<EOD
   AND co.created < UNIX_TIMESTAMP(:date_range_end)
   AND co.state IN ('pending')
   ORDER BY co.mail ASC, co.order_id ASC
-  limit 10000
+  -- limit 10000
 EOD;
 
 $query = $database->query($sql, [
@@ -49,7 +52,7 @@ $query = $database->query($sql, [
 $results      = $query->fetchAll();
 $total_orders = count($results);
 
-fputcsv($fp, ['Info', "Working with $total_orders total orders."]);
+fputcsv($fp, ['NA', 'Info', "Working with $total_orders total orders."]);
 
 // Reorder order data based on user email
 foreach ($results as $result) {
@@ -72,7 +75,7 @@ if ($mergeable_orders_count === 0) {
   exit("No duplicate orders found, exiting.\n");
 }
 else {
-  fputcsv($fp, ['Info', "Mergable order count: $mergeable_orders_count"]);
+  fputcsv($fp, ['N/A', 'Info', "Mergable order count: $mergeable_orders_count"]);
 }
 
 //
@@ -90,7 +93,7 @@ foreach ($user_orders as $orders_key => $values) {
   $orders_to_cancel = $all_order_ids;
   unset($all_order_ids);
 
-  fputcsv($fp, ['Preparing to merge', "Merging the items from these orders: " . implode(", ",
+  fputcsv($fp, [$merged_order_id, 'Preparing to merge', "Merging the items from these orders: " . implode(", ",
       $orders_to_cancel) . " into order id $merged_order_id"]);
 
   $mergeable_order_data = _merge_user_orders($values, $merged_order_id);
@@ -121,11 +124,11 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
   foreach ($normalized_orders as $order_values) {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
-      fputcsv($fp, ['Order item merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Order item merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
-      fputcsv($fp, ['Order item add', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Order item add', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
     }
   }
 
@@ -189,7 +192,7 @@ EOD;
       ]);
     }
 
-    fputcsv($fp, ['Saving merged order item', "Order ID: $merged_order_id Product ID: $values->purchased_entity Quantity: $values->quantity"]);
+    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product ID: $values->purchased_entity Quantity: $values->quantity"]);
 
   }
 }
@@ -204,7 +207,7 @@ function _cancel_orders(array $order_ids): void {
 EOD;
 
   foreach ($order_ids as $order_id) {
-    fputcsv($fp, ['Order cancellation', "Order #$order_id 'canceled'"]);
+    fputcsv($fp, [$order_id, 'Order cancellation', "Order #$order_id 'canceled'"]);
 
     $database = \Drupal::database();
 
