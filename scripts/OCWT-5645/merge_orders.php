@@ -124,11 +124,11 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
   foreach ($normalized_orders as $order_values) {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
-      fputcsv($fp, [$merged_order_id, 'Data merged', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Data merged', "Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
-      fputcsv($fp, [$merged_order_id, 'Data added', "Order ID: $merged_order_id Product ID: $order_values->purchased_entity Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Data added', "Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
   }
 
@@ -193,7 +193,7 @@ EOD;
       ]);
     }
 
-    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product ID: $values->purchased_entity Quantity: $values->quantity"]);
+    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product variation ID: $values->purchased_entity Title: $order_values->title Quantity: $values->quantity"]);
 
   }
 }
