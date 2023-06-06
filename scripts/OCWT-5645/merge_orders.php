@@ -11,7 +11,7 @@
  */
 
 // Set to false to avoid doing all actual write queries
-define('LIVE_RUN', FALSE);
+define('LIVE_RUN', TRUE);
 
 // Log file
 global $fp;
@@ -124,10 +124,12 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
   foreach ($normalized_orders as $order_values) {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
+
       fputcsv($fp, [$merged_order_id, 'Data merged', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
+
       fputcsv($fp, [$merged_order_id, 'Data added', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
   }
