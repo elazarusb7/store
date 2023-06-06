@@ -193,7 +193,7 @@ EOD;
       ]);
     }
 
-    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product variation ID: $values->purchased_entity Title: $order_values->title Quantity: $values->quantity"]);
+    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product variation ID: $values->purchased_entity Title: $values->title Quantity: $values->quantity"]);
 
   }
 }
