@@ -21,7 +21,7 @@ $fp = fopen(__DIR__ . '/merge_orders_' . getmypid() . '.csv', "w");
 fputcsv($fp, ['Order ID', 'Action', 'Details']);
 
 // Date range of orders we will modify
-$date_range_begin = '2022-09-29 00:00:00';
+$date_range_begin = '2023-01-01 00:00:00';
 // End date is for testing and possibly batching. It's not required for the task itself.
 $date_range_end = '2023-10-29 00:00:00';
 
@@ -98,7 +98,9 @@ foreach ($user_orders as $orders_key => $values) {
 
   $mergeable_order_data = _merge_user_orders($values, $merged_order_id);
 
+  // Takes all order items and merges them to our target order ID
   _update_merged_order_items($mergeable_order_data, $merged_order_id);
+  // Cancel the order IDs we have merged into target
   _cancel_orders($orders_to_cancel);
 }
 
@@ -125,12 +127,12 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
     if (isset($mergeable_order_data[$order_values->purchased_entity])) {
       $mergeable_order_data[$order_values->purchased_entity]->quantity += $order_values->quantity;
 
-      fputcsv($fp, [$merged_order_id, 'Data merged', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Order item data merged', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
     else {
       $mergeable_order_data[$order_values->purchased_entity] = $order_values;
 
-      fputcsv($fp, [$merged_order_id, 'Data added', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
+      fputcsv($fp, [$merged_order_id, 'Order item data added', "Original Order ID: $order_values->order_id Merged Order ID: $merged_order_id Product variation ID: $order_values->purchased_entity Title: $order_values->title Quantity: $order_values->quantity"]);
     }
   }
 
