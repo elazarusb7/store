@@ -33,7 +33,7 @@ $database = \Drupal::database();
 //
 
 $sql = <<<EOD
-  SELECT co.mail AS order_mail,  co.order_id, FROM_UNIXTIME(co.created)
+  SELECT co.mail AS order_mail,  co.order_id, FROM_UNIXTIME(coi.created)
     AS order_created, co.state AS order_state, coi.*
   FROM commerce_order_item coi
   JOIN commerce_order co ON coi.order_id = co.order_id
@@ -145,6 +145,7 @@ function _merge_user_orders(array $order_data, int $merged_order_id): array {
  */
 function _update_merged_order_items(array $order_data, int $merged_order_id): void {
   global $fp;
+  $delta    = 0;
 
   // Create a new uuid so new entries have one
   $uuid_service = \Drupal::service('uuid');
@@ -170,6 +171,19 @@ function _update_merged_order_items(array $order_data, int $merged_order_id): vo
      `changed` = :changed,
      `locked` = :locked
 EOD;
+
+  $commerce_ooi_queries = <<<EOD
+    REPLACE INTO commerce_order__order_items
+    SET
+      `bundle` = 'default',
+      `deleted` = 0,
+      `entity_id` = :order_id,
+      `revision_id` = :order_id,
+      `langcode` = 'und',
+      `delta` = :delta,
+      `order_items_target_id` = :order_item_id
+EOD;
+
 
   foreach ($order_data as $product_id => $values) {
     $database = \Drupal::database();
@@ -197,7 +211,16 @@ EOD;
       ]);
     }
 
-    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id Product variation ID: $values->purchased_entity Title: $values->title Quantity: $values->quantity"]);
+    // Pesky table used as a source for order_item_id. Orders do not display without this
+    if (LIVE_RUN) {
+      $query = $database->query($commerce_ooi_queries, [
+        ':order_id' => $merged_order_id,
+        ':delta' => $delta++,
+        ':order_item_id' => $values->order_item_id
+      ]);
+    }
+
+    fputcsv($fp, [$merged_order_id, 'Saving merged order item', "Order ID: $merged_order_id\tProduct variation ID: $values->purchased_entity\tTitle: $values->title\tQuantity: $values->quantity"]);
 
   }
 }
