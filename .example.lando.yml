@@ -2,10 +2,11 @@
 ## it to .lando.yml and make changes there.
 ##
 ## NOTE: You cannot have two lando instances with the same name on your host.
-## If setting up more than one intance, globally replace in this file 'store'
-## with a different name.
+## If setting up more than one intance, you will need to replace the lando
+## 'name' value throughout this file. These locations are flagged with the comment
 ##
 
+## CHANGE FOR SECOND INSTANCE:
 name: store
 recipe: drupal9
 ## 'exclude' indicates directories that will be copied into the Docker container and
@@ -37,8 +38,10 @@ config:
   composer_version: 2
 proxy:
   mailhog:
+    ## CHANGE FOR SECOND INSTANCE:
     - mail.store.lndo.site
   appserver:
+    ## CHANGE FOR SECOND INSTANCE:
     - store.lndo.site
 
 services:
@@ -54,8 +57,11 @@ services:
         XDEBUG_MODE: debug,develop,profile
     environment:
       ## This tells drush your base url
+      ## 'CHANGE FOR SECOND INSTANCE'
       DRUSH_OPTIONS_URI: "http://store.lndo.site/"
       PHP_IDE_CONFIG: "serverName=appserver"
+      XDEBUG_SESSION_START: lando
+      XDEBUG_TRIGGER: "1"
     run_as_root:
       - a2enmod headers
       - service apache2 reload
@@ -116,9 +122,9 @@ tooling:
     service: appserver
     description: Generate an admin login link
     cmd:
-      - drush -y user:unblock admin
-      - drush -y user:password admin admin
-      - drush -y uli --name=admin
+      - drush -y user:unblock dev
+      - drush -y user:password dev dev
+      - drush -y uli --name=dev
 
   refresh:
     service: appserver
@@ -140,16 +146,6 @@ tooling:
       - drush -y updb
       - drush -y cr
       - echo "If you have changed branches, you probably want to rebuild the theme now"
-  gulp-build:
-    service: node
-    description: Rebuild node packages and CSS
-    cmd:
-      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
-  gulp-watch:
-    service: node
-    description: Rebuild node packages and CSS
-    cmd:
-      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
 
   lint-code:
     service: appserver
@@ -173,3 +169,39 @@ tooling:
 #    description: Performs "safe" Eslinting fixes on js code. Review all changes before comitting.
 #    cmd:
 #      - npx eslint --fix --config .eslintrc.yml --ext .js web/themes/custom/samhsa_uswds_base/src/js
+  gulp-build:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build"
+  gulp-watch:
+    service: node
+    description: Rebuild node packages and CSS
+    cmd:
+      - "cd /app/web/themes/custom/samhsa_pep_uswds/ && npm install && gulp build && gulp watch"
+  # For info on using xdebug in lando: https://docs.lando.dev/guides/lando-phpstorm.html
+  php-xdebug-on:
+    service: appserver
+    description: Enables environment variables that trigger XDebug on the CLI (must have IDE set up properly and Xdebug enabled)
+    cmd:
+      - echo 'XDebug enabled for CLI scripts. Run "lando php-xdebug-off" to disable'
+    environment:
+      XDEBUG_TRIGGER: 1
+      PHP_IDE_CONFIG: "serverName=appserver"
+  php-xdebug-off:
+    service: appserver
+    description: Enables environment variables that trigger XDebug on the CLI
+    cmd:
+      - export XDEBUG_TRIGGER=0
+      - echo 'XDebug disabled for CLI scripts. Run "lando php-xdebug-on" to re-enable'
+  xdebug-on:
+    service: appserver
+    description: Enable Xdebug for Apache.
+    cmd: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && docker-php-ext-enable xdebug && /etc/init.d/apache2 reload && echo "Xdebug enabled"
+    user: root
+
+  xdebug-off:
+    service: appserver
+    description: Disable Xdebug for Apache.
+    cmd: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload && echo "Xdebug disabled"
+    user: root
