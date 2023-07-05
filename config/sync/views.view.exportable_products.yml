@@ -34,6 +34,7 @@ dependencies:
     - field.storage.commerce_product.field_tags
     - field.storage.commerce_product.field_thumbnail
     - field.storage.commerce_product.field_treatment_prevention_and_r
+    - user.role.administrator
   module:
     - commerce
     - commerce_product
@@ -46,6 +47,7 @@ dependencies:
     - rest
     - serialization
     - text
+    - user
     - views_data_export
 id: exportable_products
 label: 'Exportable Products'
@@ -2375,8 +2377,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: none
-        options: {  }
+        type: role
+        options:
+          role:
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -2551,6 +2555,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.body'
         - 'config:field.storage.commerce_product.field_audience'
@@ -2621,6 +2626,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.body'
         - 'config:field.storage.commerce_product.field_audience'
@@ -2823,6 +2829,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.field_may_be_interested_manual'
   page_1:
@@ -2842,6 +2849,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.body'
         - 'config:field.storage.commerce_product.field_audience'
@@ -3065,5 +3073,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.roles
       tags:
         - 'config:field.storage.commerce_product.field_may_be_interested_manual'
